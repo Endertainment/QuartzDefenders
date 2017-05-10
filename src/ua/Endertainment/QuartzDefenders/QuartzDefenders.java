@@ -34,6 +34,7 @@ public class QuartzDefenders extends JavaPlugin {
 	private Set<Game> games = new HashSet<Game>();
 	private HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
 	
+        @Override
 	public void onEnable() {
 		main = this;
 		
@@ -110,6 +111,7 @@ public class QuartzDefenders extends JavaPlugin {
 		return null;
 	}
 	
+        @Override
 	public void onDisable() {
 		main = null;
 	}
