@@ -12,16 +12,16 @@ import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 
 public class ScoreboardLobby {
 
-	private QuartzDefenders plugin;
-	private Scoreboard scoreboard;
-	private Objective objective;
-	private DisplaySlot slot = DisplaySlot.SIDEBAR;
+	private final QuartzDefenders plugin;
+	private final Scoreboard scoreboard;
+	private final Objective objective;
+	private final DisplaySlot slot = DisplaySlot.SIDEBAR;
 	
 	private int index = 0;
 	
-	private String title = new ColorFormat("&3«&b&l Quartz Defenders &3»").format();
+	private final String title = new ColorFormat("&3Â«&b&l Quartz Defenders &3Â»").format();
 	
-	private Player p;
+	private final Player p;
 	
 	public ScoreboardLobby(QuartzDefenders plugin, Player p) {
 		this.plugin = plugin;
@@ -55,7 +55,7 @@ public class ScoreboardLobby {
 		addString("&f Top position: &b" + plugin.getTopManager().getPlayerPositionK(p));
 		addString("&2 ");
 		addString("&f&m------------------&5 ");
-		addString("&3«&b&l GovnoCoder.net &3»");		
+		addString("&3ï¿½&b&l GovnoCoder.net &3ï¿½");		
 	}
 	
 	private void addString(String s) {
