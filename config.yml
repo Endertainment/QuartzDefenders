@@ -1,0 +1,10 @@
+Lobby:
+  lobby_world_name: null
+  disable_damage: true
+  infinity_food: true
+  spawn:
+    x: 0
+    y: 100
+    z: 0
+    yaw: 0
+    pitch: 0

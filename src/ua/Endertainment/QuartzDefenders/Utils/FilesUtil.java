@@ -1,0 +1,136 @@
+package ua.Endertainment.QuartzDefenders.Utils;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+
+public class FilesUtil {
+
+	private QuartzDefenders plugin;
+	
+	private File langFile;
+	private FileConfiguration lang;
+	
+	private File gamesFile;
+	private File statsFile;
+	private File kitsFile;
+
+	private FileConfiguration games;
+	private FileConfiguration stats;
+	private FileConfiguration kits;
+	
+	public FilesUtil(QuartzDefenders plugin) {
+		this.plugin = plugin;
+		
+		setupGames();
+		setupStats();
+		setupKits();
+		
+		setupLang();
+	}
+	
+	/*
+	 *  LANGUAGE
+	 */
+	private void setupLang() {
+		langFile = new File(plugin.getDataFolder() + File.separator, "lang.yml");
+		if(!langFile.exists()) {
+			plugin.saveResource("lang.yml", false);
+		}
+		lang = YamlConfiguration.loadConfiguration(langFile);
+	}
+	public FileConfiguration getLang() {
+		return lang;
+	}
+	
+	/*
+	 * GAMES
+	 */	
+	private void setupGames() {
+		gamesFile = new File(plugin.getDataFolder() + File.separator, "games.yml");
+		if(!gamesFile.exists()) {
+			try {
+				gamesFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		games = YamlConfiguration.loadConfiguration(gamesFile);
+		if(!games.isConfigurationSection("Games")) {
+			games.createSection("Games");
+			saveGameInfo();
+		}
+	}
+	public FileConfiguration getGameInfo() {
+		return games;
+	}
+	public void saveGameInfo() {
+		try {
+			games.save(gamesFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		games = YamlConfiguration.loadConfiguration(gamesFile);
+	}
+	
+	
+	/*
+	 * STATS
+	 */
+	private void setupStats() {
+		statsFile = new File(plugin.getDataFolder() + File.separator, "stats.yml");
+		if(!statsFile.exists()) {
+			try {
+				statsFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		stats = YamlConfiguration.loadConfiguration(statsFile);
+	}
+	public FileConfiguration getStatsInfo() {
+		return stats;
+	}
+	public void saveStatsInfo() {
+		try {
+			stats.save(statsFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		stats = YamlConfiguration.loadConfiguration(statsFile);
+	}
+	
+	
+	
+	/*
+	 * KITS
+	 */
+	private void setupKits() {
+		kitsFile = new File(plugin.getDataFolder() + File.separator, "kits.yml");
+		if(!kitsFile.exists()) {
+			try {
+				kitsFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		kits = YamlConfiguration.loadConfiguration(kitsFile);
+	}
+	public FileConfiguration getKitsInfo() {
+		return kits;
+	}
+	public void saveKitsInfo() {
+		try {
+			kits.save(kitsFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		kits = YamlConfiguration.loadConfiguration(kitsFile);
+	}
+	
+	
+}

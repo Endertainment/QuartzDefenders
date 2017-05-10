@@ -1,0 +1,14 @@
+name: QuartzDefenders
+version: 3.0
+main: ua.Endertainment.QuartzDefenders.QuartzDefenders
+commands:
+  quartzdefenders:
+    usage: /<command> 
+  team:
+    usage: /<command> 
+  stats:
+    usage: /<command> 
+  gamebroadcast:
+    usage: /<command>
+  join:
+    usage: sfsdf
