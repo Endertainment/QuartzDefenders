@@ -54,7 +54,7 @@ public class Lobby implements Listener {
 		if(plugin.getGame(p) != null) game = "&3Game&7: &b" + plugin.getGame(p).getGameName();
 		
 		header = " " + n
-				+ "&3« &b&lPlayCraft.COM.UA &3»" + n 
+				+ "&3\u00AB &b&lPlayCraft.COM.UA &3\u00BB" + n 
 				+ " ";
 		footer = " " + n
 				+ game + n
