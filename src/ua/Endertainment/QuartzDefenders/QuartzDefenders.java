@@ -1,13 +1,17 @@
 package ua.Endertainment.QuartzDefenders;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import ua.Coolboy.QuartzDefenders.Turrets.Turret;
 
 import ua.Endertainment.QuartzDefenders.Commands.TempCommandJoin;
 import ua.Endertainment.QuartzDefenders.Events.ChatFormatEvent;
@@ -113,7 +117,12 @@ public class QuartzDefenders extends JavaPlugin {
 	
         @Override
 	public void onDisable() {
-		main = null;
+                List<Entity> stands;
+                stands = Turret.getStands();
+                for(Entity st : stands) {
+                    stands.remove(st);
+                }
+                main = null;
 	}
 	
 	public FilesUtil getConfigs() {
