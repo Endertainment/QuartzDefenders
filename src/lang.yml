@@ -1,1 +1,11 @@
-ggdgdgdfgdfgggggfgfgfd: fssfsfsfsfsffss
+shop:
+    #Villager name
+    name: Магазин
+    #Groups name
+    enchant: Зачарування
+    potions: Зіллєваріння
+    food: Їжа
+    other: Інше
+    blocks: Блоки
+    stuff: Матеріали
+    resources: Ресурси
