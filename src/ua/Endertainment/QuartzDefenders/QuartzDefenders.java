@@ -11,7 +11,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import ua.Coolboy.QuartzDefenders.Shop.ShopInventory;
 import ua.Coolboy.QuartzDefenders.Turrets.Turret;
+import ua.Coolboy.QuartzDefenders.Turrets.TurretInventory;
+import ua.Coolboy.QuartzDefenders.Turrets.TurretListener;
 
 import ua.Endertainment.QuartzDefenders.Commands.TempCommandJoin;
 import ua.Endertainment.QuartzDefenders.Events.ChatFormatEvent;
@@ -83,8 +86,10 @@ public class QuartzDefenders extends JavaPlugin {
 		new ItemsUseEvent(this);
 		new InvClickEvent(this);
 		new ChatFormatEvent(this);
-		
+		new ShopInventory(this);
 		new PlayerJoinStats(this);
+                new TurretListener(this);
+                new TurretInventory(this);
 	}
 
 	public Set<Game> getGames() {

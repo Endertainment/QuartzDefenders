@@ -3,6 +3,7 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bukkit.ChatColor;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
@@ -95,14 +96,14 @@ public class ItemUtil {
         stack.setItemMeta(meta);
         return stack;
     }
-    
+
     public ItemStack setLore(ItemStack stack, String lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setLore(Arrays.asList(lore));
         stack.setItemMeta(meta);
         return stack;
     }
-    
+
     public ItemStack setLore(ItemStack stack, List<String> lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setLore(lore);
@@ -110,4 +111,28 @@ public class ItemUtil {
         return stack;
     }
 
+    //inserts a formatting character between every character, making it invisible when displayed as lore
+    public static String encodeHiddenLore(String lore) {
+        for (int i = 0; i < lore.length(); i += 2) {
+            lore = lore.substring(0, i) + ChatColor.COLOR_CHAR + lore.substring(i, lore.length());
+        }
+        return lore;
+    }
+
+    //removes the formatting characters
+    public static String decodeHiddenLore(String lore) {
+        while (lore.contains(ChatColor.COLOR_CHAR + "")) {
+            lore = lore.substring(0, lore.indexOf(ChatColor.COLOR_CHAR)) + lore.substring(lore.indexOf(ChatColor.COLOR_CHAR) + 1, lore.length());
+        }
+        return lore;
+    }
+    
+    public ItemStack hideAll(ItemStack stack) {
+        ItemMeta meta = stack.getItemMeta();
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES,ItemFlag.HIDE_DESTROYS,
+        ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON,
+        ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+        stack.setItemMeta(meta);
+        return stack;
+    }
 }

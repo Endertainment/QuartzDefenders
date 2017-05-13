@@ -26,7 +26,8 @@ public class Turret {
     private final GameTeam team;
     private final ArmorStand stand;
    
-    public Turret(Player owner, Location loc) {
+    public Turret(Player owner, Location loc, QuartzDefenders plugin) {
+        this.plugin = plugin;
         this.owner = owner;
         this.game = plugin.getGame(owner);
         

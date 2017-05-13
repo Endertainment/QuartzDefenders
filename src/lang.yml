@@ -1,11 +1,11 @@
 shop:
     #Villager name
-    name: Магазин
-    #Groups name
-    enchant: Зачарування
-    potions: Зіллєваріння
-    food: Їжа
-    other: Інше
-    blocks: Блоки
-    stuff: Матеріали
-    resources: Ресурси
+    name: '&4Магазин'
+    ###Groups name
+    enchant: '&5Зачарування'
+    potions: '&bЗіллєваріння'
+    food: '&1Їжа'
+    other: '&1Інше'
+    blocks: '&8Блоки'
+    stuff: '&eМатеріали'
+    resources: '&2Ресурси'

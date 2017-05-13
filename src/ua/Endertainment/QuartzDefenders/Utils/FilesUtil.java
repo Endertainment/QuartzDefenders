@@ -144,7 +144,7 @@ public class FilesUtil {
 				e.printStackTrace();
 			}
 		}
-		shop = YamlConfiguration.loadConfiguration(kitsFile);
+		shop = YamlConfiguration.loadConfiguration(shopFile);
 	}
 	public FileConfiguration getShopInfo() {
 		return shop;
@@ -155,7 +155,7 @@ public class FilesUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		shop = YamlConfiguration.loadConfiguration(kitsFile);
+		shop = YamlConfiguration.loadConfiguration(shopFile);
 	}
 	
 }

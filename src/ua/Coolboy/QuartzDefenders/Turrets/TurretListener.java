@@ -30,9 +30,11 @@ import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
 
 public class TurretListener implements Listener {
     QuartzDefenders plugin;
-    int liveTime = new FilesUtil(plugin).getGameInfo().getInt("turret_livetime");
+    int liveTime;
     
-    public TurretListener() {
+    public TurretListener(QuartzDefenders plugin) {
+        this.plugin = plugin;
+        this.liveTime = new FilesUtil(plugin).getGameInfo().getInt("turret_livetime");
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     
@@ -61,7 +63,7 @@ public class TurretListener implements Listener {
                 }
             }
             if (!nearStand) {
-                Turret turret = new Turret(player, location);
+                Turret turret = new Turret(player, location, plugin);
                 runTurret(turret, player);
             }
         }
