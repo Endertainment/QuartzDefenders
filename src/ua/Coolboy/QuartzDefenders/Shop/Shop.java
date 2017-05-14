@@ -9,9 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
@@ -27,12 +25,13 @@ public class Shop {
     QuartzDefenders plugin;
     Inventory main;
     FilesUtil files;
-    ItemUtil item = new ItemUtil();
+    ItemUtil item;
 
     String name, stuffName, resourcesName, potionsName, enchantName, otherName, foodName, blocksName;
 
     public Shop(QuartzDefenders plugin) {
         this.plugin = plugin;
+        this.item = new ItemUtil();
         this.files = plugin.getConfigs();
         this.name = files.getLang().getString("shop.name").replace('&', '§');
         this.stuffName = files.getLang().getString("shop.stuff").replace('&', '§');
@@ -56,7 +55,7 @@ public class Shop {
         ItemStack blocks = new ItemStack(Material.BRICK);
         blocks = item.setName(blocks, blocksName);
         ItemStack stuff = new ItemStack(Material.ARROW);
-        stuff = item.setName(stuff, stuffName); 
+        stuff = item.setName(stuff, stuffName);
         ItemStack resources = new ItemStack(Material.DIAMOND_PICKAXE);
         resources = item.hideAll(item.setName(resources, resourcesName));
 
@@ -87,67 +86,18 @@ public class Shop {
         List<MerchantRecipe> recipes = new ArrayList();
         for (String strng : value.getKeys(false)) {
             ConfigurationSection section = value.getConfigurationSection(strng);
-            ConfigurationSection primary = section.getConfigurationSection("primary");
-            ConfigurationSection result = section.getConfigurationSection("result");
+            ItemStack primary = createItem(section, "primary");
 
-            Boolean resultTeam = false;
-            int resultDamage = 0;
-
-            String primaryMaterial = primary.getString("material");
-            int primaryAmount = primary.getInt("amount");
-            int primaryDamage = primary.getInt("damage");
-            ItemStack primaryStack = new ItemStack(Material.valueOf(primaryMaterial), primaryAmount, (short) primaryDamage);
-
-            ItemStack optionalStack = null;
+            ItemStack optional = null;
             if (section.isConfigurationSection("optional")) {
-                ConfigurationSection optional = section.getConfigurationSection("optional");
-                String optionalMaterial = optional.getString("material");
-                int optionalAmount = optional.getInt("amount");
-                int optionalDamage = optional.getInt("damage");
-                optionalStack = new ItemStack(Material.valueOf(optionalMaterial), optionalAmount, (short) optionalDamage);
+                optional = createItem(section, "optional");
             }
 
-            String resultMaterial = result.getString("material");
-            int resultAmount = result.getInt("amount");
-            if (result.isBoolean("team")) {
-                resultTeam = result.getBoolean("team");
-                resultDamage = 5;//getDamageByColor(team.getColor());
-            }
-            if (!resultTeam) {
-                resultDamage = result.getInt("damage");
-            }
-            ItemStack resultStack = new ItemStack(Material.valueOf(resultMaterial), resultAmount, (short) resultDamage);
-            if (result.isString("name")) {
-                String resultName = result.getString("name");
-                resultStack = item.setName(resultStack, resultName);
-            }
-            if (result.isList("lore")) {
-                List<String> resultLore = result.getStringList("lore");
-                resultStack = item.setLore(resultStack, resultLore);
-            }
-
-            if (result.isConfigurationSection("enchantments")) {
-                Map<String, Object> enchant = result.getConfigurationSection("enchantments").getValues(false);
-                for (Map.Entry<String, Object> entry : enchant.entrySet()) {
-                    Enchantment ench = Enchantment.getByName(entry.getKey());
-                    int enchLvl = (int) entry.getValue();
-                    resultStack.addEnchantment(ench, enchLvl);
-                }
-            }
-            if (resultMaterial.equals("ENCHANTED_BOOK")) {
-                Map<String, Object> bookEnchant = result.getConfigurationSection("bookEnchant").getValues(false);
-                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) resultStack.getItemMeta();
-                for (Map.Entry<String, Object> entry : bookEnchant.entrySet()) {
-                    Enchantment ench = Enchantment.getByName(entry.getKey());
-                    int enchLvl = (int) entry.getValue();
-                    meta.addStoredEnchant(ench, enchLvl, true);
-                }
-                resultStack.setItemMeta(meta);
-            }
-            MerchantRecipe recipe = new MerchantRecipe(resultStack, 999);
-            recipe.addIngredient(primaryStack);
-            if (optionalStack != null) {
-                recipe.addIngredient(optionalStack);
+            ItemStack result = createItem(section, "result");
+            MerchantRecipe recipe = new MerchantRecipe(result, 999);
+            recipe.addIngredient(primary);
+            if (optional != null) {
+                recipe.addIngredient(optional);
             }
             recipes.add(recipe);
         }
@@ -177,7 +127,51 @@ public class Shop {
         }
         return 0;
     }
-    private void bcast(String text) {
-        Bukkit.getServer().broadcastMessage(text);
+
+    private ItemStack createItem(ConfigurationSection section, String itemDir/*, GameTeam team*/) {
+        ConfigurationSection dir = section.getConfigurationSection(itemDir);
+
+        int damage = 0;
+        boolean team = false;
+
+        String material = dir.getString("material");
+        int amount = dir.getInt("amount");
+
+        if (dir.isBoolean("team")) {
+            team = dir.getBoolean("team");
+            damage = 5;//getDamageByColor(team.getColor());
+        }
+        if (!team) {
+            damage = dir.getInt("damage");
+        }
+        ItemStack stack = new ItemStack(Material.getMaterial(material), amount, (short) damage);
+        if (dir.isString("name")) {
+            String stackName = dir.getString("name");
+            stack = item.setName(stack, stackName);
+        }
+        if (dir.isList("lore")) {
+            List<String> stackLore = dir.getStringList("lore");
+            stack = item.setLore(stack, stackLore);
+        }
+
+        if (dir.isConfigurationSection("enchantments")) {
+            Map<String, Object> enchant = dir.getConfigurationSection("enchantments").getValues(false);
+            for (Map.Entry<String, Object> entry : enchant.entrySet()) {
+                Enchantment ench = Enchantment.getByName(entry.getKey());
+                int enchLvl = (int) entry.getValue();
+                stack.addEnchantment(ench, enchLvl);
+            }
+        }
+        if (material.equals("ENCHANTED_BOOK")) {
+            Map<String, Object> bookEnchant = dir.getConfigurationSection("bookEnchant").getValues(false);
+            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) stack.getItemMeta();
+            for (Map.Entry<String, Object> entry : bookEnchant.entrySet()) {
+                Enchantment ench = Enchantment.getByName(entry.getKey());
+                int enchLvl = (int) entry.getValue();
+                meta.addStoredEnchant(ench, enchLvl, true);
+            }
+            stack.setItemMeta(meta);
+        }
+        return stack;
     }
 }

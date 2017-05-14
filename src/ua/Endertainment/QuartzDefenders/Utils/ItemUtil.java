@@ -97,13 +97,6 @@ public class ItemUtil {
         return stack;
     }
 
-    public ItemStack setLore(ItemStack stack, String lore) {
-        ItemMeta meta = stack.getItemMeta();
-        meta.setLore(Arrays.asList(lore));
-        stack.setItemMeta(meta);
-        return stack;
-    }
-
     public ItemStack setLore(ItemStack stack, List<String> lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setLore(lore);

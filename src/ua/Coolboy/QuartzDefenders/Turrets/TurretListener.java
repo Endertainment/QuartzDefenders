@@ -34,7 +34,7 @@ public class TurretListener implements Listener {
     
     public TurretListener(QuartzDefenders plugin) {
         this.plugin = plugin;
-        this.liveTime = new FilesUtil(plugin).getGameInfo().getInt("turret_livetime");
+        this.liveTime = plugin.getConfigs().getGameInfo().getInt("Games.turret_livetime");
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     
