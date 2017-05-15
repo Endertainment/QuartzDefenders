@@ -24,7 +24,8 @@ public class ShopEntity {
         v.setInvulnerable(true);
         v.setProfession(Profession.NITWIT);
         v.setSilent(true);
-        v.setAI(false);
+        v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
+        v.setCollidable(false);
     }
     
     public void loadShops() {

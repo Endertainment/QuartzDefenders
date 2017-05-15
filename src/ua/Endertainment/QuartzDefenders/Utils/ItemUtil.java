@@ -74,14 +74,14 @@ public class ItemUtil {
         return item;
     }
 
-    public ItemStack setName(ItemStack stack, String rename) {
+    public static ItemStack setName(ItemStack stack, String rename) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(rename);
         stack.setItemMeta(meta);
         return stack;
     }
 
-    public ItemStack setMeta(ItemStack stack, String rename, List<String> lore) {
+    public static ItemStack setMeta(ItemStack stack, String rename, List<String> lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(rename);
         meta.setLore(lore);
@@ -89,7 +89,7 @@ public class ItemUtil {
         return stack;
     }
 
-    public ItemStack setMeta(ItemStack stack, String rename, String lore) {
+    public static ItemStack setMeta(ItemStack stack, String rename, String lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(rename);
         meta.setLore(Arrays.asList(lore));
@@ -97,7 +97,7 @@ public class ItemUtil {
         return stack;
     }
 
-    public ItemStack setLore(ItemStack stack, List<String> lore) {
+    public static ItemStack setLore(ItemStack stack, List<String> lore) {
         ItemMeta meta = stack.getItemMeta();
         meta.setLore(lore);
         stack.setItemMeta(meta);
@@ -120,7 +120,7 @@ public class ItemUtil {
         return lore;
     }
     
-    public ItemStack hideAll(ItemStack stack) {
+    public static ItemStack hideAll(ItemStack stack) {
         ItemMeta meta = stack.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES,ItemFlag.HIDE_DESTROYS,
         ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON,

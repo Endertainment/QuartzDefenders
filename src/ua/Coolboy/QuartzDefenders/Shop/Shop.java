@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
-import org.bukkit.inventory.meta.ItemMeta;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
@@ -31,7 +30,6 @@ public class Shop {
 
     public Shop(QuartzDefenders plugin) {
         this.plugin = plugin;
-        this.item = new ItemUtil();
         this.files = plugin.getConfigs();
         this.name = files.getLang().getString("shop.name").replace('&', '§');
         this.stuffName = files.getLang().getString("shop.stuff").replace('&', '§');
@@ -40,27 +38,28 @@ public class Shop {
         this.enchantName = files.getLang().getString("shop.enchant").replace('&', '§');
         this.otherName = files.getLang().getString("shop.other").replace('&', '§');
         this.foodName = files.getLang().getString("shop.food").replace('&', '§');
-        this.blocksName = files.getLang().getString("shop.blocks").replace('&', '§');
+        this.blocksName = files.getLang().getString("shop.blocks").replace('&', '§');      
+    }
 
+    public Inventory getInventory(/*GameTeam team*/) {
         this.main = Bukkit.createInventory(null, 27, ChatColor.GOLD + name);
-
         ItemStack enchant = new ItemStack(Material.EXP_BOTTLE);
-        enchant = item.setName(enchant, enchantName);
+        enchant = ItemUtil.setName(enchant, enchantName);
         ItemStack potions = new ItemStack(Material.POTION);
-        potions = item.hideAll(item.setName(potions, potionsName));
+        potions = ItemUtil.hideAll(ItemUtil.setName(potions, potionsName));
         ItemStack food = new ItemStack(Material.BREAD);
-        food = item.setName(food, foodName);
+        food = ItemUtil.setName(food, foodName);
         ItemStack other = new ItemStack(Material.NAME_TAG);
-        other = item.setName(other, otherName);
+        other = ItemUtil.setName(other, otherName);
         ItemStack blocks = new ItemStack(Material.BRICK);
-        blocks = item.setName(blocks, blocksName);
+        blocks = ItemUtil.setName(blocks, blocksName);
         ItemStack stuff = new ItemStack(Material.ARROW);
-        stuff = item.setName(stuff, stuffName);
+        stuff = ItemUtil.setName(stuff, stuffName);
         ItemStack resources = new ItemStack(Material.DIAMOND_PICKAXE);
-        resources = item.hideAll(item.setName(resources, resourcesName));
+        resources = ItemUtil.hideAll(ItemUtil.setName(resources, resourcesName));
 
-        ItemStack frame = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
-        frame = item.setName(frame, " ");
+        ItemStack frame = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15/*getDamageByColor(team.getColor())*/);
+        frame = ItemUtil.setName(frame, " ");
 
         main.setItem(10, enchant);
         main.setItem(11, potions);
@@ -74,9 +73,6 @@ public class Shop {
         for (int z : g) {
             main.setItem(z, frame);
         }
-    }
-
-    public Inventory getInventory() {
         return main;
     }
 
@@ -101,12 +97,12 @@ public class Shop {
             }
             recipes.add(recipe);
         }
-        Merchant m = Bukkit.createMerchant(merchantName);
+        Merchant m = Bukkit.createMerchant(ChatColor.BOLD + merchantName);
         m.setRecipes(recipes);
         return m;
     }
 
-    public Integer getDamageByColor(ChatColor color) {
+    public Short getDamageByColor(ChatColor color) {
         switch (color) {
             case RED:
                 return 14;
@@ -144,7 +140,7 @@ public class Shop {
         if (!team) {
             damage = dir.getInt("damage");
         }
-        ItemStack stack = new ItemStack(Material.getMaterial(material), amount, (short) damage);
+        ItemStack stack = new ItemStack(Material.valueOf(material), amount, (short) damage);
         if (dir.isString("name")) {
             String stackName = dir.getString("name");
             stack = item.setName(stack, stackName);
