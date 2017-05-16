@@ -17,7 +17,7 @@ public abstract class Kit {
 	private int level;
 	private ArrayList<ItemStack> items;
 	
-	private ArrayList<String> description;
+	private final ArrayList<String> description;
 	
 	public Kit(String name, int price, int level, String... description) {
 		this.name = name;
