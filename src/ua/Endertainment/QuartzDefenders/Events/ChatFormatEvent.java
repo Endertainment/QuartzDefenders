@@ -15,7 +15,7 @@ public class ChatFormatEvent implements Listener{
 	
 	public ChatFormatEvent(QuartzDefenders plugin) {
 		this.plugin = plugin;
-		Bukkit.getPluginManager().registerEvents(this, plugin);
+		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}
 	
 	

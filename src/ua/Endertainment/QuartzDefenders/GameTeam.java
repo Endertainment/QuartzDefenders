@@ -5,11 +5,8 @@ import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
 
 @SuppressWarnings("deprecation")
 public class GameTeam {
@@ -34,11 +31,12 @@ public class GameTeam {
 		this.team = this.scoreboard.registerNewTeam(this.name);
 		team.setAllowFriendlyFire(false);
 		team.setCanSeeFriendlyInvisibles(true);
-		team.setNameTagVisibility(NameTagVisibility.ALWAYS);
 		team.setPrefix(color.toString());
 		
 	}
-	
+	public Game getGame() {
+		return game;
+	}
 	public int intPlayersInTeam() {
 		return playersInTeam;
 	}

@@ -40,6 +40,7 @@ public class JoinEvent implements Listener {
 		p.getInventory().setItem(1, QItems.itemGamesChoose());
 		p.getInventory().setItem(4, QItems.itemStats());
 		p.getInventory().setItem(7, QItems.itemHidePlayers(plugin.getLobby().getHides().contains(p)));
+		p.getInventory().setItem(8, QItems.itemLobbyShop());
 		
 		ScoreboardLobby s = new ScoreboardLobby(plugin, p);
 		s.setScoreboard();

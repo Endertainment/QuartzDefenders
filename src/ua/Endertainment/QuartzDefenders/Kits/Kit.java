@@ -5,6 +5,7 @@ import java.util.AbstractMap.SimpleEntry;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import ua.Endertainment.QuartzDefenders.GamePlayer;
@@ -16,11 +17,17 @@ public abstract class Kit {
 	private int level;
 	private ArrayList<ItemStack> items;
 	
-	public Kit(String name, int price, int level) {
+	private final ArrayList<String> description;
+	
+	public Kit(String name, int price, int level, String... description) {
 		this.name = name;
 		this.price = price;
 		this.level = level;
 		this.items = new ArrayList<ItemStack>();
+		this.description = new ArrayList<String>();
+		for(String s : description) {
+			this.description.add(s);
+		}
 	}
 	
 	public final String getName() {
@@ -32,14 +39,20 @@ public abstract class Kit {
 	public final int getLevel() {
 		return level;
 	}
-	
+	public ArrayList<String> getDescription() {
+		return description;
+	}
 	@SuppressWarnings("unchecked")
 	public final ArrayList<ItemStack> getItems() {
 		return (ArrayList<ItemStack>) items.clone();
 	}
 	
-	public void apply(GamePlayer p) {
-		
+	public void apply(GamePlayer gp) {
+		Player p = gp.getPlayer();
+		p.getInventory().clear();
+		for(ItemStack item : items) {
+			p.getInventory().addItem(item);
+		}
 	}
 	
 	@SafeVarargs

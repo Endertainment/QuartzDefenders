@@ -64,4 +64,12 @@ public class QItems {
 		return ItemUtil.newItem((active ? "&aShow" : "&7Hide") + " players &7(Right click)", lore, d.toItemStack(1));
 	}
 	
+	public static ItemStack itemLobbyShop() {
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add(" ");
+		lore.add("&7Kits shop");
+		lore.add(" ");
+		return ItemUtil.newItem("&aShop &7(Right click)", lore, Material.EMERALD, 1);		
+	}
+	
 }
