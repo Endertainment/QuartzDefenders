@@ -13,27 +13,24 @@ import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 public class Mobs {
 
     QuartzDefenders plugin;
-    ItemUtil item;
 
     public Mobs(QuartzDefenders plugin) {
         this.plugin = plugin;
-        this.item = new ItemUtil();
     }
 
-    private WitherSkeleton middDef(WitherSkeleton skeleton) {
+    public static void middDef(WitherSkeleton skeleton) {
         skeleton.setCustomName(ChatColor.DARK_PURPLE + "Дух Алхіміка");
         skeleton.setCustomNameVisible(true);
-        skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(55);
-        skeleton.setHealth(55);
+        skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(70);
+        skeleton.setHealth(70);
         skeleton.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(3);
         skeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
         skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD));
-        return skeleton;
     }
 
-    private Skeleton soulDef(Skeleton s) {
+    public static void soulDef(Skeleton s) {
         ItemStack coin = new ItemStack(Material.DOUBLE_PLANT, 4);
-        item.setMeta(coin, "Монета Алхіміка", Arrays.asList("Особлива валюта Алхіміків"));
+        ItemUtil.setMeta(coin, "Монета Алхіміка", Arrays.asList("Особлива валюта Алхіміків"));
         s.setCustomName(ChatColor.AQUA + "Дух Алхіміка");
         s.setCustomNameVisible(true);
         s.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(55);
@@ -53,6 +50,5 @@ public class Mobs {
         s.getEquipment().setItemInMainHandDropChance(0.2F);
         s.getEquipment().setItemInOffHand(coin);
         s.getEquipment().setItemInOffHandDropChance(0.5F);
-        return s;
     }
 }
