@@ -18,12 +18,12 @@ public class FilesUtil {
 	private File gamesFile;
 	private File statsFile;
 	private File kitsFile;
-        private File shopFile;
-
+  private File shopFile;
+  
 	private FileConfiguration games;
 	private FileConfiguration stats;
 	private FileConfiguration kits;
-        private FileConfiguration shop;
+  private FileConfiguration shop;
 	
 	public FilesUtil(QuartzDefenders plugin) {
 		this.plugin = plugin;

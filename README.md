@@ -1,2 +1,2 @@
 # QuartzDefenders
-Mini-game plugin for Minecraft 1.11
+Bukkit Minigame "Quartz Defenders"

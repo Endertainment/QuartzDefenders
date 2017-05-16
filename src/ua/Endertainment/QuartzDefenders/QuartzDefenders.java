@@ -53,22 +53,39 @@ public class QuartzDefenders extends JavaPlugin {
 		lobby = new Lobby(this);
 		top = new TopManager(this);
 		
+		/*
+		 * Prevent an exceptions when plugin is disabled
+		 */
 		if(!isEnabled()) return;
 		
+		/*
+		 * Register Events&Commands
+		 */
 		registerEvents();
 		registerCommands();
 				
+		/*
+		 * Register games
+		 */
 		for(String gameId : getConfigs().getGameInfo().getConfigurationSection("Games").getKeys(false)) {
 			Game game = new Game(gameId);
 			if(game.isLoadSuccess()) games.add(game);
 		}
 		
+		/*
+		 * Register GamePlayers
+		 */
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
 		}
 		
 	}
-	
+	public void onDisable() {
+		main = null;
+	}
+	/*
+	 * GamePlayers Management
+	 */
 	public GamePlayer getGamePlayer(Player p) {
 		return gamePlayers.get(p.getUniqueId());
 	}
@@ -76,11 +93,13 @@ public class QuartzDefenders extends JavaPlugin {
 		gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
 	}
 	
+	/*
+	 * Events
+	 */
 	private void registerCommands() {
 		new TempCommandJoin(this);
 		
 	}
-
 	private void registerEvents() {
 		new JoinEvent(this);
 		new ItemsUseEvent(this);
@@ -93,6 +112,9 @@ public class QuartzDefenders extends JavaPlugin {
                 new MobsListener(this);
 	}
 
+	/*
+	 * Games Management
+	 */
 	public Set<Game> getGames() {
 		return games;
 	}
@@ -119,18 +141,10 @@ public class QuartzDefenders extends JavaPlugin {
 			}
 		}
 		return null;
-	}
-	
-        @Override
-	public void onDisable() {
-                List<Entity> stands;
-                stands = Turret.getStands();
-                for(Entity st : stands) {
-                    stands.remove(st);
-                }
-                main = null;
-	}
-	
+  }
+	/*
+	 * Another Managers
+	 */
 	public FilesUtil getConfigs() {
 		return files;
 	}
