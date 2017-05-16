@@ -25,12 +25,13 @@ public class MobsListener implements Listener {
         Block barrier = b.getLocation().getBlock().getRelative(BlockFace.DOWN);
         if ((e.getBlock().getType().equals(Material.DIAMOND_ORE))
                 && (barrier.getType() == Material.BEDROCK)) {
-            Location loc = b.getLocation();
+            Location loc = b.getLocation().add(0.5, 0, 0.5);
             Random random = new Random();
-            loc.add(random.nextInt(4), 4.0D, random.nextInt(4));
-            WitherSkeleton w = (WitherSkeleton)b.getWorld().spawn(loc, WitherSkeleton.class);
+            WitherSkeleton w = (WitherSkeleton)b.getWorld()
+                    .spawn(loc.add(random.nextInt(4), 4.0D, random.nextInt(4)), WitherSkeleton.class);
             Mobs.middDef(w);
-            WitherSkeleton w2 = (WitherSkeleton)b.getWorld().spawn(loc, WitherSkeleton.class);
+            WitherSkeleton w2 = (WitherSkeleton)b.getWorld()
+                    .spawn(loc.add(random.nextInt(4), 4.0D, random.nextInt(4)), WitherSkeleton.class);
             Mobs.middDef(w2);
         }
     }
