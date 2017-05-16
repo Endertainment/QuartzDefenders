@@ -18,7 +18,7 @@ public class FilesUtil {
 	private File gamesFile;
 	private File statsFile;
 	private File kitsFile;
-
+	
 	private FileConfiguration games;
 	private FileConfiguration stats;
 	private FileConfiguration kits;

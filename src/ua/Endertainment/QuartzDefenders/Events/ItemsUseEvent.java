@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.GUI.LobbyShopGUI;
 import ua.Endertainment.QuartzDefenders.GUI.StatsGUI;
 import ua.Endertainment.QuartzDefenders.GUI.TeamGUI;
 import ua.Endertainment.QuartzDefenders.Items.QItems;
@@ -44,6 +45,7 @@ public class ItemsUseEvent implements Listener{
 			String quit = QItems.itemQuit().getItemMeta().getDisplayName();
 			String show = QItems.itemHidePlayers(true).getItemMeta().getDisplayName();
 			String hide = QItems.itemHidePlayers(false).getItemMeta().getDisplayName();
+			String lShop = QItems.itemLobbyShop().getItemMeta().getDisplayName();
 			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(compass)) {
 				e.setCancelled(true);
@@ -52,7 +54,7 @@ public class ItemsUseEvent implements Listener{
 			}
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(stats)) {
 				e.setCancelled(true);
-				new StatsGUI(plugin).openInventory(p);;
+				new StatsGUI(p).openInventory();
 				return;
 			}	
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(hide)) {
@@ -72,13 +74,19 @@ public class ItemsUseEvent implements Listener{
 				e.setCancelled(true);
 				return;
 			}
-			
-			String teams = QItems.itemTeamChoose(plugin.getGame(p)).getItemMeta().getDisplayName();
-			
-			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(teams)) {
+			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(lShop)) {
 				e.setCancelled(true);
-				new TeamGUI(plugin, plugin.getGame(p)).openInventory(p);				
+				new LobbyShopGUI(p).openInventory();
 				return;
+			}
+			if(plugin.getGame(p) != null) {
+				String teams = QItems.itemTeamChoose(plugin.getGame(p)).getItemMeta().getDisplayName();
+			
+				if(i.getItemMeta().getDisplayName().equalsIgnoreCase(teams)) {
+					e.setCancelled(true);
+					new TeamGUI(plugin.getGame(p)).openInventory(p);				
+					return;
+				}
 			}
 			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(quit)) {
@@ -102,7 +110,16 @@ public class ItemsUseEvent implements Listener{
 				i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose(plugin.getGame(p))) ||
 				i.getItemMeta().getDisplayName().equals(QItems.itemQuit()) ||
 				i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(true)) || 
-				i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(false)) ) 
+				i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(false)) || 
+				i.getItemMeta().getDisplayName().equals(QItems.itemLobbyShop()) 
+				
+				
+				
+				
+				
+				
+				
+				)
 		{
 			e.setCancelled(true);
 		}

@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
@@ -16,10 +15,11 @@ import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 public class StatsGUI {
 
 	private Inventory inventory;
-	
+	private Player player;
 	private String title = new ColorFormat("&6My Stats").format();
 	
-	public StatsGUI(QuartzDefenders plugin) {
+	public StatsGUI(Player player) {
+		this.player = player;
 		this.inventory = Bukkit.createInventory(null, 6*9, title);
 		this.menuCorner();
 	}
@@ -27,9 +27,9 @@ public class StatsGUI {
 	public Inventory getInventory() {
 		return inventory;
 	}
-	public void openInventory(Player p) {
-		a(new StatsPlayer(p));
-		p.openInventory(inventory);
+	public void openInventory() {
+		a(new StatsPlayer(player));
+		player.openInventory(inventory);
 	}
 	
 	private void a(StatsPlayer p) {

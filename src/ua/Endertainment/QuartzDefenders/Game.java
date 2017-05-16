@@ -78,9 +78,9 @@ public class Game {
 		if(!mapManager.isSuccess()) return;
 		
 		this.mapCenter = new Location(Bukkit.getWorld(mapName), 
-				config.getDouble("Games." + this.id + ".map_center.x"),
+				config.getDouble("Games." + this.id + ".map_center.x") + 0.5,
 				config.getDouble("Games." + this.id + ".map_center.y"),
-				config.getDouble("Games." + this.id + ".map_center.z"));
+				config.getDouble("Games." + this.id + ".map_center.z") + 0.5);
 		
 		
 		int i = 0;
@@ -89,19 +89,19 @@ public class Game {
 				if(isTeamReal(team)) {					
 					
 					Location spawn = new Location(Bukkit.getWorld(mapName), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.x"), 
+							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.x" + 0.5), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.y"), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.z"));
+							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.z") + 0.5);
 					
 					Location quartz = new Location(Bukkit.getWorld(mapName), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.x"), 
+							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.x" + 0.5), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.y"), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.z"));
+							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.z") + 0.5);
 					
 					Location shop = new Location(Bukkit.getWorld(mapName), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".shop.x"), 
+							config.getDouble("Games." + this.id + ".locations." + team + ".shop.x") + 0.5, 
 							config.getDouble("Games." + this.id + ".locations." + team + ".shop.y"), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".shop.z"));
+							config.getDouble("Games." + this.id + ".locations." + team + ".shop.z") + 0.5);
 					
 					teams.put(team, new GameTeam(this, team, getChatColor(team), playersInTeam, spawn, gameScoreboard));
 										
@@ -126,12 +126,27 @@ public class Game {
 	public String getGameName() {
 		return gameName;
 	}
+	public String getGameId() {
+		return id;
+	}
 	
 	public Map<String, GameTeam> getTeams() {
 		return teams;
 	}
 	public GameTeam getTeam(String team) {
 		return teams.get(team);
+	}
+	public GameTeam getTeam(Player p) {
+	    for(GameTeam team : teams.values()) {
+	       if(team.contains(QuartzDefenders.getInstance().getGamePlayer(p))) return team;
+	    }
+	   return null;
+	}
+	public Location getShopLocation(GameTeam team) {
+		for(GameTeam t : shopLocations.keySet()) {
+			if(t.equals(team)) return shopLocations.get(t);
+		}
+		return null;
 	}
 	public String getMapName() {
 		return mapName;
@@ -142,16 +157,10 @@ public class Game {
 	public int getTeamsCount() {
 		return teamsCount;
 	}
+	
 	public int getPlayersRespawnTime() {
 		return playerRespawnTime;
 	}
-//	public int getPlayersCount() {
-//		int y = 0;
-//		for(GameTeam team : teams.values()) {
-//			y += team.getPlayersSize();
-//		}				
-//		return y;
-//	}
 	
 	private boolean isTeamReal(String s) {
 		for(String ss : realTeams) {
@@ -171,19 +180,27 @@ public class Game {
 	}
 	
 	public void joinGame(GamePlayer player) {
-		gameLobbyPlayers.add(player);
-		this.broadcastMessage(GameMsg.gameMessage("Join", "&aPlayer &r" + player.getDisplayName() + "&a joined the game"));
-		if(gameLobbyPlayers.size() >= minPlayers) {
-			setGameState(GameState.WAITING);
-			for(GamePlayer p : gameLobbyPlayers) {
-				p.getPlayer().getInventory().clear();
-				p.getPlayer().teleport(mapCenter);
-				p.getPlayer().getInventory().setItem(2, QItems.itemTeamChoose(this));
-				p.getPlayer().getInventory().setItem(6, QItems.itemKitsChoose());
-				p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
-				p.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+		
+		if(gameLobbyPlayers.contains(player)) return;
+		
+		if(isGameState(GameState.LOBBY)) {
+			
+			gameLobbyPlayers.add(player);
+			this.broadcastMessage(GameMsg.gameMessage("Join", "&aPlayer &r" + player.getDisplayName() + "&a joined the game"));
+			if(gameLobbyPlayers.size() >= minPlayers) {
+				setGameState(GameState.WAITING);
+				for(GamePlayer p : gameLobbyPlayers) {
+					p.getPlayer().getInventory().clear();
+					p.getPlayer().teleport(mapCenter);
+					p.getPlayer().getInventory().setItem(2, QItems.itemTeamChoose(this));
+					p.getPlayer().getInventory().setItem(6, QItems.itemKitsChoose());
+					p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
+					p.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+				}
 			}
+			
 		}
+		
 	}
 	public void quitGame(GamePlayer player) {
 		gameLobbyPlayers.remove(player);
@@ -204,6 +221,7 @@ public class Game {
 		p.getInventory().setItem(1, QItems.itemGamesChoose());
 		p.getInventory().setItem(4, QItems.itemStats());
 		p.getInventory().setItem(7, QItems.itemHidePlayers(QuartzDefenders.getInstance().getLobby().getHides().contains(p)));
+		p.getInventory().setItem(4, QItems.itemLobbyShop());
 		
 		ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
 		s.setScoreboard();

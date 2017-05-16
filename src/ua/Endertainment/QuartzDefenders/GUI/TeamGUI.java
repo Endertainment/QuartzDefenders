@@ -12,14 +12,12 @@ import org.bukkit.inventory.ItemStack;
 
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.GameTeam;
-import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 
 public class TeamGUI {
 
-
-	private QuartzDefenders plugin;
+	//private QuartzDefenders plugin;
 	
 	private Inventory inventory;
 	
@@ -27,8 +25,8 @@ public class TeamGUI {
 	
 	private String title;
 	
-	public TeamGUI(QuartzDefenders plugin, Game game) {
-		this.plugin = plugin;
+	public TeamGUI(/*QuartzDefenders plugin, */Game game) {
+		//this.plugin = plugin;
 		this.game = game;
 		this.title = new ColorFormat(game.getGameName() + " " + ChatColor.BLUE +  "Teams").format();
 		this.inventory = Bukkit.createInventory(null, 6*9, title);
