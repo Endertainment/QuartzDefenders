@@ -1,6 +1,7 @@
 .metadata
 bin/
-bin\
+*.project
+*.classpath
 tmp/
 *.tmp
 *.bak
