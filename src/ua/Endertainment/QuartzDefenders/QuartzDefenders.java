@@ -21,6 +21,7 @@ import ua.Endertainment.QuartzDefenders.Events.ChatFormatEvent;
 import ua.Endertainment.QuartzDefenders.Events.InvClickEvent;
 import ua.Endertainment.QuartzDefenders.Events.ItemsUseEvent;
 import ua.Endertainment.QuartzDefenders.Events.JoinEvent;
+import ua.Endertainment.QuartzDefenders.Events.Game.GameRegisterEvent;
 import ua.Endertainment.QuartzDefenders.GUI.GamesGUI;
 import ua.Endertainment.QuartzDefenders.Stats.PlayerJoinStats;
 import ua.Endertainment.QuartzDefenders.Stats.TopManager;
@@ -69,6 +70,12 @@ public class QuartzDefenders extends JavaPlugin {
 		 */
 		for(String gameId : getConfigs().getGameInfo().getConfigurationSection("Games").getKeys(false)) {
 			Game game = new Game(gameId);
+			
+			// EVENT
+			GameRegisterEvent e = new GameRegisterEvent(game, gameId);
+			Bukkit.getPluginManager().callEvent(e);
+			if(e.isCancelled()) return;
+			
 			if(game.isLoadSuccess()) games.add(game);
 		}
 		

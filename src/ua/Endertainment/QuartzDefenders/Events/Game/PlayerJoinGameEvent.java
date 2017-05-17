@@ -6,13 +6,15 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.GamePlayer;
 
-public class PlayerJoinGameEvent extends Event implements Cancellable{
+public class PlayerJoinGameEvent extends Event implements Cancellable {
 	
 	private Game game;
 	private GamePlayer gamePlayer;
 	private Player player;
+	private GameState state;
 	
 	private boolean cansel;
 	
@@ -20,12 +22,16 @@ public class PlayerJoinGameEvent extends Event implements Cancellable{
 		this.game = game;
 		this.gamePlayer = gamePlayer;
 		this.player = gamePlayer.getPlayer();
+		this.state = game.getGameState();
 		
 		this.cansel = false;
 	}
 	
 	public Game getGame() {
 		return game;
+	}
+	public GameState getGameState() {
+		return state;
 	}
 	public GamePlayer getGamePlayer() {
 		return gamePlayer;

@@ -29,10 +29,9 @@ public class GameTeam {
 		this.spawnLocation = spawnLocation;
 		
 		this.team = this.scoreboard.registerNewTeam(this.name);
-		team.setAllowFriendlyFire(false);
-		team.setCanSeeFriendlyInvisibles(true);
-		team.setPrefix(color.toString());
-		
+		this.team.setAllowFriendlyFire(false);
+		this.team.setCanSeeFriendlyInvisibles(true);
+		this.team.setPrefix(color.toString());
 	}
 	public Game getGame() {
 		return game;

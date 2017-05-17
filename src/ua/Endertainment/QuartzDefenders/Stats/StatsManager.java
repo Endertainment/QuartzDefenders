@@ -2,6 +2,8 @@ package ua.Endertainment.QuartzDefenders.Stats;
 
 import org.bukkit.entity.Player;
 
+import ua.Endertainment.QuartzDefenders.GamePlayer;
+import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class StatsManager {
@@ -13,9 +15,17 @@ public class StatsManager {
 	public static void saveInfo(Player p, String path, Object arg) {
 		QuartzDefenders.getInstance().getConfigs().getStatsInfo().set(p.getUniqueId().toString() + "." + path, arg);
 		QuartzDefenders.getInstance().getConfigs().saveStatsInfo();
+	}	
+	
+	public static double getTeamKDR(GameTeam team) {
+		double teamKD = 0;
+		for(GamePlayer p : team.getPlayers()) {
+			StatsPlayer sp = new StatsPlayer(p.getPlayer());
+			teamKD += sp.getKdr();
+		}
+		teamKD = teamKD / team.getPlayers().size();
+		return teamKD;
 	}
-	
-	
 	
 	
 }
