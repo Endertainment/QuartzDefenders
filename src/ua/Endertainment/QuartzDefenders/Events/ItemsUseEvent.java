@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.GUI.KitsGUI;
 import ua.Endertainment.QuartzDefenders.GUI.LobbyShopGUI;
 import ua.Endertainment.QuartzDefenders.GUI.StatsGUI;
 import ua.Endertainment.QuartzDefenders.GUI.TeamGUI;
@@ -52,33 +53,39 @@ public class ItemsUseEvent implements Listener{
 				plugin.getGamesGUI().openInventory(p);
 				return;
 			}
+			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(stats)) {
 				e.setCancelled(true);
 				new StatsGUI(p).openInventory();
 				return;
 			}	
+			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(hide)) {
 				e.setCancelled(true);
 				plugin.getLobby().hidePlayers(p);
 				p.getInventory().setItemInMainHand(QItems.itemHidePlayers(true));
 				return;
 			}
+			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(show)) {
 				e.setCancelled(true);
 				plugin.getLobby().hidePlayers(p);
 				p.getInventory().setItemInMainHand(QItems.itemHidePlayers(false));
 				return;
 			}
+			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(kits)) {
-				// TODO
-				e.setCancelled(true);
+				e.setCancelled(true);				
+				new KitsGUI(p).openInventory();				
 				return;
 			}
+			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(lShop)) {
 				e.setCancelled(true);
 				new LobbyShopGUI(p).openInventory();
 				return;
 			}
+			
 			if(plugin.getGame(p) != null) {
 				String teams = QItems.itemTeamChoose(plugin.getGame(p)).getItemMeta().getDisplayName();
 			
@@ -104,14 +111,14 @@ public class ItemsUseEvent implements Listener{
 		Player p = e.getPlayer();
 		if(!i.hasItemMeta()) return;
 		
-		if(i.getItemMeta().getDisplayName().equals(QItems.itemGamesChoose()) || 
-				i.getItemMeta().getDisplayName().equals(QItems.itemStats()) || 
-				i.getItemMeta().getDisplayName().equals(QItems.itemKitsChoose()) ||
-				i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose(plugin.getGame(p))) ||
-				i.getItemMeta().getDisplayName().equals(QItems.itemQuit()) ||
-				i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(true)) || 
-				i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(false)) || 
-				i.getItemMeta().getDisplayName().equals(QItems.itemLobbyShop()) 
+		if(i.getItemMeta().getDisplayName().equals(QItems.itemGamesChoose().getItemMeta().getDisplayName()) || 
+				i.getItemMeta().getDisplayName().equals(QItems.itemStats().getItemMeta().getDisplayName()) || 
+				i.getItemMeta().getDisplayName().equals(QItems.itemKitsChoose().getItemMeta().getDisplayName()) ||
+				
+				i.getItemMeta().getDisplayName().equals(QItems.itemQuit().getItemMeta().getDisplayName()) ||
+				i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(true).getItemMeta().getDisplayName()) || 
+				i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(false).getItemMeta().getDisplayName()) || 
+				i.getItemMeta().getDisplayName().equals(QItems.itemLobbyShop().getItemMeta().getDisplayName()) 
 				
 				
 				
@@ -122,6 +129,12 @@ public class ItemsUseEvent implements Listener{
 				)
 		{
 			e.setCancelled(true);
+			return;
 		}
+		
+		if(plugin.getGame(p) != null) {
+			if(i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose(plugin.getGame(p)))) e.setCancelled(true);;
+		}
+		
 	}
 }

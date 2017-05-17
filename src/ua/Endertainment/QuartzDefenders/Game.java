@@ -13,7 +13,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
+import ua.Endertainment.QuartzDefenders.Events.Game.GameStateChangeEvent;
+import ua.Endertainment.QuartzDefenders.Events.Game.PlayerJoinGameEvent;
 import ua.Endertainment.QuartzDefenders.Items.QItems;
+import ua.Endertainment.QuartzDefenders.Kits.Kit;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
 import ua.Endertainment.QuartzDefenders.Utils.MapManager;
@@ -48,7 +51,8 @@ public class Game {
 	private Set<GamePlayer> spectators = new HashSet<>();
 	private Set<GamePlayer> gameLobbyPlayers = new HashSet<>();
 	
-	
+	private Map<GamePlayer, Kit> kits = new HashMap<>();
+		
 	private GameState state = GameState.LOBBY;
 	
 	@SuppressWarnings("unchecked")
@@ -161,7 +165,9 @@ public class Game {
 	public int getPlayersRespawnTime() {
 		return playerRespawnTime;
 	}
-	
+	public void setKit(GamePlayer p, Kit kit) {
+		kits.put(p, kit);
+	}
 	private boolean isTeamReal(String s) {
 		for(String ss : realTeams) {
 			if(ss.equals(s)) return true;
@@ -183,6 +189,11 @@ public class Game {
 		
 		if(gameLobbyPlayers.contains(player)) return;
 		
+		// EVENT
+		PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);
+		Bukkit.getPluginManager().callEvent(e);
+		if(e.isCancelled()) return;
+		
 		if(isGameState(GameState.LOBBY)) {
 			
 			gameLobbyPlayers.add(player);
@@ -202,6 +213,10 @@ public class Game {
 		}
 		
 	}
+	public void startGame() {
+		
+	}
+	
 	public void quitGame(GamePlayer player) {
 		gameLobbyPlayers.remove(player);
 		this.broadcastMessage(GameMsg.gameMessage("Quit", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
@@ -221,7 +236,7 @@ public class Game {
 		p.getInventory().setItem(1, QItems.itemGamesChoose());
 		p.getInventory().setItem(4, QItems.itemStats());
 		p.getInventory().setItem(7, QItems.itemHidePlayers(QuartzDefenders.getInstance().getLobby().getHides().contains(p)));
-		p.getInventory().setItem(4, QItems.itemLobbyShop());
+		p.getInventory().setItem(8, QItems.itemLobbyShop());
 		
 		ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
 		s.setScoreboard();
@@ -243,6 +258,11 @@ public class Game {
 		return state;
 	}
 	public void setGameState(GameState state) {
+		// Event
+		GameStateChangeEvent e = new GameStateChangeEvent(this, this.state, state);
+		Bukkit.getPluginManager().callEvent(e);
+		if(e.isCancelled()) return;
+		
 		this.state = state;
 	}
 	public boolean isGameState(GameState state) {

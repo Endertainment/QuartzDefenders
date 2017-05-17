@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.GamePlayer;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
@@ -39,9 +41,9 @@ public class KitsManager {
 	
 	
 	public void buyKitFailed(Kit kit, Player p) {
-		String access = access(kit, p);
+		String access = accessBuy(kit, p);
 		if(access.contains("Available")) return;
-		p.sendMessage(GameMsg.gameMessage("Shop", "You can not buy kit " + kit.getName() + "&7. Reason: " + access(kit, p)));
+		p.sendMessage(GameMsg.gameMessage("Shop", "You can not buy kit " + kit.getName() + "&7. Reason: " + accessBuy(kit, p)));
 	}
 	public void buyKit(Kit kit, Player p) {
 		StatsPlayer sp = new StatsPlayer(p);
@@ -59,6 +61,13 @@ public class KitsManager {
 		}
 		QuartzDefenders.getInstance().getConfigs().saveKitsInfo();
 		p.sendMessage(GameMsg.gameMessage("Shop", "You buy a new kit: &a" + kit.getName()));
+	}
+	public void chooseKit(Kit kit, Game game, GamePlayer p) {
+		game.setKit(p, kit);
+		p.sendMessage(GameMsg.gameMessage("Kits", "You choose a kit " + kit.getName()));
+	}
+	public void chooseKitFailed(Kit kit, GamePlayer p) {
+		p.sendMessage(GameMsg.gameMessage("Kits", "You do not have a kit " + kit.getName()));
 	}
 	
 	public boolean isKitAccess(Kit kit, Player p) {
@@ -90,7 +99,18 @@ public class KitsManager {
 		return true;		
 	}
 	
-	public String access(Kit kit, Player p) {
+	public String accessChoose(Kit kit, Player p) {		
+		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
+		
+		if(c.isList(p.getUniqueId().toString())) {
+			ArrayList<String> plKits = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());		
+			if(plKits.contains(kit.getName())) return "&aAvailable";
+		}
+		
+		return "&cUnavailable";
+	}
+	
+	public String accessBuy(Kit kit, Player p) {
 		StatsPlayer sp = new StatsPlayer(p);
 		int level = sp.getLevel();
 		int coins = sp.getCoins();
@@ -102,7 +122,7 @@ public class KitsManager {
 			if(plKits.contains(kit.getName())) return "&aAvailable";
 		}
 		
-		if(kit.getLevel() > level) return "&cUnavailable. Level request " + kit.getLevel();
+		if(kit.getLevel() > level) return "&cUnavailable. Requested level " + kit.getLevel();
 		
 		if(kit.getPrice() > coins) return "&cUnavailable. Price " + kit.getPrice();
 		

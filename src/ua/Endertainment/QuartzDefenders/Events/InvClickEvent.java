@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.GUI.KitsGUI;
 import ua.Endertainment.QuartzDefenders.GUI.LobbyShopGUI;
 import ua.Endertainment.QuartzDefenders.GUI.StatsGUI;
 import ua.Endertainment.QuartzDefenders.Kits.Kit;
@@ -68,6 +69,9 @@ public class InvClickEvent implements Listener {
 			e.setCancelled(true);
 			return;
 		}
+		/*
+		 * SHOP
+		 */
 		if(inv.getName().equals(new LobbyShopGUI(p).getInventory().getName())) {
 			e.setCancelled(true);
 			
@@ -76,7 +80,25 @@ public class InvClickEvent implements Listener {
 					if(KitsManager.getInstance().isKitAccessToBuy(kit, p)) {
 						KitsManager.getInstance().buyKit(kit, p);
 						p.closeInventory();
-					} else {KitsManager.getInstance().buyKitFailed(kit, p);p.closeInventory();}
+					} else {KitsManager.getInstance().buyKitFailed(kit, p); p.closeInventory();}
+				}
+			}
+			
+			return;
+		}
+		
+		/*
+		 * KITS
+		 */
+		if(inv.getName().equals(new KitsGUI(p).getInventory().getName())) {
+			e.setCancelled(true);
+			
+			for(Kit kit : KitsManager.getInstance().getKits()) {
+				if(curr.getItemMeta().getDisplayName().equals(kit.getItems().get(0).getItemMeta().getDisplayName())) {
+					if(KitsManager.getInstance().isKitAccess(kit, p)) {
+						KitsManager.getInstance().chooseKit(kit, plugin.getGame(p), plugin.getGamePlayer(p));
+						p.closeInventory();
+					} else {KitsManager.getInstance().chooseKitFailed(kit, plugin.getGamePlayer(p)); p.closeInventory();}
 				}
 			}
 			
