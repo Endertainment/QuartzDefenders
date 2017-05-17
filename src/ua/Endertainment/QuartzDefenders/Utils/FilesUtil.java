@@ -18,10 +18,12 @@ public class FilesUtil {
 	private File gamesFile;
 	private File statsFile;
 	private File kitsFile;
-	
+  private File shopFile;
+  
 	private FileConfiguration games;
 	private FileConfiguration stats;
 	private FileConfiguration kits;
+  private FileConfiguration shop;
 	
 	public FilesUtil(QuartzDefenders plugin) {
 		this.plugin = plugin;
@@ -29,6 +31,7 @@ public class FilesUtil {
 		setupGames();
 		setupStats();
 		setupKits();
+                setupShop();
 		
 		setupLang();
 	}
@@ -132,5 +135,27 @@ public class FilesUtil {
 		kits = YamlConfiguration.loadConfiguration(kitsFile);
 	}
 	
+        private void setupShop() {
+		shopFile = new File(plugin.getDataFolder() + File.separator, "shop.yml");
+		if(!shopFile.exists()) {
+			try {
+				shopFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		shop = YamlConfiguration.loadConfiguration(shopFile);
+	}
+	public FileConfiguration getShopInfo() {
+		return shop;
+	}
+	public void saveShopInfo() {
+		try {
+			shop.save(shopFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		shop = YamlConfiguration.loadConfiguration(shopFile);
+	}
 	
 }

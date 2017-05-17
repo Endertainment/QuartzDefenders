@@ -23,7 +23,6 @@ import ua.Endertainment.QuartzDefenders.Utils.MapManager;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 
 public class Game {
-
 	private String[] realTeams = {"RED","BLUE","GREEN","YELLOW","MAGENTA","AQUA","GRAY","WHITE"};
 	
 	private boolean loadSuccess = false;
@@ -289,4 +288,3 @@ public class Game {
 		return ChatColor.GRAY;
 	}
 }
-
