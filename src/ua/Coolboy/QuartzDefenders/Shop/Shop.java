@@ -16,6 +16,7 @@ import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 
@@ -31,14 +32,14 @@ public class Shop {
     public Shop(QuartzDefenders plugin) {
         this.plugin = plugin;
         this.files = plugin.getConfigs();
-        this.name = files.getLang().getString("shop.name").replace('&', '§');
-        this.stuffName = files.getLang().getString("shop.stuff").replace('&', '§');
-        this.resourcesName = files.getLang().getString("shop.resources").replace('&', '§');
-        this.potionsName = files.getLang().getString("shop.potions").replace('&', '§');
-        this.enchantName = files.getLang().getString("shop.enchant").replace('&', '§');
-        this.otherName = files.getLang().getString("shop.other").replace('&', '§');
-        this.foodName = files.getLang().getString("shop.food").replace('&', '§');
-        this.blocksName = files.getLang().getString("shop.blocks").replace('&', '§');      
+        this.name = new ColorFormat(files.getLang().getString("shop.name")).format();
+        this.stuffName = new ColorFormat(files.getLang().getString("shop.stuff")).format();
+        this.resourcesName = new ColorFormat(files.getLang().getString("shop.resources")).format();
+        this.potionsName = new ColorFormat(files.getLang().getString("shop.potions")).format();
+        this.enchantName = new ColorFormat(files.getLang().getString("shop.enchant")).format();
+        this.otherName = new ColorFormat(files.getLang().getString("shop.other")).format();
+        this.foodName = new ColorFormat(files.getLang().getString("shop.food")).format();
+        this.blocksName = new ColorFormat(files.getLang().getString("shop.blocks")).format();      
     }
 
     public Inventory getInventory(/*GameTeam team*/) {
