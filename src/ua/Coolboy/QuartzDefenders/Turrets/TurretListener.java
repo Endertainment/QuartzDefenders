@@ -93,59 +93,16 @@ public class TurretListener implements Listener {
                                 && !playery.getScoreboard().getTeam(turret.getMetadata("team").get(0).asString()).hasEntry(playery.getName())) {
                             Vector vector = mob.getLocation().toVector().subtract(turret.getLocation().toVector());
 
-                            switch (turret.getMetadata("type").get(0).asString()) {
-                                case "fire":
-                                    stand.launchArrow(vector).setFireTicks(5000);
-                                    break;
-                                case "slow":
-                                    stand.launchTippedArrow(vector, new PotionEffect(PotionEffectType.SLOW, 200, 0));
-                                    break;
-                                case "poison":
-                                    stand.launchTippedArrow(vector, new PotionEffect(PotionEffectType.POISON, 20, 0));
-                                    break;
-                                case "glow":
-                                    SpectralArrow spec = turret.launchProjectile(SpectralArrow.class);
-                                    spec.setVelocity(vector);
-                                    spec.spigot().setDamage(2);
-                                    spec.setCritical(false);
-                                    break;
-                                default:
-                                    stand.launchArrow(vector);
-                                    break;
-                            }
+                            stand.shoot(vector);
 
-                            double dX = turret.getLocation().getX() - mob.getLocation().getX();
-                            double dZ = turret.getLocation().getZ() - mob.getLocation().getZ();
-                            double yaw = Math.atan2(dZ, dX) + Math.PI / 2;
-                            turret.setHeadPose(new EulerAngle(0, yaw, 0));
+                            stand.lookAtTarget(mob);
                             break;
                         }
                     } else if (mob instanceof LivingEntity) {
                         Vector vector = mob.getLocation().toVector().subtract(turret.getLocation().toVector());
-                        switch (turret.getMetadata("type").get(0).asString()) {
-                            case "fire":
-                                stand.launchArrow(vector).setFireTicks(5000);
-                                break;
-                            case "slow":
-                                stand.launchTippedArrow(vector, new PotionEffect(PotionEffectType.SLOW, 200, 0));
-                                break;
-                            case "poison":
-                                stand.launchTippedArrow(vector, new PotionEffect(PotionEffectType.POISON, 20, 0));
-                                break;
-                            case "glow":
-                                SpectralArrow spec = turret.launchProjectile(SpectralArrow.class);
-                                spec.setVelocity(vector);
-                                spec.spigot().setDamage(2);
-                                spec.setCritical(false);
-                                break;
-                            default:
-                                stand.launchArrow(vector);
-                                break;
-                        }
-                        double dX = turret.getLocation().getX() - mob.getLocation().getX();
-                        double dZ = turret.getLocation().getZ() - mob.getLocation().getZ();
-                        double yaw = Math.atan2(dZ, dX) + Math.PI / 2;
-                        turret.setHeadPose(new EulerAngle(0, yaw, 0));
+                        stand.shoot(vector);
+                        
+                        stand.lookAtTarget(mob);
                         break;
                     }
                 }

@@ -138,6 +138,7 @@ public class TurretInventory implements Listener {
                     player.closeInventory();
                     break;
             }
+            player.removeMetadata("turretEdit", plugin);
         }
     }
 }
