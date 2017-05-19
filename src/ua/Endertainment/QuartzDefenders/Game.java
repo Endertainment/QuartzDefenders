@@ -1,6 +1,5 @@
 package ua.Endertainment.QuartzDefenders;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -30,10 +30,12 @@ public class Game {
 	
 	private String id;
 	private String gameName;
-	private String worldName;
+	private String mapName;
 	private int playersInTeam;
 	private int minPlayers;
 
+	private World map;
+	
 	private Location mapCenter;
 	
 	private int playerRespawnTime;
@@ -45,7 +47,6 @@ public class Game {
 	private Map<String, GameTeam> teams = new HashMap<>();
 	
 	private Map<GameTeam, Location> shopLocations = new HashMap<>();
-        private Map<Integer, Location> alchemistsLocations = new HashMap<>();
 	
 	private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
 	
@@ -64,7 +65,7 @@ public class Game {
 		
 		this.id = id;
 		this.gameName = new ColorFormat(config.getString("Games." + this.id + ".game_name")).format();
-		this.worldName = config.getString("Games." + this.id + ".world_name");
+		this.mapName = config.getString("Games." + this.id + ".map_name");
 		this.playersInTeam = config.getInt("Games." + this.id + ".players_in_team");
 		this.playerRespawnTime = config.getInt("Games." + this.id + ".respawn_time");
 		this.quartzHealth = config.getInt("Games." + this.id + ".quartz_health");
@@ -73,7 +74,7 @@ public class Game {
 		this.minPlayers = config.getInt("Games." + this.id + ".min_players");
 		
 
-		MapManager mapManager = new MapManager(worldName);
+		MapManager mapManager = new MapManager(mapName);
 		try {
 			mapManager.resetMap();
 		} catch(Exception e) {
@@ -82,7 +83,9 @@ public class Game {
 		}		
 		if(!mapManager.isSuccess()) return;
 		
-		this.mapCenter = new Location(Bukkit.getWorld(worldName), 
+		this.map = mapManager.getWorld();
+		
+		this.mapCenter = new Location(Bukkit.getWorld(mapName), 
 				config.getDouble("Games." + this.id + ".map_center.x") + 0.5,
 				config.getDouble("Games." + this.id + ".map_center.y"),
 				config.getDouble("Games." + this.id + ".map_center.z") + 0.5);
@@ -93,34 +96,26 @@ public class Game {
 			if(i != teamsCount) {
 				if(isTeamReal(team)) {					
 					
-					Location spawn = new Location(Bukkit.getWorld(worldName), 
+					Location spawn = new Location(Bukkit.getWorld(mapName), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.x" + 0.5), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.y"), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".spawn.z") + 0.5);
 					
-					Location quartz = new Location(Bukkit.getWorld(worldName), 
+					Location quartz = new Location(Bukkit.getWorld(mapName), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.x" + 0.5), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.y"), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".quartz.z") + 0.5);
 					
-					Location shop = new Location(Bukkit.getWorld(worldName), 
+					Location shop = new Location(Bukkit.getWorld(mapName), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".shop.x") + 0.5, 
 							config.getDouble("Games." + this.id + ".locations." + team + ".shop.y"), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".shop.z") + 0.5);
-                                        Location alchemist = new Location(Bukkit.getWorld(worldName), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".alchemists.x") + 0.5, 
-							config.getDouble("Games." + this.id + ".locations." + team + ".alchemists.y"), 
-							config.getDouble("Games." + this.id + ".locations." + team + ".alchemists.z") + 0.5);
-                                        int alchemistRadius = config.getInt("Games." + this.id + ".locations." + team + ".alchemists.r");
 					
 					teams.put(team, new GameTeam(this, team, getChatColor(team), playersInTeam, spawn, gameScoreboard));
 										
 					quartzs.put(getTeam(team), new GameQuartz(this, getTeam(team), quartz, quartzHealth));
 					
 					shopLocations.put(getTeam(team), shop);
-                                        
-                                        alchemistsLocations.put(alchemistRadius, alchemist);
-                                        
 					
 					i++;
 				} else Bukkit.broadcastMessage(GameMsg.gameMessage(gameName, "&cTeam \"" + team + "\" is not real!"));
@@ -132,6 +127,7 @@ public class Game {
 		
 		loadSuccess = true;
 	}
+	
 	public boolean isLoadSuccess() {
 		return loadSuccess;
 	}
@@ -139,6 +135,7 @@ public class Game {
 	public String getGameName() {
 		return gameName;
 	}
+	
 	public String getGameId() {
 		return id;
 	}
@@ -146,27 +143,37 @@ public class Game {
 	public Map<String, GameTeam> getTeams() {
 		return teams;
 	}
+	
 	public GameTeam getTeam(String team) {
 		return teams.get(team);
 	}
+	
 	public GameTeam getTeam(Player p) {
 	    for(GameTeam team : teams.values()) {
 	       if(team.contains(QuartzDefenders.getInstance().getGamePlayer(p))) return team;
 	    }
 	   return null;
 	}
-	public Collection<Location> getShopLocations() { 
-		return shopLocations.values();
+	
+	public World getGameWorld() {
+		return map;
 	}
-        public Map<Integer, Location> getAlchemicsLocations() { 
-		return alchemistsLocations;
+	
+	public Location getShopLocation(GameTeam team) {
+		for(GameTeam t : shopLocations.keySet()) {
+			if(t.equals(team)) return shopLocations.get(t);
+		}
+		return null;
 	}
-	public String getWorldName() {
-		return worldName;
+	
+	public String getMapName() {
+		return mapName;
 	}
+	
 	public int getPlayersInTeam() {
 		return playersInTeam;
 	}
+	
 	public int getTeamsCount() {
 		return teamsCount;
 	}
@@ -174,9 +181,11 @@ public class Game {
 	public int getPlayersRespawnTime() {
 		return playerRespawnTime;
 	}
+	
 	public void setKit(GamePlayer p, Kit kit) {
 		kits.put(p, kit);
 	}
+	
 	private boolean isTeamReal(String s) {
 		for(String ss : realTeams) {
 			if(ss.equals(s)) return true;
@@ -187,9 +196,11 @@ public class Game {
 	public Set<GamePlayer> getPlayers() {
 		return gameLobbyPlayers;		
 	}
+	
 	public Set<GamePlayer> getSpectators() {
 		return spectators;
 	}
+	
 	public boolean containsPlayer(GamePlayer player) {
 		return gameLobbyPlayers.contains(player);
 	}
@@ -203,6 +214,10 @@ public class Game {
 		Bukkit.getPluginManager().callEvent(e);
 		if(e.isCancelled()) return;
 		
+		
+		/*
+		 * Check is players count is bigger than minimum needed
+		 */
 		if(isGameState(GameState.LOBBY)) {
 			
 			gameLobbyPlayers.add(player);
@@ -218,10 +233,21 @@ public class Game {
 					p.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
 				}
 			}
-			
 		}
 		
+		if(isGameState(GameState.WAITING)) {
+			this.broadcastMessage(GameMsg.gameMessage("Join", "&aPlayer &r" + player.getDisplayName() + "&a joined the game"));
+			player.getPlayer().getInventory().clear();
+			player.getPlayer().teleport(mapCenter);
+			player.getPlayer().getInventory().setItem(2, QItems.itemTeamChoose(this));
+			player.getPlayer().getInventory().setItem(6, QItems.itemKitsChoose());
+			player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
+			player.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+		}
+				
+		
 	}
+	
 	public void startGame() {
 		
 	}
@@ -266,6 +292,7 @@ public class Game {
 	public GameState getGameState() {
 		return state;
 	}
+	
 	public void setGameState(GameState state) {
 		// Event
 		GameStateChangeEvent e = new GameStateChangeEvent(this, this.state, state);
@@ -274,6 +301,7 @@ public class Game {
 		
 		this.state = state;
 	}
+	
 	public boolean isGameState(GameState state) {
 		return getGameState() == state;
 	}

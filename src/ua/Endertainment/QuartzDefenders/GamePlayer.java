@@ -3,7 +3,6 @@ package ua.Endertainment.QuartzDefenders;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 

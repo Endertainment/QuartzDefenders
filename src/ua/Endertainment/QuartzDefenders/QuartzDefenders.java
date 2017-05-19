@@ -2,17 +2,14 @@ package ua.Endertainment.QuartzDefenders;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ua.Coolboy.QuartzDefenders.Mobs.MobsListener;
 import ua.Coolboy.QuartzDefenders.Shop.ShopInventory;
-import ua.Coolboy.QuartzDefenders.Turrets.Turret;
 import ua.Coolboy.QuartzDefenders.Turrets.TurretInventory;
 import ua.Coolboy.QuartzDefenders.Turrets.TurretListener;
 
@@ -42,7 +39,6 @@ public class QuartzDefenders extends JavaPlugin {
 	private final Set<Game> games = new HashSet<>();
 	private final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
 	
-        @Override
 	public void onEnable() {
 		main = this;
 		
@@ -114,9 +110,9 @@ public class QuartzDefenders extends JavaPlugin {
 		new ChatFormatEvent(this);
 		new ShopInventory(this);
 		new PlayerJoinStats(this);
-                new TurretListener(this);
-                new TurretInventory(this);
-                new MobsListener(this);
+        new TurretListener(this);
+        new TurretInventory(this);
+        new MobsListener(this);
 	}
 
 	/*

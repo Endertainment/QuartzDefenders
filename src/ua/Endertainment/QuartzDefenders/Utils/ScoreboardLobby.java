@@ -19,7 +19,7 @@ public class ScoreboardLobby {
 	
 	private int index = 0;
 	
-	private String title = new ColorFormat("&3\u00AB&b&l Quartz Defenders &3\u00BB").format();
+	private String title = new ColorFormat("&3«&b&l Quartz Defenders &3»").format();
 	
 	private Player p;
 	
@@ -55,7 +55,7 @@ public class ScoreboardLobby {
 		addString("&f Top position: &b" + plugin.getTopManager().getPlayerPositionK(p));
 		addString("&2 ");
 		addString("&f&m------------------&5 ");
-		addString("&3\u00AB&b&l Playcraft.com.ua &3\u00BB");		
+		addString("&3«&b&l GovnoCoder.net &3»");
 	}
 	
 	private void addString(String s) {
