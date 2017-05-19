@@ -2,7 +2,7 @@ package ua.Endertainment.QuartzDefenders.Utils;
 
 public class GameMsg {
 
-	private static final String prefix = new ColorFormat("&b&lQuartz &3\u00BB &8: &f").format();
+	private static String prefix = new ColorFormat("&b&lQuartz &3\u00BB &8: &f").format();
 	
 	public static String getPrefix() {
 		return prefix;
