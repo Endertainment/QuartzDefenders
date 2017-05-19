@@ -19,6 +19,7 @@ import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 
 public class Shop {
 
@@ -32,14 +33,14 @@ public class Shop {
     public Shop(QuartzDefenders plugin) {
         this.plugin = plugin;
         this.files = plugin.getConfigs();
-        name = new ColorFormat(files.getLang().getString("shop.name")).format();
-        stuffName = new ColorFormat(files.getLang().getString("shop.stuff")).format();
-        resourcesName = new ColorFormat(files.getLang().getString("shop.resources")).format();
-        potionsName = new ColorFormat(files.getLang().getString("shop.potions")).format();
-        enchantName = new ColorFormat(files.getLang().getString("shop.enchant")).format();
-        otherName = new ColorFormat(files.getLang().getString("shop.other")).format();
-        foodName = new ColorFormat(files.getLang().getString("shop.food")).format();
-        blocksName = new ColorFormat(files.getLang().getString("shop.blocks")).format();      
+        name = new ColorFormat(Language.getString("shop.name")).format();
+        stuffName = new ColorFormat(Language.getString("shop.stuff")).format();
+        resourcesName = new ColorFormat(Language.getString("shop.resources")).format();
+        potionsName = new ColorFormat(Language.getString("shop.potions")).format();
+        enchantName = new ColorFormat(Language.getString("shop.enchant")).format();
+        otherName = new ColorFormat(Language.getString("shop.other")).format();
+        foodName = new ColorFormat(Language.getString("shop.food")).format();
+        blocksName = new ColorFormat(Language.getString("shop.blocks")).format();      
     }
 
     public Inventory getInventory(GameTeam team) {

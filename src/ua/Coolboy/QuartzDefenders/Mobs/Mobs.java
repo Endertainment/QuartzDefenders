@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.WitherSkeleton;
@@ -67,5 +69,10 @@ public abstract class Mobs {
             }
         }
         return count;
+    }
+    
+    public static boolean canSpawn(Location loc) {
+        Block block = loc.getWorld().getHighestBlockAt(loc);
+        return !(block.getType() == null || block.getType() == Material.WEB);
     }
 }

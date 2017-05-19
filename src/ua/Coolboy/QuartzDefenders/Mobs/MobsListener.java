@@ -63,10 +63,14 @@ public class MobsListener implements Listener {
                         if (Mobs.countMobs(nearbyEntities, Player.class) != 0) {
                             int randomX = Mobs.randomInRadius(rad);
                             int randomZ = Mobs.randomInRadius(rad);
+                            Location testLoc = new Location(loc.getWorld(), randomX, loc.getBlockY(), randomZ);
+                            while (!Mobs.canSpawn(testLoc)) {
+                                testLoc.setX(Mobs.randomInRadius(rad));
+                                testLoc.setZ(Mobs.randomInRadius(rad));
+                            }
                             if (loc.getWorld().getHighestBlockAt(randomX, randomZ) != null) {
-                                int y = loc.getWorld().getHighestBlockAt(randomX, randomZ).getLocation().getBlockY();
-                                Location spawnLoc = new Location(loc.getWorld(), randomX, y, randomZ);
-                                Skeleton soul = (Skeleton) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.SKELETON);
+                                testLoc.setY(testLoc.getWorld().getHighestBlockAt(randomX, randomZ).getLocation().getBlockY());
+                                Skeleton soul = (Skeleton) testLoc.getWorld().spawnEntity(testLoc, EntityType.SKELETON);
                                 Mobs.soulDef(soul);
                             }
                         }
