@@ -45,6 +45,7 @@ public class Game {
 	private Map<String, GameTeam> teams = new HashMap<>();
 	
 	private Map<GameTeam, Location> shopLocations = new HashMap<>();
+        private Map<Integer, Location> alchemistsLocations = new HashMap<>();
 	
 	private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
 	
@@ -106,12 +107,20 @@ public class Game {
 							config.getDouble("Games." + this.id + ".locations." + team + ".shop.x") + 0.5, 
 							config.getDouble("Games." + this.id + ".locations." + team + ".shop.y"), 
 							config.getDouble("Games." + this.id + ".locations." + team + ".shop.z") + 0.5);
+                                        Location alchemist = new Location(Bukkit.getWorld(worldName), 
+							config.getDouble("Games." + this.id + ".locations." + team + ".alchemists.x") + 0.5, 
+							config.getDouble("Games." + this.id + ".locations." + team + ".alchemists.y"), 
+							config.getDouble("Games." + this.id + ".locations." + team + ".alchemists.z") + 0.5);
+                                        int alchemistRadius = config.getInt("Games." + this.id + ".locations." + team + ".alchemists.r");
 					
 					teams.put(team, new GameTeam(this, team, getChatColor(team), playersInTeam, spawn, gameScoreboard));
 										
 					quartzs.put(getTeam(team), new GameQuartz(this, getTeam(team), quartz, quartzHealth));
 					
 					shopLocations.put(getTeam(team), shop);
+                                        
+                                        alchemistsLocations.put(alchemistRadius, alchemist);
+                                        
 					
 					i++;
 				} else Bukkit.broadcastMessage(GameMsg.gameMessage(gameName, "&cTeam \"" + team + "\" is not real!"));
@@ -147,8 +156,10 @@ public class Game {
 	   return null;
 	}
 	public Collection<Location> getShopLocations() { 
-		
 		return shopLocations.values();
+	}
+        public Map<Integer, Location> getAlchemicsLocations() { 
+		return alchemistsLocations;
 	}
 	public String getWorldName() {
 		return worldName;
