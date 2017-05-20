@@ -13,14 +13,15 @@ import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 public class MapManager {
 
 
-	private String world;
+	private String worldS;
+	private World world;
 	private File sourseDir;
 	private File serverDir;
 	
 	private boolean success = false;
 	
 	public MapManager(String world) {
-		this.world = world;
+		this.worldS = world;
 		this.sourseDir = new File(QuartzDefenders.getInstance().getDataFolder().getPath(), "maps" + File.separator + world);
 		this.serverDir = new File(QuartzDefenders.getInstance().getServer().getWorldContainer().getAbsolutePath());
 	}
@@ -31,21 +32,21 @@ public class MapManager {
 	}
 	
 	public void deleteMap() {
-		World w = Bukkit.getWorld(world);
+		World w = Bukkit.getWorld(worldS);
 		if(w != null) {
 			File worldFolder = new File(w.getWorldFolder().getPath());
 			Bukkit.unloadWorld(w, false);
 			try {
 				FileUtils.deleteDirectory(worldFolder);
 			} catch (IOException e) {
-				Bukkit.broadcastMessage(GameMsg.gameMessage("Error", "&cCould not delete a map " + world));
+				Bukkit.broadcastMessage(GameMsg.gameMessage("Error", "&cCould not delete a map " + worldS));
 			}
 		}
 	}
 	
 	public void copyMap() {
 		if(!isFolderExist()) {
-			Bukkit.broadcastMessage(GameMsg.gameMessage("Error", "&cCould not find a map " + world + " in " + sourseDir.toString()));
+			Bukkit.broadcastMessage(GameMsg.gameMessage("Error", "&cCould not find a map " + worldS + " in " + sourseDir.toString()));
 			return;
 		}
 		try {
@@ -53,8 +54,13 @@ public class MapManager {
 		} catch (IOException e) {
 			Bukkit.broadcastMessage(GameMsg.gameMessage("Error", "&cCould not copy a world to server directory. Check config or console"));
 		}
-		Bukkit.getServer().createWorld(new WorldCreator(world));
+		this.world = Bukkit.getServer().createWorld(new WorldCreator(worldS));
 		this.success = true;
+	}
+	
+	public World getWorld() {
+		if(world == null) return null;
+		return world;
 	}
 	
 	public boolean isFolderExist() {

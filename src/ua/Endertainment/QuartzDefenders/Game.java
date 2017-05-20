@@ -9,6 +9,7 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
@@ -33,11 +34,14 @@ public class Game {
 	private int playersInTeam;
 	private int minPlayers;
 
+	private World map;
+	
 	private Location mapCenter;
 	
 	private int playerRespawnTime;
 	private int quartzHealth;
 	private int teamsCount;
+	private BalanceType balanceType = BalanceType.DEFAULT_BALANCE;
 	
 	private Scoreboard gameScoreboard;
 	
@@ -58,6 +62,8 @@ public class Game {
 	public Game(String id) {
 		FileConfiguration config = QuartzDefenders.getInstance().getConfigs().getGameInfo();
 		
+		Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "Loading game with id &a" + id));
+		
 		gameScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 		
 		this.id = id;
@@ -70,7 +76,10 @@ public class Game {
 		
 		this.minPlayers = config.getInt("Games." + this.id + ".min_players");
 		
-
+		this.balanceType = BalanceType.valueOf(config.getString("Games." + this.id + ".balance_type"));
+		
+		Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aGame configuration load success"));
+		
 		MapManager mapManager = new MapManager(mapName);
 		try {
 			mapManager.resetMap();
@@ -79,6 +88,10 @@ public class Game {
 			return;
 		}		
 		if(!mapManager.isSuccess()) return;
+		
+		Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aMap load success"));
+		
+		this.map = mapManager.getWorld();
 		
 		this.mapCenter = new Location(Bukkit.getWorld(mapName), 
 				config.getDouble("Games." + this.id + ".map_center.x") + 0.5,
@@ -119,9 +132,10 @@ public class Game {
 		
 		Bukkit.broadcastMessage(GameMsg.gameMessage(gameName, "&aLoaded " + i + " teams of " + teamsCount));
 		
-		
+		Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aGame " + gameName + " successfully loaded"));
 		loadSuccess = true;
 	}
+	
 	public boolean isLoadSuccess() {
 		return loadSuccess;
 	}
@@ -129,6 +143,7 @@ public class Game {
 	public String getGameName() {
 		return gameName;
 	}
+	
 	public String getGameId() {
 		return id;
 	}
@@ -136,37 +151,51 @@ public class Game {
 	public Map<String, GameTeam> getTeams() {
 		return teams;
 	}
+	
 	public GameTeam getTeam(String team) {
 		return teams.get(team);
 	}
+	
 	public GameTeam getTeam(Player p) {
 	    for(GameTeam team : teams.values()) {
 	       if(team.contains(QuartzDefenders.getInstance().getGamePlayer(p))) return team;
 	    }
 	   return null;
 	}
+	
+	public World getGameWorld() {
+		return map;
+	}
+	
 	public Location getShopLocation(GameTeam team) {
 		for(GameTeam t : shopLocations.keySet()) {
 			if(t.equals(team)) return shopLocations.get(t);
 		}
 		return null;
 	}
+	
 	public String getMapName() {
 		return mapName;
 	}
+	
 	public int getPlayersInTeam() {
 		return playersInTeam;
 	}
+	
 	public int getTeamsCount() {
 		return teamsCount;
 	}
-	
+	public BalanceType getBalanceType() {
+		return balanceType;
+	}
 	public int getPlayersRespawnTime() {
 		return playerRespawnTime;
 	}
+	
 	public void setKit(GamePlayer p, Kit kit) {
 		kits.put(p, kit);
 	}
+	
 	private boolean isTeamReal(String s) {
 		for(String ss : realTeams) {
 			if(ss.equals(s)) return true;
@@ -177,9 +206,11 @@ public class Game {
 	public Set<GamePlayer> getPlayers() {
 		return gameLobbyPlayers;		
 	}
+	
 	public Set<GamePlayer> getSpectators() {
 		return spectators;
 	}
+	
 	public boolean containsPlayer(GamePlayer player) {
 		return gameLobbyPlayers.contains(player);
 	}
@@ -193,10 +224,15 @@ public class Game {
 		Bukkit.getPluginManager().callEvent(e);
 		if(e.isCancelled()) return;
 		
+		
+		/*
+		 * Check is players count is bigger than minimum needed
+		 */
 		if(isGameState(GameState.LOBBY)) {
 			
 			gameLobbyPlayers.add(player);
-			this.broadcastMessage(GameMsg.gameMessage("Join", "&aPlayer &r" + player.getDisplayName() + "&a joined the game"));
+			this.broadcastMessage(GameMsg.gameMessage("Join", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
+			
 			if(gameLobbyPlayers.size() >= minPlayers) {
 				setGameState(GameState.WAITING);
 				for(GamePlayer p : gameLobbyPlayers) {
@@ -208,12 +244,42 @@ public class Game {
 					p.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
 				}
 			}
+			return;
+		}
+		
+		if(isGameState(GameState.WAITING)) {
 			
+			gameLobbyPlayers.add(player);
+			this.broadcastMessage(GameMsg.gameMessage("Join", "&aPlayer &r" + player.getDisplayName() + "&a joined the game"));
+			
+			player.getPlayer().getInventory().clear();
+			player.getPlayer().teleport(mapCenter);
+			player.getPlayer().getInventory().setItem(2, QItems.itemTeamChoose(this));
+			player.getPlayer().getInventory().setItem(6, QItems.itemKitsChoose());
+			player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
+			player.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+			return;
+		}
+		
+		if(isGameState(GameState.STARTING) || isGameState(GameState.ACTIVE)) {
+			
+			// TODO
+			return;
+		}
+		
+		if(isGameState(GameState.ENDING)) {
+			player.sendMessage(GameMsg.gameMessage("Game", "&7This game is unavailable now"));
+			return;
 		}
 		
 	}
+	
 	public void startGame() {
 		
+	}
+	
+	public void startCountdown() {
+		new Countdown(this).runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
 	}
 	
 	public void quitGame(GamePlayer player) {
@@ -239,6 +305,7 @@ public class Game {
 		
 		ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
 		s.setScoreboard();
+		QuartzDefenders.getInstance().getLobby().sendTabList(p.getPlayer());
 	}
 	
 	public void teleportAllToSpawnLocs() {
@@ -256,6 +323,7 @@ public class Game {
 	public GameState getGameState() {
 		return state;
 	}
+	
 	public void setGameState(GameState state) {
 		// Event
 		GameStateChangeEvent e = new GameStateChangeEvent(this, this.state, state);
@@ -264,6 +332,7 @@ public class Game {
 		
 		this.state = state;
 	}
+	
 	public boolean isGameState(GameState state) {
 		return getGameState() == state;
 	}
@@ -287,4 +356,10 @@ public class Game {
 		
 		return ChatColor.GRAY;
 	}
+	
+	private enum BalanceType {
+		NO_BALANCE, DEFAULT_BALANCE, TEAM_KD_BALANCE, FULL_TEAM_BALANCE
+	}
+	
+	
 }

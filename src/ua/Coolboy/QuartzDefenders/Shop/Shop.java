@@ -31,14 +31,14 @@ public class Shop {
     public Shop(QuartzDefenders plugin) {
         this.plugin = plugin;
         this.files = plugin.getConfigs();
-        this.name = files.getLang().getString("shop.name").replace('&', 'ยง');
-        this.stuffName = files.getLang().getString("shop.stuff").replace('&', 'ยง');
-        this.resourcesName = files.getLang().getString("shop.resources").replace('&', 'ยง');
-        this.potionsName = files.getLang().getString("shop.potions").replace('&', 'ยง');
-        this.enchantName = files.getLang().getString("shop.enchant").replace('&', 'ยง');
-        this.otherName = files.getLang().getString("shop.other").replace('&', 'ยง');
-        this.foodName = files.getLang().getString("shop.food").replace('&', 'ยง');
-        this.blocksName = files.getLang().getString("shop.blocks").replace('&', 'ยง');      
+        this.name = files.getLang().getString("shop.name").replace('&', 'ง');
+        this.stuffName = files.getLang().getString("shop.stuff").replace('&', 'ง');
+        this.resourcesName = files.getLang().getString("shop.resources").replace('&', 'ง');
+        this.potionsName = files.getLang().getString("shop.potions").replace('&', 'ง');
+        this.enchantName = files.getLang().getString("shop.enchant").replace('&', 'ง');
+        this.otherName = files.getLang().getString("shop.other").replace('&', 'ง');
+        this.foodName = files.getLang().getString("shop.food").replace('&', 'ง');
+        this.blocksName = files.getLang().getString("shop.blocks").replace('&', 'ง');      
     }
 
     public Inventory getInventory(/*GameTeam team*/) {

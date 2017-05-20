@@ -16,6 +16,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.Connector;
 
 public class Lobby implements Listener {
@@ -113,6 +114,10 @@ public class Lobby implements Listener {
 				p.hidePlayer(pp);
 			}
 		}
+		if(p.hasPermission("QuartzDefenders.lobby.joinAlert")) {
+			Bukkit.broadcastMessage(new ColorFormat("&3« &b+ &3» &r" + p.getDisplayName()).format());
+		}
+		
 	}
 	@EventHandler
 	public void onDamage(EntityDamageEvent e) {
@@ -144,6 +149,7 @@ public class Lobby implements Listener {
 	}
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
+		if(e.getPlayer().getLocation().getWorld() != location.getWorld()) return;
 		if(e.getTo().getBlockY() <= 0) teleportToSpawn(e.getPlayer());
 	}
 

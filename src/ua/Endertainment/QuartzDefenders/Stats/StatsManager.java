@@ -17,6 +17,13 @@ public class StatsManager {
 		QuartzDefenders.getInstance().getConfigs().saveStatsInfo();
 	}	
 	
+	public static int getStatsInfo(Player p, String path) {
+		return getInfo(p, "stats." + path);
+	}
+	public static void saveStatsInfo(Player p, String path, Object arg) {
+		saveInfo(p, "stats." + path, arg);
+	}
+	
 	public static double getTeamKDR(GameTeam team) {
 		double teamKD = 0;
 		for(GamePlayer p : team.getPlayers()) {

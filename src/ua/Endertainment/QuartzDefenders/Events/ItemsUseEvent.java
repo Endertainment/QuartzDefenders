@@ -2,14 +2,10 @@ package ua.Endertainment.QuartzDefenders.Events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -31,31 +27,32 @@ public class ItemsUseEvent implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 	
-	@EventHandler
-    public void fireBlock(ProjectileHitEvent event) {
-        if (event.getHitEntity() != null) {
-            return;
-        }
-        if (event.getEntity() instanceof Arrow) {
-            Arrow arrow = (Arrow) event.getEntity();
-            if (arrow.getFireTicks() > 0) {
-                Block block = event.getHitBlock();
-                if (block.getRelative(BlockFace.UP).getType() == Material.AIR) {
-                    block.getRelative(BlockFace.UP).setType(Material.FIRE);
-                } else if (block.getRelative(BlockFace.EAST).getType() == Material.AIR) {
-                    block.getRelative(BlockFace.EAST).setType(Material.FIRE);
-                } else if (block.getRelative(BlockFace.WEST).getType() == Material.AIR) {
-                    block.getRelative(BlockFace.WEST).setType(Material.FIRE);
-                } else if (block.getRelative(BlockFace.NORTH).getType() == Material.AIR) {
-                    block.getRelative(BlockFace.NORTH).setType(Material.FIRE);
-                } else if (block.getRelative(BlockFace.SOUTH).getType() == Material.AIR) {
-                    block.getRelative(BlockFace.SOUTH).setType(Material.FIRE);
-                } else if (block.getRelative(BlockFace.DOWN).getType() == Material.AIR) {
-                    block.getRelative(BlockFace.DOWN).setType(Material.FIRE);
-                }
-            }
-        }
-    }
+	
+//	@EventHandler
+//    public void fireBlock(ProjectileHitEvent event) {
+//        if (event.getHitEntity() != null) {
+//            return;
+//        }
+//        if (event.getEntity() instanceof Arrow) {
+//            Arrow arrow = (Arrow) event.getEntity();
+//            if (arrow.getFireTicks() > 0) {
+//                Block block = event.getHitBlock();
+//                if (block.getRelative(BlockFace.UP).getType() == Material.AIR) {
+//                    block.getRelative(BlockFace.UP).setType(Material.FIRE);
+//                } else if (block.getRelative(BlockFace.EAST).getType() == Material.AIR) {
+//                    block.getRelative(BlockFace.EAST).setType(Material.FIRE);
+//                } else if (block.getRelative(BlockFace.WEST).getType() == Material.AIR) {
+//                    block.getRelative(BlockFace.WEST).setType(Material.FIRE);
+//                } else if (block.getRelative(BlockFace.NORTH).getType() == Material.AIR) {
+//                    block.getRelative(BlockFace.NORTH).setType(Material.FIRE);
+//                } else if (block.getRelative(BlockFace.SOUTH).getType() == Material.AIR) {
+//                    block.getRelative(BlockFace.SOUTH).setType(Material.FIRE);
+//                } else if (block.getRelative(BlockFace.DOWN).getType() == Material.AIR) {
+//                    block.getRelative(BlockFace.DOWN).setType(Material.FIRE);
+//                }
+//            }
+//        }
+//    }
     
 	@EventHandler
 	public void itemUse(PlayerInteractEvent e) {

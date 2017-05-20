@@ -4,6 +4,10 @@ import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class Language {
 
+	public static void reload() {
+		QuartzDefenders.getInstance().getConfigs().reloadLang();
+	}
+	
 	public static String getString(String path) {
 		String s = QuartzDefenders.getInstance().getConfigs().getLang().getString(path);
 		if(s == null) return "Could not find string " + path;		

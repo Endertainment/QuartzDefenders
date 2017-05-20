@@ -55,7 +55,7 @@ public class ScoreboardLobby {
 		addString("&f Top position: &b" + plugin.getTopManager().getPlayerPositionK(p));
 		addString("&2 ");
 		addString("&f&m------------------&5 ");
-		addString("&3«&b&l GovnoCoder.net &3»");		
+		addString("&3«&b&l GovnoCoder.net &3»");
 	}
 	
 	private void addString(String s) {

@@ -53,8 +53,12 @@ public class InvClickEvent implements Listener {
 			e.setCancelled(true);
 			
 			for(Game game : plugin.getGames()) {
-				if(curr.getItemMeta().getDisplayName().equals(game.getGameName())) {					
-					game.joinGame(plugin.getGamePlayer(p));				
+				if(curr.getItemMeta().getDisplayName().equals(game.getGameName())) {			
+					if(!game.containsPlayer(plugin.getGamePlayer(p))) {
+						game.joinGame(plugin.getGamePlayer(p));
+					} else {
+						game.quitGame(plugin.getGamePlayer(p));
+					}
 					p.closeInventory();
 					break;
 				}

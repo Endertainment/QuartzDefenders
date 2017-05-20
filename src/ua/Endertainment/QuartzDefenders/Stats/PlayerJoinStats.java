@@ -34,6 +34,12 @@ public class PlayerJoinStats implements Listener{
 			f.set(uuid + ".deaths", 0);
 			f.set(uuid + ".wins",   0);	
 			f.set(uuid + ".games",  0);
+			
+			/*
+			 * Another stats
+			 */
+			// TODO
+			
 			plugin.getConfigs().saveStatsInfo();
 		}
 	}
