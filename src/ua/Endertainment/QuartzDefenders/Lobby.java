@@ -115,7 +115,7 @@ public class Lobby implements Listener {
 			}
 		}
 		if(p.hasPermission("QuartzDefenders.lobby.joinAlert")) {
-			Bukkit.broadcastMessage(new ColorFormat("&3« &b+ &3» &r" + p.getDisplayName()).format());
+			Bukkit.broadcastMessage(new ColorFormat("&3<< &b+ &3>> &r" + p.getDisplayName()).format());
 		}
 		
 	}

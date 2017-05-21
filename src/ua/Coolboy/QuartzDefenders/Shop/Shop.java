@@ -16,8 +16,10 @@ import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 
 public class Shop {
 
@@ -26,22 +28,22 @@ public class Shop {
     FilesUtil files;
     ItemUtil item;
 
-    String name, stuffName, resourcesName, potionsName, enchantName, otherName, foodName, blocksName;
+    public static String name, stuffName, resourcesName, potionsName, enchantName, otherName, foodName, blocksName;
 
     public Shop(QuartzDefenders plugin) {
         this.plugin = plugin;
         this.files = plugin.getConfigs();
-        this.name = files.getLang().getString("shop.name").replace('&', '§');
-        this.stuffName = files.getLang().getString("shop.stuff").replace('&', '§');
-        this.resourcesName = files.getLang().getString("shop.resources").replace('&', '§');
-        this.potionsName = files.getLang().getString("shop.potions").replace('&', '§');
-        this.enchantName = files.getLang().getString("shop.enchant").replace('&', '§');
-        this.otherName = files.getLang().getString("shop.other").replace('&', '§');
-        this.foodName = files.getLang().getString("shop.food").replace('&', '§');
-        this.blocksName = files.getLang().getString("shop.blocks").replace('&', '§');      
+        name = new ColorFormat(Language.getString("shop.name")).format();
+        stuffName = new ColorFormat(Language.getString("shop.stuff")).format();
+        resourcesName = new ColorFormat(Language.getString("shop.resources")).format();
+        potionsName = new ColorFormat(Language.getString("shop.potions")).format();
+        enchantName = new ColorFormat(Language.getString("shop.enchant")).format();
+        otherName = new ColorFormat(Language.getString("shop.other")).format();
+        foodName = new ColorFormat(Language.getString("shop.food")).format();
+        blocksName = new ColorFormat(Language.getString("shop.blocks")).format();
     }
 
-    public Inventory getInventory(/*GameTeam team*/) {
+    public Inventory getInventory(GameTeam team) {
         this.main = Bukkit.createInventory(null, 27, ChatColor.GOLD + name);
         ItemStack enchant = new ItemStack(Material.EXP_BOTTLE);
         enchant = ItemUtil.setName(enchant, enchantName);
@@ -58,7 +60,7 @@ public class Shop {
         ItemStack resources = new ItemStack(Material.DIAMOND_PICKAXE);
         resources = ItemUtil.hideAll(ItemUtil.setName(resources, resourcesName));
 
-        ItemStack frame = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15/*getDamageByColor(team.getColor())*/);
+        ItemStack frame = new ItemStack(Material.STAINED_GLASS_PANE, 1, getDamageByColor(team.getColor()));
         frame = ItemUtil.setName(frame, " ");
 
         main.setItem(10, enchant);
@@ -76,20 +78,20 @@ public class Shop {
         return main;
     }
 
-    public Merchant getSection(String sectionName, String merchantName/*, GameTeam team*/) {
+    public Merchant getSection(String sectionName, String merchantName, GameTeam team) {
         FileConfiguration shop = files.getShopInfo();
         ConfigurationSection value = shop.getConfigurationSection(sectionName);
         List<MerchantRecipe> recipes = new ArrayList();
         for (String strng : value.getKeys(false)) {
             ConfigurationSection section = value.getConfigurationSection(strng);
-            ItemStack primary = createItem(section, "primary");
+            ItemStack primary = createItem(section, "primary", team);
 
             ItemStack optional = null;
             if (section.isConfigurationSection("optional")) {
-                optional = createItem(section, "optional");
+                optional = createItem(section, "optional", team);
             }
 
-            ItemStack result = createItem(section, "result");
+            ItemStack result = createItem(section, "result", team);
             MerchantRecipe recipe = new MerchantRecipe(result, 999);
             recipe.addIngredient(primary);
             if (optional != null) {
@@ -106,48 +108,52 @@ public class Shop {
         switch (color) {
             case RED:
                 return 14;
+            case AQUA:
+                return 3;
             case BLUE:
                 return 11;
+            case WHITE:
+                return 0;
             case GREEN:
                 return 13;
             case YELLOW:
                 return 4;
-            case DARK_PURPLE:
-                return 10;
-            case AQUA:
-                return 3;
             case DARK_GRAY:
                 return 7;
-            case WHITE:
-                return 0;
+            case DARK_PURPLE:
+                return 10;
         }
         return 0;
     }
 
-    private ItemStack createItem(ConfigurationSection section, String itemDir/*, GameTeam team*/) {
+    private ItemStack createItem(ConfigurationSection section, String itemDir, GameTeam team) {
         ConfigurationSection dir = section.getConfigurationSection(itemDir);
 
         int damage = 0;
-        boolean team = false;
+        boolean teams = false;
 
         String material = dir.getString("material");
         int amount = dir.getInt("amount");
 
         if (dir.isBoolean("team")) {
-            team = dir.getBoolean("team");
-            damage = 5;//getDamageByColor(team.getColor());
+            teams = dir.getBoolean("team");
+            if (team == null) {
+                damage = 7;
+            } else {
+                getDamageByColor(team.getColor());
+            }
         }
-        if (!team) {
+        if (!teams) {
             damage = dir.getInt("damage");
         }
         ItemStack stack = new ItemStack(Material.valueOf(material), amount, (short) damage);
         if (dir.isString("name")) {
             String stackName = dir.getString("name");
-            stack = item.setName(stack, stackName);
+            stack = ItemUtil.setName(stack, stackName);
         }
         if (dir.isList("lore")) {
             List<String> stackLore = dir.getStringList("lore");
-            stack = item.setLore(stack, stackLore);
+            stack = ItemUtil.setLore(stack, stackLore);
         }
 
         if (dir.isConfigurationSection("enchantments")) {

@@ -1,22 +1,20 @@
 package ua.Coolboy.QuartzDefenders.Mobs;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Random;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.inventory.ItemStack;
-import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 
-public class Mobs {
-
-    QuartzDefenders plugin;
-
-    public Mobs(QuartzDefenders plugin) {
-        this.plugin = plugin;
-    }
+public abstract class Mobs {
 
     public static void middDef(WitherSkeleton skeleton) {
         skeleton.setCustomName(ChatColor.DARK_PURPLE + "Дух Алхіміка");
@@ -50,5 +48,30 @@ public class Mobs {
         s.getEquipment().setItemInMainHandDropChance(0.2F);
         s.getEquipment().setItemInOffHand(coin);
         s.getEquipment().setItemInOffHandDropChance(0.5F);
+    }
+
+    public static Integer randomInRadius(int rad) {
+        int i;
+        Random random = new Random();
+        i = random.nextInt(rad);
+        if (random.nextBoolean()) {
+            i *= -1;
+        }
+        return i;
+    }
+
+    public static Integer countMobs(Collection<Entity> col, Class clazz) {
+        int count = 0;
+        for (Entity e : col) {
+            if (e.getClass().isInstance(clazz)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static boolean canSpawn(Location loc) {
+        Block block = loc.getWorld().getHighestBlockAt(loc);
+        return !(block.getType() == null || block.getType() == Material.WEB);
     }
 }

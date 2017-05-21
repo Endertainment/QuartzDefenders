@@ -2,6 +2,7 @@ package ua.Coolboy.QuartzDefenders.Turrets;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -13,31 +14,26 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.SpectralArrow;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
+import ua.Coolboy.QuartzDefenders.Mobs.Mobs;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
-import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
 
 public class TurretListener implements Listener {
+
     QuartzDefenders plugin;
-    int liveTime;
-    
+
     public TurretListener(QuartzDefenders plugin) {
         this.plugin = plugin;
-        this.liveTime = plugin.getConfigs().getGameInfo().getInt("Games.turret_livetime");
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
-    
+
     @EventHandler
     public void interactEvent(PlayerInteractEvent event) {
         Player player = event.getPlayer();
@@ -68,9 +64,11 @@ public class TurretListener implements Listener {
             }
         }
     }
-    
+
     public void runTurret(Turret stand, Player player) {
         ArmorStand turret = stand.getStand();
+        //int liveTime = plugin.getGame(player).getTurretLivetime();
+        int liveTime = 6000;
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -80,32 +78,33 @@ public class TurretListener implements Listener {
                     this.cancel();
                 }
                 List<Entity> list = turret.getNearbyEntities(7, 5, 7);
-                for (Entity mob : list) {
-                    if (mob.getLocation().distance(turret.getLocation()) < 1.2) {
-                        Location tploc = mob.getLocation().add(0.7, 0, 0.7);
-                        mob.teleport(tploc);
-                    }
-                    if (mob instanceof Player) {
-                        Player playery = (Player) mob;
-                        if (!mob.getName().equals(player.getName())
-                                && !playery.getGameMode().equals(GameMode.SPECTATOR)
-                                && !playery.getGameMode().equals(GameMode.CREATIVE)
-                                && !playery.getScoreboard().getTeam(turret.getMetadata("team").get(0).asString()).hasEntry(playery.getName())) {
-                            Vector vector = mob.getLocation().toVector().subtract(turret.getLocation().toVector());
+                if (Mobs.countMobs(list, Player.class) > 0) {
+                    for (Entity mob : list) {
+                        if (mob instanceof Player) {
+                            Player playery = (Player) mob;
+                            if (!mob.getName().equals(player.getName())
+                                    && !playery.getGameMode().equals(GameMode.SPECTATOR)
+                                    && !playery.getGameMode().equals(GameMode.CREATIVE)
+                                    && !plugin.getGame(playery).getTeam(turret.getMetadata("team").get(0).asString()).contains(plugin.getGamePlayer(playery))) {
+                                Vector vector = mob.getLocation().toVector().subtract(turret.getLocation().toVector());
 
-                            stand.shoot(vector);
+                                stand.shoot(vector);
 
-                            stand.lookAtTarget(mob);
-                            break;
+                                stand.lookAtTarget(mob);
+                                break;
+                            }
                         }
-                    } else if (mob instanceof LivingEntity) {
+                    }
+                } else if (Mobs.countMobs(list, LivingEntity.class) > 0) {
+                    for (Entity mob : list) {
                         Vector vector = mob.getLocation().toVector().subtract(turret.getLocation().toVector());
                         stand.shoot(vector);
-                        
+
                         stand.lookAtTarget(mob);
                         break;
                     }
                 }
+
                 turret.setMetadata("lived", new FixedMetadataValue(plugin, turret.getMetadata("lived").get(0).asInt() + 40));
                 turret.setCustomName("Турель " + Integer.toString((liveTime - turret.getMetadata("lived").get(0).asInt()) / 20) + "с");
                 if (turret.getMetadata("lived").get(0).asInt() > liveTime) {

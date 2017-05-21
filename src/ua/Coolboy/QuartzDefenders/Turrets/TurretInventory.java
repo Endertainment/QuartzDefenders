@@ -20,65 +20,66 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
-
 public class TurretInventory implements Listener {
+
     QuartzDefenders plugin;
-    
+
     public TurretInventory(QuartzDefenders plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
-    
+
     @EventHandler
     public void stand(PlayerArmorStandManipulateEvent event) {
         Player player = event.getPlayer();
-        if (event.getRightClicked().getName().startsWith("Турель")
-                && event.getPlayer().getScoreboard().getTeam(event.getRightClicked().getMetadata("team").get(0).asString()).hasEntry(player.getName())
-                && event.getRightClicked().getMetadata("type").get(0).asString().equals("normal")) {
-            Inventory inv = Bukkit.createInventory(player, 9, ChatColor.RED + "Турель");
-            event.getPlayer().setMetadata("turretEdit", new FixedMetadataValue(plugin, event.getRightClicked()));
+        if (event.getRightClicked().getName().startsWith("Турель")) {
+            event.setCancelled(true);
+            if ( //&& event.getPlayer().getScoreboard().getTeam(event.getRightClicked().getMetadata("team").get(0).asString()).hasEntry(player.getName())
+                    event.getRightClicked().getMetadata("type").get(0).asString().equals("normal")) {
+                Inventory inv = Bukkit.createInventory(player, 9, ChatColor.RED + "Турель");
+                event.getPlayer().setMetadata("turretEdit", new FixedMetadataValue(plugin, event.getRightClicked()));
 
-            ItemStack fire = new ItemStack(Material.BLAZE_POWDER, 1);
-            ItemMeta firem = fire.getItemMeta();
-            firem.setDisplayName("Вогонь");
-            firem.setLore(Arrays.asList("Створює запалені стріли", "Вартість: 10 рівнів"));
-            fire.setItemMeta(firem);
+                ItemStack fire = new ItemStack(Material.BLAZE_POWDER, 1);
+                ItemMeta firem = fire.getItemMeta();
+                firem.setDisplayName("Вогонь");
+                firem.setLore(Arrays.asList("Створює запалені стріли", "Вартість: 10 рівнів"));
+                fire.setItemMeta(firem);
 
-            ItemStack slow = new ItemStack(Material.PACKED_ICE, 1);
-            ItemMeta slowm = slow.getItemMeta();
-            slowm.setDisplayName("Заповільнення");
-            slowm.setLore(Arrays.asList("Створює заповільнюючі стріли", "Вартість: 10 рівнів"));
-            slow.setItemMeta(slowm);
+                ItemStack slow = new ItemStack(Material.PACKED_ICE, 1);
+                ItemMeta slowm = slow.getItemMeta();
+                slowm.setDisplayName("Заповільнення");
+                slowm.setLore(Arrays.asList("Створює заповільнюючі стріли", "Вартість: 10 рівнів"));
+                slow.setItemMeta(slowm);
 
-            ItemStack glow = new ItemStack(Material.SPECTRAL_ARROW, 1);
-            ItemMeta glowm = glow.getItemMeta();
-            glowm.setDisplayName("Підсвічування");
-            glowm.setLore(Arrays.asList("Створює спектральні стріли", "Вартість: 20 рівнів"));
-            glow.setItemMeta(glowm);
+                ItemStack glow = new ItemStack(Material.SPECTRAL_ARROW, 1);
+                ItemMeta glowm = glow.getItemMeta();
+                glowm.setDisplayName("Підсвічування");
+                glowm.setLore(Arrays.asList("Створює спектральні стріли", "Вартість: 20 рівнів"));
+                glow.setItemMeta(glowm);
 
-            ItemStack poison = new ItemStack(Material.POTION, 1);
-            PotionMeta meta = (PotionMeta) poison.getItemMeta();
-            meta.setBasePotionData(new PotionData(PotionType.POISON, false, false));
-            meta.setDisplayName("Отрута");
-            meta.setLore(Arrays.asList("Створює отруєні стріли", "Вартість: 15 рівнів"));
-            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-            poison.setItemMeta(meta);
+                ItemStack poison = new ItemStack(Material.POTION, 1);
+                PotionMeta meta = (PotionMeta) poison.getItemMeta();
+                meta.setBasePotionData(new PotionData(PotionType.POISON, false, false));
+                meta.setDisplayName("Отрута");
+                meta.setLore(Arrays.asList("Створює отруєні стріли", "Вартість: 15 рівнів"));
+                meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                poison.setItemMeta(meta);
 
-            ItemStack exit = new ItemStack(Material.BARRIER, 1);
-            ItemMeta exitm = exit.getItemMeta();
-            exitm.setDisplayName("Вихід");
-            exit.setItemMeta(exitm);
+                ItemStack exit = new ItemStack(Material.BARRIER, 1);
+                ItemMeta exitm = exit.getItemMeta();
+                exitm.setDisplayName("Вихід");
+                exit.setItemMeta(exitm);
 
-            inv.setItem(0, fire);
-            inv.setItem(1, slow);
-            inv.setItem(2, poison);
-            inv.setItem(3, glow);
-            inv.setItem(8, exit);
-            player.openInventory(inv);
+                inv.setItem(0, fire);
+                inv.setItem(1, slow);
+                inv.setItem(2, poison);
+                inv.setItem(3, glow);
+                inv.setItem(8, exit);
+                player.openInventory(inv);
+            }
         }
-        event.setCancelled(true);
     }
-    
+
     @EventHandler
     public void upgrade(InventoryClickEvent event) {
         String message = ChatColor.RED + "У вас недостатньо досвіду";
