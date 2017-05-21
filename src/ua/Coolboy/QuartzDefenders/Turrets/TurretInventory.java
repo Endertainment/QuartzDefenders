@@ -32,9 +32,12 @@ public class TurretInventory implements Listener {
     @EventHandler
     public void stand(PlayerArmorStandManipulateEvent event) {
         Player player = event.getPlayer();
-        if (event.getRightClicked().getName().startsWith("Турель")
-                && event.getPlayer().getScoreboard().getTeam(event.getRightClicked().getMetadata("team").get(0).asString()).hasEntry(player.getName())
-                && event.getRightClicked().getMetadata("type").get(0).asString().equals("normal")) {
+        if (event.getRightClicked().getName().startsWith("Турель"))
+        {
+            event.setCancelled(true);
+        if (
+                //&& event.getPlayer().getScoreboard().getTeam(event.getRightClicked().getMetadata("team").get(0).asString()).hasEntry(player.getName())
+                event.getRightClicked().getMetadata("type").get(0).asString().equals("normal")) {
             Inventory inv = Bukkit.createInventory(player, 9, ChatColor.RED + "Турель");
             event.getPlayer().setMetadata("turretEdit", new FixedMetadataValue(plugin, event.getRightClicked()));
 
@@ -76,7 +79,7 @@ public class TurretInventory implements Listener {
             inv.setItem(8, exit);
             player.openInventory(inv);
         }
-        event.setCancelled(true);
+      }
     }
     
     @EventHandler

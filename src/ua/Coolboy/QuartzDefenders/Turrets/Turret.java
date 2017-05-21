@@ -27,7 +27,7 @@ public class Turret {
     private static List<Entity> stands = new ArrayList<>();
     private final Game game;
     private final Player owner;
-    private final GameTeam team;
+    //private final GameTeam team;
     private final ArmorStand stand;
 
     public Turret(Player owner, Location loc, QuartzDefenders plugin) {
@@ -35,7 +35,7 @@ public class Turret {
         this.owner = owner;
         this.game = plugin.getGame(owner);
 
-        this.team = game.getTeam(owner);
+        //this.team = game.getTeam(/*owner*/"RED");
         ArmorStand turret = (ArmorStand) loc.getWorld().spawnEntity(loc.add(0.5, 1, 0.5), EntityType.ARMOR_STAND);
         turret.getEquipment().setHelmet(new ItemStack(Material.DISPENSER, 1));
         turret.setSmall(true);
@@ -114,7 +114,7 @@ public class Turret {
         return game;
     }
 
-    public GameTeam getTeam() {
+    /*public GameTeam getTeam() {
         return team;
-    }
+    }*/
 }

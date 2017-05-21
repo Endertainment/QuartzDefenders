@@ -46,7 +46,7 @@ public class GamesGUI {
 		for(Game game : plugin.getGames()) {
 			ArrayList<String> lore = new ArrayList<>();
 			lore.add(" ");
-			lore.add("&7Map: &a" + game.getMapName());
+			lore.add("&7Map: &a" + game.getWorldName());
 			lore.add("&7Mode: &a" + game.getTeamsCount() + "&7 by &a" + game.getPlayersInTeam());
 			lore.add(" ");
 			lore.add("&7State: &a" + game.getGameState().toString());

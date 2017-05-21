@@ -44,7 +44,7 @@ public class Connector {
 	    {
 	      int fadeIn = 1;
 	      int fadeOut = 1;
-	      stay = Integer.valueOf(stay.intValue() * 20);
+	      stay *= 20;
 	      if (title != null)
 	      {
 	        title = ChatColor.translateAlternateColorCodes('&', title);
