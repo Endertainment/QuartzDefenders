@@ -22,13 +22,13 @@ import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class MobsListener implements Listener {
-
+    
     QuartzDefenders plugin;
-
+    
     public MobsListener(QuartzDefenders plugin) {
         this.plugin = plugin;
     }
-
+    
     @EventHandler
     public void CenterMob(BlockBreakEvent e) {
         Block b = e.getBlock();
@@ -54,24 +54,25 @@ public class MobsListener implements Listener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (game.getGameState().equals(GameState.ENDING)) {
-                        this.cancel();
-                    }
+
+                    if (game.getGameState().equals(GameState.ENDING)) this.cancel();
+
                     for (Map.Entry<Integer, Location> entry : locat.entrySet()) {
                         int rad = entry.getKey();
                         Location loc = entry.getValue();
                         Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
-                        if (Mobs.countMobs(nearbyEntities, Skeleton.class) > 12) {
-                            return;
-                        }
+                      
+                        if (Mobs.countMobs(nearbyEntities, Skeleton.class) > 12) return;
+                      
                         if (Mobs.countMobs(nearbyEntities, Player.class) != 0) {
                             int randomX = Mobs.randomInRadius(rad);
                             int randomZ = Mobs.randomInRadius(rad);
                             Location spawnLoc = new Location(loc.getWorld(), randomX, loc.getBlockY(), randomZ);
-                            Location testLoc = spawnLoc.clone();
+
+                            Location testLoc =spawnLoc.clone();
                             while (!Mobs.canSpawn(testLoc)) {
                                 testLoc = spawnLoc.clone();
-                                testLoc.add(Mobs.randomInRadius(rad), 0, Mobs.randomInRadius(rad));
+                                testLoc.add(Mobs.randomInRadius(rad),0,Mobs.randomInRadius(rad));
                             }
                             if (loc.getWorld().getHighestBlockAt(randomX, randomZ) != null) {
                                 testLoc.setY(testLoc.getWorld().getHighestBlockAt(randomX, randomZ).getLocation().getBlockY());
@@ -81,7 +82,6 @@ public class MobsListener implements Listener {
                                 Mobs.soulDef(soul2);
                             }
                         }
-
                     }
                 }
             }.runTaskTimer(plugin, 0, 240);

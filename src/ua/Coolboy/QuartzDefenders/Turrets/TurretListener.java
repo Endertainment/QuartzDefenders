@@ -116,6 +116,8 @@ public class TurretListener implements Listener {
                     this.cancel();
                 }
             }
-        }.runTaskTimer(plugin, 0, 40);
+        }
+                .runTaskTimer(plugin,
+                        0, 40);
     }
 }

@@ -6,7 +6,6 @@ import ua.Endertainment.QuartzDefenders.Utils.Connector;
 
 public class Countdown extends BukkitRunnable {
 
-	
     private int time = 20;
     private Game game;
 
@@ -23,6 +22,7 @@ public class Countdown extends BukkitRunnable {
             game.startGame();
         } else {
             if (time == 20 || time == 15 || time == 10|| time <= 5) {
+
             	Connector.sendTitle(game.getGameName(), "&7Game will begin after &6" + time + "&7 seconds", 10);
             }
         }

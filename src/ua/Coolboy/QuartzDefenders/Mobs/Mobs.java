@@ -54,16 +54,17 @@ public abstract class Mobs {
         int i;
         Random random = new Random();
         i = random.nextInt(rad);
-        if (random.nextBoolean()) {
-            i *= -1;
+
+        if(random.nextBoolean()) {
+        i *= -1;
         }
         return i;
     }
-
+    
     public static Integer countMobs(Collection<Entity> col, Class clazz) {
         int count = 0;
-        for (Entity e : col) {
-            if (e.getClass().isInstance(clazz)) {
+        for(Entity e : col) {
+            if(e.getClass().isInstance(clazz)) {
                 count++;
             }
         }

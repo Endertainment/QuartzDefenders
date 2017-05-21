@@ -34,6 +34,13 @@ public class ShopInventory implements Listener {
     }
 
     @EventHandler
+    public void startGame(GameStateChangeEvent event) {
+        if(event.getGameStateTo().equals(GameState.STARTING)) {
+            ShopEntity.loadShops(event.getGame());
+        }
+    }
+    
+    @EventHandler
     public void onClick(InventoryClickEvent e) {
         if (!(e.getInventory().getName().contains(Shop.name))) {
             return;

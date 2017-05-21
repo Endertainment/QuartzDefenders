@@ -23,8 +23,9 @@ public abstract class ShopEntity {
         return v;
     }
 
+    
     public static void loadShops(Game game) {
-        for (Location loc : game.getShopLocations()) {
+        for(Location loc: game.getShopLocations()) {
             spawnShop(loc);
         }
     }

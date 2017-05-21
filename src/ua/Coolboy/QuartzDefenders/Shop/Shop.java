@@ -106,22 +106,14 @@ public class Shop {
 
     public Short getDamageByColor(ChatColor color) {
         switch (color) {
-            case RED:
-                return 14;
-            case AQUA:
-                return 3;
-            case BLUE:
-                return 11;
-            case WHITE:
-                return 0;
-            case GREEN:
-                return 13;
-            case YELLOW:
-                return 4;
-            case DARK_GRAY:
-                return 7;
-            case DARK_PURPLE:
-                return 10;
+            case RED: return 14;
+            case AQUA: return 3;
+            case BLUE: return 11;
+            case WHITE: return 0;
+            case GREEN: return 13;
+            case YELLOW: return 4;
+            case DARK_GRAY: return 7;
+            case DARK_PURPLE: return 10;
         }
         return 0;
     }
@@ -137,11 +129,9 @@ public class Shop {
 
         if (dir.isBoolean("team")) {
             teams = dir.getBoolean("team");
-            if (team == null) {
+            if(team == null) {
                 damage = 7;
-            } else {
-                getDamageByColor(team.getColor());
-            }
+            } else getDamageByColor(team.getColor());
         }
         if (!teams) {
             damage = dir.getInt("damage");
