@@ -20,6 +20,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.util.Vector;
+import ua.Coolboy.QuartzDefenders.Shop.ShopEntity;
 
 import ua.Endertainment.QuartzDefenders.Events.Game.GameStateChangeEvent;
 import ua.Endertainment.QuartzDefenders.Events.Game.PlayerJoinGameEvent;
@@ -365,6 +367,7 @@ public class Game {
 		getSidebar().refresh();
 		this.timer = new GameTimer(this);
 		timer.runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
+                ShopEntity.loadShops(game);
 		for(GamePlayer p : gameAllPlayers) {
 			spectators.add(p);
 			p.getPlayer().setGameMode(GameMode.SPECTATOR);
@@ -380,8 +383,10 @@ public class Game {
 				p.getPlayer().setExp(0);
 				p.getPlayer().setLevel(0);
 				p.getPlayer().setTotalExperience(0);
-				for(PotionEffect ef : p.getPlayer().getActivePotionEffects()) {
-					p.getPlayer().removePotionEffect(ef.getType());					
+                                p.getPlayer().setVelocity(new Vector(0,0,0));
+				Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
+				while (i.hasNext()) {
+					p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
 				}
 				StatsPlayer sp = new StatsPlayer(p.getPlayer());
 				sp.addPlayedGame();
@@ -425,7 +430,7 @@ public class Game {
 			getGameTimer().stop();
 			for(GamePlayer p : gameAllPlayers) {
 				TitleUtil.sendTitle(p.getPlayer(), winner.getName(), "&fteam win the game", 10);
-				new FireworkUtil(p.getPlayer().getLocation(), 20L);
+				FireworkUtil.spawn(p.getPlayer().getLocation(), 20L);
 			}
 			for(GamePlayer p : winner.getPlayers()) {
 				StatsPlayer sp = new StatsPlayer(p.getPlayer());

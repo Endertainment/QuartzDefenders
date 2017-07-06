@@ -13,11 +13,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
-public class FireworkUtil {
-	
-	public FireworkUtil(Location location, long detonate) {
-		Random random = new Random();
-		Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
+public abstract class FireworkUtil {
+
+    public static void spawn(Location location, long detonate) {
+        Random random = new Random();
+        Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
         FireworkMeta fireworkMeta = firework.getFireworkMeta();
         FireworkEffect effect = FireworkEffect.builder().flicker(random.nextBoolean()).withColor(getColor(random.nextInt(17) + 1)).withFade(getColor(random.nextInt(17) + 1)).with(Type.values()[random.nextInt(Type.values().length)]).trail(random.nextBoolean()).build();
         fireworkMeta.addEffect(effect);
@@ -29,9 +29,9 @@ public class FireworkUtil {
                 firework.detonate();
             }
         }.runTaskLater(QuartzDefenders.getInstance(), detonate);
-	}
+    }
 
-    private Color getColor(int i) {
+    private static Color getColor(int i) {
         switch (i) {
             case 1:
                 return Color.AQUA;
