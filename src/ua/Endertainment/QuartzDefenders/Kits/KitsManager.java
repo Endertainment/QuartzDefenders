@@ -45,6 +45,22 @@ public class KitsManager {
 		if(access.contains("Available")) return;
 		p.sendMessage(GameMsg.gameMessage("Shop", "You can not buy kit " + kit.getName() + "&7. Reason: " + accessBuy(kit, p)));
 	}
+	public void giveKit(Kit kit, Player p) {
+		StatsPlayer sp = new StatsPlayer(p);
+		sp.addCoins(kit.getPrice());
+		buyKit(kit, p);
+	}
+	public void removeKit(Kit kit, Player p) {
+		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
+		if(c.isList(p.getUniqueId().toString())) {
+			ArrayList<String> l = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());
+			if(l.contains(kit.getName())) {
+				l.remove(kit.getName());
+			}			
+			c.set(p.getUniqueId().toString(), l);
+		} 
+		QuartzDefenders.getInstance().getConfigs().saveKitsInfo();
+	}
 	public void buyKit(Kit kit, Player p) {
 		StatsPlayer sp = new StatsPlayer(p);
 		int i = sp.getCoins() - kit.getPrice();
@@ -52,6 +68,9 @@ public class KitsManager {
 		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
 		if(c.isList(p.getUniqueId().toString())) {
 			ArrayList<String> l = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());
+			if(l.contains(kit.getName())) {
+				return;
+			}
 			l.add(kit.getName());
 			c.set(p.getUniqueId().toString(), l);
 		} else {
