@@ -70,6 +70,8 @@ public class QuartzDefenders extends JavaPlugin {
         lobby = new Lobby(this);
         top = new TopManager(this);
 
+        top = new TopManager(this);
+        
         /*
 		 * Prevent an exceptions when plugin is disabled
          */
