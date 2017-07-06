@@ -76,12 +76,6 @@ public class QuartzDefenders extends JavaPlugin {
         if (!isEnabled()) {
             return;
         }
-
-        /*
-         * sghsdgfsdgdfgdfgdfgdfgd
-         */
-        
-        gdgfdfgdfgd
         
         /*
 		 * Register Events&Commands
