@@ -77,7 +77,7 @@ public class QuartzDefenders extends JavaPlugin {
             return;
         }
         /*
-		 * Register Events&Commands
+		 * Register Events&Commands kek
          */
         
         registerEvents();
@@ -111,9 +111,9 @@ public class QuartzDefenders extends JavaPlugin {
         }
 
     }
-
+    
     @Override
-    public void onDisable() {        
+    public void onDisable() {
         
         for(Game game : games) {
         	game.disableGame();
@@ -152,7 +152,10 @@ public class QuartzDefenders extends JavaPlugin {
         }
         main = null;
     }
-
+    
+    /*
+     * azazaza 
+     */
     public static void resetTabList(Player p) {
     	String header = "";
 		String footer = "";
