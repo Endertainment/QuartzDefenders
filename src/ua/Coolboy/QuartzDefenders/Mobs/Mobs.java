@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +19,7 @@ import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 public abstract class Mobs {
 
     public static void middDef(WitherSkeleton skeleton) {
-        skeleton.setCustomName(ChatColor.DARK_PURPLE + "Дух Алхіміка");
+        skeleton.setCustomName(ChatColor.DARK_PURPLE + "??? ????????");
         skeleton.setCustomNameVisible(true);
         skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(70);
         skeleton.setHealth(70);
@@ -28,8 +30,8 @@ public abstract class Mobs {
 
     public static void soulDef(Skeleton s) {
         ItemStack coin = new ItemStack(Material.DOUBLE_PLANT, 4);
-        ItemUtil.setMeta(coin, "Монета Алхіміка", Arrays.asList("Особлива валюта Алхіміків"));
-        s.setCustomName(ChatColor.AQUA + "Дух Алхіміка");
+        ItemUtil.setMeta(coin, "?????? ????????", Arrays.asList("???????? ?????? ?????????"));
+        s.setCustomName(ChatColor.AQUA + "??? ????????");
         s.setCustomNameVisible(true);
         s.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(55);
         s.setHealth(55);
@@ -65,6 +67,10 @@ public abstract class Mobs {
         int count = 0;
         for(Entity e : col) {
             if(e.getClass().isInstance(clazz)) {
+                if(clazz.equals(Player.class) 
+                        && ((Player) e).getGameMode().equals(GameMode.SPECTATOR)) {
+                    continue;
+                }
                 count++;
             }
         }

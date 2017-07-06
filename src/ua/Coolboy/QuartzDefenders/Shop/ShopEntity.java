@@ -1,5 +1,6 @@
 package ua.Coolboy.QuartzDefenders.Shop;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
@@ -24,7 +25,7 @@ public abstract class ShopEntity {
 
     
     public static void loadShops(Game game) {
-        for(Location loc: game.getShopLocations()) {
+        for(Location loc : game.getShopLocations()) {
             spawnShop(loc);
         }
     }

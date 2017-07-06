@@ -3,6 +3,7 @@ package ua.Coolboy.QuartzDefenders.Mobs;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import ua.Endertainment.QuartzDefenders.Events.Game.GameStartEvent;
 import ua.Endertainment.QuartzDefenders.Events.Game.GameStateChangeEvent;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.Game.GameState;
@@ -29,12 +31,12 @@ public class MobsListener implements Listener {
         this.plugin = plugin;
     }
     
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void CenterMob(BlockBreakEvent e) {
         Block b = e.getBlock();
         Block barrier = b.getLocation().getBlock().getRelative(BlockFace.DOWN);
         if ((e.getBlock().getType().equals(Material.DIAMOND_ORE))
-                && (barrier.getType() == Material.BEDROCK)) {
+                && (barrier.getType().equals(Material.BEDROCK))) {
             Location loc = b.getLocation().add(0.5, 0, 0.5);
             Random random = new Random();
             WitherSkeleton w = (WitherSkeleton) b.getWorld()
@@ -47,8 +49,8 @@ public class MobsListener implements Listener {
     }
 
     @EventHandler
-    public void alchemistrySoul(GameStateChangeEvent event) {
-        if (event.getGameStateTo().equals(GameState.ACTIVE)) {
+    public void alchemistrySoul(GameStartEvent event) {
+            Bukkit.broadcastMessage("I'm started!");
             Game game = event.getGame();
             Map<Integer, Location> locat = event.getGame().getAlchemicsLocations();
             new BukkitRunnable() {
@@ -85,6 +87,5 @@ public class MobsListener implements Listener {
                     }
                 }
             }.runTaskTimer(plugin, 0, 240);
-        }
     }
 }

@@ -2,6 +2,7 @@ package ua.Coolboy.QuartzDefenders.Shop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
@@ -24,13 +25,6 @@ public class ShopInventory implements Listener {
         this.plugin = plugin;
         this.shop = new Shop(plugin);
         Bukkit.getPluginManager().registerEvents(this, plugin);
-    }
-
-    @EventHandler
-    public void startGame(GameStateChangeEvent event) {
-        if(event.getGameStateTo().equals(GameState.STARTING)) {
-            ShopEntity.loadShops(event.getGame());
-        }
     }
     
     @EventHandler
@@ -84,7 +78,8 @@ public class ShopInventory implements Listener {
     @EventHandler
     public void shopClick(PlayerInteractEntityEvent e) {
         if (e.getRightClicked() instanceof Villager
-                && e.getRightClicked().getName().contains(Shop.name)) {
+                && e.getRightClicked().getName().contains(Shop.name)
+                && !e.getPlayer().getGameMode().equals(GameMode.SPECTATOR)) {
             e.setCancelled(true);
             Player p = e.getPlayer();
             p.openInventory(shop.getInventory(plugin.getGame(p).getTeam(p)));
