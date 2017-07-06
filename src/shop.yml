@@ -1,10 +1,385 @@
+### Shop Config File
+###Enchants
+enchants:
+    table:
+        primary:
+            material: EMERALD
+            amount: 15
+            damage: 0
+        optional:
+            material: DIAMOND
+            amount: 1
+            damage: 0
+        result:
+            material: ENCHANTMENT_TABLE
+            amount: 1
+            damage: 0
+    bookshelf:
+        primary:
+            material: EMERALD
+            amount: 3
+            damage: 0
+        result:
+            material: BOOKSHELF
+            amount: 1
+            damage: 0
+    exp:
+        primary:
+            material: EMERALD
+            amount: 1
+            damage: 0
+        result:
+            material: EXP_BOTTLE
+            amount: 6
+            damage: 0
+    fortune:
+        primary:
+            material: EMERALD
+            amount: 20
+            damage: 0
+        result:
+            material: ENCHANTED_BOOK
+            amount: 1
+            damage: 0
+            bookEnchant:
+                LOOT_BONUS_BLOCKS : 2
+potions:
+    blaze_rod:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 12
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: BLAZE_ROD
+            amount: 1
+            damage: 0
+    nether_stalk:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 8
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: NETHER_STALK
+            amount: 1
+            damage: 0
+    shugar:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 3
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: SUGAR
+            amount: 1
+            damage: 0
+    spider_eye:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 7
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: FERMENTED_SPIDER_EYE
+            amount: 1
+            damage: 0
+    tear:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 9
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: GHAST_TEAR
+            amount: 1
+            damage: 0
+    sulphur:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 7
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: SULPHUR
+            amount: 1
+            damage: 0
+    water:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 1
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: POTION
+            amount: 1
+            damage: 0
+    breath:
+        primary:
+            material: DOUBLE_PLANT
+            amount: 30
+            damage: 0
+            name: '?????? ????????'
+            lore:
+            - ???????? ?????? ?????????
+        result:
+            material: DRAGONS_BREATH
+            amount: 1
+            damage: 0
+
+###Food  
 food:
-    1:
+    cake:
         primary:
             material: GOLD_INGOT
             amount: 1
             damage: 0
         result:
             material: CAKE
+            amount: 1
+            damage: 0
+            
+###Other
+other:
+    skull:
+        primary:
+            material: EMERALD
+            amount: 46
+            damage: 0
+        optional:
+            material: DIAMOND
+            amount: 24
+            damage: 0
+        result:
+            material: SKULL_ITEM
+            amount: 1
+            damage: 1
+    enderpearl:
+        primary:
+            material: EMERALD
+            amount: 41
+            damage: 0
+        optional:
+            material: DIAMOND
+            amount: 8
+            damage: 0
+        result:
+            material: ENDER_PEARL
+            amount: 1
+            damage: 0
+    turret:
+        primary:
+            material: GOLD_INGOT
+            amount: 18
+            damage: 0
+        optional:
+            material: INK_SACK
+            amount: 64
+            damage: 4
+        result:
+            material: IRON_BARDING
+            amount: 1
+            damage: 0
+            name: '??????'
+            lore:
+            - ??????? ??????
+###Blocks
+blocks:
+    clay:
+        primary:
+            material: IRON_INGOT
+            amount: 1
+            damage: 0
+        result:
+            material: STAINED_CLAY
+            amount: 16
+            team: true
+    end_stone:
+        primary:
+            material: GOLD_INGOT
+            amount: 1
+            damage: 0
+        result:
+            material: ENDER_STONE
+            amount: 4
+            damage: 0
+    glass:
+        primary:
+            material: IRON_INGOT
+            amount: 1
+            damage: 0
+        result:
+            material: STAINED_GLASS
+            amount: 16
+            team: true
+###STUFF
+stuff:
+    arrows:
+        primary:
+            material: EMERALD
+            amount: 1
+            damage: 0
+        result:
+            material: ARROW
+            amount: 8
+            damage: 0
+    cobweb:
+        primary:
+            material: EMERALD
+            amount: 4
+            damage: 0
+        result:
+            material: WEB
+            amount: 1
+            damage: 0
+    bone:
+        primary:
+            material: EMERALD
+            amount: 1
+            damage: 0
+        result:
+            material: BONE
+            amount: 8
+            damage: 0
+    chainmail_head:
+        primary:
+            material: EMERALD
+            amount: 1
+            damage: 0
+        result:
+            material: CHAINMAIL_HELMET
+            amount: 1
+            damage: 0
+            enchantments:
+                PROTECTION_ENVIRONMENTAL: 1
+    chainmail_chest:
+        primary:
+            material: EMERALD
+            amount: 2
+            damage: 0
+        result:
+            material: CHAINMAIL_CHESTPLATE
+            amount: 1
+            damage: 0
+            enchantments:
+                PROTECTION_ENVIRONMENTAL: 1
+    chainmail_leg:
+        primary:
+            material: EMERALD
+            amount: 1
+            damage: 0
+        result:
+            material: CHAINMAIL_LEGGINGS
+            amount: 1
+            damage: 0
+            enchantments:
+                PROTECTION_ENVIRONMENTAL: 1
+    chainmail_boots:
+        primary:
+            material: EMERALD
+            amount: 1
+            damage: 0
+        result:
+            material: CHAINMAIL_BOOTS
+            amount: 1
+            damage: 0
+            enchantments:
+                PROTECTION_ENVIRONMENTAL: 1
+    tnt:
+        primary:
+            material: EMERALD
+            amount: 4
+            damage: 0
+        result:
+            material: TNT
+            amount: 1
+            damage: 0
+    flint_and_steel:
+        primary:
+            material: EMERALD
+            amount: 6
+            damage: 0
+        result:
+            material: FLINT_AND_STEEL
+            amount: 1
+            damage: 0
+
+###Resources
+resources:
+    quartz_emerald:
+        primary:
+            material: QUARTZ
+            amount: 1
+            damage: 0
+        result:
+            material: EMERALD
+            amount: 3
+            damage: 0
+    iron:
+        primary:
+            material: GOLD_INGOT
+            amount: 2
+            damage: 0
+        result:
+            material: IRON_INGOT
+            amount: 3
+            damage: 0
+    gold_iron:
+        primary:
+            material: IRON_INGOT
+            amount: 2
+            damage: 0
+        result:
+            material: GOLD_INGOT
+            amount: 1
+            damage: 0
+    coal:
+        primary:
+            material: GOLD_INGOT
+            amount: 1
+            damage: 0
+        result:
+            material: COAL
+            amount: 4
+            damage: 0
+    emerald_gold:
+        primary:
+            material: EMERALD
+            amount: 1
+            damage: 0
+        result:
+            material: GOLD_INGOT
+            amount: 2
+            damage: 0
+    diamond_emerald:
+        primary:
+            material: DIAMOND
+            amount: 4
+            damage: 0
+        result:
+            material: EMERALD
+            amount: 3
+            damage: 0
+    lapis:
+        primary:
+            material: INK_SACK
+            amount: 16
+            damage: 4
+        result:
+            material: EMERALD
             amount: 1
             damage: 0

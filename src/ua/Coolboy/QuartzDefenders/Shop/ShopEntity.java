@@ -10,8 +10,7 @@ import ua.Endertainment.QuartzDefenders.Game;
 public abstract class ShopEntity {
 
     private static Villager spawnShop(Location loc) {
-        Villager v;
-        v = loc.getWorld().spawn(loc, Villager.class);
+        Villager v = loc.getWorld().spawn(loc, Villager.class);
         v.setCustomName(Shop.name);
         v.setCustomNameVisible(true);
         v.setCanPickupItems(false);
