@@ -22,7 +22,7 @@ public class Countdown extends BukkitRunnable {
         	game.startGame();
         	for(GamePlayer p : game.getPlayers()) {
         		TitleUtil.sendTitle(p.getPlayer(), "&bGame started", "&7Good luck", 5);      
-        		new FireworkUtil(p.getPlayer().getLocation(), 2L);
+        		FireworkUtil.spawn(p.getPlayer().getLocation(), 2L);
         	}
         } else {
             if (time == 20 || time == 15 || time == 10|| time <= 5) {
