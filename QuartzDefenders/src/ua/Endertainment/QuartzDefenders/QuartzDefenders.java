@@ -71,6 +71,10 @@ public class QuartzDefenders extends JavaPlugin {
         top = new TopManager(this);
         
         /*
+         * ADD ONE MORE COMMENT
+         */
+        
+        /*
 		 * Prevent an exceptions when plugin is disabled
          */
         if (!isEnabled()) {
