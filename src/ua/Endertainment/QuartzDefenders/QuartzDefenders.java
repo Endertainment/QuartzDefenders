@@ -77,9 +77,6 @@ public class QuartzDefenders extends JavaPlugin {
             return;
         }
         /*
-         * dfgf
-         */
-        /*
 		 * Register Events&Commands
          */
         
