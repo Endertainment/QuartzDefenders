@@ -1,0 +1,18 @@
+name: QuartzDefenders
+version: 3.0
+main: ua.Endertainment.QuartzDefenders.QuartzDefenders
+commands:
+  quartzdefenders:
+    usage: /<command> help
+    aliases: [qd, quartz, qdef]
+  team:
+    usage: /<command> help
+  stats:
+    usage: /<command> help
+  gamebroadcast:
+    usage: /<command> <message>
+    aliases: [bc, gbc, gamebc, bcast]
+  game:
+    usage: /<command> help
+  kit:
+    usage: /<command> help
