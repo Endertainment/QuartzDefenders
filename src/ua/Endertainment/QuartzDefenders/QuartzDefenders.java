@@ -77,7 +77,7 @@ public class QuartzDefenders extends JavaPlugin {
             return;
         }
         /*
-		 * Register Events&Commands keklol
+		 * Register Events&Commands
 		*/
         registerEvents();
         registerCommands();
