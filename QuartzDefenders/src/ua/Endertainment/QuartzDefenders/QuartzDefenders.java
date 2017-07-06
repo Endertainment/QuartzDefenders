@@ -74,6 +74,8 @@ public class QuartzDefenders extends JavaPlugin {
          * ADD ONE MORE COMMENT
          */
         
+        //fsdfsdfsdfsdfsdfsdfsfsdfs
+        
         /*
 		 * Prevent an exceptions when plugin is disabled
          */
