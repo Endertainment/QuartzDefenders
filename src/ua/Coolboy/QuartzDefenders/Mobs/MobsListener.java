@@ -25,10 +25,11 @@ import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class MobsListener implements Listener {
     
-    QuartzDefenders plugin;
+    private QuartzDefenders plugin;
     
     public MobsListener(QuartzDefenders plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     
     @EventHandler(ignoreCancelled = true)
