@@ -56,6 +56,7 @@ public class GameQuartz {
 			for(GamePlayer p : team.getPlayers()) {
 				p.sendMessage(GameMsg.gameMessage("Game", "&cYour quartz is broken"));
 				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0), true);
+				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0), true);
 			}
 		}	
 		return true;
@@ -80,6 +81,13 @@ public class GameQuartz {
 	public void setQuartzHealth(int quartzHealth) {
 		if(this.quartzHealth == 0) return;
 		this.quartzHealth = quartzHealth;
+	}
+	
+	public void checkQuartz() {
+		Block b = game.getGameWorld().getBlockAt(getLocation());
+		if(b.getType() != Material.QUARTZ_ORE || b.getType() != Material.BEDROCK) {
+			replace();
+		}
 	}
 	
 	public void replace() {

@@ -17,6 +17,9 @@ public class GameTimer extends BukkitRunnable {
 		// TODO game quartz break
 		time++;
 		game.sendTabList();
+		for(GameQuartz q : game.getQuartzsLocations().values()) {
+			q.checkQuartz();
+		}
 		if(time >= 120) {
 			game.checkGameEnd();
 		}

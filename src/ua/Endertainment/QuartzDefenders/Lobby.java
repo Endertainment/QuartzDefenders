@@ -143,12 +143,14 @@ public class Lobby implements Listener {
 	}
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
+		if(e.getPlayer().getLocation().getWorld() != location.getWorld()) return;
 		if(!e.getPlayer().hasPermission("QuartzDefenders.lobby.blockBreak")) {
 			e.setCancelled(true);
 		}
 	}
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
+		if(e.getPlayer().getLocation().getWorld() != location.getWorld()) return;
 		if(!e.getPlayer().hasPermission("QuartzDefenders.lobby.blockPlace")) {
 			e.setCancelled(true);
 		}
