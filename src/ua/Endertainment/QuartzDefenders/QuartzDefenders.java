@@ -77,7 +77,7 @@ public class QuartzDefenders extends JavaPlugin {
             return;
         }
         /*
-		 * Register Events&Commands kek
+		 * Register Events&Commands keklol
          */
         
         registerEvents();
@@ -153,9 +153,6 @@ public class QuartzDefenders extends JavaPlugin {
         main = null;
     }
     
-    /*
-     * azazaza 
-     */
     public static void resetTabList(Player p) {
     	String header = "";
 		String footer = "";
