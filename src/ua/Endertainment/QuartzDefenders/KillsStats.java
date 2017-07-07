@@ -42,7 +42,7 @@ public class KillsStats {
 				pos++;
 			}			
 			ChatCenterText.sendCenteredMessage(p, " ");
-			p.sendMessage("&8---------------------------------------------------");
+			p.sendMessage("&8---------------------------------------------");
 		}
 	}
 	

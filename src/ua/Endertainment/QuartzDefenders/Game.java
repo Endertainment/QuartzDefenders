@@ -376,7 +376,6 @@ public class Game {
              getTeam(player.getPlayer()).quitTeam(player);
          }
 
-         this.broadcastMessage(GameMsg.gameMessage("Quit", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
          QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
 
          Player p = player.getPlayer();
