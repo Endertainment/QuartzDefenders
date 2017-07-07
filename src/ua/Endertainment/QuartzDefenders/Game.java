@@ -1,5 +1,6 @@
 package ua.Endertainment.QuartzDefenders;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -855,4 +857,25 @@ public class Game {
         this.lockGame = arg;
     }
 
+    /*
+     * SETUP GAME
+     */
+    public void addRegenerativeBlock(Block b) {
+    	FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
+    	
+    	if(!cfg.isConfigurationSection("Games." + id + ".regenerative_blocks." + b.getType().toString())) {
+    		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".regenerate_time", 200);
+    		ArrayList<String> l = new ArrayList<>();
+    		String s = b.getX() + "," + b.getY() + "," + b.getZ();
+    		l.add(s);
+    		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
+    	} else {
+    		ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list");
+    		String s = b.getX() + "," + b.getY() + "," + b.getZ();
+    		l.add(s);
+    		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
+    	}
+    	
+    	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+    }
 }
