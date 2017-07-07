@@ -425,6 +425,9 @@ public class Game {
         if (!isGameState(GameState.WAITING)) {
             return false;
         }
+        
+        Bukkit.broadcastMessage(gameAllPlayers.toString());
+        
         setGameState(GameState.STARTING);
         getSidebar().refresh();
         new Countdown(this).runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
@@ -437,6 +440,9 @@ public class Game {
         }
         GameTeam winner = null;
         int i = 0;
+        
+        Bukkit.broadcastMessage(gameAllPlayers.toString());
+        
         for (GameTeam team : teams.values()) {
             if (!team.isEmpty()) {
                 winner = team;
@@ -476,6 +482,9 @@ public class Game {
     }
 
     public void endGame() {
+    	
+    	Bukkit.broadcastMessage(gameAllPlayers.toString());
+    	
         setGameState(GameState.ENDING);
         getSidebar().refresh();
         try {
@@ -521,11 +530,14 @@ public class Game {
     }
 
     public void disableGame() {
+    	Bukkit.broadcastMessage(gameAllPlayers.toString());
+    	
         for (GamePlayer p : gameAllPlayers) {
             p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
             p.getPlayer().setGameMode(GameMode.ADVENTURE);
             
             quitGame(p);
+                      
 
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {
