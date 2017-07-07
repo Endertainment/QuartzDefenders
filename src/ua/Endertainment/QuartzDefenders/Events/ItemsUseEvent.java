@@ -37,7 +37,9 @@ public class ItemsUseEvent implements Listener{
 		
 		if(i == null || i.getType().equals(Material.AIR)) return;
 		
-		if(!i.hasItemMeta()) return;
+		if(!i.hasItemMeta()) return;			
+		
+		if(!i.getItemMeta().hasDisplayName()) return;
 		
 		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			

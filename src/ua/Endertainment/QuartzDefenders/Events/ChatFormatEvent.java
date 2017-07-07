@@ -39,6 +39,7 @@ public class ChatFormatEvent implements Listener{
 		/*
 		 * Color Message
 		 */
+	
 		if(e.getPlayer().hasPermission("QuartzDefenders.ColorChat")) e.setMessage(new ColorFormat(e.getMessage()).format());		
 		String message = e.getMessage();
 		/*

@@ -47,7 +47,7 @@ public class ExplodeEvent implements Listener {
 				Set<Location> locs = game.getRegenerativeBlocks().get(b.getType());
 				
 				for(Location loc : locs) {
-					if(b.getLocation().getBlockX() == loc.getBlockX() || b.getLocation().getBlockY() == loc.getBlockY() || b.getLocation().getBlockZ() == loc.getBlockZ()) {
+					if(b.getLocation().getBlockX() == loc.getBlockX() && b.getLocation().getBlockY() == loc.getBlockY() && b.getLocation().getBlockZ() == loc.getBlockZ()) {
 						e.setCancelled(true);
 					}
 				}
