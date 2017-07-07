@@ -45,7 +45,7 @@ public class StatsPlayer {
 		else this.kdr = ((float)this.kills) / ((float)this.deaths);
 		
 		this.wins = StatsManager.getInfo(id, "wins"); //
-		this.games = StatsManager.getInfo(id, "games"); // TODO
+		this.games = StatsManager.getInfo(id, "games"); // 
 		if(games == 0) this.winRate = 0;
 		else this.winRate = ((float)wins / (float)games) * 100;
 		

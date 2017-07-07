@@ -145,7 +145,7 @@ public class Game {
         QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&aMap load success"));
 
         this.map = mapManager.getWorld();
-        
+
         this.map.setAmbientSpawnLimit(0);
         this.map.setAnimalSpawnLimit(0);
         this.map.setMonsterSpawnLimit(0);
@@ -309,7 +309,6 @@ public class Game {
             player.setScoreboard(gameScoreboard);
             player.sendMessage(GameMsg.gameMessage("Game", "Game is running now. You can choose team and play or stay watching."));
             sendTabList();
-            // TODO
             return;
         }
 
@@ -459,7 +458,7 @@ public class Game {
                 StatsPlayer sp = new StatsPlayer(p.getPlayer());
                 sp.addWin();
             }
-            
+
             getKillsStats().sendKillsStats();
             
             Bukkit.broadcastMessage(GameMsg.gameMessage(gameName, winner.getName() + "&7 team win the game"));

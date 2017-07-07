@@ -37,11 +37,6 @@ public class PlayerJoinStats implements Listener{
 			f.set(uuid + ".quartz", 0);
 			f.set(uuid + ".placed_blocks", 0);
 			f.set(uuid + ".ores", 0);
-
-			/*
-			 * Another stats
-			 */
-			// TODO
 			
 			plugin.getConfigs().saveStatsInfo();
 		}

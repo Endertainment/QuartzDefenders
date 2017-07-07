@@ -34,8 +34,6 @@ public class Balance {
 		switch(type) {
 		case DEFAULT_BALANCE:
 			return this.DEFAULT_BALANCE();
-		case FULL_TEAM_BALANCE:
-			return this.FULL_TEAM_BALANCE();
 		case NO_BALANCE:
 			return this.NO_BALANCE();
 		case TEAM_KD_BALANCE:
@@ -69,11 +67,6 @@ public class Balance {
 				return false;
 			}
 		}
-		return true;
-	}
-	
-	private boolean FULL_TEAM_BALANCE() {
-		// TODO
 		return true;
 	}
 }

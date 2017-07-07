@@ -57,6 +57,7 @@ public class GameQuartz {
 				p.sendMessage(GameMsg.gameMessage("Game", "&cYour quartz is broken"));
 				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0), true);
 				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0), true);
+				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0), true);
 			}
 		}	
 		return true;
