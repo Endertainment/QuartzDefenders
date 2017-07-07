@@ -12,6 +12,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -78,7 +79,7 @@ public class TurretListener implements Listener {
                     this.cancel();
                 }
                 List<Entity> list = turret.getNearbyEntities(7, 5, 7);
-                if (Mobs.countMobs(list, Player.class) > 0) {
+                if (Mobs.countMobs(list, EntityType.PLAYER) > 0) {
                     for (Entity mob : list) {
                         if (mob instanceof Player) {
                             Player playery = (Player) mob;
@@ -95,11 +96,10 @@ public class TurretListener implements Listener {
                             }
                         }
                     }
-                } else if (Mobs.countMobs(list, LivingEntity.class) > 0) {
+                } else if (Mobs.countMobs(list,EntityType.SKELETON) > 0) {
                     for (Entity mob : list) {
                         Vector vector = mob.getLocation().toVector().subtract(turret.getLocation().toVector());
                         stand.shoot(vector);
-
                         stand.lookAtTarget(mob);
                         break;
                     }

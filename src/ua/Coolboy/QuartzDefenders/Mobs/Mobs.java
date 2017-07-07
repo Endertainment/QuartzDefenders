@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.WitherSkeleton;
@@ -19,7 +20,7 @@ import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 public abstract class Mobs {
 
     public static void middDef(WitherSkeleton skeleton) {
-        skeleton.setCustomName(ChatColor.DARK_PURPLE + "??? ????????");
+        skeleton.setCustomName(ChatColor.DARK_PURPLE + "Diamond defender");
         skeleton.setCustomNameVisible(true);
         skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(70);
         skeleton.setHealth(70);
@@ -30,8 +31,8 @@ public abstract class Mobs {
 
     public static void soulDef(Skeleton s) {
         ItemStack coin = new ItemStack(Material.DOUBLE_PLANT, 4);
-        ItemUtil.setMeta(coin, "?????? ????????", Arrays.asList("???????? ?????? ?????????"));
-        s.setCustomName(ChatColor.AQUA + "??? ????????");
+        ItemUtil.setMeta(coin, "Alchemistry coin", Arrays.asList("Special alchemistry currency"));
+        s.setCustomName(ChatColor.AQUA + "Alchemist soul");
         s.setCustomNameVisible(true);
         s.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(55);
         s.setHealth(55);
@@ -63,11 +64,11 @@ public abstract class Mobs {
         return i;
     }
     
-    public static Integer countMobs(Collection<Entity> col, Class clazz) {
+    public static Integer countMobs(Collection<Entity> col, EntityType type) {
         int count = 0;
         for(Entity e : col) {
-            if(e.getClass().isInstance(clazz)) {
-                if(clazz.equals(Player.class) 
+            if(e.getType().equals(type)) {
+                if(e.getType().equals(EntityType.PLAYER) 
                         && ((Player) e).getGameMode().equals(GameMode.SPECTATOR)) {
                     continue;
                 }

@@ -50,13 +50,11 @@ public class MobsListener implements Listener {
 
     @EventHandler
     public void alchemistrySoul(GameStartEvent event) {
-            Bukkit.broadcastMessage("I'm started!");
             Game game = event.getGame();
             Map<Integer, Location> locat = event.getGame().getAlchemicsLocations();
             new BukkitRunnable() {
                 @Override
                 public void run() {
-
                     if (game.getGameState().equals(GameState.ENDING)) this.cancel();
 
                     for (Map.Entry<Integer, Location> entry : locat.entrySet()) {
@@ -64,19 +62,21 @@ public class MobsListener implements Listener {
                         Location loc = entry.getValue();
                         Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
                       
-                        if (Mobs.countMobs(nearbyEntities, Skeleton.class) > 12) return;
+                        if (Mobs.countMobs(nearbyEntities, EntityType.SKELETON) > 12) return;
                       
-                        if (Mobs.countMobs(nearbyEntities, Player.class) != 0) {
+                        if (Mobs.countMobs(nearbyEntities, EntityType.PLAYER) != 0) {
                             int randomX = Mobs.randomInRadius(rad);
                             int randomZ = Mobs.randomInRadius(rad);
                             Location spawnLoc = new Location(loc.getWorld(), randomX, loc.getBlockY(), randomZ);
 
                             Location testLoc =spawnLoc.clone();
+                            
                             while (!Mobs.canSpawn(testLoc)) {
                                 testLoc = spawnLoc.clone();
                                 testLoc.add(Mobs.randomInRadius(rad),0,Mobs.randomInRadius(rad));
                             }
                             if (loc.getWorld().getHighestBlockAt(randomX, randomZ) != null) {
+                                Bukkit.broadcastMessage(testLoc.toString());
                                 testLoc.setY(testLoc.getWorld().getHighestBlockAt(randomX, randomZ).getLocation().getBlockY());
                                 Skeleton soul = (Skeleton) testLoc.getWorld().spawnEntity(testLoc, EntityType.SKELETON);
                                 Mobs.soulDef(soul);
