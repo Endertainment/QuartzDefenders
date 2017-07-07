@@ -595,19 +595,11 @@ public class Game {
         }
         
         gameAllPlayers.clear();
-        
-        BukkitRunnable runnable = new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                mapManager.deleteMap();
-                QuartzDefenders.getInstance().deleteGame(game);
-                Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aGame " + gameName + "&a with id " + id + "&a successfully disabled"));
-                QuartzDefenders.getInstance().addGame(id);
-            }
-        };
-
-        runnable.runTaskLater(QuartzDefenders.getInstance(), 20);
+          
+        mapManager.deleteMap();
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
+        Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aGame " + gameName + "&a with id " + id + "&a successfully disabled"));
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game add " + id);
 
         this.game = null;
     }
