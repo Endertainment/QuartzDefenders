@@ -15,6 +15,7 @@ public class CommandKitManager {
 	private CommandKitManager() {
 		subCommandsKit.put("help", new Help());
 		subCommandsKit.put("give", new Give());
+		subCommandsKit.put("remove", new Remove());
 	}
 	
 	private HashMap<String, SubCommand> subCommandsKit = new HashMap<>();

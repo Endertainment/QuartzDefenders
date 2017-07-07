@@ -473,9 +473,7 @@ public class Game {
         if (!isGameState(GameState.WAITING)) {
             return false;
         }
-        
-        Bukkit.broadcastMessage(gameAllPlayers.toString());
-        
+               
         setGameState(GameState.STARTING);
         getSidebar().refresh();
         new Countdown(this).runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
@@ -488,8 +486,6 @@ public class Game {
         }
         GameTeam winner = null;
         int i = 0;
-        
-        Bukkit.broadcastMessage(gameAllPlayers.toString());
         
         for (GameTeam team : teams.values()) {
             if (!team.isEmpty()) {
@@ -528,12 +524,25 @@ public class Game {
             };
             runnable.runTaskLater(QuartzDefenders.getInstance(), 15 * 20);
         }
+        if(i == 0) {
+        	setGameState(GameState.ENDING);
+            getSidebar().refresh();
+            getGameTimer().stop();
+            getKillsStats().sendKillsStats();
+            
+            BukkitRunnable runnable = new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    endGame();
+                    QuartzDefenders.sendInfo(GameMsg.gameMessage(gameName, "The game is now restarting"));
+                }
+            };
+            runnable.runTaskLater(QuartzDefenders.getInstance(), 15 * 20);
+        }
     }
 
-    public void endGame() {
-    	
-    	Bukkit.broadcastMessage(gameAllPlayers.toString());
-    	
+    public void endGame() {    	
         setGameState(GameState.ENDING);
         getSidebar().refresh();
         try {
@@ -578,9 +587,7 @@ public class Game {
         }
     }
 
-    public void disableGame() {
-    	Bukkit.broadcastMessage(gameAllPlayers.toString());
-    	
+    public void disableGame() {    	
         for (GamePlayer p : gameAllPlayers) {
             p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
             p.getPlayer().setGameMode(GameMode.ADVENTURE);
