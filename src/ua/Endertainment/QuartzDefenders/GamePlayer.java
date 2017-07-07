@@ -1,8 +1,5 @@
 package ua.Endertainment.QuartzDefenders;
 
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,15 +8,19 @@ import org.bukkit.scoreboard.Scoreboard;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 
 public class GamePlayer {
-
-	private UUID playerId;
+	
+	private Player player;
 	
 	public GamePlayer(Player player) {
-		this.playerId = player.getUniqueId();
+		this.player = player;
 	}
 
 	public Player getPlayer() {
-		return Bukkit.getPlayer(playerId);
+		return player;
+	}
+	
+	public void updatePlayer(Player p) {
+		this.player = p;
 	}
 	
 	public String getDisplayName() {
@@ -31,8 +32,8 @@ public class GamePlayer {
 	}
 	
 	public void setDisplayName(ChatColor color) {
-		Bukkit.getPlayer(playerId).setDisplayName(color + getPlayer().getName() + ChatColor.RESET);
-		Bukkit.getPlayer(playerId).setPlayerListName(color + getPlayer().getName() + ChatColor.RESET);
+		getPlayer().setDisplayName(color + getPlayer().getName() + ChatColor.RESET);
+		getPlayer().setPlayerListName(color + getPlayer().getName() + ChatColor.RESET);
 	}
 	public void resetDisplayName() {
 		getPlayer().setDisplayName(ChatColor.GRAY + getPlayer().getName() + ChatColor.RESET);

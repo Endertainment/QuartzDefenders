@@ -173,8 +173,13 @@ public class QuartzDefenders extends JavaPlugin {
         return gamePlayers.get(p.getUniqueId());
     }
 
+    private GamePlayer getGamePlayer(UUID id) {
+    	return gamePlayers.get(id);
+    }
+    
     public void addGamePlayer(Player p) {
         if (gamePlayers.containsKey(p.getUniqueId())) {
+        	getGamePlayer(p.getUniqueId()).updatePlayer(p);
             return;
         }
         gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
