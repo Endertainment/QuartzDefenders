@@ -536,8 +536,7 @@ public class Game {
             p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
             p.getPlayer().setGameMode(GameMode.ADVENTURE);
             
-            quitGame(p);
-                      
+            quitGame(p);                      
 
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {
