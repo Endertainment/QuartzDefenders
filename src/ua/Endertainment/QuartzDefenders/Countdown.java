@@ -28,7 +28,7 @@ public class Countdown extends BukkitRunnable {
             if (time == 20 || time == 15 || time == 10|| time <= 5) {
             	for(GamePlayer p : game.getPlayers()) {
             		p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
-            		TitleUtil.sendTitle(p.getPlayer(), game.getColorWorldName(), "&7Game will begin after &b" + time + "&7 seconds", 3);
+            		TitleUtil.sendTitle(p.getPlayer(), game.getColorWorldName(), "&7Game will begin in &b" + time + "&7 seconds", 3);
             	}
             }
         }

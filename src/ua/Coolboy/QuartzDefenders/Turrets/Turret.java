@@ -80,6 +80,7 @@ public class Turret {
             case "glow":
                 SpectralArrow spec = getStand().launchProjectile(SpectralArrow.class);
                 spec.setVelocity(vector);
+                spec.setTicksLived(600);
                 NMSUtil.setDamage(spec, 2);
                 spec.setCritical(false);
                 break;
@@ -101,6 +102,7 @@ public class Turret {
         arrow.setVelocity(vector.multiply(0.4));
         arrow.setCritical(false);
         NMSUtil.setDamage(arrow, 2);
+        arrow.setTicksLived(600);
         return arrow;
     }
 
@@ -109,6 +111,7 @@ public class Turret {
         arrow.setVelocity(vector.multiply(0.4));
         arrow.setCritical(false);
         NMSUtil.setDamage(arrow, 2);
+        arrow.setTicksLived(600);
         arrow.addCustomEffect(effect, true);
         return arrow;
     }
