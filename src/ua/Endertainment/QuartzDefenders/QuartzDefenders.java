@@ -34,6 +34,7 @@ import ua.Endertainment.QuartzDefenders.Events.QuartzBreakEvent;
 import ua.Endertainment.QuartzDefenders.Events.QuitEvent;
 import ua.Endertainment.QuartzDefenders.Events.WorldChangeEvent;
 import ua.Endertainment.QuartzDefenders.Events.Game.GameRegisterEvent;
+import ua.Endertainment.QuartzDefenders.Events.LightningEvent;
 import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Stats.PlayerJoinStats;
 import ua.Endertainment.QuartzDefenders.Stats.TopManager;
@@ -210,6 +211,7 @@ public class QuartzDefenders extends JavaPlugin {
         new DamageEvent(this);
         new DeathMessages(this);
         new ExplodeEvent(this);
+        new LightningEvent(this);
     }
     
     /*

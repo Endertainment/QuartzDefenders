@@ -2,6 +2,7 @@ package ua.Coolboy.QuartzDefenders.Turrets;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -20,33 +21,35 @@ import org.bukkit.util.Vector;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.Utils.NMSUtil;
 
 public class Turret {
 
-    private QuartzDefenders plugin;
-    private static List<Entity> stands = new ArrayList<>();
+    private final QuartzDefenders plugin;
+    private static final List<Entity> stands = new ArrayList<>();
     private final Game game;
     private final Player owner;
-    //private final GameTeam team;
+    private final GameTeam team;
     private final ArmorStand stand;
 
-    public Turret(Player owner, Location loc, QuartzDefenders plugin) {
+    public Turret(Player owner, @Nonnull GameTeam team, Location loc, QuartzDefenders plugin) {
         this.plugin = plugin;
         this.owner = owner;
         this.game = plugin.getGame(owner);
-
-        //this.team = game.getTeam(/*owner*/"RED");
+        this.team = team;
         ArmorStand turret = (ArmorStand) loc.getWorld().spawnEntity(loc.add(0.5, 1, 0.5), EntityType.ARMOR_STAND);
         turret.getEquipment().setHelmet(new ItemStack(Material.DISPENSER, 1));
         turret.setSmall(true);
         turret.setInvulnerable(true);
-        turret.setCustomName("Турель");
+        turret.setCustomName("Turret");
         turret.setGravity(false);
         turret.setCustomNameVisible(true);
         turret.setMetadata("turret", new FixedMetadataValue(plugin, true));
         turret.setMetadata("lived", new FixedMetadataValue(plugin, 0));
         turret.setMetadata("type", new FixedMetadataValue(plugin, "normal"));
-        //team.addTurret(turret);
+        if (team != null) {
+            team.addEntity(turret);
+        }
         stands.add(turret);
         this.stand = turret;
     }
@@ -77,7 +80,7 @@ public class Turret {
             case "glow":
                 SpectralArrow spec = getStand().launchProjectile(SpectralArrow.class);
                 spec.setVelocity(vector);
-                spec.spigot().setDamage(2);
+                NMSUtil.setDamage(spec, 2);
                 spec.setCritical(false);
                 break;
             default:
@@ -97,7 +100,7 @@ public class Turret {
         Arrow arrow = stand.launchProjectile(Arrow.class);
         arrow.setVelocity(vector.multiply(0.4));
         arrow.setCritical(false);
-        arrow.spigot().setDamage(2);
+        NMSUtil.setDamage(arrow, 2);
         return arrow;
     }
 
@@ -105,7 +108,7 @@ public class Turret {
         TippedArrow arrow = stand.launchProjectile(TippedArrow.class);
         arrow.setVelocity(vector.multiply(0.4));
         arrow.setCritical(false);
-        arrow.spigot().setDamage(2);
+        NMSUtil.setDamage(arrow, 2);
         arrow.addCustomEffect(effect, true);
         return arrow;
     }
@@ -114,7 +117,7 @@ public class Turret {
         return game;
     }
 
-    /*public GameTeam getTeam() {
+    public GameTeam getTeam() {
         return team;
-    }*/
+    }
 }

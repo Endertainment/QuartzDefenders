@@ -6,11 +6,10 @@ import org.bukkit.entity.Villager.Profession;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import ua.Endertainment.QuartzDefenders.Game;
-import ua.Endertainment.QuartzDefenders.Utils.MobUtil;
 
 public abstract class ShopEntity {
 
-    private static Villager spawnShop(Location loc) {
+    public static Villager spawnShop(Location loc) {
         Villager v = loc.getWorld().spawn(loc, Villager.class);
         v.setCustomName(Shop.name);
         v.setCustomNameVisible(true);
@@ -20,7 +19,6 @@ public abstract class ShopEntity {
         v.setSilent(true);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
         v.setCollidable(false);
-        MobUtil.setNoCollide(v);
         return v;
     }
 

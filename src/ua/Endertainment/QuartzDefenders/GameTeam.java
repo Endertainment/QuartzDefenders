@@ -6,6 +6,7 @@ import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -106,6 +107,15 @@ public class GameTeam {
 		}		
 		return false;
 	}
+        
+        public boolean addEntity(Entity entity) {
+            if(team.getEntries().contains(entity.getUniqueId().toString())) {
+                return false;
+            } else {
+                team.addEntry(entity.getUniqueId().toString());
+                return true;
+            }
+        }
 	
 	@SuppressWarnings("deprecation")
 	public boolean removePlayer(GamePlayer player) {
@@ -169,7 +179,7 @@ public class GameTeam {
 	}
 	
 	public boolean isEmpty() {
-		return players.size() == 0;
+		return players.isEmpty();
 	}
 	
 	public boolean canJoin() {
