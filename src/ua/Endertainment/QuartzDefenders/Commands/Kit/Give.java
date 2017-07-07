@@ -49,7 +49,7 @@ public class Give extends SubCommand {
 		}
 		
 		KitsManager.getInstance().giveKit(kit, p);
-		sender.sendMessage(GameMsg.gameMessage("Kits", "You give kit " + kit.getName() + "&7 to player " + p.getDisplayName()));
+		sender.sendMessage(GameMsg.gameMessage("Kits", "You give kit " + kit.getDisplayName() + "&7 to player " + p.getDisplayName()));
 		return;
 	}
 

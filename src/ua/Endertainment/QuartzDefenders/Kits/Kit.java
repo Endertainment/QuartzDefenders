@@ -13,14 +13,16 @@ import ua.Endertainment.QuartzDefenders.GamePlayer;
 public abstract class Kit {
 
 	private String name;
+	private String displayName;
 	private int price;
 	private int level;
 	private ArrayList<ItemStack> items;
 	
 	private final ArrayList<String> description;
 	
-	public Kit(String name, int price, int level, String... description) {
+	public Kit(String name, String displayName, int price, int level, String... description) {
 		this.name = name;
+		this.displayName = displayName;
 		this.price = price;
 		this.level = level;
 		this.items = new ArrayList<ItemStack>();
@@ -28,6 +30,10 @@ public abstract class Kit {
 		for(String s : description) {
 			this.description.add(s);
 		}
+	}
+	
+	public final String getDisplayName() {
+		return displayName;
 	}
 	
 	public final String getName() {

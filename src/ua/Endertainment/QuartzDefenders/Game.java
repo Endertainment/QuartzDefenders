@@ -567,7 +567,7 @@ public class Game {
         String footer = "";
         String n = "\n";
 
-        String game = getGameName();
+        String map = getColorWorldName();
         String time = "00:00:00";
 
         if (getGameTimer() != null) {
@@ -580,7 +580,7 @@ public class Game {
                 + "&3Time&f: " + time + n
                 + " ";
         footer = " " + n
-                + game + n
+                + map + n
                 + " ";
         for (GamePlayer p : gameAllPlayers) {
             if (!p.getPlayer().isOnline()) {
@@ -878,5 +878,8 @@ public class Game {
     	p.sendMessage(GameMsg.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString() 
     			+ "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ()));
     	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+    }
+    public void setQuartz(Block b, String team, Player p) {
+    	
     }
 }

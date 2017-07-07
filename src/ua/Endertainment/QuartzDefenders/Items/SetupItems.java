@@ -17,4 +17,13 @@ public class SetupItems {
 		return ItemUtil.newItem("&aSetupOres &7(Right click)", lore, Material.BLAZE_ROD, 1);
 	}
 	
+	public static ItemStack itemSetupQuartz() {
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add(" ");
+		lore.add("&7Right click to block");
+		lore.add("that you need to regenerate");
+		lore.add(" ");
+		return ItemUtil.newItem("&aSetupOres &7(Right click)", lore, Material.BLAZE_ROD, 1);
+	}
+	
 }

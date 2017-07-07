@@ -49,7 +49,7 @@ public class Remove extends SubCommand {
 		}
 		
 		KitsManager.getInstance().removeKit(kit, p);
-		sender.sendMessage(GameMsg.gameMessage("Kits", "You remove kit " + kit.getName() + "&7 from player " + p.getDisplayName()));
+		sender.sendMessage(GameMsg.gameMessage("Kits", "You remove kit " + kit.getDisplayName() + "&7 from player " + p.getDisplayName()));
 		return;
 	}
 

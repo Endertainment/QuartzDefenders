@@ -39,7 +39,7 @@ public class KitsGUI {
 			for(String s : kit.getDescription()) l.add(s);
 			l.add(" ");
 			l.add(KitsManager.getInstance().accessChoose(kit, player));
-			ItemStack i = ItemUtil.newItem(kit.getName(), l, kit.getItems().get(0).clone());
+			ItemStack i = ItemUtil.newItem(kit.getDisplayName(), l, kit.getItems().get(0).clone());
 			items.add(i);
 		}
 				

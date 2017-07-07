@@ -5,7 +5,7 @@ import org.bukkit.Material;
 public class DefaultKit extends Kit{
 
 	public DefaultKit() {
-		super("Default", 100, 3, 
+		super("Default", "&fDefault", 100, 3, 
 				"&7Leather armor", "&7Wooden sword", "&7Baked potato x4");		
 		
 		addItem(Material.WOOD_SWORD, 1);
