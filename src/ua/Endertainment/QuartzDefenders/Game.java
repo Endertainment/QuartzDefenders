@@ -249,6 +249,7 @@ public class Game {
 
         // EVENT
         PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);
+        player.getPlayer().setCollidable(false);
         Bukkit.getPluginManager().callEvent(e);
         if (e.isCancelled()) {
             return;
