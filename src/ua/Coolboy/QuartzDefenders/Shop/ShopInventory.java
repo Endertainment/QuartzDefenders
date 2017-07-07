@@ -11,8 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Merchant;
-import ua.Endertainment.QuartzDefenders.Events.Game.GameStateChangeEvent;
-import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 

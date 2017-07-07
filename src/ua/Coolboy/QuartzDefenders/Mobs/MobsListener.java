@@ -18,7 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import ua.Endertainment.QuartzDefenders.Events.Game.GameStartEvent;
-import ua.Endertainment.QuartzDefenders.Events.Game.GameStateChangeEvent;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
