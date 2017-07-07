@@ -136,7 +136,7 @@ public class InvClickEvent implements Listener {
 						
 					if(new Balance(game, game.getBalanceType(), plugin.getGamePlayer(p), game.getTeams().values(), team).isTeamsBalanced()) {
 						
-						team.joinTeam(plugin.getGamePlayer(p));
+						team.joinTeam(plugin.getGamePlayer(p), false);
 								
 					}
 		

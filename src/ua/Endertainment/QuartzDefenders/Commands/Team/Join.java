@@ -60,7 +60,7 @@ public class Join extends SubCommand {
 				}
 				GamePlayer gpp = QuartzDefenders.getInstance().getGamePlayer(pp);
 				
-				team.joinTeam(gpp);
+				team.joinTeam(gpp, true);
 			} else {
 				sender.sendMessage(GameMsg.gameMessage("Chat", "Player " + args[1] + " is not online"));
 			}
@@ -71,7 +71,7 @@ public class Join extends SubCommand {
 			return;
 		}
 		if(new Balance(game, game.getBalanceType(), gp, game.getTeams().values(), team).isTeamsBalanced()) {
-			team.joinTeam(gp);
+			team.joinTeam(gp, false);
 		}
 	}
 

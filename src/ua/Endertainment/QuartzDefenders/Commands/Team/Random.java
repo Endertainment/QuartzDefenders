@@ -40,7 +40,7 @@ public class Random extends SubCommand {
 		for(GamePlayer gp : game.getPlayers()) {
 			int i = rand.nextInt(game.getTeamsCount()) + 1;
 			
-			getTeamByInt(game, i).joinTeam(gp);
+			getTeamByInt(game, i).joinTeam(gp, true);
 			
 		}
 		

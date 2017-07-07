@@ -50,15 +50,15 @@ public class GameTeam {
 		return playersInTeam;
 	}
 	
-	public void joinTeam(GamePlayer player) {
+	public void joinTeam(GamePlayer player, boolean access) {
 		game.getSidebar().refresh();
-		if(!isJoinAllow()) {
+		if(!isJoinAllow() && !access) {
 			if(!player.getPlayer().hasPermission("QuartzDefenders.team.vipJoin")) {
 				player.sendMessage(GameMsg.gameMessage("Game", "This team is locked now. Only &bVIP&7s can join"));
 				return;
 			}
 		}
-		if(!canJoin()) {
+		if(!canJoin() && access) {
 			player.sendMessage(GameMsg.gameMessage("Game", "You can not join to this team"));
 			return;
 		}
