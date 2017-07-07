@@ -69,19 +69,18 @@ public class MobsListener implements Listener {
                     }
 
                     if (Mobs.countMobs(nearbyEntities, EntityType.PLAYER) != 0) {
-                        int randomX = Mobs.randomInRadius(rad);
+                        /*int randomX = Mobs.randomInRadius(rad);
                         int randomZ = Mobs.randomInRadius(rad);
-                        Location spawnLoc = loc.add(randomX, 0, randomZ);
+                        Location spawnLoc = loc.add(randomX, 0, randomZ);*/
 
-                        Location testLoc = spawnLoc.clone();
+                        Location testLoc = loc.clone().add(Mobs.randomInRadius(rad), 0, Mobs.randomInRadius(rad));
 
                         while (!Mobs.canSpawn(testLoc)) {
-                            testLoc = spawnLoc.clone();
+                            testLoc = loc.clone();
                             testLoc.add(Mobs.randomInRadius(rad), 0, Mobs.randomInRadius(rad));
                         }
-                        if (loc.getWorld().getHighestBlockAt(randomX, randomZ) != null) {
-                            Bukkit.broadcastMessage(testLoc.toString());
-                            testLoc.setY(testLoc.getWorld().getHighestBlockAt(randomX, randomZ).getLocation().getBlockY());
+                        if (loc.getWorld().getHighestBlockAt(testLoc) != null) {
+                            testLoc.setY(testLoc.getWorld().getHighestBlockAt(testLoc).getLocation().getBlockY() + 1);
                             Skeleton soul = (Skeleton) testLoc.getWorld().spawnEntity(testLoc, EntityType.SKELETON);
                             Mobs.soulDef(soul);
                         }
