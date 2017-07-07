@@ -65,7 +65,7 @@ public class InvClickEvent implements Listener {
 			e.setCancelled(true);
 			
 			for(Game game : plugin.getGames()) {
-				if(curr.getItemMeta().getDisplayName().equals(game.getGameName())) {			
+				if(curr.getItemMeta().getDisplayName().equals(game.getColorWorldName())) {			
 					if(!game.containsPlayer(plugin.getGamePlayer(p))) {
 						game.joinGame(plugin.getGamePlayer(p));
 					} else {
