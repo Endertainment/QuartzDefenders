@@ -26,7 +26,7 @@ public class CommandGameManager {
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsGame.keySet()) {
-			if(name.equalsIgnoreCase(s)) return subCommandsGame.get(name);
+			if(s.equalsIgnoreCase(name)) return subCommandsGame.get(name);
 		}
 		return subCommandsGame.get(name);
 	}

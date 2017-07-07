@@ -39,7 +39,7 @@ public class LobbyShopGUI {
 			for(String s : kit.getDescription()) l.add(s);
 			l.add(" ");
 			l.add(KitsManager.getInstance().accessBuy(kit, player));
-			ItemStack i = ItemUtil.newItem(kit.getName(), l, kit.getItems().get(0));
+			ItemStack i = ItemUtil.newItem(kit.getName(), l, kit.getItems().get(0).clone());
 			items.add(i);
 		}
 				

@@ -24,7 +24,7 @@ public class CommandStatsManager {
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsStats.keySet()) {
-			if(name.equalsIgnoreCase(s)) return subCommandsStats.get(name);
+			if(s.equalsIgnoreCase(name)) return subCommandsStats.get(name);
 		}
 
 		return subCommandsStats.get(name);

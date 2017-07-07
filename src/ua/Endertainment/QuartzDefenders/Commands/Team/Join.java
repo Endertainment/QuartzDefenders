@@ -54,7 +54,12 @@ public class Join extends SubCommand {
 			
 			Player pp = Bukkit.getPlayer(args[1]);
 			if(pp != null && pp.isOnline()) {
+				if(QuartzDefenders.getInstance().getGame(pp) == null) {
+					sender.sendMessage(GameMsg.gameMessage("Chat", "Player " + pp.getDisplayName() + "&7 is not in game"));
+					return;
+				}
 				GamePlayer gpp = QuartzDefenders.getInstance().getGamePlayer(pp);
+				
 				team.joinTeam(gpp);
 			} else {
 				sender.sendMessage(GameMsg.gameMessage("Chat", "Player " + args[1] + " is not online"));

@@ -21,7 +21,7 @@ public class CommandKitManager {
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsKit.keySet()) {
-			if(name.equalsIgnoreCase(s)) return subCommandsKit.get(name);
+			if(s.equalsIgnoreCase(name)) return subCommandsKit.get(name);
 		}
 
 		return subCommandsKit.get(name);

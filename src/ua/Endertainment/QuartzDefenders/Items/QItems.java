@@ -60,8 +60,8 @@ public class QItems {
 		lore.add(" ");
 		lore.add("&7Hide/Show players");
 		lore.add(" ");
-		Dye d = new Dye(active ? DyeColor.LIME : DyeColor.GRAY);		
-		return ItemUtil.newItem((active ? "&aShow" : "&7Hide") + " players &7(Right click)", lore, d.toItemStack(1));
+		Dye d = new Dye(active ? DyeColor.GRAY : DyeColor.LIME);		
+		return ItemUtil.newItem((active ? "&7Show" : "&aHide") + " players &7(Right click)", lore, d.toItemStack(1));
 	}
 	
 	public static ItemStack itemLobbyShop() {
