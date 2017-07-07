@@ -1,12 +1,12 @@
 package ua.Coolboy.QuartzDefenders.Shop;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Utils.MobUtil;
 
 public abstract class ShopEntity {
 
@@ -20,6 +20,7 @@ public abstract class ShopEntity {
         v.setSilent(true);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
         v.setCollidable(false);
+        MobUtil.setNoCollide(v);
         return v;
     }
 
