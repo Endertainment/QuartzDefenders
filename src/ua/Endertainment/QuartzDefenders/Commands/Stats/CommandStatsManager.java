@@ -18,13 +18,14 @@ public class CommandStatsManager {
 		subCommandsStats.put("removecoins", new RemoveCoins());
 		subCommandsStats.put("addpoints", new AddPoints());
 		subCommandsStats.put("removepoints", new RemovePoints());
+		subCommandsStats.put("reset", new Reset());
 	}
 	
 	private HashMap<String, SubCommand> subCommandsStats = new HashMap<>();
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsStats.keySet()) {
-			if(s.equalsIgnoreCase(name)) return subCommandsStats.get(name);
+			if(s.equalsIgnoreCase(name)) return subCommandsStats.get(s);
 		}
 
 		return subCommandsStats.get(name);

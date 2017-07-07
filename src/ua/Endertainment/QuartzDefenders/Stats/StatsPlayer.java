@@ -68,6 +68,18 @@ public class StatsPlayer {
 	public Player getPlayer() {
 		return player;
 	}
+
+	public void reset() {
+		setPoints(0);
+		setCoins(0);
+		setKills(0);
+		setDeaths(0);
+		setWins(0);
+		setPlayedGames(0);
+		setBrokenOre(0);
+		setBrokenQuartz(0);
+		setPlacedBlocks(0);
+	}
 	
 	/*
 	 * POINTS 
@@ -212,7 +224,11 @@ public class StatsPlayer {
 		this.brokenQuartz += 1;
 		StatsManager.saveInfo(id, "quartz", this.brokenQuartz);
 	}
-
+	public void setBrokenQuartz(int quartz) {
+		this.brokenQuartz = quartz;
+		StatsManager.saveInfo(id, "quartz", this.brokenQuartz);
+	}
+	
 	/*
 	 * BROKEN ORES
 	 */
@@ -223,7 +239,10 @@ public class StatsPlayer {
 		this.brokenOres += 1;
 		StatsManager.saveInfo(id, "ores", this.brokenOres);
 	}
-
+	public void setBrokenOre(int ores) {
+		this.brokenOres = ores;
+		StatsManager.saveInfo(id, "ores", this.brokenOres);
+	}
 	/*
 	 * PLACED BLOCKS
 	 */
@@ -232,8 +251,12 @@ public class StatsPlayer {
 	}
 	public void addPlacedBlock() {
 		this.placedBlocks += 1;
+		StatsManager.saveInfo(id, "placed_blocks", this.placedBlocks);
 	}
-
+	public void setPlacedBlocks(int blocks) {
+		this.placedBlocks = blocks;
+		StatsManager.saveInfo(id, "placed_blocks", this.placedBlocks);
+	}
 
 	public class Level {
 		

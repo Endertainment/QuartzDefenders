@@ -46,13 +46,13 @@ public class GamesGUI {
 		for(Game game : plugin.getGames()) {
 			ArrayList<String> lore = new ArrayList<>();
 			lore.add(" ");
-			lore.add("&7Map: &d" + game.getColorWorldName());
+			lore.add("&7Game: &d" + game.getGameName());
 			lore.add("&7Mode: &d" + game.getTeamsCount() + "&7 by &d" + game.getPlayersInTeam());
 			lore.add(" ");
 			lore.add("&7State: &d" + game.getGameState().toString());
 			lore.add("&7Players: &d" + game.getPlayers().size());
 			lore.add(" ");
-			ItemStack s = ItemUtil.newItem(game.getGameName(), lore, Material.QUARTZ_ORE, 1);
+			ItemStack s = ItemUtil.newItem(game.getColorWorldName(), lore, Material.QUARTZ_ORE, 1);
 			if(x == 24) x = 29;
 			gamesIS.put(s, x);
 			x++;

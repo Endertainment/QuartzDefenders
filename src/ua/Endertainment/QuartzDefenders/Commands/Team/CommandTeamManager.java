@@ -24,7 +24,7 @@ public class CommandTeamManager {
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsTeam.keySet()) {
-			if(s.equalsIgnoreCase(name)) return subCommandsTeam.get(name);
+			if(s.equalsIgnoreCase(name)) return subCommandsTeam.get(s);
 		}
 
 		return subCommandsTeam.get(name);
