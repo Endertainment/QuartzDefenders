@@ -47,7 +47,7 @@ public abstract class NMSUtil {
             Object tag = constructor.newInstance();
             Method setDouble = tag.getClass().getDeclaredMethod("setDouble", String.class, Double.TYPE);
             setDouble.invoke(tag, "damage", 4);
-            getNMSClass("EntityArrow").getMethod("b", tag.getClass()).invoke(getNMSClass("EntityArrow"), tag);
+            getNMSClass("EntityArrow").getMethod("b", getNMSClass("NBTTagCompound")).invoke(getNMSClass("EntityArrow"), tag);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
