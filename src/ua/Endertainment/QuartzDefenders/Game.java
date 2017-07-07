@@ -451,6 +451,7 @@ public class Game {
             if (team.isEmpty()) {
                 getQuartz(team).destroyQuartz();
             }
+            
         }
         if (i == 1) {
             setGameState(GameState.ENDING);
