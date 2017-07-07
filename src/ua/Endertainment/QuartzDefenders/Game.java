@@ -371,6 +371,55 @@ public class Game {
         }
     }
 
+    private void quitGame1(GamePlayer player) {
+    	 if (isPlayerInTeam(player)) {
+             getTeam(player.getPlayer()).quitTeam(player);
+         }
+
+         this.broadcastMessage(GameMsg.gameMessage("Quit", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
+         QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
+
+         Player p = player.getPlayer();
+         p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
+         p.setPlayerListName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
+
+         if (p.hasPermission("QuartzDefenders.lobby.colorName")) {
+             p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
+             p.setPlayerListName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
+         }
+
+         for (String s : QuartzDefenders.getInstance().getDevs()) {
+             if (p.getName().equals(s)) {
+                 p.setDisplayName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
+                 p.setPlayerListName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
+             }
+         }
+
+         Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
+         while (i.hasNext()) {
+             p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+         }
+
+         p.setGameMode(GameMode.ADVENTURE);
+
+         p.getInventory().clear();
+
+         p.getInventory().setItem(0, QItems.itemGamesChoose());
+         p.getInventory().setItem(4, QItems.itemStats());
+         p.getInventory().setItem(7, QItems.itemHidePlayers(QuartzDefenders.getInstance().getLobby().getHides().contains(p)));
+         p.getInventory().setItem(8, QItems.itemLobbyShop());
+
+         ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
+         s.setScoreboard();
+         QuartzDefenders.getInstance().getLobby().sendTabList(p.getPlayer());
+
+         if (gameAllPlayers.isEmpty()) {
+             QuartzDefenders.getInstance().deleteGame(this);
+             QuartzDefenders.getInstance().addGame(id);
+         }
+    }
+    
+    
     /*
 	 * Start game
      */
@@ -537,7 +586,7 @@ public class Game {
             p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
             p.getPlayer().setGameMode(GameMode.ADVENTURE);
             
-            quitGame(p);                      
+            quitGame1(p);                      
 
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {
@@ -545,6 +594,9 @@ public class Game {
             }
 
         }
+        
+        gameAllPlayers.clear();
+        
         BukkitRunnable runnable = new BukkitRunnable() {
 
             @Override
