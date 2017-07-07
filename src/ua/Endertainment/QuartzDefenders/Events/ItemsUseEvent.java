@@ -108,7 +108,7 @@ public class ItemsUseEvent implements Listener{
 				if(i.getItemMeta().getDisplayName().equalsIgnoreCase(setupOres)) {
 					e.setCancelled(true);
 					Block b = e.getClickedBlock();
-					game.addRegenerativeBlock(b);
+					game.addRegenerativeBlock(b, p);
 					return;
 				}
 				

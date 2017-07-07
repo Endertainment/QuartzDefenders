@@ -860,7 +860,7 @@ public class Game {
     /*
      * SETUP GAME
      */
-    public void addRegenerativeBlock(Block b) {
+    public void addRegenerativeBlock(Block b, Player p) {
     	FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
     	
     	if(!cfg.isConfigurationSection("Games." + id + ".regenerative_blocks." + b.getType().toString())) {
@@ -875,7 +875,8 @@ public class Game {
     		l.add(s);
     		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
     	}
-    	
+    	p.sendMessage(GameMsg.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString() 
+    			+ "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ()));
     	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
 }
