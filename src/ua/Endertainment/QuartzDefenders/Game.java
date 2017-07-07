@@ -441,13 +441,13 @@ public class Game {
             for (GamePlayer p : team.getPlayers()) {
                 spectators.remove(p);
                 p.getPlayer().setGameMode(GameMode.SURVIVAL);
+                p.getPlayer().setVelocity(new Vector(0, 0, 0));
                 p.getPlayer().teleport(team.getSpawnLocation());
                 p.getPlayer().setHealth(20);
                 p.getPlayer().setFoodLevel(20);
                 p.getPlayer().setExp(0);
                 p.getPlayer().setLevel(0);
                 p.getPlayer().setTotalExperience(0);
-                p.getPlayer().setVelocity(new Vector(0, 0, 0));
                 Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
                 while (i.hasNext()) {
                     p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
