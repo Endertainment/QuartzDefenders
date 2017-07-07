@@ -54,9 +54,13 @@ public class GameTeam {
 		game.getSidebar().refresh();
 		if(!isJoinAllow()) {
 			if(!player.getPlayer().hasPermission("QuartzDefenders.team.vipJoin")) {
-				player.sendMessage(GameMsg.gameMessage("Game", "This team is locked now. Only &bVIP&7s can join."));
+				player.sendMessage(GameMsg.gameMessage("Game", "This team is locked now. Only &bVIP&7s can join"));
 				return;
 			}
+		}
+		if(!canJoin()) {
+			player.sendMessage(GameMsg.gameMessage("Game", "You can not join to this team"));
+			return;
 		}
 		if(game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) != this) {
 			game.getTeam(player.getPlayer()).quitTeam(player);

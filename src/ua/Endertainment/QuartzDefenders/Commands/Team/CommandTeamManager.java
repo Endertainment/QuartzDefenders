@@ -18,6 +18,7 @@ public class CommandTeamManager {
 		subCommandsTeam.put("quit", new Quit());
 		subCommandsTeam.put("lock", new Lock());
 		subCommandsTeam.put("info", new Info());
+		subCommandsTeam.put("random", new Random());
 	}
 	
 	private Map<String, SubCommand> subCommandsTeam = new HashMap<>();

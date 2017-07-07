@@ -20,6 +20,7 @@ public class CommandGameManager {
 		subCommandsGame.put("start", new Start());
 		subCommandsGame.put("end", new End());
 		subCommandsGame.put("gameslist", new GamesList());
+		subCommandsGame.put("setupores", new SetupOres());
 	}
 	
 	private HashMap<String, SubCommand> subCommandsGame = new HashMap<>();
