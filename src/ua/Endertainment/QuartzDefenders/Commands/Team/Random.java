@@ -37,9 +37,12 @@ public class Random extends SubCommand {
 		
 		java.util.Random rand = new java.util.Random();
 		
+		int z = 0;
+		
 		for(GamePlayer gp : game.getPlayers()) {
 			int i = rand.nextInt(game.getTeamsCount()) + 1;
-			
+			if(i == z) i = rand.nextInt(game.getTeamsCount()) + 1;
+			z = i;
 			getTeamByInt(game, i).joinTeam(gp, true);
 			
 		}
