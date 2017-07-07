@@ -14,7 +14,6 @@ public class GameTimer extends BukkitRunnable {
 	
 	@Override
 	public void run() {
-		// TODO game quartz break
 		time++;
 		game.sendTabList();
 		for(GameQuartz q : game.getQuartzsLocations().values()) {

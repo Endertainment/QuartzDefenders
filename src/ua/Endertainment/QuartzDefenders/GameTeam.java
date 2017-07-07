@@ -10,6 +10,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import ua.Endertainment.QuartzDefenders.Game.GameState;
+import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
 
 public class GameTeam {
@@ -69,6 +70,9 @@ public class GameTeam {
 				player.getPlayer().setGameMode(GameMode.SURVIVAL);
 				player.getPlayer().setHealth(20);
 				player.getPlayer().setFoodLevel(20);
+				
+				StatsPlayer sp = new StatsPlayer(player.getPlayer());
+                sp.addPlayedGame();				
 			}
 			
 			return;

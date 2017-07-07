@@ -11,7 +11,7 @@ public class KillsStats {
 
 	private Game game;
 	private Map<GamePlayer, Integer> kills;
-	TreeMap<GamePlayer, Integer> sorted_map;
+	private TreeMap<GamePlayer, Integer> sorted_map;
 	
 	public KillsStats(Game game) {
 		this.game = game;
@@ -24,7 +24,7 @@ public class KillsStats {
 	
 	public void addKill(GamePlayer player) {
 		if(kills.containsKey(player)) {
-			kills.put(player, kills.get(player));
+			kills.put(player, kills.get(player) + 1);
 		} else {
 			kills.put(player, 1);
 		}

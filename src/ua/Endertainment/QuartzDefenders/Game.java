@@ -145,7 +145,6 @@ public class Game {
         QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&aMap load success"));
 
         this.map = mapManager.getWorld();
-        this.map.setSpawnFlags(false, false);
 
         this.mapSpawn = new Location(Bukkit.getWorld(teckWorldName),
                 config.getDouble("Games." + this.id + ".map_spawn.x") + 0.5,
@@ -306,7 +305,6 @@ public class Game {
             player.setScoreboard(gameScoreboard);
             player.sendMessage(GameMsg.gameMessage("Game", "Game is running now. You can choose team and play or stay watching."));
             sendTabList();
-            // TODO
             return;
         }
 
@@ -457,6 +455,8 @@ public class Game {
                 sp.addWin();
             }
 
+            getKillsStats().sendKillsStats();
+            
             Bukkit.broadcastMessage(GameMsg.gameMessage(gameName, winner.getName() + "&7 team win the game"));
 
             BukkitRunnable runnable = new BukkitRunnable() {
@@ -521,6 +521,8 @@ public class Game {
             p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
             p.getPlayer().setGameMode(GameMode.ADVENTURE);
 
+            quitGame(p);
+            
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {
                 p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
@@ -551,7 +553,7 @@ public class Game {
     }
 
     public enum BalanceType {
-        NO_BALANCE, DEFAULT_BALANCE, TEAM_KD_BALANCE, FULL_TEAM_BALANCE
+        NO_BALANCE, DEFAULT_BALANCE, TEAM_KD_BALANCE
     }
 
     /*

@@ -100,7 +100,7 @@ public class QuartzDefenders extends JavaPlugin {
             }
         }
 
-        Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aAll games successfully loaded"));
+        Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aAll games loaded"));
 
         /*
 		 * Register GamePlayers
