@@ -41,11 +41,13 @@ public abstract class NMSUtil {
 
     public static void setDamage(Arrow arrow, int damage) {
         try {
+            Method getHandleMethod = arrow.getClass().getMethod("getHandle");
+            Object nmsArrow = getHandleMethod.invoke(arrow);
             Constructor<?> constructor = getNMSClass("NBTTagCompound").getConstructor();
             Object tag = constructor.newInstance();
             Method setDouble = tag.getClass().getDeclaredMethod("setDouble", String.class, Double.TYPE);
             setDouble.invoke(tag, "damage", 4);
-            getNMSClass("EntityArrow").getMethod("b", getNMSClass("NBTTagCompound")).invoke(getNMSClass("EntityArrow"), tag);
+            getNMSClass("EntityArrow").getMethod("b", tag.getClass()).invoke(nmsArrow, tag);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

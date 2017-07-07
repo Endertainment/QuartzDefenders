@@ -88,6 +88,9 @@ public class TurretListener implements Listener {
                     turret.remove();
                     this.cancel();
                 }
+                for (Entity e : turret.getNearbyEntities(1, 1, 1)) {
+                    e.teleport(e.getLocation().add(Mobs.randomInRadius(1), 0, Mobs.randomInRadius(1)));
+                }
                 List<Entity> list = turret.getNearbyEntities(7, 5, 7);
                 if (Mobs.countMobs(list, EntityType.PLAYER) > 0) {
                     for (Entity mob : list) {
