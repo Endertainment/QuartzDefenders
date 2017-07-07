@@ -2,6 +2,7 @@ package ua.Endertainment.QuartzDefenders.Events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -22,6 +23,9 @@ public class DamageEvent implements Listener {
 	 @EventHandler
 	 public void onDamage(EntityDamageEvent e) {
 		 if(!(e.getEntity() instanceof Player)) {
+			 if(e.getEntity() instanceof Villager) {
+				 e.setCancelled(true);
+			 }
 			 return;
 		 }
 		 
