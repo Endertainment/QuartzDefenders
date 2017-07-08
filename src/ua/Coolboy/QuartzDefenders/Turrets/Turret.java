@@ -1,8 +1,12 @@
 package ua.Coolboy.QuartzDefenders.Turrets;
+/*
+Disabled.
+Poorly coded turret classes
+Don't watch!!!
+*/
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -32,7 +36,7 @@ public class Turret {
     private final GameTeam team;
     private final ArmorStand stand;
 
-    public Turret(Player owner, @Nonnull GameTeam team, Location loc, QuartzDefenders plugin) {
+    public Turret(Player owner, GameTeam team, Location loc, QuartzDefenders plugin) {
         this.plugin = plugin;
         this.owner = owner;
         this.game = plugin.getGame(owner);

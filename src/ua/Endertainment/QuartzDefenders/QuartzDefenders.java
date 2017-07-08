@@ -205,8 +205,8 @@ public class QuartzDefenders extends JavaPlugin {
         new ChatFormatEvent(this);
         new ShopInventory(this);
         new PlayerJoinStats(this);
-        new TurretListener(this);
-        new TurretInventory(this);
+        //new TurretListener(this);
+        //new TurretInventory(this);
         new MobsListener(this);
         new BreakBlockEvent(this);
         new DeathEvent(this);

@@ -32,42 +32,42 @@ public class TurretInventory implements Listener {
     @EventHandler
     public void stand(PlayerArmorStandManipulateEvent event) {
         Player player = event.getPlayer();
-        if (event.getRightClicked().getName().startsWith("Турель")) {
+        if (event.getRightClicked().getName().startsWith("Turret")) {
             event.setCancelled(true);
             if ( //&& event.getPlayer().getScoreboard().getTeam(event.getRightClicked().getMetadata("team").get(0).asString()).hasEntry(player.getName())
                     event.getRightClicked().getMetadata("type").get(0).asString().equals("normal")) {
-                Inventory inv = Bukkit.createInventory(player, 9, ChatColor.RED + "Турель");
+                Inventory inv = Bukkit.createInventory(player, 9, ChatColor.RED + "Turret");
                 event.getPlayer().setMetadata("turretEdit", new FixedMetadataValue(plugin, event.getRightClicked()));
 
                 ItemStack fire = new ItemStack(Material.BLAZE_POWDER, 1);
                 ItemMeta firem = fire.getItemMeta();
-                firem.setDisplayName("Вогонь");
-                firem.setLore(Arrays.asList("Створює запалені стріли", "Вартість: 10 рівнів"));
+                firem.setDisplayName("Fire");
+                firem.setLore(Arrays.asList("Turret shoots fire arrows", "Required level: 10"));
                 fire.setItemMeta(firem);
 
                 ItemStack slow = new ItemStack(Material.PACKED_ICE, 1);
                 ItemMeta slowm = slow.getItemMeta();
-                slowm.setDisplayName("Заповільнення");
-                slowm.setLore(Arrays.asList("Створює заповільнюючі стріли", "Вартість: 10 рівнів"));
+                slowm.setDisplayName("Slowness");
+                slowm.setLore(Arrays.asList("Turret shoots slowness arrows", "Required level: 10"));
                 slow.setItemMeta(slowm);
 
                 ItemStack glow = new ItemStack(Material.SPECTRAL_ARROW, 1);
                 ItemMeta glowm = glow.getItemMeta();
-                glowm.setDisplayName("Підсвічування");
-                glowm.setLore(Arrays.asList("Створює спектральні стріли", "Вартість: 20 рівнів"));
+                glowm.setDisplayName("Glowing");
+                glowm.setLore(Arrays.asList("Turret shoots spectral arrow", "Required level: 20"));
                 glow.setItemMeta(glowm);
 
                 ItemStack poison = new ItemStack(Material.POTION, 1);
                 PotionMeta meta = (PotionMeta) poison.getItemMeta();
                 meta.setBasePotionData(new PotionData(PotionType.POISON, false, false));
-                meta.setDisplayName("Отрута");
-                meta.setLore(Arrays.asList("Створює отруєні стріли", "Вартість: 15 рівнів"));
+                meta.setDisplayName("Poison");
+                meta.setLore(Arrays.asList("Turret shoots poisoned arrows", "Required level: 15"));
                 meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
                 poison.setItemMeta(meta);
 
                 ItemStack exit = new ItemStack(Material.BARRIER, 1);
                 ItemMeta exitm = exit.getItemMeta();
-                exitm.setDisplayName("Вихід");
+                exitm.setDisplayName("Exit");
                 exit.setItemMeta(exitm);
 
                 inv.setItem(0, fire);
@@ -82,8 +82,8 @@ public class TurretInventory implements Listener {
 
     @EventHandler
     public void upgrade(InventoryClickEvent event) {
-        String message = ChatColor.RED + "У вас недостатньо досвіду";
-        if (!event.getInventory().getName().equalsIgnoreCase(ChatColor.RED + "Турель")) {
+        String message = ChatColor.RED + "You haven't enought experience";
+        if (!event.getInventory().getName().equalsIgnoreCase(ChatColor.RED + "Turret")) {
             return;
         }
 
@@ -95,7 +95,7 @@ public class TurretInventory implements Listener {
         ArmorStand stand = (ArmorStand) event.getWhoClicked().getMetadata("turretEdit").get(0).value();
         if (null != event.getCurrentItem()) {
             switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
-                case "Вогонь":
+                case "Fire":
                     if (player.getLevel() > 10) {
                         player.setLevel(player.getLevel() - 10);
                         stand.setMetadata("type", new FixedMetadataValue(plugin, "fire"));
@@ -105,7 +105,7 @@ public class TurretInventory implements Listener {
                         player.sendMessage(message);
                     }
                     break;
-                case "Отрута":
+                case "Poison":
                     if (player.getLevel() > 15) {
                         player.setLevel(player.getLevel() - 15);
                         stand.setMetadata("type", new FixedMetadataValue(plugin, "poison"));
@@ -115,7 +115,7 @@ public class TurretInventory implements Listener {
                         player.sendMessage(message);
                     }
                     break;
-                case "Заповільнення":
+                case "Slowness":
                     if (player.getLevel() > 10) {
                         player.setLevel(player.getLevel() - 15);
                         stand.setMetadata("type", new FixedMetadataValue(plugin, "slow"));
@@ -125,7 +125,7 @@ public class TurretInventory implements Listener {
                         player.sendMessage(message);
                     }
                     break;
-                case "Підсвічування":
+                case "Glowing":
                     if (player.getLevel() > 20) {
                         player.setLevel(player.getLevel() - 15);
                         stand.setMetadata("type", new FixedMetadataValue(plugin, "glow"));
@@ -135,7 +135,7 @@ public class TurretInventory implements Listener {
                         player.sendMessage(message);
                     }
                     break;
-                case "Вихід":
+                case "Exit":
                     player.closeInventory();
                     break;
             }
