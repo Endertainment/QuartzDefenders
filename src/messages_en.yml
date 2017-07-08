@@ -16,3 +16,14 @@ mobs:
     alchemists_coin:
         name: 'Alchemistry coin'
         lore: 'Special alchemistry currency' #only 1 string, use it in shop.yml
+game:
+    game_locked: 'This game is locked. Only admins can join'
+    join_game: 'Player &r{0}&7 joined the game'
+    quit_game: 'Player &r{0}&7 quit the game'
+    waiting_players: 'Waiting for more players'
+    choose_team: 'Choose a &ateam&7 and wait a &agame &7start'
+    game_running: 'Game is running now. You can choose team and play or stay watching'
+    game_unavailable: 'This game is not available now'
+    title:
+        waiting: 'Game will begin in &b{0}&7 seconds'
+

@@ -51,25 +51,6 @@ public class PlaceBlockEvent implements Listener {
 			e.setCancelled(true);
 			return;
 		}
-//		int rad = game.getBuildRadius();
-//		int height = game.getBuildHeight();
-//		Location loc = e.getBlock().getLocation();
-//		Location lo1 = new Location(game.getGameWorld(), game.getMapCenter().getBlockX(), 0, game.getMapCenter().getBlockZ());
-//		if(loc.getBlockX() >= lo1.getBlockX() + rad || loc.getBlockZ() >= lo1.getBlockZ()+rad) {			
-//			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
-//			e.setCancelled(true);
-//			return;
-//		}
-//		if(loc.getBlockX() <= lo1.getBlockX()-rad || loc.getBlockZ() <= lo1.getBlockZ()-rad ) {
-//			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
-//			e.setCancelled(true);
-//			return;
-//		}
-//		if(loc.getBlockY() >= height) {
-//			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
-//			e.setCancelled(true);
-//			return;
-//		}
 		
 	}
 	

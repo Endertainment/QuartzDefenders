@@ -249,9 +249,10 @@ public class Game {
             return;
         }
 
-        // EVENT
-        PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);
         player.getPlayer().setCollidable(false);
+        
+        // EVENT
+        PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);        
         Bukkit.getPluginManager().callEvent(e);
         if (e.isCancelled()) {
             return;
@@ -310,7 +311,7 @@ public class Game {
             player.getPlayer().setGameMode(GameMode.SPECTATOR);
 
             player.setScoreboard(gameScoreboard);
-            player.sendMessage(LoggerUtil.gameMessage("Game", "Game is running now. You can choose team and play or stay watching."));
+            player.sendMessage(LoggerUtil.gameMessage("Game", "Game is running now. You can choose team and play or stay watching"));
             sendTabList();
             return;
         }
@@ -331,7 +332,7 @@ public class Game {
             getTeam(player.getPlayer()).quitTeam(player);
         }
 
-        this.broadcastMessage(LoggerUtil.gameMessage("Quit", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
+        this.broadcastMessage(LoggerUtil.gameMessage("Game", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
         QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
 
         Player p = player.getPlayer();
