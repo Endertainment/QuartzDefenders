@@ -16,11 +16,12 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.WitherSkeleton;
 import org.bukkit.inventory.ItemStack;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 
 public abstract class Mobs {
 
     public static void middDef(WitherSkeleton skeleton) {
-        skeleton.setCustomName(ChatColor.DARK_PURPLE + "Diamond defender");
+        skeleton.setCustomName(Language.getString("mobs.diamond_defender"));
         skeleton.setCustomNameVisible(true);
         skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(70);
         skeleton.setHealth(70);
@@ -31,8 +32,8 @@ public abstract class Mobs {
 
     public static void soulDef(Skeleton s) {
         ItemStack coin = new ItemStack(Material.DOUBLE_PLANT, 4);
-        ItemUtil.setMeta(coin, "Alchemistry coin", Arrays.asList("Special alchemistry currency"));
-        s.setCustomName(ChatColor.AQUA + "Alchemist soul");
+        ItemUtil.setMeta(coin, Language.getString("mobs.alchemists_coin.name"), Arrays.asList(Language.getString("mobs.alchemists_coin.lore")));
+        s.setCustomName(Language.getString("mobs.alchemist_soul"));
         s.setCustomNameVisible(true);
         s.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(55);
         s.setHealth(55);

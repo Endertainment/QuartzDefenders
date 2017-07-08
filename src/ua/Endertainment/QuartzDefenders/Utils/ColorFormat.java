@@ -1,6 +1,7 @@
 package ua.Endertainment.QuartzDefenders.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 
@@ -20,15 +21,15 @@ public class ColorFormat {
 		return normal;
 	}
 	
-	private ArrayList<String> formatedList;
+	private List<String> formatedList;
 	
-	public ColorFormat(ArrayList<String> list) {
-		formatedList = new ArrayList<String>();
+	public ColorFormat(List<String> list) {
+		formatedList = new ArrayList<>();
 		for(String s : list) {
 			formatedList.add(ChatColor.translateAlternateColorCodes('&', s));
 		}
 	}
-	public ArrayList<String> getFormatedList() {
+	public List<String> getFormatedList() {
 		return formatedList;
 	}
 }

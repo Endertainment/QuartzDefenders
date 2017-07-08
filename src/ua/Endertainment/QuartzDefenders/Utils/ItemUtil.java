@@ -16,7 +16,7 @@ public class ItemUtil {
         return newItem(name, null, material, amount, type);
     }
 
-    public static ItemStack newItem(String name, ArrayList<String> lore, ItemStack item) {
+    public static ItemStack newItem(String name, List<String> lore, ItemStack item) {
         name = new ColorFormat(name).format();
         if (lore == null) {
             ItemMeta meta = item.getItemMeta();
@@ -34,7 +34,7 @@ public class ItemUtil {
         return item;
     }
 
-    public static ItemStack newItem(String name, ArrayList<String> lore, Material material, int amount) {
+    public static ItemStack newItem(String name, List<String> lore, Material material, int amount) {
         name = new ColorFormat(name).format();
         if (lore == null) {
             ItemStack item = new ItemStack(material, amount);
@@ -54,7 +54,7 @@ public class ItemUtil {
         return item;
     }
 
-    public static ItemStack newItem(String name, ArrayList<String> lore, Material material, int amount, int type) {
+    public static ItemStack newItem(String name, List<String> lore, Material material, int amount, int type) {
         name = new ColorFormat(name).format();
         if (lore == null) {
             ItemStack item = new ItemStack(material, amount, (short) type);
@@ -76,30 +76,30 @@ public class ItemUtil {
 
     public static ItemStack setName(ItemStack stack, String rename) {
         ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(rename);
+        meta.setDisplayName(new ColorFormat(rename).format());
         stack.setItemMeta(meta);
         return stack;
     }
 
     public static ItemStack setMeta(ItemStack stack, String rename, List<String> lore) {
         ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(rename);
-        meta.setLore(lore);
+        meta.setDisplayName(new ColorFormat(rename).format());
+        meta.setLore(new ColorFormat(lore).getFormatedList());
         stack.setItemMeta(meta);
         return stack;
     }
 
     public static ItemStack setMeta(ItemStack stack, String rename, String lore) {
         ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(rename);
-        meta.setLore(Arrays.asList(lore));
+        meta.setDisplayName(new ColorFormat(rename).format());
+        meta.setLore(Arrays.asList(new ColorFormat(lore).format()));
         stack.setItemMeta(meta);
         return stack;
     }
 
     public static ItemStack setLore(ItemStack stack, List<String> lore) {
         ItemMeta meta = stack.getItemMeta();
-        meta.setLore(lore);
+        meta.setLore(new ColorFormat(lore).getFormatedList());
         stack.setItemMeta(meta);
         return stack;
     }
@@ -119,12 +119,12 @@ public class ItemUtil {
         }
         return lore;
     }
-    
+
     public static ItemStack hideAll(ItemStack stack) {
         ItemMeta meta = stack.getItemMeta();
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES,ItemFlag.HIDE_DESTROYS,
-        ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON,
-        ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS,
+                ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON,
+                ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
         stack.setItemMeta(meta);
         return stack;
     }

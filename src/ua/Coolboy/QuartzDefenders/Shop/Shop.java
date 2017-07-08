@@ -28,19 +28,20 @@ public class Shop {
     FilesUtil files;
     ItemUtil item;
 
-    public static String name, stuffName, resourcesName, potionsName, enchantName, otherName, foodName, blocksName;
+    public static String name, stuffName, resourcesName, potionsName,
+            enchantName, otherName, foodName, blocksName;
 
     public Shop(QuartzDefenders plugin) {
         this.plugin = plugin;
         this.files = plugin.getConfigs();
-        name = new ColorFormat(Language.getString("shop.name")).format();
-        stuffName = new ColorFormat(Language.getString("shop.stuff")).format();
-        resourcesName = new ColorFormat(Language.getString("shop.resources")).format();
-        potionsName = new ColorFormat(Language.getString("shop.potions")).format();
-        enchantName = new ColorFormat(Language.getString("shop.enchant")).format();
-        otherName = new ColorFormat(Language.getString("shop.other")).format();
-        foodName = new ColorFormat(Language.getString("shop.food")).format();
-        blocksName = new ColorFormat(Language.getString("shop.blocks")).format();
+        name = Language.getString("shop.name");
+        stuffName = Language.getString("shop.stuff");
+        resourcesName = Language.getString("shop.resources");
+        potionsName = Language.getString("shop.potions");
+        enchantName = Language.getString("shop.enchant");
+        otherName = Language.getString("shop.other");
+        foodName = Language.getString("shop.food");
+        blocksName = Language.getString("shop.blocks");
     }
 
     public Inventory getInventory(GameTeam team) {
@@ -80,7 +81,12 @@ public class Shop {
 
     public Merchant getSection(String sectionName, String merchantName, GameTeam team) {
         FileConfiguration shop = files.getShopInfo();
-        ConfigurationSection value = shop.getConfigurationSection(sectionName);
+        ConfigurationSection sect = shop.getConfigurationSection("default");;
+        if (team == null || !team.getGame().getCustomShop()) {
+            sect = shop.getConfigurationSection("default");
+        }
+
+        ConfigurationSection value = sect.getConfigurationSection(sectionName);
         List<MerchantRecipe> recipes = new ArrayList<>();
         for (String strng : value.getKeys(false)) {
             ConfigurationSection section = value.getConfigurationSection(strng);

@@ -1,6 +1,7 @@
 ### Shop Config File
 ###Enchants
-enchants:
+default:
+  enchants:
     table:
         primary:
             material: EMERALD
@@ -43,15 +44,15 @@ enchants:
             damage: 0
             bookEnchant:
                 LOOT_BONUS_BLOCKS : 2
-potions:
+  potions:
     blaze_rod:
         primary:
             material: DOUBLE_PLANT
             amount: 12
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: BLAZE_ROD
             amount: 1
@@ -61,9 +62,9 @@ potions:
             material: DOUBLE_PLANT
             amount: 8
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: NETHER_STALK
             amount: 1
@@ -73,9 +74,9 @@ potions:
             material: DOUBLE_PLANT
             amount: 3
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: SUGAR
             amount: 1
@@ -85,9 +86,9 @@ potions:
             material: DOUBLE_PLANT
             amount: 7
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: FERMENTED_SPIDER_EYE
             amount: 1
@@ -97,9 +98,9 @@ potions:
             material: DOUBLE_PLANT
             amount: 9
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: GHAST_TEAR
             amount: 1
@@ -109,9 +110,9 @@ potions:
             material: DOUBLE_PLANT
             amount: 7
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: SULPHUR
             amount: 1
@@ -121,9 +122,9 @@ potions:
             material: DOUBLE_PLANT
             amount: 1
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: POTION
             amount: 1
@@ -133,16 +134,16 @@ potions:
             material: DOUBLE_PLANT
             amount: 30
             damage: 0
-            name: '?????? ????????'
+            name: 'Alchemists coin'
             lore:
-            - ???????? ?????? ?????????
+            - 'Special alchemistry currency'
         result:
             material: DRAGONS_BREATH
             amount: 1
             damage: 0
 
-###Food  
-food:
+  ###Food  
+  food:
     cake:
         primary:
             material: GOLD_INGOT
@@ -153,8 +154,8 @@ food:
             amount: 1
             damage: 0
             
-###Other
-other:
+  ###Other
+  other:
     skull:
         primary:
             material: EMERALD
@@ -194,11 +195,11 @@ other:
             material: IRON_BARDING
             amount: 1
             damage: 0
-            name: '??????'
+            name: 'Turret'
             lore:
-            - ??????? ??????
-###Blocks
-blocks:
+            - Creates a turret
+  ###Blocks
+  blocks:
     clay:
         primary:
             material: IRON_INGOT
@@ -226,8 +227,8 @@ blocks:
             material: STAINED_GLASS
             amount: 16
             team: true
-###STUFF
-stuff:
+  ###STUFF
+  stuff:
     arrows:
         primary:
             material: EMERALD
@@ -318,8 +319,8 @@ stuff:
             amount: 1
             damage: 0
 
-###Resources
-resources:
+  ###Resources
+  resources:
     quartz_emerald:
         primary:
             material: QUARTZ

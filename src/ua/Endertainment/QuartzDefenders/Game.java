@@ -71,7 +71,7 @@ public class Game {
     private Scoreboard gameScoreboard;
 
     private Map<String, GameTeam> teams = new HashMap<>();
-
+    private boolean customShop;
     private Map<GameTeam, Location> shopLocations = new HashMap<>();
     private Map<Integer, Location> alchemistsLocations = new HashMap<>();
 
@@ -156,7 +156,7 @@ public class Game {
                 config.getDouble("Games." + this.id + ".map_spawn.x") + 0.5,
                 config.getDouble("Games." + this.id + ".map_spawn.y"),
                 config.getDouble("Games." + this.id + ".map_spawn.z") + 0.5);
-
+        this.customShop = config.getBoolean("Games." + this.id + ".custom_shop", false);
         this.buildCuboid = new BCub(new Location(map, mapSpawn.getBlockX() + buildRadius, 0, mapSpawn.getBlockZ() + buildRadius),
                 new Location(map, mapSpawn.getBlockX() - buildRadius, buildHeight, mapSpawn.getBlockZ() - buildRadius));
 
@@ -701,6 +701,10 @@ public class Game {
 
     public World getGameWorld() {
         return map;
+    }
+    
+    public boolean getCustomShop() {
+        return customShop;
     }
 
     public Collection<Location> getShopLocations() {

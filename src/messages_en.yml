@@ -1,0 +1,18 @@
+shop:
+    #Villager name
+    name: '&4Shop'
+    ###Groups name
+    enchant: '&5Enchanting'
+    potions: '&bPotions'
+    food: '&1Food'
+    other: '&1Other'
+    blocks: '&8Blocks'
+    stuff: '&eStuff'
+    resources: '&2Resources'
+    
+mobs:
+    diamond_defender: '&5Diamond defender'
+    alchemist_soul: '&bAlchemist soul'
+    alchemists_coin:
+        name: 'Alchemistry coin'
+        lore: 'Special alchemistry currency' #only 1 string, use it in shop.yml

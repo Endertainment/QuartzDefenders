@@ -52,6 +52,7 @@ public class MobsListener implements Listener {
     public void alchemistrySoul(GameStartEvent event) {
         Game game = event.getGame();
         Map<Integer, Location> locat = event.getGame().getAlchemicsLocations();
+        if(locat.isEmpty()) return;
         new BukkitRunnable() {
             @Override
             public void run() {
