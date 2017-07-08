@@ -11,24 +11,24 @@ import org.bukkit.entity.Player;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class SetupQuartz extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission("QuartzDefenders.setup.quartz")) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cOnly players can use this command"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cOnly players can use this command"));
 			return;
 		}	
 		
 		if(args.length == 0) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "Check command usage: &b/game help"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Check command usage: &b/game help"));
 			return;
 		}
 		
@@ -38,7 +38,7 @@ public class SetupQuartz extends SubCommand {
 		Game game = QuartzDefenders.getInstance().getGame(p);
 		
 		if(game == null) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou can not join to team when you is not in game"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou can not join to team when you is not in game"));
 			return;
 		}
 		

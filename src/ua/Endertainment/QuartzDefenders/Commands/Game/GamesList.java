@@ -6,14 +6,14 @@ import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class GamesList extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission("QuartzDefenders.game.gamesList")) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
 		int index = 1;

@@ -85,8 +85,15 @@ public class Shop {
         if (team == null || !team.getGame().getCustomShop()) {
             sect = shop.getConfigurationSection("default");
         }
-
-        ConfigurationSection value = sect.getConfigurationSection(sectionName);
+        ConfigurationSection value;
+        try {
+            value = sect.getConfigurationSection(sectionName);
+        } catch (NullPointerException ex) {
+            QuartzDefenders.sendInfo(name);
+            ex.printStackTrace();
+            Merchant m = Bukkit.createMerchant(ChatColor.DARK_RED + "Error");
+            return m;
+        }
         List<MerchantRecipe> recipes = new ArrayList<>();
         for (String strng : value.getKeys(false)) {
             ConfigurationSection section = value.getConfigurationSection(strng);

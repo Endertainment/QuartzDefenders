@@ -25,7 +25,7 @@ import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class DeathEvent implements Listener {
 
@@ -74,7 +74,7 @@ public class DeathEvent implements Listener {
 			p.setHealth(20);
 			p.setFoodLevel(20);
 			p.setGameMode(GameMode.SPECTATOR);
-			p.sendMessage(GameMsg.gameMessage("Game", "You will respawn after &b" + resp + "&7 seconds"));
+			p.sendMessage(LoggerUtil.gameMessage("Game", "You will respawn after &b" + resp + "&7 seconds"));
 			freeze.add(p);
 			if(p.getLocation().getY() <= 0) {
 				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {					

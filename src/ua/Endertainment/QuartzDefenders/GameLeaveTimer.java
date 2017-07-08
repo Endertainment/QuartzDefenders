@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class GameLeaveTimer extends BukkitRunnable {
 
@@ -29,7 +29,7 @@ public class GameLeaveTimer extends BukkitRunnable {
 				game.quitGame(player);
 			} 
 			else if(time == 300 || time == 120 || time == 60) {
-				game.broadcastMessage(GameMsg.gameMessage("Quit", "Player " + pplayer.getDisplayName() 
+				game.broadcastMessage(LoggerUtil.gameMessage("Quit", "Player " + pplayer.getDisplayName() 
 									+ "&7 has &b" + (time/60) + "&7 minutes to reconnect"));
 			}		
 			time--;			

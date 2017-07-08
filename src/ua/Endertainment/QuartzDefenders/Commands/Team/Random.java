@@ -11,19 +11,19 @@ import ua.Endertainment.QuartzDefenders.GamePlayer;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class Random extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission("QuartzDefenders.team.random")) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cOnly players can use this command"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cOnly players can use this command"));
 			return;
 		}
 		
@@ -47,7 +47,7 @@ public class Random extends SubCommand {
 			
 		}
 		
-		sender.sendMessage(GameMsg.gameMessage("Chat", "&aRandomize complete"));
+		sender.sendMessage(LoggerUtil.gameMessage("Chat", "&aRandomize complete"));
 		
 	}
 	

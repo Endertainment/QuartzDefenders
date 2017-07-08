@@ -10,7 +10,7 @@ import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.Cuboid;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class PlaceBlockEvent implements Listener {
 
@@ -41,13 +41,13 @@ public class PlaceBlockEvent implements Listener {
 		for(Cuboid c : game.getCuboids()) {
 			if(c.contains(e.getBlock().getLocation())) {
 				e.setCancelled(true);
-				p.sendMessage(GameMsg.gameMessage("Game", "&cYou can not place block here"));
+				p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
 				return;
 			}
 		}
 		
 		if(game.getBuildCuboid().contains(e.getBlock().getLocation())) {
-			p.sendMessage(GameMsg.gameMessage("Game", "&cYou can not place block here"));
+			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
 			e.setCancelled(true);
 			return;
 		}
@@ -56,17 +56,17 @@ public class PlaceBlockEvent implements Listener {
 //		Location loc = e.getBlock().getLocation();
 //		Location lo1 = new Location(game.getGameWorld(), game.getMapCenter().getBlockX(), 0, game.getMapCenter().getBlockZ());
 //		if(loc.getBlockX() >= lo1.getBlockX() + rad || loc.getBlockZ() >= lo1.getBlockZ()+rad) {			
-//			p.sendMessage(GameMsg.gameMessage("Game", "&cYou can not place block here"));
+//			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
 //			e.setCancelled(true);
 //			return;
 //		}
 //		if(loc.getBlockX() <= lo1.getBlockX()-rad || loc.getBlockZ() <= lo1.getBlockZ()-rad ) {
-//			p.sendMessage(GameMsg.gameMessage("Game", "&cYou can not place block here"));
+//			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
 //			e.setCancelled(true);
 //			return;
 //		}
 //		if(loc.getBlockY() >= height) {
-//			p.sendMessage(GameMsg.gameMessage("Game", "&cYou can not place block here"));
+//			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
 //			e.setCancelled(true);
 //			return;
 //		}

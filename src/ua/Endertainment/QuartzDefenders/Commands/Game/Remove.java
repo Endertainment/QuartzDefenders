@@ -5,19 +5,19 @@ import org.bukkit.command.CommandSender;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class Remove extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission("QuartzDefenders.game.removeGame")) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
 		
 		if(args.length == 0) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "Check command usage: &b/game help"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Check command usage: &b/game help"));
 			return;
 		}
 		
@@ -26,7 +26,7 @@ public class Remove extends SubCommand {
 		Game game = QuartzDefenders.getInstance().getGame(gameID, false);
 		
 		if(game == null) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cGame with id &a" + gameID + "&7 is not exist"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cGame with id &a" + gameID + "&7 is not exist"));
 			return;
 		}
 		

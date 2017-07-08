@@ -6,19 +6,19 @@ import org.bukkit.entity.Player;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class Start extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission("QuartzDefenders.game.startGame")) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cOnly players can use this command"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cOnly players can use this command"));
 			return;
 		}
 		
@@ -33,12 +33,12 @@ public class Start extends SubCommand {
 		}
 		
 		if(game == null) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cGame is not exist"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cGame is not exist"));
 			return;
 		}
 		
 		if(!game.startCountdown()) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cGame can not be started"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cGame can not be started"));
 		}
 		
 	}

@@ -9,7 +9,7 @@ import org.bukkit.command.PluginCommand;
 
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class CommandStats implements CommandExecutor {
 
@@ -24,7 +24,7 @@ public class CommandStats implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length == 0) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "Check command usage: &b/stats help"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Check command usage: &b/stats help"));
 			return true;
 		}
 		

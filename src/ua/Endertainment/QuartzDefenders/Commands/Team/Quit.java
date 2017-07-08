@@ -9,14 +9,14 @@ import ua.Endertainment.QuartzDefenders.GamePlayer;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class Quit extends SubCommand{
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cOnly players can use this command"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cOnly players can use this command"));
 			return;
 		}
 		
@@ -26,7 +26,7 @@ public class Quit extends SubCommand{
 		Game game = QuartzDefenders.getInstance().getGame(p);
 		
 		if(game == null) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou can not quit from team when you is not in game"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou can not quit from team when you is not in game"));
 			return;
 		}
 		
@@ -41,12 +41,12 @@ public class Quit extends SubCommand{
 		GameTeam team = game.getTeam(args[0]);
 		
 		if(team == null) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "Team " + args[0] + "&7 is not exist"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Team " + args[0] + "&7 is not exist"));
 			String teams = "";
 			for(GameTeam teamX : game.getTeams().values()) {
 				teams += teamX.getName() + "&7, ";
 			}
-			sender.sendMessage(GameMsg.gameMessage("Chat", "Active teams: " + teams));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Active teams: " + teams));
 			return;
 		}
 		
@@ -59,7 +59,7 @@ public class Quit extends SubCommand{
 				GamePlayer gpp = QuartzDefenders.getInstance().getGamePlayer(pp);
 				team.quitTeam(gpp);
 			} else {
-				sender.sendMessage(GameMsg.gameMessage("Chat", "Player " + args[1] + " is not online"));
+				sender.sendMessage(LoggerUtil.gameMessage("Chat", "Player " + args[1] + " is not online"));
 			}
 			return;
 		}

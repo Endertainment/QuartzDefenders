@@ -14,7 +14,7 @@ import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class ChatFormatEvent implements Listener{
 
@@ -64,7 +64,7 @@ public class ChatFormatEvent implements Listener{
 		 */
 		if(plugin.getGame(e.getPlayer()) == null) {
 			e.setCancelled(true);
-			e.getPlayer().sendMessage(GameMsg.gameMessage("Game", "&cYou can not write in chat here"));
+			e.getPlayer().sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not write in chat here"));
 			return;
 		}
 		
@@ -81,7 +81,7 @@ public class ChatFormatEvent implements Listener{
 				}
 			} else {
 				e.setCancelled(true);
-				e.getPlayer().sendMessage(GameMsg.gameMessage("Game", "&cYou can not write in chat here"));
+				e.getPlayer().sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not write in chat here"));
 			}
 			return;
 		}
@@ -180,7 +180,7 @@ public class ChatFormatEvent implements Listener{
 //						return;
 //					}
 //					e.setCancelled(true);
-//					e.getPlayer().sendMessage(GameMsg.gameMessage("Game", "&cYou can not write in chat here"));
+//					e.getPlayer().sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not write in chat here"));
 //					return;
 //				}
 //				

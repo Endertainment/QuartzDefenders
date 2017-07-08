@@ -38,8 +38,9 @@ import ua.Endertainment.QuartzDefenders.Events.LightningEvent;
 import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Stats.PlayerJoinStats;
 import ua.Endertainment.QuartzDefenders.Stats.TopManager;
+import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
 
@@ -101,7 +102,7 @@ public class QuartzDefenders extends JavaPlugin {
             }
         }
 
-        Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aAll games loaded"));
+        Bukkit.broadcastMessage(new ColorFormat(LoggerUtil.getPrefix() + "&aAll games loaded").format());
 
         /*
 		 * Register GamePlayers

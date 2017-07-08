@@ -9,7 +9,7 @@ import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.GamePlayer;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class KitsManager {
 
@@ -43,7 +43,7 @@ public class KitsManager {
 	public void buyKitFailed(Kit kit, Player p) {
 		String access = accessBuy(kit, p);
 		if(access.contains("Available")) return;
-		p.sendMessage(GameMsg.gameMessage("Shop", "You can not buy kit " + kit.getDisplayName() + "&7. Reason: " + accessBuy(kit, p)));
+		p.sendMessage(LoggerUtil.gameMessage("Shop", "You can not buy kit " + kit.getDisplayName() + "&7. Reason: " + accessBuy(kit, p)));
 	}
 	public void giveKit(Kit kit, Player p) {
 		StatsPlayer sp = new StatsPlayer(p);
@@ -79,14 +79,14 @@ public class KitsManager {
 			c.set(p.getUniqueId().toString(), l);
 		}
 		QuartzDefenders.getInstance().getConfigs().saveKitsInfo();
-		p.sendMessage(GameMsg.gameMessage("Shop", "You buy a new kit: &a" + kit.getDisplayName()));
+		p.sendMessage(LoggerUtil.gameMessage("Shop", "You buy a new kit: &a" + kit.getDisplayName()));
 	}
 	public void chooseKit(Kit kit, Game game, GamePlayer p) {
 		game.setKit(p, kit);
-		p.sendMessage(GameMsg.gameMessage("Kits", "You choose a kit " + kit.getDisplayName()));
+		p.sendMessage(LoggerUtil.gameMessage("Kits", "You choose a kit " + kit.getDisplayName()));
 	}
 	public void chooseKitFailed(Kit kit, GamePlayer p) {
-		p.sendMessage(GameMsg.gameMessage("Kits", "You do not have a kit " + kit.getDisplayName()));
+		p.sendMessage(LoggerUtil.gameMessage("Kits", "You do not have a kit " + kit.getDisplayName()));
 	}
 	
 	public boolean isKitAccess(Kit kit, Player p) {

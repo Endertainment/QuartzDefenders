@@ -34,7 +34,7 @@ import ua.Endertainment.QuartzDefenders.Utils.BCub;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.Cuboid;
 import ua.Endertainment.QuartzDefenders.Utils.FireworkUtil;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 import ua.Endertainment.QuartzDefenders.Utils.MapManager;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
@@ -100,11 +100,11 @@ public class Game {
         FileConfiguration config = QuartzDefenders.getInstance().getConfigs().getGameInfo();
 
         if (config.getConfigurationSection("Games." + id) == null) {
-            QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&cGame with id &a" + id + "&c is not exist"));
+            LoggerUtil.logInfo("&cGame with id &a" + id + "&c is not exist");
             return;
         }
 
-        QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "Loading game with id &a" + id));
+        LoggerUtil.logInfo("Loading game with id &a" + id);
 
         gameScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         killsStats = new KillsStats(this);
@@ -127,24 +127,24 @@ public class Game {
         this.balanceType = BalanceType.valueOf(config.getString("Games." + this.id + ".balance_type"));
 
         if (QuartzDefenders.getInstance().getGame(gameName) != null) {
-            QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&cGame " + gameName + "&c could not be loaded. This game is already enabled"));
+            QuartzDefenders.sendInfo(LoggerUtil.gameMessage("Info", "&cGame " + gameName + "&c could not be loaded. This game is already enabled"));
             return;
         }
 
-        QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&aGame configuration load success"));
+        LoggerUtil.logInfo("&aGame configuration load success");
 
         this.mapManager = new MapManager(teckWorldName);
         try {
             mapManager.resetMap();
         } catch (Exception e) {
-            QuartzDefenders.sendInfo(GameMsg.gameMessage("Error", "&cCould not load map in game " + gameName));
+            LoggerUtil.logError("&cCould not load map in game " + gameName);
             return;
         }
         if (!mapManager.isSuccess()) {
             return;
         }
 
-        QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&aMap load success"));
+        LoggerUtil.logInfo("&aMap load success");
 
         this.map = mapManager.getWorld();
 
@@ -196,7 +196,7 @@ public class Game {
                     shopLocations.put(getTeam(team), shop);
                     i++;
                 } else {
-                    QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&cTeam \"" + team + "\" is not valid!"));
+                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage("Info", "&cTeam \"" + team + "\" is not valid!"));
                 }
             } else {
                 break;
@@ -227,9 +227,9 @@ public class Game {
             alchemistsLocations.put(alchemistRadius, alchemist);
         }
 
-        QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&aLoaded " + i + " teams of " + teamsCount));
+        LoggerUtil.logInfo("&aLoaded " + i + " teams of " + teamsCount);
 
-        QuartzDefenders.sendInfo(GameMsg.gameMessage("Info", "&aGame " + gameName + "&a successfully loaded"));
+        LoggerUtil.logInfo("&aGame " + gameName + "&a successfully loaded");
         loadSuccess = true;
     }
 
@@ -240,7 +240,7 @@ public class Game {
 
         if (isGameLocked()) {
             if (!player.getPlayer().hasPermission("QuartzDefenders.admin.gameJoin")) {
-                player.sendMessage(GameMsg.gameMessage("Game", "&7This game is locked. Only admins can join"));
+                player.sendMessage(LoggerUtil.gameMessage("Game", "&7This game is locked. Only admins can join"));
                 return;
             }
         }
@@ -260,8 +260,8 @@ public class Game {
         if (isGameState(GameState.LOBBY)) {
 
             gameAllPlayers.add(player);
-            this.broadcastMessage(GameMsg.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
-            player.sendMessage(GameMsg.gameMessage("Game", "Waiting for more players"));
+            this.broadcastMessage(LoggerUtil.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
+            player.sendMessage(LoggerUtil.gameMessage("Game", "Waiting for more players"));
 
             if (gameAllPlayers.size() >= minPlayers) {
                 setGameState(GameState.WAITING);
@@ -276,7 +276,7 @@ public class Game {
 
                     player.setScoreboard(gameScoreboard);
 
-                    p.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+                    p.sendMessage(LoggerUtil.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
                     sendTabList();
                 }
             }
@@ -286,7 +286,7 @@ public class Game {
         if (isGameState(GameState.WAITING) || isGameState(GameState.STARTING)) {
 
             gameAllPlayers.add(player);
-            this.broadcastMessage(GameMsg.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
+            this.broadcastMessage(LoggerUtil.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
@@ -296,7 +296,7 @@ public class Game {
 
             player.setScoreboard(gameScoreboard);
 
-            player.sendMessage(GameMsg.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+            player.sendMessage(LoggerUtil.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
             sendTabList();
             return;
         }
@@ -304,19 +304,19 @@ public class Game {
         if (isGameState(GameState.ACTIVE)) {
             gameAllPlayers.add(player);
             spectators.add(player);
-            this.broadcastMessage(GameMsg.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
+            this.broadcastMessage(LoggerUtil.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
             player.getPlayer().setGameMode(GameMode.SPECTATOR);
 
             player.setScoreboard(gameScoreboard);
-            player.sendMessage(GameMsg.gameMessage("Game", "Game is running now. You can choose team and play or stay watching."));
+            player.sendMessage(LoggerUtil.gameMessage("Game", "Game is running now. You can choose team and play or stay watching."));
             sendTabList();
             return;
         }
 
         if (isGameState(GameState.ENDING)) {
-            player.sendMessage(GameMsg.gameMessage("Game", "&7This game is not available now"));
+            player.sendMessage(LoggerUtil.gameMessage("Game", "&7This game is not available now"));
             return;
         }
     }
@@ -331,7 +331,7 @@ public class Game {
             getTeam(player.getPlayer()).quitTeam(player);
         }
 
-        this.broadcastMessage(GameMsg.gameMessage("Quit", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
+        this.broadcastMessage(LoggerUtil.gameMessage("Quit", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
         QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
 
         Player p = player.getPlayer();
@@ -515,14 +515,14 @@ public class Game {
 
             getKillsStats().sendKillsStats();
             
-            Bukkit.broadcastMessage(GameMsg.gameMessage(gameName, winner.getName() + "&7 team win the game"));
+            Bukkit.broadcastMessage(LoggerUtil.gameMessage(gameName, winner.getName() + "&7 team win the game"));
 
             BukkitRunnable runnable = new BukkitRunnable() {
 
                 @Override
                 public void run() {
                     endGame();
-                    QuartzDefenders.sendInfo(GameMsg.gameMessage(gameName, "The game is now restarting"));
+                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage(gameName, "The game is now restarting"));
                 }
             };
             runnable.runTaskLater(QuartzDefenders.getInstance(), 15 * 20);
@@ -538,7 +538,7 @@ public class Game {
                 @Override
                 public void run() {
                     endGame();
-                    QuartzDefenders.sendInfo(GameMsg.gameMessage(gameName, "The game is now restarting"));
+                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage(gameName, "The game is now restarting"));
                 }
             };
             runnable.runTaskLater(QuartzDefenders.getInstance(), 15 * 20);
@@ -608,7 +608,7 @@ public class Game {
           
         mapManager.deleteMap();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
-        Bukkit.broadcastMessage(GameMsg.gameMessage("Info", "&aGame " + gameName + "&a with id " + id + "&a successfully disabled"));
+        Bukkit.broadcastMessage(LoggerUtil.gameMessage("Info", "&aGame " + gameName + "&a with id " + id + "&a successfully disabled"));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game add " + id);
 
         this.game = null;
@@ -879,7 +879,7 @@ public class Game {
     		l.add(s);
     		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
     	}
-    	p.sendMessage(GameMsg.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString() 
+    	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString() 
     			+ "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ()));
     	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }

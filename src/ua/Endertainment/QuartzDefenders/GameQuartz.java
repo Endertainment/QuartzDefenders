@@ -9,7 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class GameQuartz {
 
@@ -28,7 +28,7 @@ public class GameQuartz {
 	public boolean breakQuartz(GamePlayer player) {
 		if(team.contains(player)) {
 			replace();
-			player.sendMessage(GameMsg.gameMessage("Game", "&cYou can not break quartz your own team"));
+			player.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not break quartz your own team"));
 			return false;
 		}
 		
@@ -49,12 +49,12 @@ public class GameQuartz {
 		
 		if(getQuartzHealth() == 0) {
 			for(GamePlayer p : game.getPlayers()) {
-				p.sendMessage(GameMsg.gameMessage("Game", "Player " + player.getDisplayName() + 
+				p.sendMessage(LoggerUtil.gameMessage("Game", "Player " + player.getDisplayName() + 
 						"&7 has destroyed the quartz of the " + team.getName() + "&7 team"));
 				p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.ENTITY_WITHER_DEATH, 1, 1);
 			}
 			for(GamePlayer p : team.getPlayers()) {
-				p.sendMessage(GameMsg.gameMessage("Game", "&cYour quartz is broken"));
+				p.sendMessage(LoggerUtil.gameMessage("Game", "&cYour quartz is broken"));
 				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0), true);
 				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0), true);
 				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0), true);

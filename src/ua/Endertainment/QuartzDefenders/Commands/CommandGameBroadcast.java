@@ -8,7 +8,7 @@ import org.bukkit.command.PluginCommand;
 
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
-import ua.Endertainment.QuartzDefenders.Utils.GameMsg;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class CommandGameBroadcast implements CommandExecutor {
 
@@ -23,12 +23,12 @@ public class CommandGameBroadcast implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!sender.hasPermission("QuartzDefenders.game.broadcast")) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return true;
 		}
 		
 		if(args.length == 0) {
-			sender.sendMessage(GameMsg.gameMessage("Chat", "Command usage: &b/" + label + " <message>"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Command usage: &b/" + label + " <message>"));
 			return true;
 		}
 		
@@ -38,7 +38,7 @@ public class CommandGameBroadcast implements CommandExecutor {
 			message += s + " ";
 		} 
 		
-		Bukkit.broadcastMessage(new ColorFormat(GameMsg.getPrefix() + message).format());
+		Bukkit.broadcastMessage(new ColorFormat(LoggerUtil.getPrefix() + message).format());
 		
 		return true;
 	}

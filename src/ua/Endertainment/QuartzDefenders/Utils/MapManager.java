@@ -39,20 +39,20 @@ public class MapManager {
 			try {
 				FileUtils.deleteDirectory(worldFolder);
 			} catch (IOException e) {
-				QuartzDefenders.sendInfo(GameMsg.gameMessage("Error", "&cCould not delete a map " + worldS));
+				LoggerUtil.logError("&cCould not delete a map " + worldS);
 			}
 		}
 	}
 	
 	public void copyMap() {
 		if(!isFolderExist()) {
-			QuartzDefenders.sendInfo(GameMsg.gameMessage("Error", "&cCould not find a map " + worldS + " in " + sourseDir.toString()));
+			LoggerUtil.logError("&cCould not find a map " + worldS + " in " + sourseDir.toString())              ;
 			return;
 		}
 		try {
 			FileUtils.copyDirectory(sourseDir, serverDir);
 		} catch (IOException e) {
-			QuartzDefenders.sendInfo(GameMsg.gameMessage("Error", "&cCould not copy a world to server directory. Check config or console"));
+			LoggerUtil.logError("&cCould not copy a world to server directory. Check config or console");
 		}
 		this.world = Bukkit.getServer().createWorld(new WorldCreator(worldS));
 		this.success = true;
