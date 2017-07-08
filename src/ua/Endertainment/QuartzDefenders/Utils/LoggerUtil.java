@@ -3,7 +3,6 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 public abstract class LoggerUtil {
 

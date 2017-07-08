@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import ua.Endertainment.QuartzDefenders.Utils.ChatCenterText;
+import ua.Endertainment.QuartzDefenders.Utils.CenteredMessageUtil;
 
 public class KillsStats {
 
@@ -31,17 +31,18 @@ public class KillsStats {
 	}
 	
 	public void sendKillsStats() {
+		if(kills.size() == 0) return;
 		calc();
 		for(GamePlayer p : game.getPlayers()) {
 			int pos = 1;
-			p.sendMessage("&8-------------------- &2Kills &8--------------------");
-			ChatCenterText.sendCenteredMessage(p, " ");
+			p.sendMessage("&8-------------------- &aKills &8--------------------");
+			CenteredMessageUtil.sendCenteredMessage(p, " ");
 			for(GamePlayer pp : sorted_map.keySet()) {
 				if(pos == 4) break;
-				ChatCenterText.sendCenteredMessage(p, "&aTop " + pos + "&f: " + pp.getDisplayName() + "&f - &a" + kills.get(pp));
+				CenteredMessageUtil.sendCenteredMessage(p, "&aTop " + pos + "&f: " + pp.getDisplayName() + "&f - &a" + kills.get(pp));
 				pos++;
 			}			
-			ChatCenterText.sendCenteredMessage(p, " ");
+			CenteredMessageUtil.sendCenteredMessage(p, " ");
 			p.sendMessage("&8---------------------------------------------");
 		}
 	}

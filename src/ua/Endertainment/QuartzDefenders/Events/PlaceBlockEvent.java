@@ -46,7 +46,7 @@ public class PlaceBlockEvent implements Listener {
 			}
 		}
 		
-		if(game.getBuildCuboid().contains(e.getBlock().getLocation())) {
+		if(!game.getBuildCuboid().contains(e.getBlock().getLocation())) {
 			p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
 			e.setCancelled(true);
 			return;

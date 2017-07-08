@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ua.Coolboy.QuartzDefenders.Mobs.MobsListener;
 import ua.Coolboy.QuartzDefenders.Shop.ShopInventory;
-import ua.Coolboy.QuartzDefenders.Turrets.TurretInventory;
-import ua.Coolboy.QuartzDefenders.Turrets.TurretListener;
 import ua.Endertainment.QuartzDefenders.Commands.CommandGameBroadcast;
 import ua.Endertainment.QuartzDefenders.Commands.CommandQuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.Game.CommandGame;
