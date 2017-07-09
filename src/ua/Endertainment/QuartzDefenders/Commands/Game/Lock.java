@@ -24,7 +24,7 @@ public class Lock extends SubCommand {
 		
 		Player p = (Player) sender;
 		
-		Game game = null;
+		Game game;
 		
 		if(args.length == 0) {
 			game = QuartzDefenders.getInstance().getGame(p);

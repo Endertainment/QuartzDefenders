@@ -311,7 +311,7 @@ public class Game {
             player.getPlayer().setGameMode(GameMode.SPECTATOR);
 
             player.setScoreboard(gameScoreboard);
-            player.sendMessage(LoggerUtil.gameMessage("Game", "Game is running now. You can choose team and play or stay watching"));
+            player.sendMessage(LoggerUtil.gameMessage("Game", "Game is running now. You can choose team (/team) and play or stay watching"));
             sendTabList();
             return;
         }
