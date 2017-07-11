@@ -1,8 +1,9 @@
 package ua.Endertainment.QuartzDefenders.Utils;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+
+import ua.Endertainment.QuartzDefenders.Game;
 
 public class BCub {
 
@@ -14,13 +15,11 @@ public class BCub {
 	private final int y2;
 	private final int z2;
 	
-	public BCub(Location loc1, Location loc2) {
-		if(loc1.getWorld() != loc2.getWorld()) {
-			throw new IllegalArgumentException("Locations must be on the same world");
-		}
-		
-		Bukkit.broadcastMessage(loc1.toString());
-		Bukkit.broadcastMessage(loc2.toString());
+	public BCub(Location center, Game game) {
+		Location loc1 = center.clone().add(game.getBuildRadius(), 0, game.getBuildRadius());
+		Location loc2 = center.clone().subtract(game.getBuildRadius(), 0, game.getBuildRadius());
+		loc1.setY(0);
+		loc2.setY(game.getBuildHeight());
 		
 		this.world = loc1.getWorld();
 	    this.x1 = Math.min(loc1.getBlockX(), loc2.getBlockX());

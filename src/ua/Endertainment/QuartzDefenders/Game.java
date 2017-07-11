@@ -157,7 +157,7 @@ public class Game {
                 config.getDouble("Games." + this.id + ".map_spawn.y"),
                 config.getDouble("Games." + this.id + ".map_spawn.z") + 0.5);
         this.customShop = config.getBoolean("Games." + this.id + ".custom_shop", false);
-        this.buildCuboid = new BCub(mapSpawn.clone().add(buildRadius, 0, buildRadius), mapSpawn.clone().subtract(buildRadius, buildHeight, buildRadius));
+        this.buildCuboid = new BCub(mapSpawn, this);
 
         int i = 0;
         for (String team : (List<String>) config.getList("Games." + this.id + ".teams")) {
