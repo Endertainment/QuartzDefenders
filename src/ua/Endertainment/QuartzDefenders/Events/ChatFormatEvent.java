@@ -29,13 +29,13 @@ public class ChatFormatEvent implements Listener{
 	public void chatForm(AsyncPlayerChatEvent e) {
 		StatsPlayer sp = new StatsPlayer(e.getPlayer());
 		
-		String formatLobby = new ColorFormat("&b{lvl}&8 |&r %1$s &8Â»&r %2$s").format();
+		String formatLobby = new ColorFormat("&b{lvl}&8 |&r %1$s &8»&r %2$s").format();
 		
-		String formatSpectators = new ColorFormat("&8Spect |&r %1$s &8Â»&r %2$s").format();
+		String formatSpectators = new ColorFormat("&8Spect |&r %1$s &8»&r %2$s").format();
 		
-		String formatGameTeam = new ColorFormat("&8Team |&r %1$s &8Â»&r %2$s").format();
+		String formatGameTeam = new ColorFormat("&8Team |&r %1$s &8»&r %2$s").format();
 		
-		String formatGameAll = new ColorFormat("&8All |&r %1$s &8Â»&r %2$s").format();		
+		String formatGameAll = new ColorFormat("&8All |&r %1$s &8»&r %2$s").format();		
 		/*
 		 * Color Message
 		 */
