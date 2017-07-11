@@ -877,6 +877,7 @@ public class Game {
     		String s = b.getX() + "," + b.getY() + "," + b.getZ();
     		if(l.contains(s)) {
     			p.sendMessage(LoggerUtil.gameMessage("Setup", "&aBlock removed"));
+    			QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     			return;
     		}
     		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
