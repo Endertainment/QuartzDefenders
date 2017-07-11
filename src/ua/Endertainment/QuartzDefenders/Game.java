@@ -903,6 +903,7 @@ public class Game {
     	
     	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team 
     			+ "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ())); 	
+    	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
     
     public void setSpawn(Location loc, String team, Player p) {
@@ -921,5 +922,6 @@ public class Game {
     	
     	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team 
     			+ "&f, X:&a" + loc.getBlockX() + "&f,Y:&a" + loc.getBlockY() + "&f,Z:&a" + loc.getBlockZ() + "&f,Yaw:&a" + loc.getYaw() + "&f,Pitch:&a" + loc.getPitch())); 	
+    	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
 }

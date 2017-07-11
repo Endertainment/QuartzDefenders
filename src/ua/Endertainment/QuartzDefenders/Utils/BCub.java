@@ -1,5 +1,6 @@
 package ua.Endertainment.QuartzDefenders.Utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -17,6 +18,10 @@ public class BCub {
 		if(loc1.getWorld() != loc2.getWorld()) {
 			throw new IllegalArgumentException("Locations must be on the same world");
 		}
+		
+		Bukkit.broadcastMessage(loc1.toString());
+		Bukkit.broadcastMessage(loc2.toString());
+		
 		this.world = loc1.getWorld();
 	    this.x1 = Math.min(loc1.getBlockX(), loc2.getBlockX());
 	    this.y1 = Math.min(loc1.getBlockY(), loc2.getBlockY());
