@@ -876,10 +876,13 @@ public class Game {
     		ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list");
     		String s = b.getX() + "," + b.getY() + "," + b.getZ();
     		if(l.contains(s)) {
+    			l.remove(s);
     			p.sendMessage(LoggerUtil.gameMessage("Setup", "&aBlock removed"));
+    			cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
     			QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     			return;
     		}
+    		l.add(s);
     		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
     	}
     	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString() 

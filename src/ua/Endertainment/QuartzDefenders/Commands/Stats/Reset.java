@@ -19,11 +19,6 @@ public class Reset extends SubCommand {
 			return;
 		}
 		
-		if(args.length == 0) {
-			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Check command usage: &b/stats help"));
-			return;
-		}
-		
 		Player p = null;
 		
 		if(args.length >= 1) {
