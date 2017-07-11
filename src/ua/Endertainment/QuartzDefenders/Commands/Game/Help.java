@@ -16,7 +16,7 @@ public class Help extends SubCommand {
 		}
 		try {
 			page = Integer.parseInt(args[0]);
-			if(page >= 2) page = 1; 
+			if(page >= 3) page = 1; 
 		} catch(NumberFormatException ex) {
 			page = 1;
 		}
@@ -37,7 +37,9 @@ public class Help extends SubCommand {
 				// TODO
 			}
 			case 2: {
-				
+				sender.sendMessage(new ColorFormat("&8» &b/game setupOres &8- &bAdd new regenerative ores").format());
+				sender.sendMessage(new ColorFormat("&8» &b/game setupQuartz <team> [x] [y] [z] &8- &bSet quartz").format());
+				sender.sendMessage(new ColorFormat("&8» &b/game setupSpawn <team> [x] [y] [z] [yaw] [pitch] &8- &bSet quartz").format());
 			}
 		} 
 		

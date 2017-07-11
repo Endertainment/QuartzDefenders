@@ -54,7 +54,7 @@ public class AddCoins extends SubCommand {
 		sp.addCoins(coins);		
 		sender.sendMessage(LoggerUtil.gameMessage("Stats", "&6" + coins + "&7 coins added for player &6" + sp.getPlayer().getName()));
 		
-		if(p.getWorld() == QuartzDefenders.getInstance().getLobby().getLocation().getWorld()) {
+		if(p.getWorld() == QuartzDefenders.getInstance().getLobby().getWorld()) {
 			ScoreboardLobby sb = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
 			sb.setScoreboard();
 		}

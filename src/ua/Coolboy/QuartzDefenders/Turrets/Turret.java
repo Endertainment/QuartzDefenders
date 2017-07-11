@@ -48,7 +48,7 @@ public class Turret {
         turret.setCustomName("Turret");
         turret.setGravity(false);
         turret.setCustomNameVisible(true);
-        turret.setMetadata("turret", new FixedMetadataValue(plugin, true));
+        turret.setMetadata("turret", new FixedMetadataValue(this.plugin, true));
         turret.setMetadata("lived", new FixedMetadataValue(plugin, 0));
         turret.setMetadata("type", new FixedMetadataValue(plugin, "normal"));
         if (team != null) {
@@ -127,4 +127,8 @@ public class Turret {
     public GameTeam getTeam() {
         return team;
     }
+
+	public Player getOwner() {
+		return owner;
+	}
 }

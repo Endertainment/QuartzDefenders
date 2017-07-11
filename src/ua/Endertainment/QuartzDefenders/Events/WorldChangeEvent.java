@@ -22,7 +22,7 @@ public class WorldChangeEvent implements Listener {
 	public void onWorldChange(PlayerChangedWorldEvent e) {
 		World to = e.getPlayer().getLocation().getWorld();
 		Player player = e.getPlayer();
-		if(to == plugin.getLobby().getLocation().getWorld()) {
+		if(to == plugin.getLobby().getWorld()) {
 			return;
 		}
 		

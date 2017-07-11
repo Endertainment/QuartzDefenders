@@ -16,7 +16,6 @@ import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
-import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 import ua.Endertainment.QuartzDefenders.Utils.Language;
@@ -117,7 +116,8 @@ public class Shop {
         return m;
     }
 
-    public Short getDamageByColor(ChatColor color) {
+    @SuppressWarnings("incomplete-switch")
+	public Short getDamageByColor(ChatColor color) {
         switch (color) {
             case RED:
                 return 14;

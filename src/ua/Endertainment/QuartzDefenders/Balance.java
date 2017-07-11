@@ -52,7 +52,7 @@ public class Balance {
 		if(player.getPlayer().hasPermission("QuartzDefenders.team.balanceJoin")) return true; 
 		for(GameTeam team : setOfTeams) {			
 			if(this.chooseTeam.getPlayers().size() > team.getPlayers().size()) {
-				player.sendMessage(LoggerUtil.gameMessage("Team", "Teams inbalanced. Choose another team"));
+				player.sendMessage(LoggerUtil.gameMessage("Team", "Teams unbalanced. Choose another team"));
 				return false;
 			}
 		}
@@ -63,7 +63,7 @@ public class Balance {
 		if(player.getPlayer().hasPermission("QuartzDefenders.team.balanceJoin")) return true;
 		for(GameTeam team : setOfTeams) {
 			if(StatsManager.getTeamKDR(chooseTeam) > ( StatsManager.getTeamKDR(team) + 1 ) ) {
-				player.sendMessage(LoggerUtil.gameMessage("Team", "Teams inbalanced. Choose another team"));
+				player.sendMessage(LoggerUtil.gameMessage("Team", "Teams unbalanced. Choose another team"));
 				return false;
 			}
 		}

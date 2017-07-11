@@ -17,13 +17,55 @@ mobs:
         name: 'Alchemistry coin'
         lore: 'Special alchemistry currency' #only 1 string, use it in shop.yml
 game:
+    game: 'Game'
     game_locked: 'This game is locked. Only admins can join'
     join_game: 'Player &r{0}&7 joined the game'
     quit_game: 'Player &r{0}&7 quit the game'
+    quit_game_reconnect: 'Player {0}&7 has &b{1}&7 minutes to reconnect'
     waiting_players: 'Waiting for more players'
     choose_team: 'Choose a &ateam&7 and wait a &agame &7start'
     game_running: 'Game is running now. You can choose team and play or stay watching'
     game_unavailable: 'This game is not available now'
     title:
-        waiting: 'Game will begin in &b{0}&7 seconds'
-
+        waiting: 
+            top: '{0}'
+            bot: 'Game will begin in &b{0}&7 seconds'
+        started:
+            top: '&bGame started'
+            bot: '&7Good luck'
+        win: 
+            top: '{0}'
+            bot: 'team win the game'
+team:
+    team: 'Team'
+    win: '{0} &7team win the game'
+    team_locked: 'This team is locked now. Only &bVIP&7s can join'
+    team_join_disalllow: 'You can not join to this team'
+    team_join: 'You joined to {0}&7 team'
+    team_quit: 'You quit from {0}&7 team'
+    team_join_unbalanced: 'Teams unbalanced. Choose another team'
+quartz:
+    break_quartz_own: '&cYou can not break quartz your own team'
+    break_quartz_destroy: 'Player {0} &7has destroyed the quartz of the {1}&7 team'
+    quartz_broken: '&cYour quartz was broken'
+logger:
+    info: 'Info'
+    games_loaded: '&aAll games loaded'
+    game_not_exist: '&cGame with id &a{0}&c is not exist'
+    loading_game: 'Loading game with id &a{0}'
+    game_already_exist: 'Game {0}&c could not be loaded. This game is already enabled'
+    cfg_load_success: 'Game configuration load success'
+    delete_map_failed: '&cCould not delete a map {0}'
+    find_map_failed: '&cCould not find a map {0} in {1}'
+    copy_map_failed: '&cCould not copy a world to server directory'
+    load_map_failed: '&cCould not load map in game {0}'
+    load_map_success: '&aMap load success'
+    invalid_team: '&cTeam {0} &cis not valid'
+    game_load_success: '&aGame {0}&a successfully loaded'
+    game_restarting: 'The game is restarting now'
+    game_disable: '&aGame {0}&a with id {1}&a successfully disabled'
+commands: 
+    chat: 'Chat'
+    no_permissions: '&cYou do not have permissions'
+    command_ussage: 'Check command usage: &b/{0} help'
+    

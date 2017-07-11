@@ -1,10 +1,6 @@
 package ua.Endertainment.QuartzDefenders.Commands.Game;
 
-import java.util.Set;
-
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -13,11 +9,11 @@ import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
-public class SetupQuartz extends SubCommand {
+public class SetupSpawn extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if(!sender.hasPermission("QuartzDefenders.setup.quartz")) {
+		if(!sender.hasPermission("QuartzDefenders.setup.spawn")) {
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
@@ -42,20 +38,20 @@ public class SetupQuartz extends SubCommand {
 			return;
 		}
 		
-		Block b = null;
+		Location loc = null;
 		
 		if(args.length == 1) {
-			b = p.getTargetBlock((Set<Material>) null, 200);			
+			loc = p.getLocation();
 		}
 		
 		if(args.length >= 4) {
-			b = game.getGameWorld().getBlockAt(new Location(game.getGameWorld(), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
+			loc = new Location(game.getGameWorld(), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+			if(args.length > 4) loc.setYaw(Float.parseFloat(args[4]));
+			if(args.length > 5) loc.setPitch(Float.parseFloat(args[5]));
 		}
 		
-		game.setQuartz(b, args[0], p);
+		game.setSpawn(loc, args[0], p);
 		
 	}
-
-	
 	
 }

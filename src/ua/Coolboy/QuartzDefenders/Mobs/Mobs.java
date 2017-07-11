@@ -3,7 +3,6 @@ package ua.Coolboy.QuartzDefenders.Mobs;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;

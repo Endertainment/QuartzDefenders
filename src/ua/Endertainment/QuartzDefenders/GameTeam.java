@@ -87,7 +87,7 @@ public class GameTeam {
 	public void quitTeam(GamePlayer player) {
 		game.getSidebar().refresh();
 		if(removePlayer(player)) {
-			player.sendMessage(LoggerUtil.gameMessage("Game", "You left from " + getName() + "&7 team"));
+			player.sendMessage(LoggerUtil.gameMessage("Game", "You quit from " + getName() + "&7 team"));
 			
 			if(game.isGameState(GameState.ACTIVE) || game.isGameState(GameState.ENDING) ) {
 				game.getSpectators().add(player);

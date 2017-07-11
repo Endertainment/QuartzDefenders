@@ -41,7 +41,7 @@ import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
 
 public class Game {
 
-    private String[] realTeams = {"RED", "BLUE", "GREEN", "YELLOW", "MAGENTA", "AQUA", "GRAY", "WHITE"};
+    private String[] validTeams = {"RED", "BLUE", "GREEN", "YELLOW", "MAGENTA", "AQUA", "GRAY", "WHITE"};
 
     private Game game;
 
@@ -163,7 +163,7 @@ public class Game {
         int i = 0;
         for (String team : (List<String>) config.getList("Games." + this.id + ".teams")) {
             if (i != teamsCount) {
-                if (isTeamReal(team)) {
+                if (isTeamValid(team)) {
 
                     Location spawn = new Location(Bukkit.getWorld(teckWorldName),
                             config.getDouble("Games." + this.id + ".locations." + team + ".spawn.x") + 0.5,
@@ -196,7 +196,7 @@ public class Game {
                     shopLocations.put(getTeam(team), shop);
                     i++;
                 } else {
-                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage("Info", "&cTeam \"" + team + "\" is not valid!"));
+                    LoggerUtil.logError("&cTeam \"" + team + "\" is not valid!");
                 }
             } else {
                 break;
@@ -226,8 +226,6 @@ public class Game {
                     Integer.parseInt(array[2]));
             alchemistsLocations.put(alchemistRadius, alchemist);
         }
-
-        LoggerUtil.logInfo("&aLoaded " + i + " teams of " + teamsCount);
 
         LoggerUtil.logInfo("&aGame " + gameName + "&a successfully loaded");
         loadSuccess = true;
@@ -609,7 +607,7 @@ public class Game {
           
         mapManager.deleteMap();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
-        Bukkit.broadcastMessage(LoggerUtil.gameMessage("Info", "&aGame " + gameName + "&a with id " + id + "&a successfully disabled"));
+        LoggerUtil.logInfo("&aGame " + gameName + "&a with id " + id + "&a successfully disabled");
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game add " + id);
 
         this.game = null;
@@ -641,8 +639,8 @@ public class Game {
         return gameAllPlayers.contains(player);
     }
 
-    private boolean isTeamReal(String s) {
-        for (String ss : realTeams) {
+    private boolean isTeamValid(String s) {
+        for (String ss : validTeams) {
             if (ss.equals(s)) {
                 return true;
             }
@@ -877,7 +875,10 @@ public class Game {
     	} else {
     		ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list");
     		String s = b.getX() + "," + b.getY() + "," + b.getZ();
-    		l.add(s);
+    		if(l.contains(s)) {
+    			p.sendMessage(LoggerUtil.gameMessage("Setup", "&aBlock removed"));
+    			return;
+    		}
     		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
     	}
     	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString() 
@@ -885,6 +886,36 @@ public class Game {
     	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
     public void setQuartz(Block b, String team, Player p) {
+    	if(!isTeamValid(team)) {
+    		p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
+    		return;
+    	}
     	
+    	FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
+    	
+    	cfg.set("Games." + id + ".locations." + team + ".quartz.x", b.getX());
+    	cfg.set("Games." + id + ".locations." + team + ".quartz.y", b.getY());
+    	cfg.set("Games." + id + ".locations." + team + ".quartz.z", b.getZ());
+    	
+    	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team 
+    			+ "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ())); 	
+    }
+    
+    public void setSpawn(Location loc, String team, Player p) {
+    	if(!isTeamValid(team)) {
+    		p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
+    		return;
+    	}
+    	
+    	FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
+    	
+    	cfg.set("Games." + id + ".locations." + team + ".spawn.x", loc.getBlockX());
+    	cfg.set("Games." + id + ".locations." + team + ".spawn.y", loc.getBlockY());
+    	cfg.set("Games." + id + ".locations." + team + ".spawn.z", loc.getBlockZ());
+    	cfg.set("Games." + id + ".locations." + team + ".spawn.yaw", loc.getYaw());
+    	cfg.set("Games." + id + ".locations." + team + ".spawn.pitch", loc.getPitch());
+    	
+    	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team 
+    			+ "&f, X:&a" + loc.getBlockX() + "&f,Y:&a" + loc.getBlockY() + "&f,Z:&a" + loc.getBlockZ() + "&f,Yaw:&a" + loc.getYaw() + "&f,Pitch:&a" + loc.getPitch())); 	
     }
 }

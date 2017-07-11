@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
+import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 
 public class Lobby implements Listener {
@@ -34,7 +35,7 @@ public class Lobby implements Listener {
 		this.plugin = plugin;
 		
 		if(plugin.getConfig().getString("Lobby.lobby_world_name") == null || plugin.getConfig().getString("Lobby.lobby_world_name").equalsIgnoreCase("null")) {
-			Bukkit.broadcastMessage(ChatColor.RED + "ERROR WHITE LOADING PLUGIN. CHECK FILE CONFIGURATION AND EDIT IT.");
+			LoggerUtil.logError("Can not find 'Lobby.lobby_world_name' in configuration file. Check config or visit web page to see more info");
 			Bukkit.getPluginManager().disablePlugin(plugin);
 			return;
 		}
@@ -109,7 +110,9 @@ public class Lobby implements Listener {
 	public Location getLocation() {
 		return location;
 	}
-	
+	public World getWorld() {
+		return location.getWorld();
+	}
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();

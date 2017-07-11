@@ -22,7 +22,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 
 		if(args.length == 0) {
-			sender.sendMessage(new ColorFormat("&8» &dQuartz&5Defenders &fplugin developed by &bEndertainment & Cool_boy &ffor &bPlayCraft.COM.UA").format());
+			sender.sendMessage(new ColorFormat("&8» &bQuartz&3Defenders &fplugin developed by &bEndertainment & Cool_boy &ffor &bPlayCraft.COM.UA").format());
 			return true;
 		}
 		

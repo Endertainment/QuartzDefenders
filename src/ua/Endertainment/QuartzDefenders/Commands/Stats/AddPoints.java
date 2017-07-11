@@ -54,7 +54,7 @@ public class AddPoints extends SubCommand {
 		sp.addPoints(points);		
 		sender.sendMessage(LoggerUtil.gameMessage("Stats", "&6" + points + "&7 points added for player &6" + sp.getPlayer().getName()));
 		
-		if(p.getWorld() == QuartzDefenders.getInstance().getLobby().getLocation().getWorld()) {
+		if(p.getWorld() == QuartzDefenders.getInstance().getLobby().getWorld()) {
 			ScoreboardLobby sb = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
 			sb.setScoreboard();
 		}

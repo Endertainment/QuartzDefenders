@@ -45,13 +45,13 @@ public class ChatFormatEvent implements Listener{
 		/*
 		 * ChatFormat : Lobby
 		 */
-		if(e.getPlayer().getLocation().getWorld() == plugin.getLobby().getLocation().getWorld()) {
+		if(e.getPlayer().getLocation().getWorld() == plugin.getLobby().getWorld()) {
 			formatLobby = formatLobby.replace("{lvl}", sp.getLevel() + "").replace("%1$s", e.getPlayer().getDisplayName());
 			
 			Iterator<Player> iter = e.getRecipients().iterator();			
 			while (iter.hasNext()) {
 		        Player p = iter.next();
-		        if(!plugin.getLobby().getLocation().getWorld().getPlayers().contains(p)) {   
+		        if(!plugin.getLobby().getWorld().getPlayers().contains(p)) {   
 		        	iter.remove();
 		        }
 			}
@@ -75,7 +75,7 @@ public class ChatFormatEvent implements Listener{
 				Iterator<Player> iter = e.getRecipients().iterator();			
 				while (iter.hasNext()) {
 		        	Player p = iter.next();
-		        	if(!plugin.getLobby().getLocation().getWorld().getPlayers().contains(p)) {   
+		        	if(!plugin.getLobby().getWorld().getPlayers().contains(p)) {   
 		        		iter.remove();
 		        	}
 				}

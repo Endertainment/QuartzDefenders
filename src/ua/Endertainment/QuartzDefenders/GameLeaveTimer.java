@@ -29,8 +29,9 @@ public class GameLeaveTimer extends BukkitRunnable {
 				game.quitGame(player);
 			} 
 			else if(time == 300 || time == 120 || time == 60) {
-				game.broadcastMessage(LoggerUtil.gameMessage("Quit", "Player " + pplayer.getDisplayName() 
-									+ "&7 has &b" + (time/60) + "&7 minutes to reconnect"));
+				int x = time/60;
+				game.broadcastMessage(LoggerUtil.gameMessage("Game", "Player " + pplayer.getDisplayName() 
+									+ "&7 has &b" + x + "&7 minutes to reconnect"));
 			}		
 			time--;			
 		} else cancel();

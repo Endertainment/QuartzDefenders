@@ -92,7 +92,5 @@ public class GameSidebar {
  *   Red: 75/100   
  * 	 Blue: 72/100
  * ----------------
- * Time: 23:53
- * ----------------
  * Playcraft.COM.UA
  */

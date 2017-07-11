@@ -24,7 +24,7 @@ public class ExplodeEvent implements Listener {
 	
 	@EventHandler
 	public void onExplode(EntityExplodeEvent e) {
-		if(e.getLocation().getWorld() == plugin.getLobby().getLocation().getWorld()) {
+		if(e.getLocation().getWorld() == plugin.getLobby().getWorld()) {
 			return;
 		}
 		
@@ -48,7 +48,12 @@ public class ExplodeEvent implements Listener {
 				
 				for(Location loc : locs) {
 					if(b.getLocation().getBlockX() == loc.getBlockX() && b.getLocation().getBlockY() == loc.getBlockY() && b.getLocation().getBlockZ() == loc.getBlockZ()) {
-						e.setCancelled(true);
+						Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+							@Override
+							public void run() {
+								b.setType(b.getType());					
+							}
+						});
 					}
 				}
 			}

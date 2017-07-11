@@ -25,7 +25,8 @@ public class ShopInventory implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     
-    @EventHandler
+    @SuppressWarnings("incomplete-switch")
+	@EventHandler
     public void onClick(InventoryClickEvent e) {
         if (!(e.getInventory().getName().contains(Shop.name))) {
             return;

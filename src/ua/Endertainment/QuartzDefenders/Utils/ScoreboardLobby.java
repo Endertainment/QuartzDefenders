@@ -36,7 +36,7 @@ public class ScoreboardLobby {
 	}
 	
 	public void setScoreboard() {
-		if(p.getWorld() == plugin.getLobby().getLocation().getWorld()) p.setScoreboard(scoreboard);
+		if(p.getWorld() == plugin.getLobby().getWorld()) p.setScoreboard(scoreboard);
 	}
 	
 	private void scoreBuilder() {
