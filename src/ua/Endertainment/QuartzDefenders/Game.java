@@ -348,23 +348,18 @@ public class Game {
             }
         }
 
-        Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
+        Iterator<PotionEffect> i = p.getActivePotionEffects().iterator();
         while (i.hasNext()) {
-            p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+            p.addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
         }
 
         p.setGameMode(GameMode.ADVENTURE);
 
-        p.getInventory().clear();
-
-        p.getInventory().setItem(0, QItems.itemGamesChoose());
-        p.getInventory().setItem(4, QItems.itemStats());
-        p.getInventory().setItem(7, QItems.itemHidePlayers(QuartzDefenders.getInstance().getLobby().getHides().contains(p)));
-        p.getInventory().setItem(8, QItems.itemLobbyShop());
+        QuartzDefenders.getInstance().getLobby().setLobbyTools(p);
 
         ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
         s.setScoreboard();
-        QuartzDefenders.getInstance().getLobby().sendTabList(p.getPlayer());
+        QuartzDefenders.getInstance().getLobby().sendTabList(p);
 
         if (gameAllPlayers.isEmpty()) {
             QuartzDefenders.getInstance().deleteGame(this);
@@ -395,23 +390,18 @@ public class Game {
              }
          }
 
-         Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
+         Iterator<PotionEffect> i = p.getActivePotionEffects().iterator();
          while (i.hasNext()) {
-             p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+             p.addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
          }
 
          p.setGameMode(GameMode.ADVENTURE);
 
-         p.getInventory().clear();
-
-         p.getInventory().setItem(0, QItems.itemGamesChoose());
-         p.getInventory().setItem(4, QItems.itemStats());
-         p.getInventory().setItem(7, QItems.itemHidePlayers(QuartzDefenders.getInstance().getLobby().getHides().contains(p)));
-         p.getInventory().setItem(8, QItems.itemLobbyShop());
+         QuartzDefenders.getInstance().getLobby().setLobbyTools(p);
 
          ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
          s.setScoreboard();
-         QuartzDefenders.getInstance().getLobby().sendTabList(p.getPlayer());
+         QuartzDefenders.getInstance().getLobby().sendTabList(p);
 
          if (gameAllPlayers.isEmpty()) {
              QuartzDefenders.getInstance().deleteGame(this);

@@ -113,6 +113,16 @@ public class Lobby implements Listener {
 	public World getWorld() {
 		return location.getWorld();
 	}
+	public void setLobbyTools(Player p) {
+		if(p.getWorld() != getWorld()) return;
+		p.getInventory().clear();
+		
+		p.getInventory().setItem(0, QItems.itemGamesChoose());
+		p.getInventory().setItem(4, QItems.itemStats());
+		p.getInventory().setItem(7, QItems.itemHidePlayers(getHides().contains(p)));
+		p.getInventory().setItem(8, QItems.itemLobbyShop());
+	}
+	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
@@ -177,12 +187,7 @@ public class Lobby implements Listener {
 			bp.setHealth(20);
 			bp.setFoodLevel(20);
 			
-			bp.getInventory().clear();
-			
-			bp.getInventory().setItem(0, QItems.itemGamesChoose());
-			bp.getInventory().setItem(4, QItems.itemStats());
-			bp.getInventory().setItem(7, QItems.itemHidePlayers(getHides().contains(bp)));
-			bp.getInventory().setItem(8, QItems.itemLobbyShop());
+			setLobbyTools(bp);
 			
 			ScoreboardLobby sb = new ScoreboardLobby(plugin, bp);
 			sb.setScoreboard();

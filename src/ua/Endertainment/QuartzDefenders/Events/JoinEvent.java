@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
-import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 
@@ -55,12 +54,7 @@ public class JoinEvent implements Listener {
 		p.setHealth(20);
 		p.setFoodLevel(20);
 		
-		p.getInventory().clear();
-		
-		p.getInventory().setItem(0, QItems.itemGamesChoose());
-		p.getInventory().setItem(4, QItems.itemStats());
-		p.getInventory().setItem(7, QItems.itemHidePlayers(plugin.getLobby().getHides().contains(p)));
-		p.getInventory().setItem(8, QItems.itemLobbyShop());
+		plugin.getLobby().setLobbyTools(p);
 		
 		ScoreboardLobby s = new ScoreboardLobby(plugin, p);
 		s.setScoreboard();

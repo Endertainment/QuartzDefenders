@@ -33,7 +33,6 @@ import ua.Endertainment.QuartzDefenders.Events.QuitEvent;
 import ua.Endertainment.QuartzDefenders.Events.WorldChangeEvent;
 import ua.Endertainment.QuartzDefenders.Events.Game.GameRegisterEvent;
 import ua.Endertainment.QuartzDefenders.Events.LightningEvent;
-import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Stats.PlayerJoinStats;
 import ua.Endertainment.QuartzDefenders.Stats.TopManager;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
@@ -138,12 +137,7 @@ public class QuartzDefenders extends JavaPlugin {
     		p.setHealth(20);
     		p.setFoodLevel(20);
     		
-    		p.getInventory().clear();
-    		
-    		p.getInventory().setItem(0, QItems.itemGamesChoose());
-    		p.getInventory().setItem(4, QItems.itemStats());
-    		p.getInventory().setItem(7, QItems.itemHidePlayers(getLobby().getHides().contains(p)));
-    		p.getInventory().setItem(8, QItems.itemLobbyShop());
+    		getLobby().setLobbyTools(p);
     		
     		ScoreboardLobby s = new ScoreboardLobby(this, p);
     		s.setScoreboard();
