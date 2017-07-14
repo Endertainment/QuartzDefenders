@@ -12,7 +12,9 @@ import org.bukkit.scoreboard.Team;
 
 import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Replacer;
 
 public class GameTeam {
 
@@ -66,7 +68,7 @@ public class GameTeam {
 			game.getTeam(player.getPlayer()).quitTeam(player);
 		}
 		if(addPlayer(player)) {
-			player.sendMessage(LoggerUtil.gameMessage("Game", "You joined to " + getName() + "&7 team"));
+			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join", new Replacer("{0}", team.getName()))));
 			
 			if(game.isGameReady()) game.startCountdown();
 			
@@ -87,7 +89,7 @@ public class GameTeam {
 	public void quitTeam(GamePlayer player) {
 		game.getSidebar().refresh();
 		if(removePlayer(player)) {
-			player.sendMessage(LoggerUtil.gameMessage("Game", "You quit from " + getName() + "&7 team"));
+			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_quit", new Replacer("{0}", team.getName()))));
 			
 			if(game.isGameState(GameState.ACTIVE) || game.isGameState(GameState.ENDING) ) {
 				game.getSpectators().add(player);

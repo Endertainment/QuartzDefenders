@@ -34,8 +34,10 @@ import ua.Endertainment.QuartzDefenders.Utils.BCub;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.Cuboid;
 import ua.Endertainment.QuartzDefenders.Utils.FireworkUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 import ua.Endertainment.QuartzDefenders.Utils.MapManager;
+import ua.Endertainment.QuartzDefenders.Utils.Replacer;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
 
@@ -100,7 +102,8 @@ public class Game {
         FileConfiguration config = QuartzDefenders.getInstance().getConfigs().getGameInfo();
 
         if (config.getConfigurationSection("Games." + id) == null) {
-            LoggerUtil.logInfo("&cGame with id &a" + id + "&c is not exist");
+            LoggerUtil.logInfo(Language.getString("logger.game_not_exist", new Replacer("{0}", id)));
+            
             return;
         }
 
@@ -131,20 +134,20 @@ public class Game {
             return;
         }
 
-        LoggerUtil.logInfo("&aGame configuration load success");
+        LoggerUtil.logInfo(Language.getString("logger.cfg_load_success"));
 
         this.mapManager = new MapManager(teckWorldName);
         try {
             mapManager.resetMap();
         } catch (Exception e) {
-            LoggerUtil.logError("&cCould not load map in game " + gameName);
+            LoggerUtil.logError(Language.getString("logger.load_map_failed", new Replacer("{0}", gameName)));
             return;
         }
         if (!mapManager.isSuccess()) {
             return;
         }
 
-        LoggerUtil.logInfo("&aMap load success");
+        LoggerUtil.logInfo(Language.getString("logger.load_map_success"));
 
         this.map = mapManager.getWorld();
 

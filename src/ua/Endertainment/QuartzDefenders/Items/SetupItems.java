@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+
+import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 
 public class SetupItems {
@@ -12,18 +14,18 @@ public class SetupItems {
 		ArrayList<String> lore = new ArrayList<>();
 		lore.add(" ");
 		lore.add("&7Right click to block");
-		lore.add("that you need to regenerate");
+		lore.add("&7that you need to regenerate");
 		lore.add(" ");
 		return ItemUtil.newItem("&aSetupOres &7(Right click)", lore, Material.BLAZE_ROD, 1);
 	}
 	
-	public static ItemStack itemSetupQuartz() {
+	public static ItemStack itemSetupQuartz(GameTeam team) {
 		ArrayList<String> lore = new ArrayList<>();
 		lore.add(" ");
-		lore.add("&7Right click to block");
-		lore.add("that you need to regenerate");
+		lore.add("&7Right click to ");
+		lore.add("&7set quartz of " + team.getName() + "&7 team");
 		lore.add(" ");
-		return ItemUtil.newItem("&aSetupOres &7(Right click)", lore, Material.BLAZE_ROD, 1);
+		return ItemUtil.newItem("&aSetupQuartz " + team.getName() + "&7 (Right click)", lore, Material.QUARTZ, 1);
 	}
 	
 }

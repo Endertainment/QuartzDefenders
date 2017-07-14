@@ -42,9 +42,6 @@ public class GameQuartz {
 		setQuartzHealth(getQuartzHealth() - 1);
 		this.replace();
 		
-		StatsPlayer sp = new StatsPlayer(player.getPlayer());
-		sp.addBrokenQuartz();
-		
 		player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4*20, 0), true);
 		
 		if(getQuartzHealth() == 0) {
@@ -52,6 +49,10 @@ public class GameQuartz {
 				p.sendMessage(LoggerUtil.gameMessage("Game", "Player " + player.getDisplayName() + 
 						"&7 has destroyed the quartz of the " + team.getName() + "&7 team"));
 				p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.ENTITY_WITHER_DEATH, 1, 1);
+				
+				StatsPlayer sp = new StatsPlayer(player.getPlayer());
+				sp.addBrokenQuartz();
+				
 			}
 			for(GamePlayer p : team.getPlayers()) {
 				p.sendMessage(LoggerUtil.gameMessage("Game", "&cYour quartz is broken"));

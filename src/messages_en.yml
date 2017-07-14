@@ -9,7 +9,6 @@ shop:
     blocks: '&8Blocks'
     stuff: '&eStuff'
     resources: '&2Resources'
-    
 mobs:
     diamond_defender: '&5Diamond defender'
     alchemist_soul: '&bAlchemist soul'
@@ -50,6 +49,7 @@ quartz:
     quartz_broken: '&cYour quartz was broken'
 logger:
     info: 'Info'
+    error: 'Error'
     games_loaded: '&aAll games loaded'
     game_not_exist: '&cGame with id &a{0}&c is not exist'
     loading_game: 'Loading game with id &a{0}'
@@ -68,4 +68,69 @@ commands:
     chat: 'Chat'
     no_permissions: '&cYou do not have permissions'
     command_ussage: 'Check command usage: &b/{0} help'
-    
+    only_players_can_use: '&cOnly players can use this command'
+    game_not_exist: '&cGame is not exist'
+kits:
+    kits: 'Kits'
+    shop: 'Shop'
+    can_not_buy: 'You can not buy kit {0}&7. Reason: {1}'
+    kit_buy_success: 'You buy a new kit: {0}'
+    kit_choose_success: 'You choose a kit {0}'
+    kit_choose_failed: 'You do not have a kit {0}'
+    kit_available: '&aAvailable'
+    kit_available_buy: '&aAvailable &7(Click to buy)'
+    kit_unavailable_level: '&cUnavailable. Requested level {0}'
+    kit_unavailable_price: '&cUnavailable. Price {0}'
+GUI:
+    games:
+        name: '&5Active Games'
+        game: '&7Game: &d{0}'
+        mode: '&7Mode: &d{0} by {1}'
+        state: '&7State: &d{0}'
+        players: '&7Players: &d{0}'
+        glass_id_1: 2
+        glass_id_2: 6
+    kits:
+        name: '&2Kits'
+        glass_id_1: 5
+        glass_id_2: 13
+    shop: 
+        name: '&2Shop'
+        glass_id_1: 2
+        glass_id_2: 6
+    stats:
+        name: "{0}'s stats"
+        glass_id_1: 1
+        glass_id_2: 4
+        item_kills: 
+            name: '&6Kills'
+            kills: '&7Kills: &6{0}'
+            kd: '&7KD: &6{0}'
+            top_kills: '&7Top (Kills): &6{0}'
+        item_level: 
+            name: '&6Level'
+            level: '&7Level: &6{0}'
+            next_level: '&7Next level: &6{0}&7 (&6{1}&7/&6{2}&7)'
+        item_points: 
+            name: '&6Points'
+            points: '&7Points: &6{0}'
+        item_wins: 
+            name: '&6Wins'
+            wins: '&7Wins: &6{0}'
+            games_played: '&7Games played: &6{0}'
+            win_rate: '&7Win rate: &6{0}'
+            top_wins: '&7Top (Wins): &6{0}'
+        item_coins: 
+            name: '&6Coins'
+            coins: '&7Coins: &6{0}'
+        item_another: 
+            name: '&6Another stats'
+            broken_quartz: '&7Broken quartz: &6{0}'
+            broken_ores: '&7Broken ores: &6{0}'
+            placed_blocks: '&7Placed blocks: &6{0}'            
+    teams:
+        name: '&9Teams'
+        glass_id_1: 3
+        glass_id_2: 11
+        item_name: '{c}> {0} {c}<'
+        players: '&7Players: {c}{0}&7/{c}{1}'
