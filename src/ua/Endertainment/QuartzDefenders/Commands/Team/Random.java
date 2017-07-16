@@ -31,6 +31,11 @@ public class Random extends SubCommand {
 		
 		Game game = QuartzDefenders.getInstance().getGame(p);
 		
+		if(game == null) {
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou can not use this command then you is not in game"));
+			return;
+		}
+		
 		if(!game.isGameState(GameState.WAITING)) {
 			return;
 		}

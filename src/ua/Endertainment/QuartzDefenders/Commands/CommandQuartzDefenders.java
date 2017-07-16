@@ -30,7 +30,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			return true;
 		}
 		
-		if(args.length >= 1 || args[0].equalsIgnoreCase("help")) {
+		if(args.length >= 1 && args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(new ColorFormat("&8» &b/game help").format());
 			sender.sendMessage(new ColorFormat("&8» &b/stats help").format());
 			sender.sendMessage(new ColorFormat("&8» &b/team help").format());
@@ -44,14 +44,14 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		
 		Player p = (Player) sender;
 		
-		if(args.length >= 1 || args[0].equalsIgnoreCase("lobbyTools")) {
+		if(args.length >= 1 && args[0].equalsIgnoreCase("lobbyTools")) {
 			
 			plugin.getLobby().setLobbyTools(p);
 			return true;
 			
 		}
 		
-		if(args.length >= 1 || args[0].equalsIgnoreCase("sendFirework")) {
+		if(args.length >= 1 && args[0].equalsIgnoreCase("sendFirework")) {
 			
 			long detonate = 2;
 			
@@ -62,7 +62,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			return true;
 		}
 		
-		if(args.length >= 2 || args[0].equalsIgnoreCase("setDisplayName")) {
+		if(args.length >= 2 && args[0].equalsIgnoreCase("setDisplayName")) {
 			
 			Player targ = p;
 			

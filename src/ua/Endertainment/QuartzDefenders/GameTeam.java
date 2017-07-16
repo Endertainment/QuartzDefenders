@@ -68,7 +68,7 @@ public class GameTeam {
 			game.getTeam(player.getPlayer()).quitTeam(player);
 		}
 		if(addPlayer(player)) {
-			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join", new Replacer("{0}", team.getName()))));
+			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join", new Replacer("{0}", getName()))));
 			
 			if(game.isGameReady()) game.startCountdown();
 			
@@ -89,7 +89,7 @@ public class GameTeam {
 	public void quitTeam(GamePlayer player) {
 		game.getSidebar().refresh();
 		if(removePlayer(player)) {
-			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_quit", new Replacer("{0}", team.getName()))));
+			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_quit", new Replacer("{0}", getName()))));
 			
 			if(game.isGameState(GameState.ACTIVE) || game.isGameState(GameState.ENDING) ) {
 				game.getSpectators().add(player);
