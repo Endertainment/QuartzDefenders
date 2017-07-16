@@ -47,7 +47,10 @@ public class StatsPlayer {
 		this.wins = StatsManager.getInfo(id, "wins"); //
 		this.games = StatsManager.getInfo(id, "games"); // 
 		if(games == 0) this.winRate = 0;
-		else this.winRate = (wins / games) * 100;
+		else {
+			double x = (wins / games) * 100;
+			this.winRate = (int) x;
+		}
 		
 		this.brokenQuartz = StatsManager.getInfo(id, "quartz"); //
 		this.brokenOres = StatsManager.getInfo(id, "ores"); //
