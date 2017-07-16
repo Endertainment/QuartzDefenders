@@ -48,13 +48,9 @@ public abstract class Language {
             return " ";
         }
         
-        Bukkit.broadcastMessage(s);
-        
         for (Replacer repl : replacer) {
             repl.addString(s);
-            Bukkit.broadcastMessage(s);
             s = repl.getReplaced();
-            Bukkit.broadcastMessage(s);
         }
         return s;
     }
