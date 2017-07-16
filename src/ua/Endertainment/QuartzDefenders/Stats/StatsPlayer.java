@@ -22,7 +22,7 @@ public class StatsPlayer {
 	
 	private int wins;
 	private int games;
-	private int winRate;
+	private float winRate;
 	
 	private int level;
 	private int nextLevel;
@@ -47,11 +47,9 @@ public class StatsPlayer {
 		this.wins = StatsManager.getInfo(id, "wins"); //
 		this.games = StatsManager.getInfo(id, "games"); // 
 		if(games == 0) this.winRate = 0;
-		else {
-			double x = (wins / games) * 100;
-			this.winRate = (int) x;
-		}
-		
+		else this.winRate = (wins / games) * 100;
+			
+				
 		this.brokenQuartz = StatsManager.getInfo(id, "quartz"); //
 		this.brokenOres = StatsManager.getInfo(id, "ores"); //
 		this.placedBlocks = StatsManager.getInfo(id, "placed_blocks"); //
@@ -167,7 +165,7 @@ public class StatsPlayer {
 		this.games = games;
 		StatsManager.saveInfo(id, "games", this.games);
 	}
-	public int getWinRate() {
+	public float getWinRate() {
 		return winRate;
 	}
 	
