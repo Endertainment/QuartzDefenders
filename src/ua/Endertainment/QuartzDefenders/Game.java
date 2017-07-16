@@ -130,7 +130,7 @@ public class Game {
         this.balanceType = BalanceType.valueOf(config.getString("Games." + this.id + ".balance_type"));
 
         if (QuartzDefenders.getInstance().getGame(gameName) != null) {
-            QuartzDefenders.sendInfo(LoggerUtil.gameMessage(Language.getString("logger.info"), Language.getString("game.game_already_exist", new Replacer("{0}", gameName))));
+            LoggerUtil.logInfo(LoggerUtil.gameMessage(Language.getString("logger.info"), Language.getString("game.game_already_exist", new Replacer("{0}", gameName))));
             return;
         }
 
