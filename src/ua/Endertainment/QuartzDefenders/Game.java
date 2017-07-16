@@ -122,8 +122,8 @@ public class Game {
         this.teamsCount = config.getInt("Games." + this.id + ".teams_count");
         this.turretLivetime = config.getInt("Games." + this.id + ".turret_livetime");
 
-        this.buildHeight = config.getInt("Games." + this.id + "build.height");
-        this.buildRadius = config.getInt("Games." + this.id + "build.radius");
+        this.buildHeight = config.getInt("Games." + this.id + ".build.height");
+        this.buildRadius = config.getInt("Games." + this.id + ".build.radius");
 
         this.minPlayers = config.getInt("Games." + this.id + ".min_players");
 
