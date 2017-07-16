@@ -17,6 +17,12 @@ public class BCub {
 	private final int z2;
 	
 	public BCub(Location center, Game game) {
+		
+		Bukkit.broadcastMessage(center.toString());
+		
+		Bukkit.broadcastMessage(game.getBuildRadius() + "");
+		Bukkit.broadcastMessage(game.getBuildHeight() + "");
+		
 		Location loc1 = center.clone().add(game.getBuildRadius(), 0, game.getBuildRadius());
 		Location loc2 = center.clone().subtract(game.getBuildRadius(), 0, game.getBuildRadius());
 		loc1.setY(0);
