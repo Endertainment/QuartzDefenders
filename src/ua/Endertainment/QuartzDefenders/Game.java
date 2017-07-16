@@ -103,7 +103,7 @@ public class Game {
 
         if (config.getConfigurationSection("Games." + id) == null) {
             LoggerUtil.logInfo(Language.getString("logger.game_not_exist", new Replacer("{0}", id)));
-            
+
             return;
         }
 
@@ -218,7 +218,7 @@ public class Game {
             }
             regenerativeBlocks.put(blockMaterial, locs);
         }
-        
+
         int alchemistRadius = config.getInt("Games." + this.id + ".alchemists.radius");
         for (String loc : config.getConfigurationSection("Games." + this.id + ".alchemists").getStringList(".list")) {
             String[] array = loc.split(",");
@@ -250,9 +250,9 @@ public class Game {
         }
 
         player.getPlayer().setCollidable(false);
-        
+
         // EVENT
-        PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);        
+        PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);
         Bukkit.getPluginManager().callEvent(e);
         if (e.isCancelled()) {
             return;
@@ -371,48 +371,47 @@ public class Game {
     }
 
     private void quitGame1(GamePlayer player) {
-    	 if (isPlayerInTeam(player)) {
-             getTeam(player.getPlayer()).quitTeam(player);
-         }
+        if (isPlayerInTeam(player)) {
+            getTeam(player.getPlayer()).quitTeam(player);
+        }
 
-         QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
+        QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
 
-         Player p = player.getPlayer();
-         p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
-         p.setPlayerListName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
+        Player p = player.getPlayer();
+        p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
+        p.setPlayerListName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
 
-         if (p.hasPermission("QuartzDefenders.lobby.colorName")) {
-             p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-             p.setPlayerListName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-         }
+        if (p.hasPermission("QuartzDefenders.lobby.colorName")) {
+            p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
+            p.setPlayerListName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
+        }
 
-         for (String s : QuartzDefenders.getInstance().getDevs()) {
-             if (p.getName().equals(s)) {
-                 p.setDisplayName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-                 p.setPlayerListName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-             }
-         }
+        for (String s : QuartzDefenders.getInstance().getDevs()) {
+            if (p.getName().equals(s)) {
+                p.setDisplayName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
+                p.setPlayerListName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
+            }
+        }
 
-         Iterator<PotionEffect> i = p.getActivePotionEffects().iterator();
-         while (i.hasNext()) {
-             p.addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
-         }
+        Iterator<PotionEffect> i = p.getActivePotionEffects().iterator();
+        while (i.hasNext()) {
+            p.addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+        }
 
-         p.setGameMode(GameMode.ADVENTURE);
+        p.setGameMode(GameMode.ADVENTURE);
 
-         QuartzDefenders.getInstance().getLobby().setLobbyTools(p);
+        QuartzDefenders.getInstance().getLobby().setLobbyTools(p);
 
-         ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
-         s.setScoreboard();
-         QuartzDefenders.getInstance().getLobby().sendTabList(p);
+        ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
+        s.setScoreboard();
+        QuartzDefenders.getInstance().getLobby().sendTabList(p);
 
-         if (gameAllPlayers.isEmpty()) {
-             QuartzDefenders.getInstance().deleteGame(this);
-             QuartzDefenders.getInstance().addGame(id);
-         }
+        if (gameAllPlayers.isEmpty()) {
+            QuartzDefenders.getInstance().deleteGame(this);
+            QuartzDefenders.getInstance().addGame(id);
+        }
     }
-    
-    
+
     /*
 	 * Start game
      */
@@ -467,7 +466,7 @@ public class Game {
         if (!isGameState(GameState.WAITING)) {
             return false;
         }
-               
+
         setGameState(GameState.STARTING);
         getSidebar().refresh();
         new Countdown(this).runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
@@ -480,7 +479,7 @@ public class Game {
         }
         GameTeam winner = null;
         int i = 0;
-        
+
         for (GameTeam team : teams.values()) {
             if (!team.isEmpty()) {
                 winner = team;
@@ -489,7 +488,7 @@ public class Game {
             if (team.isEmpty()) {
                 getQuartz(team).destroyQuartz();
             }
-            
+
         }
         if (i == 1) {
             setGameState(GameState.ENDING);
@@ -505,7 +504,7 @@ public class Game {
             }
 
             getKillsStats().sendKillsStats();
-            
+
             Bukkit.broadcastMessage(LoggerUtil.gameMessage(gameName, winner.getName() + "&7 team win the game"));
 
             BukkitRunnable runnable = new BukkitRunnable() {
@@ -518,12 +517,12 @@ public class Game {
             };
             runnable.runTaskLater(QuartzDefenders.getInstance(), 15 * 20);
         }
-        if(i == 0) {
-        	setGameState(GameState.ENDING);
+        if (i == 0) {
+            setGameState(GameState.ENDING);
             getSidebar().refresh();
             getGameTimer().stop();
             getKillsStats().sendKillsStats();
-            
+
             BukkitRunnable runnable = new BukkitRunnable() {
 
                 @Override
@@ -536,7 +535,7 @@ public class Game {
         }
     }
 
-    public void endGame() {    	
+    public void endGame() {
         setGameState(GameState.ENDING);
         getSidebar().refresh();
         try {
@@ -581,22 +580,47 @@ public class Game {
         }
     }
 
-    public void disableGame() {    	
+    public void disableGame() {
         for (GamePlayer p : gameAllPlayers) {
-            p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
-            p.getPlayer().setGameMode(GameMode.ADVENTURE);
-            
-            quitGame1(p);                      
 
+            if (isPlayerInTeam(p)) {
+                getTeam(p.getPlayer()).quitTeam(p);
+            }
+
+            p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
+            p.getPlayer().setHealth(20);
+            p.getPlayer().setFoodLevel(20);
+            p.getPlayer().setGameMode(GameMode.ADVENTURE);
+
+            QuartzDefenders.getInstance().getLobby().setLobbyTools(p.getPlayer());
+            // p.getPlayer().setGameMode(GameMode.ADVENTURE);
+            for (Player pl : Bukkit.getOnlinePlayers()) {
+                pl.setDisplayName(ChatColor.GRAY + pl.getName() + ChatColor.RESET);
+                pl.setPlayerListName(ChatColor.GRAY + pl.getName() + ChatColor.RESET);
+
+                if (pl.hasPermission("QuartzDefenders.lobby.colorName")) {
+                    pl.setDisplayName(ChatColor.AQUA + pl.getName() + ChatColor.RESET);
+                    pl.setPlayerListName(ChatColor.AQUA + pl.getName() + ChatColor.RESET);
+                }
+
+                for (String s : QuartzDefenders.getInstance().getDevs()) {
+                    if (s.equalsIgnoreCase(pl.getName())) {
+                        pl.setDisplayName(ChatColor.DARK_RED + pl.getName() + ChatColor.RESET);
+                        pl.setPlayerListName(ChatColor.DARK_RED + pl.getName() + ChatColor.RESET);
+                    }
+                }
+
+            }
+            //quitGame1(p);                      
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {
                 p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
             }
 
         }
-        
+
         gameAllPlayers.clear();
-          
+
         mapManager.deleteMap();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
         LoggerUtil.logInfo("&aGame " + gameName + "&a with id " + id + "&a successfully disabled");
@@ -693,7 +717,7 @@ public class Game {
     public World getGameWorld() {
         return map;
     }
-    
+
     public boolean getCustomShop() {
         return customShop;
     }
@@ -856,64 +880,65 @@ public class Game {
      * SETUP GAME
      */
     public void addRegenerativeBlock(Block b, Player p) {
-    	FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
-    	
-    	if(!cfg.isConfigurationSection("Games." + id + ".regenerative_blocks." + b.getType().toString())) {
-    		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".regenerate_time", 200);
-    		ArrayList<String> l = new ArrayList<>();
-    		String s = b.getX() + "," + b.getY() + "," + b.getZ();
-    		l.add(s);
-    		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
-    	} else {
-    		ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list");
-    		String s = b.getX() + "," + b.getY() + "," + b.getZ();
-    		if(l.contains(s)) {
-    			l.remove(s);
-    			p.sendMessage(LoggerUtil.gameMessage("Setup", "&aBlock removed"));
-    			cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
-    			QuartzDefenders.getInstance().getConfigs().saveGameInfo();
-    			return;
-    		}
-    		l.add(s);
-    		cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
-    	}
-    	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString() 
-    			+ "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ()));
-    	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+        FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
+
+        if (!cfg.isConfigurationSection("Games." + id + ".regenerative_blocks." + b.getType().toString())) {
+            cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".regenerate_time", 200);
+            ArrayList<String> l = new ArrayList<>();
+            String s = b.getX() + "," + b.getY() + "," + b.getZ();
+            l.add(s);
+            cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
+        } else {
+            ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list");
+            String s = b.getX() + "," + b.getY() + "," + b.getZ();
+            if (l.contains(s)) {
+                l.remove(s);
+                p.sendMessage(LoggerUtil.gameMessage("Setup", "&aBlock removed"));
+                cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
+                QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+                return;
+            }
+            l.add(s);
+            cfg.set("Games." + id + ".regenerative_blocks." + b.getType().toString() + ".list", l);
+        }
+        p.sendMessage(LoggerUtil.gameMessage("Setup", "&aAdded new block&f: Material &a" + b.getType().toString()
+                + "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ()));
+        QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
+
     public void setQuartz(Block b, String team, Player p) {
-    	if(!isTeamValid(team)) {
-    		p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
-    		return;
-    	}
-    	
-    	FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
-    	
-    	cfg.set("Games." + id + ".locations." + team + ".quartz.x", b.getX());
-    	cfg.set("Games." + id + ".locations." + team + ".quartz.y", b.getY());
-    	cfg.set("Games." + id + ".locations." + team + ".quartz.z", b.getZ());
-    	
-    	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team 
-    			+ "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ())); 	
-    	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+        if (!isTeamValid(team)) {
+            p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
+            return;
+        }
+
+        FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
+
+        cfg.set("Games." + id + ".locations." + team + ".quartz.x", b.getX());
+        cfg.set("Games." + id + ".locations." + team + ".quartz.y", b.getY());
+        cfg.set("Games." + id + ".locations." + team + ".quartz.z", b.getZ());
+
+        p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team
+                + "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ()));
+        QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
-    
+
     public void setSpawn(Location loc, String team, Player p) {
-    	if(!isTeamValid(team)) {
-    		p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
-    		return;
-    	}
-    	
-    	FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
-    	
-    	cfg.set("Games." + id + ".locations." + team + ".spawn.x", loc.getBlockX());
-    	cfg.set("Games." + id + ".locations." + team + ".spawn.y", loc.getBlockY());
-    	cfg.set("Games." + id + ".locations." + team + ".spawn.z", loc.getBlockZ());
-    	cfg.set("Games." + id + ".locations." + team + ".spawn.yaw", loc.getYaw());
-    	cfg.set("Games." + id + ".locations." + team + ".spawn.pitch", loc.getPitch());
-    	
-    	p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team 
-    			+ "&f, X:&a" + loc.getBlockX() + "&f,Y:&a" + loc.getBlockY() + "&f,Z:&a" + loc.getBlockZ() + "&f,Yaw:&a" + loc.getYaw() + "&f,Pitch:&a" + loc.getPitch())); 	
-    	QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+        if (!isTeamValid(team)) {
+            p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
+            return;
+        }
+
+        FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
+
+        cfg.set("Games." + id + ".locations." + team + ".spawn.x", loc.getBlockX());
+        cfg.set("Games." + id + ".locations." + team + ".spawn.y", loc.getBlockY());
+        cfg.set("Games." + id + ".locations." + team + ".spawn.z", loc.getBlockZ());
+        cfg.set("Games." + id + ".locations." + team + ".spawn.yaw", loc.getYaw());
+        cfg.set("Games." + id + ".locations." + team + ".spawn.pitch", loc.getPitch());
+
+        p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team
+                + "&f, X:&a" + loc.getBlockX() + "&f,Y:&a" + loc.getBlockY() + "&f,Z:&a" + loc.getBlockZ() + "&f,Yaw:&a" + loc.getYaw() + "&f,Pitch:&a" + loc.getPitch()));
+        QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
 }

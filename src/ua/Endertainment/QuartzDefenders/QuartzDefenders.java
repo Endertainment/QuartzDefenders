@@ -47,7 +47,7 @@ public class QuartzDefenders extends JavaPlugin {
     public static QuartzDefenders getInstance() {
         return main;
     }
-    
+
     private final String[] devs = {"_Endertainment_", "Cool_boy"};
 
     private FilesUtil files;
@@ -55,19 +55,19 @@ public class QuartzDefenders extends JavaPlugin {
     private Lobby lobby;
 
     private final Set<Game> games = new HashSet<>();
-    private final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>(); 
+    private final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
 
     @Override
     public void onEnable() {
         main = this;
-        
+
         saveDefaultConfig();
         getConfig();
 
         files = new FilesUtil(this);
         lobby = new Lobby(this);
         top = new TopManager(this);
-        
+
         /*
 		 * Prevent an exceptions when plugin is disabled
          */
@@ -76,7 +76,7 @@ public class QuartzDefenders extends JavaPlugin {
         }
         /*
 		 * Register Events&Commands
-		 */
+         */
         registerEvents();
         registerCommands();
 
@@ -98,66 +98,41 @@ public class QuartzDefenders extends JavaPlugin {
             }
         }
 
-       LoggerUtil.logInfo(LoggerUtil.getPrefix() + "&aAll games loaded");
+        LoggerUtil.logInfo(LoggerUtil.getPrefix() + "&aAll games loaded");
 
         /*
 		 * Register GamePlayers
          */
         for (Player p : Bukkit.getOnlinePlayers()) {
             gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
+            ScoreboardLobby s = new ScoreboardLobby(this, p);
+            s.setScoreboard();
         }
 
     }
-    
+
     @Override
     public void onDisable() {
-        
-        for(Game game : games) {
-        	game.disableGame();
-        }
-        
-        for(Player p : Bukkit.getOnlinePlayers()) {
-        	p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
-    		p.setPlayerListName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
-    		
-    		if(p.hasPermission("QuartzDefenders.lobby.colorName")) {
-    			p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-    			p.setPlayerListName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-    		}
-    		
-    		for(String s : getDevs()) {
-    			if(s.equalsIgnoreCase(p.getName())) {
-    				p.setDisplayName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-    				p.setPlayerListName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-    			}
-    		}
-    		
-    		p.setGameMode(GameMode.ADVENTURE);
-    		
-    		p.setHealth(20);
-    		p.setFoodLevel(20);
-    		
-    		getLobby().setLobbyTools(p);
-    		
-    		ScoreboardLobby s = new ScoreboardLobby(this, p);
-    		s.setScoreboard();
+
+        for (Game game : games) {
+            game.disableGame();
         }
         main = null;
     }
-    
+
     public static void resetTabList(Player p) {
-    	String header = "";
-		String footer = "";
-		String n = "\n";
-						
-		header = " " + n
-				+ "&3\u00AB &b&lPlayCraft.COM.UA &3\u00BB" + n 
-				+ " ";
-		footer = " ";
-		
-		TitleUtil.sendTabTitle(p, header, footer);
+        String header = "";
+        String footer = "";
+        String n = "\n";
+
+        header = " " + n
+                + "&3\u00AB &b&lPlayCraft.COM.UA &3\u00BB" + n
+                + " ";
+        footer = " ";
+
+        TitleUtil.sendTabTitle(p, header, footer);
     }
-    
+
     /*
 	 * GamePlayers Management
      */
@@ -166,12 +141,12 @@ public class QuartzDefenders extends JavaPlugin {
     }
 
     private GamePlayer getGamePlayer(UUID id) {
-    	return gamePlayers.get(id);
+        return gamePlayers.get(id);
     }
-    
+
     public void addGamePlayer(Player p) {
         if (gamePlayers.containsKey(p.getUniqueId())) {
-        	getGamePlayer(p.getUniqueId()).updatePlayer(p);
+            getGamePlayer(p.getUniqueId()).updatePlayer(p);
             return;
         }
         gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
@@ -210,12 +185,12 @@ public class QuartzDefenders extends JavaPlugin {
         new ExplodeEvent(this);
         new LightningEvent(this);
     }
-    
+
     /*
      * Logger
      */
     public static void sendInfo(String s) {
-    	Bukkit.getConsoleSender().sendMessage(s);
+        Bukkit.getConsoleSender().sendMessage(s);
     }
 
     /*
@@ -256,21 +231,20 @@ public class QuartzDefenders extends JavaPlugin {
     }
 
     public Game getGame(String gameID, boolean arg) {
-    	for(Game game : games) {
-    		if(game.getGameId().equalsIgnoreCase(gameID)) {
-    			return game;
-    		}
-    	}
-    	return null;
+        for (Game game : games) {
+            if (game.getGameId().equalsIgnoreCase(gameID)) {
+                return game;
+            }
+        }
+        return null;
     }
+
     /*
 	 * Another Managers
      */
     public FilesUtil getConfigs() {
         return files;
     }
-
-
 
     public TopManager getTopManager() {
         return top;
@@ -281,7 +255,7 @@ public class QuartzDefenders extends JavaPlugin {
     }
 
     public String[] getDevs() {
-    	return devs;
+        return devs;
     }
 
 }
