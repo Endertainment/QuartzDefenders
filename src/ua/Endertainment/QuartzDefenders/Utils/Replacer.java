@@ -10,10 +10,9 @@ public class Replacer {
 		this.what = what;
 		this.to = to;
 	}
-	Replacer(String s, String what, String to) {
+	public void addString(String s) {
 		this.s = s;
-		this.what = what;
-		this.to = to;
+		this.s = this.s.replace(what, to);
 	}
 	public String getReplaced() {
 		return s;
@@ -24,4 +23,6 @@ public class Replacer {
 	public String to() {
 		return to;
 	}	
+	
+	
 }

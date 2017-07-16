@@ -48,7 +48,8 @@ public abstract class Language {
             return " ";
         }
         for (Replacer repl : replacer) {
-            s = new Replacer(s, repl.what(), repl.to()).getReplaced();
+            repl.addString(s);
+            s = repl.getReplaced();
         }
         return s;
     }
