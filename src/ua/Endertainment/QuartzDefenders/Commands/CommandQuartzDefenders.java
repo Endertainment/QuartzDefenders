@@ -51,13 +51,19 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			
 		}
 		
-		if(args.length >= 1 && args[0].equalsIgnoreCase("sendFirework")) {
+		if(args.length >= 1 && args[0].equalsIgnoreCase("firework")) {
 			
 			long detonate = 2;
 			
+			int amount = 1;
+			
 			if(args.length >= 2) detonate = Long.parseLong(args[1]); 
 			
-			FireworkUtil.spawn(p.getLocation(), detonate);
+			if(args.length >= 3) amount = Math.min(Integer.parseInt(args[2]), 20);
+			
+			for(int i = 0; i <= amount; i++) {
+				FireworkUtil.spawn(p.getLocation(), detonate);
+			}
 			
 			return true;
 		}
