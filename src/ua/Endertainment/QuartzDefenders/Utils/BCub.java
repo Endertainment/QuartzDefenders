@@ -1,5 +1,6 @@
 package ua.Endertainment.QuartzDefenders.Utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -20,6 +21,9 @@ public class BCub {
 		Location loc2 = center.clone().subtract(game.getBuildRadius(), 0, game.getBuildRadius());
 		loc1.setY(0);
 		loc2.setY(game.getBuildHeight());
+		
+		Bukkit.broadcastMessage(loc1.toString());
+		Bukkit.broadcastMessage(loc2.toString());
 		
 		this.world = loc1.getWorld();
 	    this.x1 = Math.min(loc1.getBlockX(), loc2.getBlockX());
