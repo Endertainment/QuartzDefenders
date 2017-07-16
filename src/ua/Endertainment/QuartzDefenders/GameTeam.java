@@ -56,17 +56,22 @@ public class GameTeam {
 		game.getSidebar().refresh();
 		if(!isJoinAllow() && !access) {
 			if(!player.getPlayer().hasPermission("QuartzDefenders.team.vipJoin")) {
-				player.sendMessage(LoggerUtil.gameMessage("Game", "This team is locked now. Only &bVIP&7s can join"));
+				player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_locked")));
 				return;
 			}
 		}
 		if(!canJoin() && access) {
-			player.sendMessage(LoggerUtil.gameMessage("Game", "You can not join to this team"));
+			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_join_disallow")));
 			return;
 		}
 		if(game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) != this) {
 			game.getTeam(player.getPlayer()).quitTeam(player);
 		}
+		
+		if(game.getSpectators().contains(player)) {
+			game.getSpectators().remove(player);
+		}
+		
 		if(addPlayer(player)) {
 			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join", new Replacer("{0}", getName()))));
 			
@@ -84,7 +89,7 @@ public class GameTeam {
 			
 			return;
 		} 
-		player.sendMessage(LoggerUtil.gameMessage("Game", "You already in this team"));
+		player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_already")));
 	}
 	public void quitTeam(GamePlayer player) {
 		game.getSidebar().refresh();

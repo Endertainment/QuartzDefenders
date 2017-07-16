@@ -107,7 +107,7 @@ public class Game {
             return;
         }
 
-        LoggerUtil.logInfo("Loading game with id &a" + id);
+        LoggerUtil.logInfo(Language.getString("logger.loading_game", new Replacer("{0}", id)));
 
         gameScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         killsStats = new KillsStats(this);
@@ -130,7 +130,7 @@ public class Game {
         this.balanceType = BalanceType.valueOf(config.getString("Games." + this.id + ".balance_type"));
 
         if (QuartzDefenders.getInstance().getGame(gameName) != null) {
-            QuartzDefenders.sendInfo(LoggerUtil.gameMessage("Info", "&cGame " + gameName + "&c could not be loaded. This game is already enabled"));
+            QuartzDefenders.sendInfo(LoggerUtil.gameMessage(Language.getString("logger.info"), Language.getString("game.game_already_exist", new Replacer("{0}", gameName))));
             return;
         }
 
@@ -198,7 +198,7 @@ public class Game {
                     shopLocations.put(getTeam(team), shop);
                     i++;
                 } else {
-                    LoggerUtil.logError("&cTeam \"" + team + "\" is not valid!");
+                	LoggerUtil.logError(Language.getString("logger.invalid_team", new Replacer("{0}", team)));
                 }
             } else {
                 break;
@@ -229,7 +229,7 @@ public class Game {
             alchemistsLocations.put(alchemistRadius, alchemist);
         }
 
-        LoggerUtil.logInfo("&aGame " + gameName + "&a successfully loaded");
+        LoggerUtil.logInfo(Language.getString("logger.game_load_success", new Replacer("{0}", gameName)));
         loadSuccess = true;
     }
 
@@ -240,7 +240,7 @@ public class Game {
 
         if (isGameLocked()) {
             if (!player.getPlayer().hasPermission("QuartzDefenders.admin.gameJoin")) {
-                player.sendMessage(LoggerUtil.gameMessage("Game", "&7This game is locked. Only admins can join"));
+                player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_locked")));
                 return;
             }
         }
@@ -261,7 +261,7 @@ public class Game {
         if (isGameState(GameState.LOBBY)) {
 
             gameAllPlayers.add(player);
-            this.broadcastMessage(LoggerUtil.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
+            this.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.join_game", new Replacer("{0}", player.getDisplayName()))));
             player.sendMessage(LoggerUtil.gameMessage("Game", "Waiting for more players"));
 
             if (gameAllPlayers.size() >= minPlayers) {

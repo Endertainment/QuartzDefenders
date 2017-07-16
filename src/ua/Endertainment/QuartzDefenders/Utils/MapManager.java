@@ -39,20 +39,20 @@ public class MapManager {
 			try {
 				FileUtils.deleteDirectory(worldFolder);
 			} catch (IOException e) {
-				LoggerUtil.logError("&cCould not delete a map " + worldS);
+				LoggerUtil.logError(Language.getString("logger.delete_map_failed", new Replacer("{0}", worldS)));
 			}
 		}
 	}
 	
 	public void copyMap() {
 		if(!isFolderExist()) {
-			LoggerUtil.logError("&cCould not find a map " + worldS + " in " + sourseDir.toString())              ;
+			LoggerUtil.logError(Language.getString("logger.find_map_failed", new Replacer("{0}", worldS), new Replacer("{1}", sourseDir.toString())));
 			return;
 		}
 		try {
 			FileUtils.copyDirectory(sourseDir, serverDir);
 		} catch (IOException e) {
-			LoggerUtil.logError("&cCould not copy a world to server directory. Check config or console");
+			LoggerUtil.logError(Language.getString("logger.copy_map_failed"));
 		}
 		this.world = Bukkit.getServer().createWorld(new WorldCreator(worldS));
 		this.success = true;
