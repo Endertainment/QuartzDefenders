@@ -60,7 +60,7 @@ public class GameTeam {
 				return;
 			}
 		}
-		if(!canJoin() && access) {
+		if(!canJoin() && !access) {
 			player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_join_disallow")));
 			return;
 		}
@@ -88,7 +88,7 @@ public class GameTeam {
 			}
 			
 			return;
-		} 
+		}
 		player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_already")));
 	}
 	public void quitTeam(GamePlayer player) {

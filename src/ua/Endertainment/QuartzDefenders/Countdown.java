@@ -5,6 +5,8 @@ import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import ua.Endertainment.QuartzDefenders.Utils.FireworkUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
+import ua.Endertainment.QuartzDefenders.Utils.Replacer;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
 
 public class Countdown extends BukkitRunnable {
@@ -22,7 +24,7 @@ public class Countdown extends BukkitRunnable {
             cancel();
             game.startGame();
             for (GamePlayer p : game.getPlayers()) {
-                TitleUtil.sendTitle(p.getPlayer(), "&bGame started", "&7Good luck", 5);
+                TitleUtil.sendTitle(p.getPlayer(), Language.getString("game.title.started.top"), Language.getString("game.title.started.bot"), 5);
             }
             for (Map.Entry<String, GameTeam> team : game.getTeams().entrySet()) {
                 FireworkUtil.spawn(team.getValue().getSpawnLocation().add(0, 1, 0), 2L);
@@ -30,7 +32,7 @@ public class Countdown extends BukkitRunnable {
         } else if (time == 20 || time == 15 || time == 10 || time <= 5) {
             for (GamePlayer p : game.getPlayers()) {
                 p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
-                TitleUtil.sendTitle(p.getPlayer(), game.getColorWorldName(), "&7Game will begin in &b" + time + "&7 seconds", 3);
+                TitleUtil.sendTitle(p.getPlayer(), Language.getString("game.title.waiting.top", new Replacer("{0}", game.getColorWorldName())), Language.getString("game.title.waiting.bot", new Replacer("{0}", time + "")), 3);
             }
         }
         time -= 1;

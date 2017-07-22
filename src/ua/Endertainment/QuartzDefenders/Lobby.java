@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 
@@ -52,18 +53,8 @@ public class Lobby implements Listener {
 	}
 
 	public void sendTabList(Player p) {
-		String header = "";
-		String footer = "";
-		String n = "\n";
-		
-		String lobby = "&bLOBBY";
-				
-		header = " " + n
-				+ "&3\u00AB &b&lPlayCraft.COM.UA &3\u00BB" + n 
-				+ " ";
-		footer = " " + n
-				+ lobby + n
-				+ " ";
+		String header = Language.getString("tablist.lobby.header");
+		String footer = Language.getString("tablist.lobby.footer");
 		
 		TitleUtil.sendTabTitle(p, header, footer);
 	}
