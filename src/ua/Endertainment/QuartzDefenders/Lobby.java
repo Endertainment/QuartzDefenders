@@ -113,6 +113,12 @@ public class Lobby implements Listener {
 		p.getInventory().setItem(7, QItems.itemHidePlayers(getHides().contains(p)));
 		p.getInventory().setItem(8, QItems.itemLobbyShop());
 	}
+	public void addSign(Location loc, Player p) {
+		
+		
+		
+	}
+	
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {

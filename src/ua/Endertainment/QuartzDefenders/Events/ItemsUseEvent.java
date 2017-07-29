@@ -3,6 +3,7 @@ package ua.Endertainment.QuartzDefenders.Events;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -55,6 +56,7 @@ public class ItemsUseEvent implements Listener{
 			String lShop = QItems.itemLobbyShop().getItemMeta().getDisplayName();
 			
 			String setupOres = SetupItems.itemSetupOres().getItemMeta().getDisplayName();
+			String setupSigns = SetupItems.itemSetupSigns().getItemMeta().getDisplayName();
 			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(compass)) {
 				e.setCancelled(true);
@@ -92,6 +94,17 @@ public class ItemsUseEvent implements Listener{
 				e.setCancelled(true);
 				new LobbyShopGUI(p).openInventory();
 				return;
+			}
+			
+			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(setupSigns)) {
+				e.setCancelled(true);
+				Block b = e.getClickedBlock();
+				if(!(b.getState() instanceof Sign)) {
+					return;
+				}
+				
+				plugin.getLobby().addSign(b.getLocation(), p);
+				
 			}
 			
 			if(plugin.getGame(p) != null) {

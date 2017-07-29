@@ -12,6 +12,7 @@ import ua.Endertainment.QuartzDefenders.Kits.Kit;
 import ua.Endertainment.QuartzDefenders.Kits.KitsManager;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 
 public class KitsGUI {
 
@@ -26,7 +27,7 @@ public class KitsGUI {
 	private ArrayList<ItemStack> items; 
 	
 	public KitsGUI(Player player) {
-		this.title = new ColorFormat("&2Kits").format();		
+		this.title = new ColorFormat(Language.getString("GUI.kits.name")).format();		
 		this.inventory = Bukkit.createInventory(null, 6*9, title);		
 		this.player = player;		
 		
@@ -55,7 +56,8 @@ public class KitsGUI {
 	}
 	
 	private void menuCorner() {
-		short z = 5, y = 13;
+		short z = Short.parseShort(Language.getString("GUI.kits.glass_id_1")),
+				  y = Short.parseShort(Language.getString("GUI.kits.glass_id_2"));
 		int[] arg1 = {0,2,4,6,8,18,26,36,44,46,48,50,52}, arg2 = {1,3,5,7,9,17,27,35,45,47,49,51,53}; // z, y
 		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, z));
 		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));

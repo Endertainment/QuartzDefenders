@@ -138,6 +138,9 @@ GUI:
             games_played: '&7Games played: &6{0}'
             win_rate: '&7Win rate: &6{0}'
             top_wins: '&7Top (Wins): &6{0}'
+        item_deaths:
+            name: '&6Deaths'
+            deaths: '&7Deaths: &6{0}'
         item_coins: 
             name: '&6Coins'
             coins: '&7Coins: &6{0}'
@@ -152,3 +155,22 @@ GUI:
         glass_id_2: 11
         item_name: '{c}> {0} {c}<'
         players: '&7Players: {c}{0}&7/{c}{1}'
+items:
+    games:
+        name: '&5Active Games &7(Right click)'
+        games: '&7Games: &d{0}'
+    kits:
+        name: '&2Kits &7(Right click)'
+    stats:
+        name: '&6My Stats &7(Right click)'
+    teams:
+        name: '&9Teams &7(Right click)'
+    quit:
+        name: '&aQuit &7(Right click)'
+    hide_show:
+        show: '&7Show'
+        hide: '&aHide'
+        name: '&a{0} players &7(Right click)'
+    shop:
+        name: '&aShop &7(Right click)'
+    

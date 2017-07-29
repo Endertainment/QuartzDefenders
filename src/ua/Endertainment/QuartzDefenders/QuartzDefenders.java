@@ -108,6 +108,8 @@ public class QuartzDefenders extends JavaPlugin {
             s.setScoreboard();
         }
 
+        
+        
     }
 
     @Override
