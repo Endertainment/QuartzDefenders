@@ -160,6 +160,7 @@ public class TopManager {
 			s.setLine(0, "Top " + x);
 			s.setLine(1, getPlayerByPositionK(x).getName());
 			s.setLine(2, "Kills: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByPositionK(x).getUniqueId().toString() + ".kills"));
+			s.update();
 			index++;
 		}
 		
@@ -173,6 +174,7 @@ public class TopManager {
 			s.setLine(0, "Top " + x);
 			s.setLine(1, getPlayerByPositionW(x).getName());
 			s.setLine(2, "Wins: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByPositionW(x).getUniqueId().toString() + ".wins"));
+			s.update();
 			index++;
 		}
 		
