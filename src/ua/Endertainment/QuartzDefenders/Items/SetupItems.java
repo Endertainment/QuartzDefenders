@@ -28,11 +28,19 @@ public class SetupItems {
 		return ItemUtil.newItem("&aSetupQuartz " + team.getName() + "&7 (Right click)", lore, Material.QUARTZ, 1);
 	}
 	
-	public static ItemStack itemSetupSigns() {
+	public static ItemStack itemSetupSignsK() {
 		ArrayList<String> lore = new ArrayList<>();
 		lore.add(" ");
-		lore.add("&7Right click to sign");
+		lore.add("&7Right click to set sign");
 		lore.add(" ");
-		return ItemUtil.newItem("&aSetupSigns &7(Right click)", lore, Material.STICK, 1);
+		return ItemUtil.newItem("&aSetupSigns &7(Kills) (Right click)", lore, Material.STICK, 1);
+	}
+	
+	public static ItemStack itemSetupSignsW() {
+		ArrayList<String> lore = new ArrayList<>();
+		lore.add(" ");
+		lore.add("&7Right click to set sign");
+		lore.add(" ");
+		return ItemUtil.newItem("&aSetupSigns &7(Wins) (Right click)", lore, Material.STICK, 1);
 	}
 }

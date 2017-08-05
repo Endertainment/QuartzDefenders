@@ -74,7 +74,8 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			if(!p.hasPermission("QuartzDefenders.lobby.setupSigns")) {
 				return true;
 			}
-			p.getInventory().setItem(1, SetupItems.itemSetupSigns());
+			p.getInventory().setItem(1, SetupItems.itemSetupSignsK());
+			p.getInventory().setItem(2, SetupItems.itemSetupSignsW());
 		}
 		if(args.length >= 2 && args[0].equalsIgnoreCase("setDisplayName")) {
 			if(!p.hasPermission("QuartzDefenders.fun.setName")) {

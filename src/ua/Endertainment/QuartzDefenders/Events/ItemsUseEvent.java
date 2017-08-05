@@ -56,7 +56,8 @@ public class ItemsUseEvent implements Listener{
 			String lShop = QItems.itemLobbyShop().getItemMeta().getDisplayName();
 			
 			String setupOres = SetupItems.itemSetupOres().getItemMeta().getDisplayName();
-			String setupSigns = SetupItems.itemSetupSigns().getItemMeta().getDisplayName();
+			String setupSignsK = SetupItems.itemSetupSignsK().getItemMeta().getDisplayName();
+			String setupSignsW = SetupItems.itemSetupSignsW().getItemMeta().getDisplayName();
 			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(compass)) {
 				e.setCancelled(true);
@@ -96,15 +97,26 @@ public class ItemsUseEvent implements Listener{
 				return;
 			}
 			
-			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(setupSigns)) {
+			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(setupSignsK)) {
 				e.setCancelled(true);
 				Block b = e.getClickedBlock();
 				if(!(b.getState() instanceof Sign)) {
 					return;
 				}
 				
-				plugin.getLobby().addSign(b.getLocation(), p);
+				plugin.getLobby().addSignK(b.getLocation(), p);
+				return;
+			}
+			
+			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(setupSignsW)) {
+				e.setCancelled(true);
+				Block b = e.getClickedBlock();
+				if(!(b.getState() instanceof Sign)) {
+					return;
+				}
 				
+				plugin.getLobby().addSignW(b.getLocation(), p);
+				return;
 			}
 			
 			if(plugin.getGame(p) != null) {

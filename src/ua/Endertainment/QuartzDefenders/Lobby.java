@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -113,12 +114,59 @@ public class Lobby implements Listener {
 		p.getInventory().setItem(7, QItems.itemHidePlayers(getHides().contains(p)));
 		p.getInventory().setItem(8, QItems.itemLobbyShop());
 	}
-	public void addSign(Location loc, Player p) {
+	public void addSignK(Location loc, Player p) {
+		FileConfiguration cfg = plugin.getConfig();
 		
+		if(!cfg.isConfigurationSection("Signs.top_kills")) {
+			ArrayList<String> l = new ArrayList<>();
+            String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+            l.add(s);
+            cfg.set("Signs.top_kills", l);
+		} else {
+			ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Signs.top_kills");
+			String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+			if(l.contains(s)) {
+				p.sendMessage(LoggerUtil.gameMessage("Setup", "&bSign removed"));
+				l.remove(s);
+				cfg.set("Signs.top_kills", l);
+				QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+				return;
+			}
+			l.add(s);
+            cfg.set("Signs.top_kills", l);
+		}
 		
-		
+		p.sendMessage(LoggerUtil.gameMessage("Setup", "&bAdded new sign&f: " + "&f, X:&b" + loc.getX() 
+								+ "&f,Y:&b" + loc.getY() + "&f,Z:&b" + loc.getZ()));
+        QuartzDefenders.getInstance().getConfigs().saveGameInfo();        
 	}
 	
+	public void addSignW(Location loc, Player p) {
+		FileConfiguration cfg = plugin.getConfig();
+		
+		if(!cfg.isConfigurationSection("Signs.top_wins")) {
+			ArrayList<String> l = new ArrayList<>();
+            String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+            l.add(s);
+            cfg.set("Signs.top_wins", l);
+		} else {
+			ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Signs.top_wins");
+			String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+			if(l.contains(s)) {
+				p.sendMessage(LoggerUtil.gameMessage("Setup", "&3Sign removed"));
+				l.remove(s);
+				cfg.set("Signs.top_wins", l);
+				QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+				return;
+			}
+			l.add(s);
+            cfg.set("Signs.top_kills", l);
+		}
+		
+		p.sendMessage(LoggerUtil.gameMessage("Setup", "&3Added new sign&f: " + "&f, X:&3" + loc.getX() 
+								+ "&f,Y:&3" + loc.getY() + "&f,Z:&3" + loc.getZ()));
+        QuartzDefenders.getInstance().getConfigs().saveGameInfo();        
+	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onJoin(PlayerJoinEvent e) {
