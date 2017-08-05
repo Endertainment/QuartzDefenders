@@ -129,7 +129,7 @@ public class Lobby implements Listener {
 				p.sendMessage(LoggerUtil.gameMessage("Setup", "&bSign removed"));
 				l.remove(s);
 				cfg.set("Signs.top_kills", l);
-				QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+				QuartzDefenders.getInstance().saveConfig();
 				return;
 			}
 			l.add(s);
@@ -138,7 +138,7 @@ public class Lobby implements Listener {
 		
 		p.sendMessage(LoggerUtil.gameMessage("Setup", "&bAdded new sign&f: " + "&f, X:&b" + loc.getX() 
 								+ "&f,Y:&b" + loc.getY() + "&f,Z:&b" + loc.getZ()));
-        QuartzDefenders.getInstance().getConfigs().saveGameInfo();        
+		QuartzDefenders.getInstance().saveConfig();
 	}
 	
 	public void addSignW(Location loc, Player p) {
@@ -156,7 +156,7 @@ public class Lobby implements Listener {
 				p.sendMessage(LoggerUtil.gameMessage("Setup", "&3Sign removed"));
 				l.remove(s);
 				cfg.set("Signs.top_wins", l);
-				QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+				QuartzDefenders.getInstance().saveConfig();
 				return;
 			}
 			l.add(s);
@@ -165,7 +165,7 @@ public class Lobby implements Listener {
 		
 		p.sendMessage(LoggerUtil.gameMessage("Setup", "&3Added new sign&f: " + "&f, X:&3" + loc.getX() 
 								+ "&f,Y:&3" + loc.getY() + "&f,Z:&3" + loc.getZ()));
-        QuartzDefenders.getInstance().getConfigs().saveGameInfo();        
+		QuartzDefenders.getInstance().saveConfig();
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
