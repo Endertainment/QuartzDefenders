@@ -120,7 +120,7 @@ public class ItemsUseEvent implements Listener{
 			}
 			
 			if(plugin.getGame(p) != null) {
-				String teams = QItems.itemTeamChoose(plugin.getGame(p)).getItemMeta().getDisplayName();
+				String teams = QItems.itemTeamChoose().getItemMeta().getDisplayName();
 			
 				Game game = plugin.getGame(p);
 				
@@ -174,7 +174,7 @@ public class ItemsUseEvent implements Listener{
 		}
 		
 		if(plugin.getGame(p) != null) {
-			if(i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose(plugin.getGame(p)).getItemMeta().getDisplayName())) e.setCancelled(true);;
+			if(i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose().getItemMeta().getDisplayName())) e.setCancelled(true);;
 		}
 		
 	}

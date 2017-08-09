@@ -155,6 +155,10 @@ GUI:
         glass_id_2: 11
         item_name: '{c}> {0} {c}<'
         players: '&7Players: {c}{0}&7/{c}{1}'
+    achievements:
+        name: '&2Achievements'
+        glass_id_1: 5
+        glass_id_2: 13
 items:
     games:
         name: '&5Active Games &7(Right click)'
@@ -173,4 +177,5 @@ items:
         name: '&a{0} players &7(Right click)'
     shop:
         name: '&aShop &7(Right click)'
-    
+    achievements:
+        name: '&aAchievements &7(Right click)'

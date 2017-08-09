@@ -271,7 +271,7 @@ public class Game {
                     p.getPlayer().setGameMode(GameMode.ADVENTURE);
                     p.getPlayer().getInventory().clear();
                     p.getPlayer().teleport(mapSpawn);
-                    p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose(this));
+                    p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
                     p.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
                     p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
@@ -291,7 +291,7 @@ public class Game {
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
-            player.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose(this));
+            player.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
             player.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
             player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 

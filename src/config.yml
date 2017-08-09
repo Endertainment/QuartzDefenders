@@ -8,8 +8,3 @@ Lobby:
     z: 0
     yaw: 0
     pitch: 0
-Signs:
-  top_kills:
-  - 'x,y,z'
-  top_wins:
-  - 'x,y,z'

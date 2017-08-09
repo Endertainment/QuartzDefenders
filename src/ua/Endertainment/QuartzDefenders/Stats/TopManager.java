@@ -109,7 +109,7 @@ public class TopManager {
 	/*
 	 * SIGNS MANAGER
 	 */
-	public void setupSigns() {	
+	public void setupSigns() {
 		if(plugin.getConfig().isList("Signs.top_kills")) {
 			
 			Set<Sign> signs = new HashSet<>();

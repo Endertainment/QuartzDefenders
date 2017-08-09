@@ -47,6 +47,7 @@ public class GamesGUI {
 		HashMap<ItemStack, Integer> gamesIS = new HashMap<>();
 		int x = 20;
 		for(Game game : plugin.getGames()) {
+			if(x > 33) break;
 			ArrayList<String> lore = new ArrayList<>();
 			lore.add(" ");
 			lore.add(Language.getRawString("GUI.games.game", new Replacer("{0}", game.getGameName())));

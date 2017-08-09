@@ -1,14 +1,12 @@
 package ua.Endertainment.QuartzDefenders.Events;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,13 +14,12 @@ import ua.Endertainment.QuartzDefenders.Balance;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
-import ua.Endertainment.QuartzDefenders.GUI.GamesGUI;
-import ua.Endertainment.QuartzDefenders.GUI.KitsGUI;
-import ua.Endertainment.QuartzDefenders.GUI.LobbyShopGUI;
 import ua.Endertainment.QuartzDefenders.GUI.StatsGUI;
+import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Kits.Kit;
 import ua.Endertainment.QuartzDefenders.Kits.KitsManager;
-import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
+import ua.Endertainment.QuartzDefenders.Utils.Replacer;
 
 public class InvClickEvent implements Listener {
 
@@ -49,20 +46,13 @@ public class InvClickEvent implements Listener {
 		
 		Player p = (Player) e.getWhoClicked();
 		
-		/*
-		 * Player's inventory
-		 */
-		if(inv.getType() == InventoryType.PLAYER || inv.getType() == InventoryType.CREATIVE) {
-			e.setCancelled(true);
-			return;
-		}
 		
-		p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
 		/*
 		 * GAMES
 		 */
-		if(inv.getName().equals(new GamesGUI(plugin).getInventory().getName())) {
+		if(inv.getName().equals(Language.getString("GUI.games.name"))) {
 			e.setCancelled(true);
+			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
 			
 			for(Game game : plugin.getGames()) {
 				if(curr.getItemMeta().getDisplayName().equals(game.getColorWorldName())) {			
@@ -83,13 +73,16 @@ public class InvClickEvent implements Listener {
 		 */
 		if(inv.getName().equals(new StatsGUI(p).getInventory().getName())) {
 			e.setCancelled(true);
+			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
+			
 			return;
 		}
 		/*
 		 * SHOP
 		 */
-		if(inv.getName().equals(new LobbyShopGUI(p).getInventory().getName())) {
+		if(inv.getName().equals(Language.getString("GUI.shop.name"))) {
 			e.setCancelled(true);
+			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
 			
 			for(Kit kit : KitsManager.getInstance().getKits()) {				
 				if(curr.getItemMeta().getDisplayName().equals(kit.getItems().get(0).getItemMeta().getDisplayName())) {
@@ -106,8 +99,9 @@ public class InvClickEvent implements Listener {
 		/*
 		 * KITS
 		 */
-		if(inv.getName().equals(new KitsGUI(p).getInventory().getName())) {
+		if(inv.getName().equals(Language.getString("GUI.kits.name"))) {
 			e.setCancelled(true);
+			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
 			
 			for(Kit kit : KitsManager.getInstance().getKits()) {
 				if(curr.getItemMeta().getDisplayName().equals(kit.getItems().get(0).getItemMeta().getDisplayName())) {
@@ -122,17 +116,28 @@ public class InvClickEvent implements Listener {
 		}
 		
 		/*
+		 * ACHIEVEMENTS
+		 */
+		if(inv.getName().equals(Language.getString("GUI.achievements.name"))) {
+			e.setCancelled(true);
+			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
+			return;
+		}
+		
+		/*
 		 * TEAMS
 		 */
 			
-		if(inv.getName().equals(new ColorFormat(ChatColor.BLUE + "Teams").format())) {
+		if(inv.getName().equals(Language.getString("GUI.teams.name"))) {
 			e.setCancelled(true);
+			
+			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
 			
 			Game game = plugin.getGame(p);
 			
 			for(GameTeam team : game.getTeams().values()) {
 				
-				if(curr.getItemMeta().getDisplayName().equals(team.getColor() + "> " + team.getName() + " <")) {
+				if(curr.getItemMeta().getDisplayName().equals(Language.getString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())))) {
 						
 					if(new Balance(game, game.getBalanceType(), plugin.getGamePlayer(p), game.getTeams().values(), team).isTeamsBalanced()) {
 						
@@ -148,6 +153,20 @@ public class InvClickEvent implements Listener {
 			return;
 		}
 		
+		/*
+		 * Player's inventory
+		 */
+		if(!curr.getItemMeta().hasDisplayName()) {
+			return;
+		}
+		for(ItemStack item : QItems.getAllTechItems()) {
+			if(curr.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName())) {
+				e.setCancelled(true);
+				return;
+			}
+					
+		}
+
 		
 	}
 }
