@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,6 +22,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 
@@ -52,18 +54,8 @@ public class Lobby implements Listener {
 	}
 
 	public void sendTabList(Player p) {
-		String header = "";
-		String footer = "";
-		String n = "\n";
-		
-		String lobby = "&bLOBBY";
-				
-		header = " " + n
-				+ "&3\u00AB &b&lPlayCraft.COM.UA &3\u00BB" + n 
-				+ " ";
-		footer = " " + n
-				+ lobby + n
-				+ " ";
+		String header = Language.getString("tablist.lobby.header");
+		String footer = Language.getString("tablist.lobby.footer");
 		
 		TitleUtil.sendTabTitle(p, header, footer);
 	}
@@ -121,6 +113,60 @@ public class Lobby implements Listener {
 		p.getInventory().setItem(4, QItems.itemStats());
 		p.getInventory().setItem(7, QItems.itemHidePlayers(getHides().contains(p)));
 		p.getInventory().setItem(8, QItems.itemLobbyShop());
+		p.getInventory().setItem(1, QItems.itemAchievements());
+	}
+	public void addSignK(Location loc, Player p) {
+		FileConfiguration cfg = plugin.getConfig();
+		
+		if(!cfg.isConfigurationSection("Signs.top_kills")) {
+			ArrayList<String> l = new ArrayList<>();
+            String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+            l.add(s);
+            cfg.set("Signs.top_kills", l);
+		} else {
+			ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Signs.top_kills");
+			String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+			if(l.contains(s)) {
+				p.sendMessage(LoggerUtil.gameMessage("Setup", "&bSign removed"));
+				l.remove(s);
+				cfg.set("Signs.top_kills", l);
+				QuartzDefenders.getInstance().saveConfig();
+				return;
+			}
+			l.add(s);
+            cfg.set("Signs.top_kills", l);
+		}
+		
+		p.sendMessage(LoggerUtil.gameMessage("Setup", "&bAdded new sign&f: " + "&f, X:&b" + loc.getX() 
+								+ "&f,Y:&b" + loc.getY() + "&f,Z:&b" + loc.getZ()));
+		QuartzDefenders.getInstance().saveConfig();
+	}
+	
+	public void addSignW(Location loc, Player p) {
+		FileConfiguration cfg = plugin.getConfig();
+		
+		if(!cfg.isConfigurationSection("Signs.top_wins")) {
+			ArrayList<String> l = new ArrayList<>();
+            String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+            l.add(s);
+            cfg.set("Signs.top_wins", l);
+		} else {
+			ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Signs.top_wins");
+			String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
+			if(l.contains(s)) {
+				p.sendMessage(LoggerUtil.gameMessage("Setup", "&3Sign removed"));
+				l.remove(s);
+				cfg.set("Signs.top_wins", l);
+				QuartzDefenders.getInstance().saveConfig();
+				return;
+			}
+			l.add(s);
+            cfg.set("Signs.top_kills", l);
+		}
+		
+		p.sendMessage(LoggerUtil.gameMessage("Setup", "&3Added new sign&f: " + "&f, X:&3" + loc.getX() 
+								+ "&f,Y:&3" + loc.getY() + "&f,Z:&3" + loc.getZ()));
+		QuartzDefenders.getInstance().saveConfig();
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)

@@ -42,7 +42,7 @@ public class StatsGUI {
 		ArrayList<String> lore1 = new ArrayList<String>();
 		lore1.add(" ");
 		lore1.add("&7Kills: &6" + p.getKills());
-		lore1.add("&7KD: &6" + p.getKdr());
+		lore1.add("&7KD: &6" + p.getKdr() + "%");
 		lore1.add("&7Top kills: &6" + QuartzDefenders.getInstance().getTopManager().getPlayerPositionK(p.getPlayer()));
 		lore1.add(" ");
 		ItemStack kills = ItemUtil.newItem("&6Kills", lore1, Material.DIAMOND_SWORD, 1);

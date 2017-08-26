@@ -3,6 +3,7 @@ package ua.Endertainment.QuartzDefenders.Events;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -55,6 +56,8 @@ public class ItemsUseEvent implements Listener{
 			String lShop = QItems.itemLobbyShop().getItemMeta().getDisplayName();
 			
 			String setupOres = SetupItems.itemSetupOres().getItemMeta().getDisplayName();
+			String setupSignsK = SetupItems.itemSetupSignsK().getItemMeta().getDisplayName();
+			String setupSignsW = SetupItems.itemSetupSignsW().getItemMeta().getDisplayName();
 			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(compass)) {
 				e.setCancelled(true);
@@ -94,8 +97,30 @@ public class ItemsUseEvent implements Listener{
 				return;
 			}
 			
+			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(setupSignsK)) {
+				e.setCancelled(true);
+				Block b = e.getClickedBlock();
+				if(!(b.getState() instanceof Sign)) {
+					return;
+				}
+				
+				plugin.getLobby().addSignK(b.getLocation(), p);
+				return;
+			}
+			
+			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(setupSignsW)) {
+				e.setCancelled(true);
+				Block b = e.getClickedBlock();
+				if(!(b.getState() instanceof Sign)) {
+					return;
+				}
+				
+				plugin.getLobby().addSignW(b.getLocation(), p);
+				return;
+			}
+			
 			if(plugin.getGame(p) != null) {
-				String teams = QItems.itemTeamChoose(plugin.getGame(p)).getItemMeta().getDisplayName();
+				String teams = QItems.itemTeamChoose().getItemMeta().getDisplayName();
 			
 				Game game = plugin.getGame(p);
 				
@@ -149,7 +174,7 @@ public class ItemsUseEvent implements Listener{
 		}
 		
 		if(plugin.getGame(p) != null) {
-			if(i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose(plugin.getGame(p)).getItemMeta().getDisplayName())) e.setCancelled(true);;
+			if(i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose().getItemMeta().getDisplayName())) e.setCancelled(true);;
 		}
 		
 	}

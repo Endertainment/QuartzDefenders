@@ -1,5 +1,6 @@
 package ua.Endertainment.QuartzDefenders.Commands.Team;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.bukkit.command.CommandSender;
@@ -43,6 +44,8 @@ public class Random extends SubCommand {
 		java.util.Random rand = new java.util.Random();
 		
 		int z = 0;
+		
+		ArrayList<GamePlayer> l = new ArrayList<>();
 		
 		for(GamePlayer gp : game.getPlayers()) {
 			int i = rand.nextInt(game.getTeamsCount()) + 1;

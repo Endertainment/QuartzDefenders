@@ -14,6 +14,7 @@ import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class ChatFormatEvent implements Listener{
@@ -29,17 +30,17 @@ public class ChatFormatEvent implements Listener{
 	public void chatForm(AsyncPlayerChatEvent e) {
 		StatsPlayer sp = new StatsPlayer(e.getPlayer());
 		
-		String formatLobby = new ColorFormat("&b{lvl}&8 |&r %1$s &8»&r %2$s").format();
+		String formatLobby = Language.getString("chat_formats.f_lobby");
 		
-		String formatSpectators = new ColorFormat("&8Spect |&r %1$s &8»&r %2$s").format();
+		String formatSpectators = Language.getString("chat_formats.f_spect");
 		
-		String formatGameTeam = new ColorFormat("&8Team |&r %1$s &8»&r %2$s").format();
+		String formatGameTeam = Language.getString("chat_formats.f_team");
 		
-		String formatGameAll = new ColorFormat("&8All |&r %1$s &8»&r %2$s").format();		
+		String formatGameAll = Language.getString("chat_formats.f_all");
+		
 		/*
 		 * Color Message
-		 */
-	
+		 */	
 		if(e.getPlayer().hasPermission("QuartzDefenders.ColorChat")) e.setMessage(new ColorFormat(e.getMessage()).format());		
 		String message = e.getMessage();
 		/*
@@ -64,7 +65,7 @@ public class ChatFormatEvent implements Listener{
 		 */
 		if(plugin.getGame(e.getPlayer()) == null) {
 			e.setCancelled(true);
-			e.getPlayer().sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not write in chat here"));
+			e.getPlayer().sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.chat_failed")));
 			return;
 		}
 		
@@ -81,7 +82,7 @@ public class ChatFormatEvent implements Listener{
 				}
 			} else {
 				e.setCancelled(true);
-				e.getPlayer().sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not write in chat here"));
+				e.getPlayer().sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.chat_failed")));
 			}
 			return;
 		}
@@ -142,53 +143,7 @@ public class ChatFormatEvent implements Listener{
 			
 			return;
 		}
-		
-//		if(plugin.getGame(e.getPlayer()) != null) {
-//			Game game = plugin.getGame(e.getPlayer());
-//			if(e.getPlayer().getLocation().getWorld() == game.getGameWorld()) {
-//
-//				if(game.isPlayerInTeam(plugin.getGamePlayer(e.getPlayer()))) {
-//					GameTeam team = game.getTeam(e.getPlayer());
-//					if(message.startsWith("!")) {
-//						formatGameAll = formatGameAll.replace("%1$s", e.getPlayer().getDisplayName());
-//						for(Player pp : e.getRecipients()) {
-//							if(!game.getPlayers().contains(plugin.getGamePlayer(pp))) {
-//								e.getRecipients().remove(pp);
-//							}
-//						}
-//						e.setFormat(formatGameAll);
-//						return;
-//					} else {
-//						formatGameTeam = formatGameTeam.replace("%1$s", e.getPlayer().getDisplayName());
-//						for(Player pp : e.getRecipients()) {
-//							if(!team.getPlayers().contains(plugin.getGamePlayer(pp))) {
-//								e.getRecipients().remove(pp);
-//							}
-//						}						
-//						e.setFormat(formatGameTeam);
-//						return;
-//					}
-//				} else {
-//					if(game.getSpectators().contains(plugin.getGamePlayer(e.getPlayer()))) {
-//						formatSpectators = formatSpectators.replace("%1$s", e.getPlayer().getDisplayName());
-//						for(Player pp : e.getRecipients()) {
-//							if(!game.getSpectators().contains(plugin.getGamePlayer(pp))) {
-//								e.getRecipients().remove(pp);
-//							}
-//						}							
-//						e.setFormat(formatSpectators);
-//						return;
-//					}
-//					e.setCancelled(true);
-//					e.getPlayer().sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not write in chat here"));
-//					return;
-//				}
-//				
-//			} else {
-//				formatLobby = formatLobby.replace("{lvl}", sp.getLevel() + "").replace("%1$s", e.getPlayer().getDisplayName());
-//				e.setFormat(formatLobby);		
-//			}
-//		}
+	
 	}
 	
 }

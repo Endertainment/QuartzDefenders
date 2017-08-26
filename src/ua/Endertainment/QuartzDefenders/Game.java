@@ -262,7 +262,7 @@ public class Game {
 
             gameAllPlayers.add(player);
             this.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.join_game", new Replacer("{0}", player.getDisplayName()))));
-            player.sendMessage(LoggerUtil.gameMessage("Game", "Waiting for more players"));
+            player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.waiting_players")));
 
             if (gameAllPlayers.size() >= minPlayers) {
                 setGameState(GameState.WAITING);
@@ -271,13 +271,13 @@ public class Game {
                     p.getPlayer().setGameMode(GameMode.ADVENTURE);
                     p.getPlayer().getInventory().clear();
                     p.getPlayer().teleport(mapSpawn);
-                    p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose(this));
+                    p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
                     p.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
                     p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
                     player.setScoreboard(gameScoreboard);
 
-                    p.sendMessage(LoggerUtil.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+                    p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.choose_team")));
                     sendTabList();
                 }
             }
@@ -287,17 +287,17 @@ public class Game {
         if (isGameState(GameState.WAITING) || isGameState(GameState.STARTING)) {
 
             gameAllPlayers.add(player);
-            this.broadcastMessage(LoggerUtil.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
+            this.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.join_game", new Replacer("{0}", player.getDisplayName()))));
             player.getPlayer().setGameMode(GameMode.ADVENTURE);
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
-            player.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose(this));
+            player.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
             player.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
             player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
             player.setScoreboard(gameScoreboard);
 
-            player.sendMessage(LoggerUtil.gameMessage("Game", "&7Choose a &ateams&7 and wait a &agame &7start"));
+            player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.choose_team")));
             sendTabList();
             return;
         }
@@ -305,19 +305,19 @@ public class Game {
         if (isGameState(GameState.ACTIVE)) {
             gameAllPlayers.add(player);
             spectators.add(player);
-            this.broadcastMessage(LoggerUtil.gameMessage("Game", "&7Player &r" + player.getDisplayName() + "&7 joined the game"));
+            this.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.join_game", new Replacer("{0}", player.getDisplayName()))));
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
             player.getPlayer().setGameMode(GameMode.SPECTATOR);
 
             player.setScoreboard(gameScoreboard);
-            player.sendMessage(LoggerUtil.gameMessage("Game", "Game is running now. You can choose team (/team) and play or stay watching"));
+            player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_running")));
             sendTabList();
             return;
         }
 
         if (isGameState(GameState.ENDING)) {
-            player.sendMessage(LoggerUtil.gameMessage("Game", "&7This game is not available now"));
+        	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_unavailable")));
             return;
         }
     }
@@ -332,49 +332,7 @@ public class Game {
             getTeam(player.getPlayer()).quitTeam(player);
         }
 
-        this.broadcastMessage(LoggerUtil.gameMessage("Game", "&aPlayer &r" + player.getDisplayName() + "&a quit the game"));
-        QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
-
-        Player p = player.getPlayer();
-        p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
-        p.setPlayerListName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
-
-        if (p.hasPermission("QuartzDefenders.lobby.colorName")) {
-            p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-            p.setPlayerListName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-        }
-
-        for (String s : QuartzDefenders.getInstance().getDevs()) {
-            if (p.getName().equals(s)) {
-                p.setDisplayName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-                p.setPlayerListName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-            }
-        }
-
-        Iterator<PotionEffect> i = p.getActivePotionEffects().iterator();
-        while (i.hasNext()) {
-            p.addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
-        }
-
-        p.setGameMode(GameMode.ADVENTURE);
-
-        QuartzDefenders.getInstance().getLobby().setLobbyTools(p);
-
-        ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
-        s.setScoreboard();
-        QuartzDefenders.getInstance().getLobby().sendTabList(p);
-
-        if (gameAllPlayers.isEmpty()) {
-            QuartzDefenders.getInstance().deleteGame(this);
-            QuartzDefenders.getInstance().addGame(id);
-        }
-    }
-
-    private void quitGame1(GamePlayer player) {
-        if (isPlayerInTeam(player)) {
-            getTeam(player.getPlayer()).quitTeam(player);
-        }
-
+        this.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.quit_game", new Replacer("{0}", player.getDisplayName()))));
         QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
 
         Player p = player.getPlayer();
@@ -495,7 +453,7 @@ public class Game {
             getSidebar().refresh();
             getGameTimer().stop();
             for (GamePlayer p : gameAllPlayers) {
-                TitleUtil.sendTitle(p.getPlayer(), winner.getName(), "&fteam win the game", 10);
+                TitleUtil.sendTitle(p.getPlayer(), Language.getString("game.title.win.top", new Replacer("{0}", winner.getName())), Language.getString("game.title.win.bot"), 10);
                 FireworkUtil.spawn(p.getPlayer().getLocation(), 20L);
             }
             for (GamePlayer p : winner.getPlayers()) {
@@ -505,14 +463,14 @@ public class Game {
 
             getKillsStats().sendKillsStats();
 
-            Bukkit.broadcastMessage(LoggerUtil.gameMessage(gameName, winner.getName() + "&7 team win the game"));
+            Bukkit.broadcastMessage(LoggerUtil.gameMessage(gameName, Language.getString("team.win", new Replacer("{0}", winner.getName()))));
 
             BukkitRunnable runnable = new BukkitRunnable() {
 
                 @Override
                 public void run() {
                     endGame();
-                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage(gameName, "The game is now restarting"));
+                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage(gameName, Language.getString("logger.game_restarting")));
                 }
             };
             runnable.runTaskLater(QuartzDefenders.getInstance(), 15 * 20);
@@ -528,7 +486,7 @@ public class Game {
                 @Override
                 public void run() {
                     endGame();
-                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage(gameName, "The game is now restarting"));
+                    QuartzDefenders.sendInfo(LoggerUtil.gameMessage(gameName, Language.getString("logger.game_restarting")));
                 }
             };
             runnable.runTaskLater(QuartzDefenders.getInstance(), 15 * 20);
@@ -553,25 +511,16 @@ public class Game {
     }
 
     public void sendTabList() {
-        String header = "";
-        String footer = "";
-        String n = "\n";
-
         String map = getColorWorldName();
         String time = "00:00:00";
 
+        String header = Language.getString("tablist.game.header", new Replacer("{0}", time + ""));
+        String footer = Language.getString("tablist.game.footer", new Replacer("{0}", map));
+        
         if (getGameTimer() != null) {
             time = getGameTimer().getStringTime();
         }
 
-        header = " " + n
-                + "&3\u00AB &b&lPlayCraft.COM.UA &3\u00BB" + n
-                + " " + n
-                + "&3Time&f: " + time + n
-                + " ";
-        footer = " " + n
-                + map + n
-                + " ";
         for (GamePlayer p : gameAllPlayers) {
             if (!p.getPlayer().isOnline()) {
                 continue;
@@ -623,7 +572,7 @@ public class Game {
 
         mapManager.deleteMap();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
-        LoggerUtil.logInfo("&aGame " + gameName + "&a with id " + id + "&a successfully disabled");
+        LoggerUtil.logInfo(Language.getString("logger.game_disable", new Replacer("{0}", gameName), new Replacer("{1}", id)));
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game add " + id);
 
         this.game = null;

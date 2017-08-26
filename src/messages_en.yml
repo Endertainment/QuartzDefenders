@@ -20,11 +20,16 @@ game:
     game_locked: 'This game is locked. Only admins can join'
     join_game: 'Player &r{0}&7 joined the game'
     quit_game: 'Player &r{0}&7 quit the game'
-    quit_game_reconnect: 'Player {0}&7 has &b{1}&7 minutes to reconnect'
+    quit_game_reconnect: 'Player {0}&7 has &b{1}&7 minute(s) to reconnect'
     waiting_players: 'Waiting for more players'
     choose_team: 'Choose a &ateam&7 and wait a &agame &7start'
     game_running: 'Game is running now. You can choose team and play or stay watching'
     game_unavailable: 'This game is not available now'
+    quartz_break_failed: '&cYou can not break quartz your own team'
+    quartz_destroy: 'Player {0}&7 has destroyed the quartz of the {1}&7 team'
+    quartz_broken: '&cYour quartz is broken'
+    chat_failed: '&cYou can not write in chat here'
+    respawn: 'You will respawn after &b{0}&7 seconds'
     title:
         waiting: 
             top: '{0}'
@@ -35,6 +40,11 @@ game:
         win: 
             top: '{0}'
             bot: 'team win the game'
+chat_formats:
+    f_lobby: '&b{lvl}&8 |&r %1$s &8\u00AB&r %2$s'
+    f_spect: '&8Spect |&r %1$s &8\u00AB&r %2$s'
+    f_team: '&8Team |&r %1$s &8\u00AB&r %2$s'
+    f_all: '&8All |&r %1$s &8\u00AB&r %2$s'
 team:
     team: 'Team'
     win: '{0} &7team win the game'
@@ -82,6 +92,13 @@ kits:
     kit_available_buy: '&aAvailable &7(Click to buy)'
     kit_unavailable_level: '&cUnavailable. Requested level {0}'
     kit_unavailable_price: '&cUnavailable. Price {0}'
+tablist:
+    lobby: 
+        header: ' \n &3\u00AB &b&lPlayCraft.COM.UA &3\u00BB \n '
+        footer: ' \n &bLobby \n '
+    game:
+        header: ' \n &3\u00AB &b&lPlayCraft.COM.UA &3\u00BB \n \n &3Time&f: {0}'
+        footer: ' \n {0} \n'
 GUI:
     games:
         name: '&5Active Games'
@@ -121,6 +138,9 @@ GUI:
             games_played: '&7Games played: &6{0}'
             win_rate: '&7Win rate: &6{0}'
             top_wins: '&7Top (Wins): &6{0}'
+        item_deaths:
+            name: '&6Deaths'
+            deaths: '&7Deaths: &6{0}'
         item_coins: 
             name: '&6Coins'
             coins: '&7Coins: &6{0}'
@@ -135,3 +155,27 @@ GUI:
         glass_id_2: 11
         item_name: '{c}> {0} {c}<'
         players: '&7Players: {c}{0}&7/{c}{1}'
+    achievements:
+        name: '&2Achievements'
+        glass_id_1: 5
+        glass_id_2: 13
+items:
+    games:
+        name: '&5Active Games &7(Right click)'
+        games: '&7Games: &d{0}'
+    kits:
+        name: '&2Kits &7(Right click)'
+    stats:
+        name: '&6My Stats &7(Right click)'
+    teams:
+        name: '&9Teams &7(Right click)'
+    quit:
+        name: '&aQuit &7(Right click)'
+    hide_show:
+        show: '&7Show'
+        hide: '&aHide'
+        name: '&a{0} players &7(Right click)'
+    shop:
+        name: '&aShop &7(Right click)'
+    achievements:
+        name: '&aAchievements &7(Right click)'

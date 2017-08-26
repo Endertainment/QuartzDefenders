@@ -19,11 +19,13 @@ public class FilesUtil {
     private File statsFile;
     private File kitsFile;
     private File shopFile;
+    private File achvFile;
 
     private FileConfiguration games;
     private FileConfiguration stats;
     private FileConfiguration kits;
     private FileConfiguration shop;
+    private FileConfiguration achv;
 
     public FilesUtil(QuartzDefenders plugin) {
         this.plugin = plugin;
@@ -32,7 +34,8 @@ public class FilesUtil {
         setupStats();
         setupKits();
         setupShop();
-
+        setupAchv();
+        
         setupLang();
     }
 
@@ -170,6 +173,34 @@ public class FilesUtil {
             e.printStackTrace();
         }
         shop = YamlConfiguration.loadConfiguration(shopFile);
+    }
+
+    /*
+     * ACHIEVEMENTS
+     */
+    private void setupAchv() {
+        achvFile = new File(plugin.getDataFolder() + File.separator, "achievements.yml");
+        if (!achvFile.exists()) {
+            try {
+            	achvFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        achv = YamlConfiguration.loadConfiguration(achvFile);
+    }
+
+    public FileConfiguration getAchvInfo() {
+        return achv;
+    }
+
+    public void saveAchvInfo() {
+        try {
+            achv.save(achvFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        achv = YamlConfiguration.loadConfiguration(achvFile);
     }
 
 }

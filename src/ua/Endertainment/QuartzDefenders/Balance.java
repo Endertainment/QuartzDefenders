@@ -6,6 +6,7 @@ import java.util.Set;
 
 import ua.Endertainment.QuartzDefenders.Game.BalanceType;
 import ua.Endertainment.QuartzDefenders.Stats.StatsManager;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class Balance {
@@ -52,7 +53,7 @@ public class Balance {
 		if(player.getPlayer().hasPermission("QuartzDefenders.team.balanceJoin")) return true; 
 		for(GameTeam team : setOfTeams) {			
 			if(this.chooseTeam.getPlayers().size() > team.getPlayers().size()) {
-				player.sendMessage(LoggerUtil.gameMessage("Team", "Teams unbalanced. Choose another team"));
+				player.sendMessage(LoggerUtil.gameMessage(Language.getString("team.team"), Language.getString("team.team_join_unbalanced")));
 				return false;
 			}
 		}
@@ -63,7 +64,7 @@ public class Balance {
 		if(player.getPlayer().hasPermission("QuartzDefenders.team.balanceJoin")) return true;
 		for(GameTeam team : setOfTeams) {
 			if(StatsManager.getTeamKDR(chooseTeam) > ( StatsManager.getTeamKDR(team) + 1 ) ) {
-				player.sendMessage(LoggerUtil.gameMessage("Team", "Teams unbalanced. Choose another team"));
+				player.sendMessage(LoggerUtil.gameMessage(Language.getString("team.team"), Language.getString("team.team_join_unbalanced")));
 				return false;
 			}
 		}

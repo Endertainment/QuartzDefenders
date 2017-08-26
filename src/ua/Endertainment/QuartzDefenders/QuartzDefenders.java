@@ -6,12 +6,11 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ua.Coolboy.QuartzDefenders.Mobs.MobsListener;
 import ua.Coolboy.QuartzDefenders.Shop.ShopInventory;
+import ua.Endertainment.QuartzDefenders.Achievements.AchievementsManager;
 import ua.Endertainment.QuartzDefenders.Commands.CommandGameBroadcast;
 import ua.Endertainment.QuartzDefenders.Commands.CommandQuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.Game.CommandGame;
@@ -36,6 +35,7 @@ import ua.Endertainment.QuartzDefenders.Events.LightningEvent;
 import ua.Endertainment.QuartzDefenders.Stats.PlayerJoinStats;
 import ua.Endertainment.QuartzDefenders.Stats.TopManager;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ScoreboardLobby;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
@@ -53,6 +53,7 @@ public class QuartzDefenders extends JavaPlugin {
     private FilesUtil files;
     private TopManager top;
     private Lobby lobby;
+    private AchievementsManager achvM;
 
     private final Set<Game> games = new HashSet<>();
     private final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
@@ -67,7 +68,7 @@ public class QuartzDefenders extends JavaPlugin {
         files = new FilesUtil(this);
         lobby = new Lobby(this);
         top = new TopManager(this);
-
+        achvM = new AchievementsManager(this);
         /*
 		 * Prevent an exceptions when plugin is disabled
          */
@@ -98,7 +99,7 @@ public class QuartzDefenders extends JavaPlugin {
             }
         }
 
-        LoggerUtil.logInfo(LoggerUtil.getPrefix() + "&aAll games loaded");
+        LoggerUtil.logInfo(LoggerUtil.getPrefix() + Language.getString("logger.games_loaded"));
 
         /*
 		 * Register GamePlayers
@@ -109,6 +110,8 @@ public class QuartzDefenders extends JavaPlugin {
             s.setScoreboard();
         }
 
+        
+        
     }
 
     @Override
@@ -120,7 +123,7 @@ public class QuartzDefenders extends JavaPlugin {
         main = null;
     }
 
-    public static void resetTabList(Player p) {
+    static void resetTabList(Player p) {
         String header = "";
         String footer = "";
         String n = "\n";
@@ -257,5 +260,8 @@ public class QuartzDefenders extends JavaPlugin {
     public String[] getDevs() {
         return devs;
     }
-
+    
+    public AchievementsManager getAchievementsManager() {
+    	return achvM;
+    }
 }

@@ -51,7 +51,6 @@ public class QuitEvent implements Listener {
 			}
 		}
 		
-		QuartzDefenders.resetTabList(p);
 	}
 	
 }

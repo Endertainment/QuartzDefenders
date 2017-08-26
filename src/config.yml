@@ -8,22 +8,3 @@ Lobby:
     z: 0
     yaw: 0
     pitch: 0
-LobbyParkour:
-  enable: true
-  parkour_points:
-    p1:
-      x: 0
-      y: 0
-      z: 0
-    p2:
-      x: 0
-      y: 0
-      z: 0
-    p3:
-      x: 0
-      y: 0
-      z: 0
-    p4:
-      x: 0
-      y: 0
-      z: 0

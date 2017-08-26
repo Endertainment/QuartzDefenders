@@ -9,6 +9,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.Items.SetupItems;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.FireworkUtil;
 
@@ -52,7 +53,9 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		}
 		
 		if(args.length >= 1 && args[0].equalsIgnoreCase("firework")) {
-			
+			if(!p.hasPermission("QuartzDefenders.fun.firework")) {
+				return true;
+			}
 			long detonate = 2;
 			
 			int amount = 1;
@@ -67,8 +70,17 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			
 			return true;
 		}
-		
+		if(args.length >= 1 && args[0].equalsIgnoreCase("setupSigns")) {
+			if(!p.hasPermission("QuartzDefenders.lobby.setupSigns")) {
+				return true;
+			}
+			p.getInventory().setItem(1, SetupItems.itemSetupSignsK());
+			p.getInventory().setItem(2, SetupItems.itemSetupSignsW());
+		}
 		if(args.length >= 2 && args[0].equalsIgnoreCase("setDisplayName")) {
+			if(!p.hasPermission("QuartzDefenders.fun.setName")) {
+				return true;
+			}
 			
 			Player targ = p;
 			

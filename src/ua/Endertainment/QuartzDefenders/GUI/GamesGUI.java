@@ -13,6 +13,8 @@ import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
+import ua.Endertainment.QuartzDefenders.Utils.Language;
+import ua.Endertainment.QuartzDefenders.Utils.Replacer;
 
 public class GamesGUI {
 
@@ -20,10 +22,11 @@ public class GamesGUI {
 	
 	private Inventory inventory;
 	
-	private String title = new ColorFormat("&5Active Games").format();
+	private String title;
 	
 	public GamesGUI(QuartzDefenders plugin) {
 		this.plugin = plugin;
+		this.title = new ColorFormat(Language.getString("GUI.games.name")).format();
 		this.inventory = Bukkit.createInventory(null, 6*9, title);
 		this.menuCorner();
 		this.a();
@@ -44,13 +47,14 @@ public class GamesGUI {
 		HashMap<ItemStack, Integer> gamesIS = new HashMap<>();
 		int x = 20;
 		for(Game game : plugin.getGames()) {
+			if(x > 33) break;
 			ArrayList<String> lore = new ArrayList<>();
 			lore.add(" ");
-			lore.add("&7Game: &d" + game.getGameName());
-			lore.add("&7Mode: &d" + game.getTeamsCount() + "&7 by &d" + game.getPlayersInTeam());
+			lore.add(Language.getRawString("GUI.games.game", new Replacer("{0}", game.getGameName())));
+			lore.add(Language.getRawString("GUI.games.mode", new Replacer("{0}", game.getTeamsCount() + ""), new Replacer("{1}", game.getPlayersInTeam() + "")));
 			lore.add(" ");
-			lore.add("&7State: &d" + game.getGameState().toString());
-			lore.add("&7Players: &d" + game.getPlayers().size());
+			lore.add(Language.getRawString("GUI.games.state", new Replacer("{0}", game.getGameState().toString())));
+			lore.add(Language.getRawString("GUI.games.players", new Replacer("{0}", game.getPlayers().size() + "")));
 			lore.add(" ");
 			ItemStack s = ItemUtil.newItem(game.getColorWorldName(), lore, Material.QUARTZ_ORE, 1);
 			if(x == 24) x = 29;
@@ -61,7 +65,8 @@ public class GamesGUI {
 	}
 	
 	private void menuCorner() {
-		short z = 2, y = 6;
+		short z = Short.parseShort(Language.getString("GUI.games.glass_id_1")),
+			  y = Short.parseShort(Language.getString("GUI.games.glass_id_2"));
 		int[] arg1 = {0,2,4,6,8,18,26,36,44,46,48,50,52}, arg2 = {1,3,5,7,9,17,27,35,45,47,49,51,53}; // z, y
 		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, z));
 		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));
