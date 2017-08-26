@@ -64,7 +64,7 @@ public class StatsGUI {
 		lore4.add(" ");
 		lore4.add("&7Wins: &6" + p.getWins());
 		lore4.add("&7Games played: &6" + p.getPlayedGames());
-		lore4.add("&7Win rate: &6" + p.getWinRate());
+		lore4.add("&7Win rate: &6" + p.getWinRate() + "%");
 		lore4.add(" ");
 		ItemStack wins = ItemUtil.newItem("&6Wins", lore4, Material.NETHER_STAR, 1);
 		
