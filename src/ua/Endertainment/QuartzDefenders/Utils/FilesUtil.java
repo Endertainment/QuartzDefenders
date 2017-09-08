@@ -2,6 +2,9 @@ package ua.Endertainment.QuartzDefenders.Utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import org.apache.commons.io.FileUtils;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -48,7 +51,15 @@ public class FilesUtil {
         if (!langFile.exists()) {
             langFile = new File(langFolder, "messages_en.yml");
             if (!langFile.exists()) {
-                plugin.saveResource("language" + File.separator + "messages_en.yml", false);
+                InputStream input = plugin.getResource("messages_en.yml");
+                if(input == null) plugin.getLogger().warning("Failed to load language file!!!");
+                try {
+                    FileUtils.copyInputStreamToFile(input, langFile);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                lang = YamlConfiguration.loadConfiguration(new InputStreamReader(plugin.getResource("messages_en.yml")));
+                return;
             }
         }
         lang = YamlConfiguration.loadConfiguration(langFile);

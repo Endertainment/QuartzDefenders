@@ -61,7 +61,7 @@ public class AchievementsGUI {
 			}
 			
 			ArrayList<String> lore = new ArrayList<>();
-			for(String s : achv.getDscription()) {
+			for(String s : achv.getDescription()) {
 				lore.add(s);
 			}
 			

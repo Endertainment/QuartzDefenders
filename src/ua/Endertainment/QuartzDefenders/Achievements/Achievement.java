@@ -1,18 +1,20 @@
 package ua.Endertainment.QuartzDefenders.Achievements;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Achievement {
 
-	private String name;
-	private boolean secret;
-	private int reward;
-	private ArrayList<String> descriptions;
+	private final String name;
+	private final boolean secret;
+	private final int reward;
+	private final List<String> descriptions;
 	
 	public Achievement(String name, boolean secret, int reward, String... description) {
 		this.name = name;
 		this.secret = secret;
 		this.reward = reward;
+                this.descriptions = new ArrayList<>();
 		for(String s : description) {
 			this.descriptions.add(s);
 		}
@@ -30,7 +32,7 @@ public abstract class Achievement {
 		return reward;
 	}
 	
-	public final ArrayList<String> getDscription() {
+	public final List<String> getDescription() {
 		return descriptions;
 	}
 	

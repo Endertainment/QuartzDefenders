@@ -31,6 +31,7 @@ public class ChatFormatEvent implements Listener{
 		StatsPlayer sp = new StatsPlayer(e.getPlayer());
 		
 		String formatLobby = Language.getString("chat_formats.f_lobby");
+                Bukkit.broadcastMessage(formatLobby);
 		
 		String formatSpectators = Language.getString("chat_formats.f_spect");
 		
