@@ -294,7 +294,7 @@ public class StatsPlayer {
             try {
                 for (int i = 0; i < exp.size(); i++) {
                     if (points >= exp.get(i) && points < exp.get(i + 1)) {
-                        this.level = i;
+                        this.level = i + 1;
                         this.nextLevelPoints = exp.get(i + 1);
                     }
                 }
