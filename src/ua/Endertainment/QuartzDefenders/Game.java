@@ -560,6 +560,10 @@ public class Game {
                 }
 
             }
+            QuartzDefenders.getInstance().getTopManager().refreshKillsTop();
+            QuartzDefenders.getInstance().getTopManager().refreshWinsTop();
+            QuartzDefenders.getInstance().getTopManager().setupSigns();
+            
             //quitGame1(p);                      
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {

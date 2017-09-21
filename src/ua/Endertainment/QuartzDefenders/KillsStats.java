@@ -34,16 +34,16 @@ public class KillsStats {
 		if(kills.size() == 0) return;
 		calc();
 		for(GamePlayer p : game.getPlayers()) {
-			int pos = 1;
-			p.sendMessage("&8-------------------- &aKills &8--------------------");
+			int pos = 1;                                                       
+			p.sendMessage("&8&m~~~~~~~~~~~~~~~~~~~~ &6Kills &8&m~~~~~~~~~~~~~~~~~~~~");
 			CenteredMessageUtil.sendCenteredMessage(p, " ");
 			for(GamePlayer pp : sorted_map.keySet()) {
 				if(pos == 4) break;
-				CenteredMessageUtil.sendCenteredMessage(p, "&aTop " + pos + "&f: " + pp.getDisplayName() + "&f - &a" + kills.get(pp));
+				CenteredMessageUtil.sendCenteredMessage(p, "&6" + pos + "'th Place: " + pp.getName() + "&f - &6" + kills.get(pp));
 				pos++;
 			}			
 			CenteredMessageUtil.sendCenteredMessage(p, " ");
-			p.sendMessage("&8---------------------------------------------");
+			p.sendMessage("&8&m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		}
 	}
 	

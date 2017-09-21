@@ -23,6 +23,10 @@ public class GamePlayer {
 		this.player = p;
 	}
 	
+	public String getName() {
+		return getPlayer().getName();
+	}
+	
 	public String getDisplayName() {
 		return getPlayer().getDisplayName();
 	}
