@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.GUI.AchievementsGUI;
 import ua.Endertainment.QuartzDefenders.GUI.GamesGUI;
 import ua.Endertainment.QuartzDefenders.GUI.KitsGUI;
 import ua.Endertainment.QuartzDefenders.GUI.LobbyShopGUI;
@@ -58,6 +59,7 @@ public class ItemsUseEvent implements Listener{
 			String setupOres = SetupItems.itemSetupOres().getItemMeta().getDisplayName();
 			String setupSignsK = SetupItems.itemSetupSignsK().getItemMeta().getDisplayName();
 			String setupSignsW = SetupItems.itemSetupSignsW().getItemMeta().getDisplayName();
+			String achievements = QItems.itemAchievements().getItemMeta().getDisplayName();
 			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(compass)) {
 				e.setCancelled(true);
@@ -70,6 +72,12 @@ public class ItemsUseEvent implements Listener{
 				new StatsGUI(p).openInventory();
 				return;
 			}	
+			
+			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(achievements)) {
+				e.setCancelled(true);
+				new AchievementsGUI(p).openInventory();
+				return;
+			}
 			
 			if(i.getItemMeta().getDisplayName().equalsIgnoreCase(hide)) {
 				e.setCancelled(true);
