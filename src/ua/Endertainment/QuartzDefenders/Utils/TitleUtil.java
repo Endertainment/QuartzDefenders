@@ -8,11 +8,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class TitleUtil {
-    
+
     public static void sendTitle(Player p, String title, String subtitle, Integer stay) {
         p.sendTitle(title, subtitle, 10, stay, 70);
     }
-    
+
     @SuppressWarnings("rawtypes")
     public static void sendTitle1(Player p, String title, String subtitle, Integer stay) {
         try {
@@ -79,25 +79,30 @@ public class TitleUtil {
             header = "";
         }
         header = ChatColor.translateAlternateColorCodes('&', header);
+
         if (footer == null) {
             footer = "";
         }
         footer = ChatColor.translateAlternateColorCodes('&', footer);
+
         header = header.replaceAll("%player%", player.getDisplayName());
         footer = footer.replaceAll("%player%", player.getDisplayName());
+
         try {
-            Object tabHeader = NMSUtil.getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", new Class[]{String.class}).invoke(null, new Object[]{"{\"text\":\"" + header + "\"}"});
-
-            Object tabFooter = NMSUtil.getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", new Class[]{String.class}).invoke(null, new Object[]{"{\"text\":\"" + footer + "\"}"});
-
-            Constructor<?> titleConstructor = NMSUtil.getNMSClass("PacketPlayOutPlayerListHeaderFooter").getConstructor(new Class[]{NMSUtil.getNMSClass("IChatBaseComponent")});
-            Object packet = titleConstructor.newInstance(new Object[]{tabHeader});
-            Field field = packet.getClass().getDeclaredField("b");
-            field.setAccessible(true);
-            field.set(packet, tabFooter);
+            Object tabHeader = NMSUtil.getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + header + "\"}");
+            Object tabFooter = NMSUtil.getNMSClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + footer + "\"}");
+            Constructor<?> titleConstructor = NMSUtil.getNMSClass("PacketPlayOutPlayerListHeaderFooter").getConstructor();
+            Object packet = titleConstructor.newInstance();
+            Field aField = packet.getClass().getDeclaredField("a");
+            aField.setAccessible(true);
+            aField.set(packet, tabHeader);
+            Field bField = packet.getClass().getDeclaredField("b");
+            bField.setAccessible(true);
+            bField.set(packet, tabFooter);
             NMSUtil.sendPacket(player, packet);
         } catch (Exception ex) {
             ex.printStackTrace();
+
         }
     }
 }
