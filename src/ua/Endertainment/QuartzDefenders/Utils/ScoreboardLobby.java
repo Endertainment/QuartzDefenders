@@ -52,7 +52,7 @@ public class ScoreboardLobby {
 		addString("&f Coins: &b" + sp.getCoins());
 		addString("&f Level: &b" + sp.getLevel());
 		addString("&3 &3 ");
-		addString("&f Top position: &b" + plugin.getTopManager().getPlayerPositionK(p));
+		addString("&f Top position: &b" + plugin.getTopManager().getPlayerKillsPosition(p));
 		addString("&2 ");
 		addString("&f&m------------------&5 ");
 		addString("&3«&b&l Playcraft.com.ua &3»");

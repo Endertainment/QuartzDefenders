@@ -560,8 +560,7 @@ public class Game {
                 }
 
             }
-            QuartzDefenders.getInstance().getTopManager().refreshKillsTop();
-            QuartzDefenders.getInstance().getTopManager().refreshWinsTop();
+            QuartzDefenders.getInstance().getTopManager().refresh();
             QuartzDefenders.getInstance().getTopManager().setupSigns();
             
             //quitGame1(p);                      
