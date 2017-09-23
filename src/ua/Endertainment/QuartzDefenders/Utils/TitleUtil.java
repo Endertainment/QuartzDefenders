@@ -8,9 +8,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class TitleUtil {
-
-    @SuppressWarnings("rawtypes")
+    
     public static void sendTitle(Player p, String title, String subtitle, Integer stay) {
+        p.sendTitle(title, subtitle, 10, stay, 70);
+    }
+    
+    @SuppressWarnings("rawtypes")
+    public static void sendTitle1(Player p, String title, String subtitle, Integer stay) {
         try {
             int fadeIn = 1;
             int fadeOut = 1;
