@@ -15,10 +15,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
 
 import ua.Endertainment.QuartzDefenders.Items.QItems;
 import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
@@ -189,6 +190,10 @@ public class Lobby implements Listener {
 	public void onDamage(EntityDamageEvent e) {
 		if(!plugin.getConfig().getBoolean("Lobby.disable_damage")) return;
 		if(!(e.getEntity() instanceof Player)) return;
+                if(e.getCause().equals(DamageCause.VOID)) {
+                        e.getEntity().teleport(location);
+                        e.getEntity().setVelocity(new Vector(0,0,0));
+                }
 		if(location.getWorld() == e.getEntity().getLocation().getWorld()) {
 			e.setCancelled(true);
 		}
@@ -213,11 +218,6 @@ public class Lobby implements Listener {
 		if(!e.getPlayer().hasPermission("QuartzDefenders.lobby.blockPlace")) {
 			e.setCancelled(true);
 		}
-	}
-	@EventHandler
-	public void onMove(PlayerMoveEvent e) {
-		if(e.getPlayer().getLocation().getWorld() != location.getWorld()) return;
-		if(e.getTo().getBlockY() <= 0) teleportToSpawn(e.getPlayer(), true);
 	}
 	@EventHandler
 	public void onWorldChange(PlayerChangedWorldEvent e) {
