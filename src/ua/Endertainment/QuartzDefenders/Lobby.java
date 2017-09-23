@@ -120,21 +120,28 @@ public class Lobby implements Listener {
 		FileConfiguration cfg = plugin.getConfig();
 		
 		if(!cfg.isConfigurationSection("Signs.top_kills")) {
-			ArrayList<String> l = new ArrayList<>();
-            String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
-            l.add(s);
+			ArrayList<ArrayList<Integer>> l = new ArrayList<>();
+            ArrayList<Integer> targ = new ArrayList<>();
+            targ.add(loc.getBlockX());
+            targ.add(loc.getBlockY());
+            targ.add(loc.getBlockZ());
+            l.add(targ);
             cfg.set("Signs.top_kills", l);
 		} else {
-			ArrayList<String> l = (ArrayList<String>) cfg.getStringList("Signs.top_kills");
-			String s = loc.getX() + "," + loc.getY() + "," + loc.getZ();
-			if(l.contains(s)) {
+			@SuppressWarnings("unchecked")
+			ArrayList<ArrayList<Integer>> l = (ArrayList<ArrayList<Integer>>) cfg.getList("Signs.top_kills");
+			ArrayList<Integer> targ = new ArrayList<>();
+            targ.add(loc.getBlockX());
+            targ.add(loc.getBlockY());
+            targ.add(loc.getBlockZ());
+			if(l.contains(targ)) {
 				p.sendMessage(LoggerUtil.gameMessage("Setup", "&bSign removed"));
-				l.remove(s);
+				l.remove(targ);
 				cfg.set("Signs.top_kills", l);
 				QuartzDefenders.getInstance().saveConfig();
 				return;
 			}
-			l.add(s);
+			l.add(targ);
             cfg.set("Signs.top_kills", l);
 		}
 		
