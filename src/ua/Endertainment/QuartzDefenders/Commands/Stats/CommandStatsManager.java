@@ -19,6 +19,7 @@ public class CommandStatsManager {
 		subCommandsStats.put("addpoints", new AddPoints());
 		subCommandsStats.put("removepoints", new RemovePoints());
 		subCommandsStats.put("reset", new Reset());
+		subCommandsStats.put("addkills", new SetKills());
 	}
 	
 	private HashMap<String, SubCommand> subCommandsStats = new HashMap<>();

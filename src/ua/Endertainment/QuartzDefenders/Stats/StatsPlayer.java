@@ -116,7 +116,7 @@ public class StatsPlayer {
         this.kills += 1;
         StatsManager.saveInfo(id, "kills", this.kills);
     }
-
+    
     public void setKills(int kills) {
         this.kills = kills;
         StatsManager.saveInfo(id, "kills", this.kills);

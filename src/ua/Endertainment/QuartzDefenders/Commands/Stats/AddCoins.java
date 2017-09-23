@@ -33,6 +33,11 @@ public class AddCoins extends SubCommand {
 			return;
 		}
 		
+		if(coins < 0) {
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Can not add negative number of coins. Use \"removeCoins\""));
+			return;
+		}
+		
 		Player p = null;
 		
 		if(args.length >= 2) {

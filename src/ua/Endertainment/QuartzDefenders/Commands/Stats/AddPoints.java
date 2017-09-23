@@ -33,6 +33,11 @@ public class AddPoints extends SubCommand {
 			return;
 		}
 		
+		if(points < 0) {
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Can not add negative number of points. Use \"removePoints\""));
+			return;
+		}
+		
 		Player p = null;
 		
 		if(args.length >= 2) {
