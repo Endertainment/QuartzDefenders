@@ -58,7 +58,7 @@ public class QItems {
 	public static ItemStack itemHidePlayers(boolean active) {
 		Dye d = new Dye(active ? DyeColor.GRAY : DyeColor.LIME);	
 		String x = active ? Language.getRawString("items.hide_show.show") : Language.getRawString("items.hide_show.show");
-		return ItemUtil.newItem(Language.getString("items.hide_show", new Replacer("{0}", x)), null, d.toItemStack(1));
+		return ItemUtil.newItem(Language.getString("items.hide_show.name", new Replacer("{0}", x)), null, d.toItemStack(1));
 	}
 	
 	public static ItemStack itemLobbyShop() {
