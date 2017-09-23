@@ -39,15 +39,7 @@ public class TopManager {
         for (String s : plugin.getConfigs().getStatsInfo().getKeys(false)) {
             killsMap.put(plugin.getConfigs().getStatsInfo().getInt(s + ".kills"), Bukkit.getOfflinePlayer(UUID.fromString(s)));
         }
-        /*
-        ArrayList<Integer> kills = new ArrayList<>();
 
-        for (int i : killsMap.keySet()) {
-            kills.add(i);
-        }
-
-        Collections.sort(kills, Collections.reverseOrder());
-         */
         topKills.addAll(killsMap.values());
     }
 
@@ -77,15 +69,7 @@ public class TopManager {
         for (String s : plugin.getConfigs().getStatsInfo().getKeys(false)) {
             winsMap.put(plugin.getConfigs().getStatsInfo().getInt(s + ".wins"), Bukkit.getOfflinePlayer(UUID.fromString(s)));
         }
-        /*
-        ArrayList<Integer> wins = new ArrayList<>();
 
-        for (int i : winsMap.keySet()) {
-            wins.add(i);
-        }
-
-        Collections.sort(wins, Collections.reverseOrder());
-         */
         topWins.addAll(winsMap.values());
     }
 
@@ -119,8 +103,9 @@ public class TopManager {
         }
     }
 
-    private List<List<Integer>> getIntegerListOfLists(List<?> from) {
+    public static List<List<Integer>> getIntegerListOfLists(List<?> from) {
         List<List<Integer>> list = new ArrayList<>();
+        if(from==null) return list;
         for (Object obj : from) {
             if (obj instanceof List) {
                 try {
@@ -142,6 +127,7 @@ public class TopManager {
             y = list.get(1);
             z = list.get(2);
             Location l = new Location(plugin.getLobby().getWorld(), x, y, z);
+            LoggerUtil.logInfo(plugin.getLobby().getWorld().getBlockAt(l).getState().toString());
             if (!(plugin.getLobby().getWorld().getBlockAt(l).getState() instanceof Sign)) {
                 continue;
             }
@@ -153,7 +139,6 @@ public class TopManager {
 
     private void setKillsText(List<Sign> signs) {
         int index = 0;
-
         for (Sign s : signs) {
             int x = index + 1;
             s.setLine(0, "Top " + x);
@@ -166,7 +151,6 @@ public class TopManager {
 
     private void setWinsText(List<Sign> signs) {
         int index = 0;
-
         for (Sign s : signs) {
             int x = index + 1;
             s.setLine(0, "Top " + x);
