@@ -85,7 +85,7 @@ public class InvClickEvent implements Listener {
 			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
 			
 			for(Kit kit : KitsManager.getInstance().getKits()) {				
-				if(curr.getItemMeta().getDisplayName().equals(kit.getItems().get(0).getItemMeta().getDisplayName())) {
+				if(curr.getItemMeta().getDisplayName().equals(kit.getDisplayName())) {
 					if(KitsManager.getInstance().isKitAccessToBuy(kit, p)) {
 						KitsManager.getInstance().buyKit(kit, p);
 						p.closeInventory();
