@@ -127,7 +127,6 @@ public class TopManager {
             y = list.get(1);
             z = list.get(2);
             Location l = new Location(plugin.getLobby().getWorld(), x, y, z);
-            LoggerUtil.logInfo(plugin.getLobby().getWorld().getBlockAt(l).getState().toString());
             if (!(plugin.getLobby().getWorld().getBlockAt(l).getState() instanceof Sign)) {
                 continue;
             }

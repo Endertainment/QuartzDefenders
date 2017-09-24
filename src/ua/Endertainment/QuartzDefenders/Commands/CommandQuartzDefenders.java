@@ -64,7 +64,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			
 			if(args.length >= 3) amount = Math.min(Integer.parseInt(args[2]), 20);
 			
-			for(int i = 0; i <= amount; i++) {
+			for(int i = 1; i <= amount; i++) {
 				FireworkUtil.spawn(p.getLocation(), detonate);
 			}
 			
@@ -89,6 +89,23 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			}
 			
 			plugin.getGamePlayer(targ).setDisplayName(ChatColor.valueOf(args[1]));
+			
+			return true;
+			
+		}
+                
+                if(args.length >= 2 && args[0].equalsIgnoreCase("setTabName")) {
+			if(!p.hasPermission("QuartzDefenders.fun.setTabName")) {
+				return true;
+			}
+			
+			Player targ = p;
+			
+			if(args.length >= 3) {
+				targ = Bukkit.getPlayer(args[2]);
+			}
+			if(targ == null) return false;
+			targ.setPlayerListName(new ColorFormat(args[1]).format().replaceAll("_", " "));
 			
 			return true;
 			
