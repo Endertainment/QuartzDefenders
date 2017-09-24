@@ -1,6 +1,7 @@
 package ua.Endertainment.QuartzDefenders.Events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -83,11 +84,8 @@ public class InvClickEvent implements Listener {
 		if(inv.getName().equals(Language.getString("GUI.shop.name"))) {
 			e.setCancelled(true);
 			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
-			Bukkit.broadcastMessage("1");
 			for(Kit kit : KitsManager.getInstance().getKits()) {		
-				Bukkit.broadcastMessage("2");
-				if(curr.getItemMeta().getDisplayName().equals(kit.getDisplayName())) {
-					Bukkit.broadcastMessage("3");
+				if(curr.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', kit.getDisplayName()))) {
 					if(KitsManager.getInstance().isKitAccessToBuy(kit, p)) {
 						KitsManager.getInstance().buyKit(kit, p);
 						p.closeInventory();
