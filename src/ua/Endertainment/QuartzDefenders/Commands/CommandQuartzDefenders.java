@@ -93,6 +93,17 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			return true;
 			
 		}
+		
+		if(args.length >= 1 && args[0].equalsIgnoreCase("removeSigns")) {
+			if(!p.hasPermission("QuartzDefenders.lobby.removeSigns")) {
+				return true;
+			}
+			
+			plugin.getLobby().removeSigns();
+			
+			return true;
+		}
+		
 		return true;
 	}
 	

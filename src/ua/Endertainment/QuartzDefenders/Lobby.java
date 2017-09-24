@@ -192,6 +192,13 @@ public class Lobby implements Listener {
                 + "&f,Y:&3" + loc.getY() + "&f,Z:&3" + loc.getZ()));
         QuartzDefenders.getInstance().saveConfig();
     }
+    
+    public void removeSigns() {
+    	FileConfiguration cfg = plugin.getConfig();
+    	cfg.set("Signs.top_wins", "{}");
+    	cfg.set("Signs.top_kills", "{}");
+    	QuartzDefenders.getInstance().saveConfig();
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent e) {
