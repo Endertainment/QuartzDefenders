@@ -83,9 +83,11 @@ public class InvClickEvent implements Listener {
 		if(inv.getName().equals(Language.getString("GUI.shop.name"))) {
 			e.setCancelled(true);
 			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
-			
-			for(Kit kit : KitsManager.getInstance().getKits()) {				
+			Bukkit.broadcastMessage("1");
+			for(Kit kit : KitsManager.getInstance().getKits()) {		
+				Bukkit.broadcastMessage("2");
 				if(curr.getItemMeta().getDisplayName().equals(kit.getDisplayName())) {
+					Bukkit.broadcastMessage("3");
 					if(KitsManager.getInstance().isKitAccessToBuy(kit, p)) {
 						KitsManager.getInstance().buyKit(kit, p);
 						p.closeInventory();
