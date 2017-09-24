@@ -63,7 +63,6 @@ public class QuartzDefenders extends JavaPlugin {
         main = this;
 
         saveDefaultConfig();
-        getConfig();
 
         files = new FilesUtil(this);
         lobby = new Lobby(this);
