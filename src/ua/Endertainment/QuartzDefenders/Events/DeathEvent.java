@@ -105,12 +105,9 @@ public class DeathEvent implements Listener {
 			game.getSpectators().add(plugin.getGamePlayer(p));
 			
 			if(p.getLocation().getY() <= 0) {
-				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {					
-					@Override
-					public void run() {
-						p.teleport(new Location(p.getWorld(), p.getLocation().getX(), 80, p.getLocation().getZ()));						
-					}
-				});				
+				Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                                    p.teleport(new Location(p.getWorld(), p.getLocation().getX(), 80, p.getLocation().getZ()));
+                                });				
 			}
 			
 		}

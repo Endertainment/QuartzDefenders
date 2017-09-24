@@ -17,21 +17,8 @@ import ua.Endertainment.QuartzDefenders.Commands.Game.CommandGame;
 import ua.Endertainment.QuartzDefenders.Commands.Kit.CommandKit;
 import ua.Endertainment.QuartzDefenders.Commands.Stats.CommandStats;
 import ua.Endertainment.QuartzDefenders.Commands.Team.CommandTeam;
-import ua.Endertainment.QuartzDefenders.Events.BreakBlockEvent;
-import ua.Endertainment.QuartzDefenders.Events.ChatFormatEvent;
-import ua.Endertainment.QuartzDefenders.Events.DamageEvent;
-import ua.Endertainment.QuartzDefenders.Events.DeathEvent;
-import ua.Endertainment.QuartzDefenders.Events.DeathMessages;
-import ua.Endertainment.QuartzDefenders.Events.ExplodeEvent;
-import ua.Endertainment.QuartzDefenders.Events.InvClickEvent;
-import ua.Endertainment.QuartzDefenders.Events.ItemsUseEvent;
-import ua.Endertainment.QuartzDefenders.Events.JoinEvent;
-import ua.Endertainment.QuartzDefenders.Events.PlaceBlockEvent;
-import ua.Endertainment.QuartzDefenders.Events.QuartzBreakEvent;
-import ua.Endertainment.QuartzDefenders.Events.QuitEvent;
-import ua.Endertainment.QuartzDefenders.Events.WorldChangeEvent;
+import ua.Endertainment.QuartzDefenders.Events.*;
 import ua.Endertainment.QuartzDefenders.Events.Game.GameRegisterEvent;
-import ua.Endertainment.QuartzDefenders.Events.LightningEvent;
 import ua.Endertainment.QuartzDefenders.Stats.PlayerJoinStats;
 import ua.Endertainment.QuartzDefenders.Stats.TopManager;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
@@ -186,6 +173,7 @@ public class QuartzDefenders extends JavaPlugin {
         new DeathMessages(this);
         new ExplodeEvent(this);
         new LightningEvent(this);
+        new FireArrowEvent(this);
     }
 
     /*

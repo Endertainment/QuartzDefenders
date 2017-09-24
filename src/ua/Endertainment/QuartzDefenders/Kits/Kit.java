@@ -25,8 +25,8 @@ public abstract class Kit {
 		this.displayName = displayName;
 		this.price = price;
 		this.level = level;
-		this.items = new ArrayList<ItemStack>();
-		this.description = new ArrayList<String>();
+		this.items = new ArrayList<>();
+		this.description = new ArrayList<>();
 		for(String s : description) {
 			this.description.add(s);
 		}
@@ -56,14 +56,12 @@ public abstract class Kit {
 	public void apply(GamePlayer gp) {
 		Player p = gp.getPlayer();
 		p.getInventory().clear();
-		for(ItemStack item : items) {
-			p.getInventory().addItem(item);
-		}
+			p.getInventory().addItem(items.toArray(new ItemStack[items.size()]));
 	}
 	
 	@SafeVarargs
 	public final void addItem(Material material, int amount, int data, SimpleEntry<Enchantment, Integer>... ench) {
-		ItemStack item = new ItemStack(material, amount, (short)data);
+		ItemStack item = new ItemStack(material, amount, (byte)data);
 		for(SimpleEntry<Enchantment, Integer> entry : ench){
 			item.addEnchantment(entry.getKey(), entry.getValue());
 		}

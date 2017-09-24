@@ -32,7 +32,7 @@ public class DeathMessages implements Listener {
 				game.broadcastMessage("&8» &r" + p.getDisplayName() + "&f died");
 				return;
 			}
-			if(killer != null && killer instanceof Player) {
+			if(killer instanceof Player) {
 				e.setDeathMessage("");
 				game.broadcastMessage("&8» &r" + p.getDisplayName() + "&f killed by &r" + killer.getDisplayName());
 				return;

@@ -21,7 +21,7 @@ public class KitsManager {
 	private ArrayList<Kit> kits;
 	
 	private KitsManager() {
-		kits = new ArrayList<Kit>();
+		kits = new ArrayList<>();
 		
 		kits.add(new DefaultKit());
 		kits.add(new ArcherKit());
