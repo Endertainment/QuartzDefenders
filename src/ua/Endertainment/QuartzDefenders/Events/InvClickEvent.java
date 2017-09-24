@@ -102,13 +102,9 @@ public class InvClickEvent implements Listener {
 		if(inv.getName().equals(Language.getString("GUI.kits.name"))) {
 			e.setCancelled(true);
 			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
-			Bukkit.broadcastMessage("1");
 			for(Kit kit : KitsManager.getInstance().getKits()) {
-				Bukkit.broadcastMessage("2");
-				if(curr.getItemMeta().getDisplayName().equals(kit.getItems().get(0).getItemMeta().getDisplayName())) {
-					if(KitsManager.getInstance().isKitAccess(kit, p)) {
-						Bukkit.broadcastMessage("3");
-						
+				if(curr.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', kit.getDisplayName()))) {
+					if(KitsManager.getInstance().isKitAccess(kit, p)) {						
 						KitsManager.getInstance().chooseKit(kit, plugin.getGame(p), plugin.getGamePlayer(p));
 						p.closeInventory();
 					} else {KitsManager.getInstance().chooseKitFailed(kit, plugin.getGamePlayer(p)); p.closeInventory();}
