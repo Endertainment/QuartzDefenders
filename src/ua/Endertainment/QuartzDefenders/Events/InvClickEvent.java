@@ -108,6 +108,7 @@ public class InvClickEvent implements Listener {
 				if(curr.getItemMeta().getDisplayName().equals(kit.getItems().get(0).getItemMeta().getDisplayName())) {
 					if(KitsManager.getInstance().isKitAccess(kit, p)) {
 						Bukkit.broadcastMessage("3");
+						
 						KitsManager.getInstance().chooseKit(kit, plugin.getGame(p), plugin.getGamePlayer(p));
 						p.closeInventory();
 					} else {KitsManager.getInstance().chooseKitFailed(kit, plugin.getGamePlayer(p)); p.closeInventory();}
