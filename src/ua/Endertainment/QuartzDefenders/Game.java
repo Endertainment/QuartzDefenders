@@ -380,7 +380,7 @@ public class Game {
         setGameState(GameState.ACTIVE);
         getSidebar().refresh();
         this.timer = new GameTimer(this);
-        timer.runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
+        this.timer.runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
         ShopEntity.loadShops(game);
         Bukkit.getPluginManager().callEvent(new GameStartEvent(game));
         for (GamePlayer p : gameAllPlayers) {

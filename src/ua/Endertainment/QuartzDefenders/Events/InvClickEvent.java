@@ -133,7 +133,7 @@ public class InvClickEvent implements Listener {
 			p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);		
 			
 			Game game = plugin.getGame(p);
-			
+
 			for(GameTeam team : game.getTeams().values()) {
 				
 				if(curr.getItemMeta().getDisplayName().equals(Language.getString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())))) {
