@@ -159,6 +159,7 @@ GUI:
         name: '&2Achievements'
         glass_id_1: 5
         glass_id_2: 13
+        
 items:
     games:
         name: '&5Active Games &7(Right click)'
