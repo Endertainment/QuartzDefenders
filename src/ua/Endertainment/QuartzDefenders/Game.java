@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -156,6 +157,8 @@ public class Game {
         this.map.setAmbientSpawnLimit(0);
         this.map.setAnimalSpawnLimit(0);
         this.map.setMonsterSpawnLimit(0);
+        this.map.setGameRuleValue("keepInventory", "false");
+        this.map.setDifficulty(Difficulty.valueOf(config.getString("Games." + this.id +".difficulty", "NORMAL")));
 
         this.mapSpawn = new Location(Bukkit.getWorld(teckWorldName),
                 config.getDouble("Games." + this.id + ".map_spawn.x") + 0.5,

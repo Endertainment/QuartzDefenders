@@ -79,7 +79,7 @@ public class MobsListener implements Listener {
                             testLoc = loc.clone();
                             testLoc.add(Mobs.randomInRadius(rad), 0, Mobs.randomInRadius(rad));
                         }
-                        if (loc.getWorld().getHighestBlockAt(testLoc) != null) {
+                        if (loc.getWorld().getHighestBlockYAt(testLoc)>0) {
                             testLoc.setY(testLoc.getWorld().getHighestBlockAt(testLoc).getLocation().getBlockY() + 1);
                             Skeleton soul = (Skeleton) testLoc.getWorld().spawnEntity(testLoc, EntityType.SKELETON);
                             Mobs.soulDef(soul);
