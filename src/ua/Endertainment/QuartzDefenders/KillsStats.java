@@ -43,7 +43,7 @@ public class KillsStats {
 				pos++;
 			}			
 			CenteredMessageUtil.sendCenteredMessage(p, " ");
-			p.sendMessage("&8&m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			p.sendMessage("&8&m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		}
 	}
 	
