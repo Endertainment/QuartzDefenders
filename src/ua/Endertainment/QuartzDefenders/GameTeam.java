@@ -9,6 +9,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.Team.Option;
+import org.bukkit.scoreboard.Team.OptionStatus;
 
 import ua.Endertainment.QuartzDefenders.Game.GameState;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
@@ -42,6 +44,7 @@ public class GameTeam {
 		this.team.setAllowFriendlyFire(false);
 		this.team.setCanSeeFriendlyInvisibles(true);
 		this.team.setPrefix(color.toString());
+		this.team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OTHER_TEAMS);
 	}
 	
 	public Game getGame() {
