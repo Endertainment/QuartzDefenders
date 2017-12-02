@@ -239,7 +239,7 @@ public class Lobby implements Listener {
 
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent e) {
-        if (!plugin.getConfig().getBoolean("Lobby.disable_damage")) {
+        if (!plugin.getConfig().getBoolean("Lobby.infinity_food")) {
             return;
         }
         if (location.getWorld() == e.getEntity().getLocation().getWorld()) {
