@@ -43,10 +43,11 @@ public class DamageEvent implements Listener {
 		 }
 		 if(game.isGameState(GameState.WAITING) || game.isGameState(GameState.STARTING) || game.isGameState(GameState.ENDING)) {
 			 e.setCancelled(true);
+			 if (e.getCause().equals(DamageCause.VOID)) {
+	             e.getEntity().setVelocity(new Vector(0, 0, 0));
+	             p.getPlayer().teleport(game.getMapCenter());
+	         }
 		 }
-		 if (e.getCause().equals(DamageCause.VOID)) {
-             e.getEntity().setVelocity(new Vector(0, 0, 0));
-             p.getPlayer().teleport(game.getMapCenter());
-         }
+		 
 	 }
 }
