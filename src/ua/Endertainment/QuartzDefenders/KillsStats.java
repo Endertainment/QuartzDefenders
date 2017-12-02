@@ -35,7 +35,7 @@ public class KillsStats {
 		calc();
 		for(GamePlayer p : game.getPlayers()) {
 			int pos = 1;                                                       
-			p.sendMessage("&8&m~~~~~~~~~~~~~~~~~~~~ &6Kills &8&m~~~~~~~~~~~~~~~~~~~~");
+			p.sendMessage("&8&m~~~~~~~~~~~~~~~~~~~~&r &6Kills &8&m~~~~~~~~~~~~~~~~~~~~");
 			CenteredMessageUtil.sendCenteredMessage(p, " ");
 			for(GamePlayer pp : sorted_map.keySet()) {
 				if(pos == 4) break;
