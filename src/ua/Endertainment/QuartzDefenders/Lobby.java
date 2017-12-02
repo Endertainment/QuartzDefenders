@@ -137,16 +137,18 @@ public class Lobby implements Listener {
         p.getInventory().setItem(8, QItems.itemLobbyShop());
         p.getInventory().setItem(1, QItems.itemAchievements());
     }
-    
+
     private boolean listContains(List<List<Integer>> where, List find) {
         boolean finded;
-        for(List list: where) {
+        for (List list : where) {
             finded = list.containsAll(find);
-            if(finded == true) return finded;
+            if (finded == true) {
+                return finded;
+            }
         }
         return false;
     }
-    
+
     public void addSignK(Location loc, Player p) {
         FileConfiguration cfg = plugin.getConfig();
 
@@ -192,12 +194,12 @@ public class Lobby implements Listener {
                 + "&f,Y:&3" + loc.getY() + "&f,Z:&3" + loc.getZ()));
         QuartzDefenders.getInstance().saveConfig();
     }
-    
+
     public void removeSigns() {
-    	FileConfiguration cfg = plugin.getConfig();
-    	cfg.set("Signs.top_wins", "{}");
-    	cfg.set("Signs.top_kills", "{}");
-    	QuartzDefenders.getInstance().saveConfig();
+        FileConfiguration cfg = plugin.getConfig();
+        cfg.set("Signs.top_wins", "{}");
+        cfg.set("Signs.top_kills", "{}");
+        QuartzDefenders.getInstance().saveConfig();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -228,10 +230,10 @@ public class Lobby implements Listener {
 
         if (location.getWorld() == e.getEntity().getLocation().getWorld()) {
             e.setCancelled(true);
-        }
-        if (e.getCause().equals(DamageCause.VOID)) {
-            e.getEntity().setVelocity(new Vector(0, 0, 0));
-            teleportToSpawn((Player)e.getEntity(), true);
+            if (e.getCause().equals(DamageCause.VOID)) {
+                e.getEntity().setVelocity(new Vector(0, 0, 0));
+                teleportToSpawn((Player) e.getEntity(), false);
+            }
         }
     }
 

@@ -82,6 +82,7 @@ public class GameTeam {
 				player.getPlayer().setGameMode(GameMode.SURVIVAL);
 				player.getPlayer().setHealth(20);
 				player.getPlayer().setFoodLevel(20);
+                                player.getPlayer().setCollidable(false);
 				
 				StatsPlayer sp = new StatsPlayer(player.getPlayer());
                 sp.addPlayedGame();				

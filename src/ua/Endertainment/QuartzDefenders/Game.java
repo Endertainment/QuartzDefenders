@@ -43,7 +43,7 @@ import ua.Endertainment.QuartzDefenders.Utils.TitleUtil;
 
 public class Game {
 
-    private String[] validTeams = {"RED", "BLUE", "GREEN", "YELLOW", "MAGENTA", "AQUA", "GRAY", "WHITE"};
+    private String[] validTeams = {"RED", "BLUE", "GREEN", "YELLOW", "MAGENTA", "AQUA", "GRAY", "PINK", "WHITE", "BLACK"};
 
     private Game game;
 
@@ -744,6 +744,10 @@ public class Game {
                 return ChatColor.WHITE;
             case "MAGENTA":
                 return ChatColor.DARK_PURPLE;
+            case "BLACK":
+                return ChatColor.BLACK;
+            case "PINK":
+                return ChatColor.LIGHT_PURPLE;
             case "GRAY":
                 return ChatColor.DARK_GRAY;
         }

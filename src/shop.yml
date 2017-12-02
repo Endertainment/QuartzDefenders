@@ -206,7 +206,7 @@ default:
             amount: 1
             damage: 0
         result:
-            material: STAINED_CLAY
+            material: CONCRETE
             amount: 16
             team: true
     end_stone:
