@@ -95,9 +95,10 @@ public class QuartzDefenders extends JavaPlugin {
             ScoreboardLobby s = new ScoreboardLobby(this, p);
             s.setScoreboard();
         }
+        if (Bukkit.getSpawnRadius() > 0) {
+            Bukkit.setSpawnRadius(0);
+        }
 
-        
-        
     }
 
     @Override
@@ -247,8 +248,8 @@ public class QuartzDefenders extends JavaPlugin {
     public String[] getDevs() {
         return devs;
     }
-    
+
     public AchievementsManager getAchievementsManager() {
-    	return achvM;
+        return achvM;
     }
 }

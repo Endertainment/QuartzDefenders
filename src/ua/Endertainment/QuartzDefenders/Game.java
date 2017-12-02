@@ -106,7 +106,9 @@ public class Game {
 
             return;
         }
-
+        
+        if(config.getBoolean("Games." + id + ".skip")) return;
+        
         LoggerUtil.logInfo(Language.getString("logger.loading_game", new Replacer("{0}", id)));
 
         gameScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -736,14 +738,14 @@ public class Game {
                 return ChatColor.GREEN;
             case "YELLOW":
                 return ChatColor.YELLOW;
-            case "MAGENTA":
-                return ChatColor.DARK_PURPLE;
             case "AQUA":
                 return ChatColor.AQUA;
-            case "GRAY":
-                return ChatColor.DARK_GRAY;
             case "WHITE":
                 return ChatColor.WHITE;
+            case "MAGENTA":
+                return ChatColor.DARK_PURPLE;
+            case "GRAY":
+                return ChatColor.DARK_GRAY;
         }
 
         return ChatColor.GRAY;

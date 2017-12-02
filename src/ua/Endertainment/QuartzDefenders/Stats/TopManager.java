@@ -74,6 +74,7 @@ public class TopManager {
     }
 
     public OfflinePlayer getPlayerByWinPosition(int position) {
+        Bukkit.getLogger().info(topWins.toString());
         return topWins.get(position);
     }
 
