@@ -44,7 +44,7 @@ public class GameTeam {
 		this.team.setAllowFriendlyFire(false);
 		this.team.setCanSeeFriendlyInvisibles(true);
 		this.team.setPrefix(color.toString());
-		this.team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OTHER_TEAMS);
+		this.team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
 	}
 	
 	public Game getGame() {
