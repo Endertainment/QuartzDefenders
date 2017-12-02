@@ -16,6 +16,7 @@ public class GameTimer extends BukkitRunnable {
 	public void run() {
 		time++;
 		game.sendTabList();
+		
 		for(GameQuartz q : game.getQuartzsLocations().values()) {
 			q.checkQuartz();
 		}
