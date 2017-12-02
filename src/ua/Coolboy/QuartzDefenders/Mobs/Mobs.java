@@ -56,12 +56,9 @@ public abstract class Mobs {
     public static Integer randomInRadius(int rad) {
         int i;
         Random random = new Random();
-        i = random.nextInt(rad);
-
-        if(random.nextBoolean()) {
-        i *= -1;
-        }
-        return i;
+        i = random.nextInt(rad*2);
+        
+        return rad-i;
     }
     
     public static Integer countMobs(Collection<Entity> col, EntityType type) {

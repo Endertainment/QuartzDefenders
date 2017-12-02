@@ -225,12 +225,13 @@ public class Lobby implements Listener {
         if (!(e.getEntity() instanceof Player)) {
             return;
         }
-        if (e.getCause().equals(DamageCause.VOID)) {
-            e.getEntity().teleport(location);
-            e.getEntity().setVelocity(new Vector(0, 0, 0));
-        }
+
         if (location.getWorld() == e.getEntity().getLocation().getWorld()) {
             e.setCancelled(true);
+        }
+        if (e.getCause().equals(DamageCause.VOID)) {
+            e.getEntity().setVelocity(new Vector(0, 0, 0));
+            teleportToSpawn((Player)e.getEntity(), true);
         }
     }
 

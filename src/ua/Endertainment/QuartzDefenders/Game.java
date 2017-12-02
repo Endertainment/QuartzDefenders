@@ -514,12 +514,12 @@ public class Game {
         String map = getColorWorldName();
         String time = "00:00:00";
 
-        String header = Language.getString("tablist.game.header", new Replacer("{0}", time + ""));
-        String footer = Language.getString("tablist.game.footer", new Replacer("{0}", map));
-        
         if (getGameTimer() != null) {
             time = getGameTimer().getStringTime();
         }
+        
+        String header = Language.getString("tablist.game.header", new Replacer("{0}", time + ""));
+        String footer = Language.getString("tablist.game.footer", new Replacer("{0}", map));
 
         for (GamePlayer p : gameAllPlayers) {
             if (!p.getPlayer().isOnline()) {

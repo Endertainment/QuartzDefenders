@@ -64,7 +64,7 @@ public class MobsListener implements Listener {
                     Location loc = entry.getValue();
                     Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
 
-                    if (Mobs.countMobs(nearbyEntities, EntityType.SKELETON) >= 10) {
+                    if (Mobs.countMobs(nearbyEntities, EntityType.SKELETON) >= 7) {
                         return;
                     }
 

@@ -1,6 +1,5 @@
 package ua.Endertainment.QuartzDefenders;
 
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameTimer extends BukkitRunnable {
@@ -16,7 +15,7 @@ public class GameTimer extends BukkitRunnable {
 	@Override
 	public void run() {
 		time++;
-		Bukkit.broadcastMessage("GameTimer debug");
+		//Bukkit.broadcastMessage("GameTimer debug");
 		game.sendTabList();
 		for(GameQuartz q : game.getQuartzsLocations().values()) {
 			q.checkQuartz();
