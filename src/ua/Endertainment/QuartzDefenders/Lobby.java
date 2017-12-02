@@ -245,6 +245,10 @@ public class Lobby implements Listener {
         if (location.getWorld() == e.getEntity().getLocation().getWorld()) {
             e.setCancelled(true);
         }
+        Game game = plugin.getGame((Player)e.getEntity());
+        if(game != null && (game.getGameState().equals(Game.GameState.STARTING) || game.getGameState().equals(Game.GameState.LOBBY) || game.getGameState().equals(Game.GameState.WAITING))) {
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler

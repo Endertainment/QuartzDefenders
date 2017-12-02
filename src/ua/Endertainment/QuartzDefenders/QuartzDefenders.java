@@ -94,6 +94,7 @@ public class QuartzDefenders extends JavaPlugin {
             gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
             ScoreboardLobby s = new ScoreboardLobby(this, p);
             s.setScoreboard();
+            lobby.sendTabList(p);
         }
         if (Bukkit.getSpawnRadius() > 0) {
             Bukkit.setSpawnRadius(0);

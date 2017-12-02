@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -56,16 +57,16 @@ public abstract class Mobs {
     public static Integer randomInRadius(int rad) {
         int i;
         Random random = new Random();
-        i = random.nextInt(rad*2);
-        
-        return rad-i;
+        i = random.nextInt(rad * 2);
+
+        return rad - i;
     }
-    
+
     public static Integer countMobs(Collection<Entity> col, EntityType type) {
         int count = 0;
-        for(Entity e : col) {
-            if(e.getType().equals(type)) {
-                if(e.getType().equals(EntityType.PLAYER) 
+        for (Entity e : col) {
+            if (e.getType().equals(type)) {
+                if (e.getType().equals(EntityType.PLAYER)
                         && ((Player) e).getGameMode().equals(GameMode.SPECTATOR)) {
                     continue;
                 }
@@ -77,6 +78,8 @@ public abstract class Mobs {
 
     public static boolean canSpawn(Location loc) {
         Block block = loc.getWorld().getHighestBlockAt(loc);
-        return !(block.getType() == null || block.getType() == Material.WEB);
+        return !(block.getY() == 0
+                || block.getType() == Material.WEB
+                || block.getRelative(BlockFace.DOWN).getType().equals(Material.MAGMA));
     }
 }

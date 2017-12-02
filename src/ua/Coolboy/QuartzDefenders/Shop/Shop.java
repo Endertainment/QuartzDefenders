@@ -16,6 +16,7 @@ import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
+import ua.Endertainment.QuartzDefenders.Utils.DataAdapter;
 import ua.Endertainment.QuartzDefenders.Utils.FilesUtil;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 import ua.Endertainment.QuartzDefenders.Utils.Language;
@@ -59,7 +60,7 @@ public class Shop {
         stuff = ItemUtil.setName(stuff, stuffName);
         ItemStack resources = new ItemStack(Material.DIAMOND_PICKAXE);
         resources = ItemUtil.hideAll(ItemUtil.setName(resources, resourcesName));
-        int damage = team == null ? 15 : getDamageByColor(team.getColor());
+        int damage = team == null ? 15 : DataAdapter.getDamageByColor(team.getColor());
         ItemStack frame = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) damage);
         frame = ItemUtil.setName(frame, " ");
 
@@ -116,29 +117,6 @@ public class Shop {
         return m;
     }
 
-    @SuppressWarnings("incomplete-switch")
-	public Short getDamageByColor(ChatColor color) {
-        switch (color) {
-            case RED:
-                return 14;
-            case AQUA:
-                return 3;
-            case BLUE:
-                return 11;
-            case WHITE:
-                return 0;
-            case GREEN:
-                return 13;
-            case YELLOW:
-                return 4;
-            case DARK_GRAY:
-                return 7;
-            case DARK_PURPLE:
-                return 10;
-        }
-        return 0;
-    }
-
     private ItemStack createItem(ConfigurationSection section, String itemDir, GameTeam team) {
         ConfigurationSection dir = section.getConfigurationSection(itemDir);
 
@@ -153,7 +131,8 @@ public class Shop {
             if (team == null) {
                 damage = 7;
             } else {
-                getDamageByColor(team.getColor());
+                damage = DataAdapter.getDamageByColor(team.getColor());
+                Bukkit.broadcastMessage(team.getColor().toString());
             }
         }
         if (!teams) {

@@ -65,6 +65,7 @@ public class Game {
 
     private Location mapSpawn;
     private int buildHeight, buildRadius;
+    private boolean generateSpectator;
 
     private int playerRespawnTime;
     private int quartzHealth;
@@ -74,6 +75,7 @@ public class Game {
     private Scoreboard gameScoreboard;
 
     private Map<String, GameTeam> teams = new HashMap<>();
+
     private boolean customShop;
     private Map<GameTeam, Location> shopLocations = new HashMap<>();
     private Map<Integer, Location> alchemistsLocations = new HashMap<>();
@@ -107,9 +109,11 @@ public class Game {
 
             return;
         }
-        
-        if(config.getBoolean("Games." + id + ".skip")) return;
-        
+
+        if (config.getBoolean("Games." + id + ".skip")) {
+            return;
+        }
+
         LoggerUtil.logInfo(Language.getString("logger.loading_game", new Replacer("{0}", id)));
 
         gameScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -127,6 +131,8 @@ public class Game {
 
         this.buildHeight = config.getInt("Games." + this.id + ".build.height");
         this.buildRadius = config.getInt("Games." + this.id + ".build.radius");
+
+        this.generateSpectator = config.getBoolean("Games." + this.id + ".spectator_room", false);
 
         this.minPlayers = config.getInt("Games." + this.id + ".min_players");
 
@@ -153,19 +159,23 @@ public class Game {
         LoggerUtil.logInfo(Language.getString("logger.load_map_success"));
 
         this.map = mapManager.getWorld();
-
+        
         this.map.setAmbientSpawnLimit(0);
         this.map.setAnimalSpawnLimit(0);
         this.map.setMonsterSpawnLimit(0);
         this.map.setGameRuleValue("keepInventory", "false");
-        this.map.setDifficulty(Difficulty.valueOf(config.getString("Games." + this.id +".difficulty", "NORMAL")));
-
+        this.map.setDifficulty(Difficulty.valueOf(config.getString("Games." + this.id + ".difficulty", "NORMAL")));
+        
         this.mapSpawn = new Location(Bukkit.getWorld(teckWorldName),
                 config.getDouble("Games." + this.id + ".map_spawn.x") + 0.5,
                 config.getDouble("Games." + this.id + ".map_spawn.y"),
                 config.getDouble("Games." + this.id + ".map_spawn.z") + 0.5);
         this.customShop = config.getBoolean("Games." + this.id + ".custom_shop", false);
         this.buildCuboid = new BCub(mapSpawn, this);
+        
+        if (this.generateSpectator) {
+            generateSpectatorRoom(Material.GLASS);
+        }
 
         int i = 0;
         for (String team : (List<String>) config.getList("Games." + this.id + ".teams")) {
@@ -203,7 +213,7 @@ public class Game {
                     shopLocations.put(getTeam(team), shop);
                     i++;
                 } else {
-                	LoggerUtil.logError(Language.getString("logger.invalid_team", new Replacer("{0}", team)));
+                    LoggerUtil.logError(Language.getString("logger.invalid_team", new Replacer("{0}", team)));
                 }
             } else {
                 break;
@@ -277,7 +287,7 @@ public class Game {
                     p.getPlayer().getInventory().clear();
                     p.getPlayer().teleport(mapSpawn);
                     p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
-                    p.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
+                    //p.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
                     p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
                     player.setScoreboard(gameScoreboard);
@@ -322,7 +332,7 @@ public class Game {
         }
 
         if (isGameState(GameState.ENDING)) {
-        	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_unavailable")));
+            player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_unavailable")));
             return;
         }
     }
@@ -386,6 +396,9 @@ public class Game {
         getSidebar().refresh();
         this.timer = new GameTimer(this);
         this.timer.runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
+        if(generateSpectator) {
+            generateSpectatorRoom(Material.AIR);
+        }
         ShopEntity.loadShops(game);
         Bukkit.getPluginManager().callEvent(new GameStartEvent(game));
         for (GamePlayer p : gameAllPlayers) {
@@ -522,7 +535,7 @@ public class Game {
         if (getGameTimer() != null) {
             time = getGameTimer().getStringTime();
         }
-        
+
         String header = Language.getString("tablist.game.header", new Replacer("{0}", time + ""));
         String footer = Language.getString("tablist.game.footer", new Replacer("{0}", map));
 
@@ -567,7 +580,7 @@ public class Game {
             }
             QuartzDefenders.getInstance().getTopManager().refresh();
             QuartzDefenders.getInstance().getTopManager().setupSigns();
-            
+
             //quitGame1(p);                      
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {
@@ -835,6 +848,29 @@ public class Game {
 
     public void setLockGame(boolean arg) {
         this.lockGame = arg;
+    }
+
+    private void generateSpectatorRoom(Material material) {
+        Location start = mapSpawn.clone().subtract(10, 1, 10);
+        for (int x = 0; x <= 20; x++) {
+            for (int z = 0; z <= 20; z++) {
+                start.clone().add(x, 0, z).getBlock().setType(material);
+            }
+        }
+        for (int y = 0; y < 5; y++) {
+            for(int x = 0; x<=20; x++) {
+                start.clone().add(x, y, 0).getBlock().setType(material);
+            }
+            for(int x = 0; x<=20; x++) {
+                start.clone().add(x, y, 20).getBlock().setType(material);
+            }
+            for(int z = 0; z<=20; z++) {
+                start.clone().add(0, y, z).getBlock().setType(material);
+            }
+            for(int z = 0; z<=20; z++) {
+                start.clone().add(20, y, z).getBlock().setType(material);
+            }
+        }
     }
 
     /*

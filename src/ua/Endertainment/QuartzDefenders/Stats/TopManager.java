@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Sign;
@@ -140,9 +141,9 @@ public class TopManager {
         int index = 0;
         for (Sign s : signs) {
             int x = index + 1;
-            s.setLine(0, "Top " + x);
-            s.setLine(1, getPlayerByKillPosition(index).getName());
-            s.setLine(2, "Kills: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByKillPosition(index).getUniqueId().toString() + ".kills"));
+            s.setLine(0, ChatColor.BLUE + "Top " + x);
+            s.setLine(1, ChatColor.GRAY+ getPlayerByKillPosition(index).getName());
+            s.setLine(2, ChatColor.GOLD + "Kills: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByKillPosition(index).getUniqueId().toString() + ".kills"));
             s.update();
             index++;
         }
@@ -152,9 +153,9 @@ public class TopManager {
         int index = 0;
         for (Sign s : signs) {
             int x = index + 1;
-            s.setLine(0, "Top " + x);
-            s.setLine(1, getPlayerByWinPosition(index).getName());
-            s.setLine(2, "Wins: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByWinPosition(index).getUniqueId().toString() + ".wins"));
+            s.setLine(0, ChatColor.BLUE + "Top " + x);
+            s.setLine(1, ChatColor.GRAY + getPlayerByWinPosition(index).getName());
+            s.setLine(2, ChatColor.GOLD + "Wins: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByWinPosition(index).getUniqueId().toString() + ".wins"));
             s.update();
             index++;
         }
