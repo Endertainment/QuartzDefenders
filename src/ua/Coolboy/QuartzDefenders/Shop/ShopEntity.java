@@ -7,6 +7,7 @@ import org.bukkit.entity.Villager.Profession;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public abstract class ShopEntity {
 
@@ -21,6 +22,7 @@ public abstract class ShopEntity {
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
         v.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
         //v.setCollidable(false); not working with arrows
+        new ShopRunnable(v, loc).runTaskTimerAsynchronously(QuartzDefenders.getInstance(), 0, 40);
         return v;
     }
 
