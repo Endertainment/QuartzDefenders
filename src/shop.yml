@@ -172,11 +172,11 @@ default:
     enderpearl:
         primary:
             material: EMERALD
-            amount: 41
+            amount: 42
             damage: 0
         optional:
             material: DIAMOND
-            amount: 8
+            amount: 16
             damage: 0
         result:
             material: ENDER_PEARL

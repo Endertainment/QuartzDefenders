@@ -7,49 +7,54 @@ import ua.Endertainment.QuartzDefenders.GamePlayer;
 
 public class CenteredMessageUtil {
 
-	private final static int CENTER_PX = 154;
-	 
-	public static void sendCenteredMessage(GamePlayer gamePlayer, String message) {
-		sendCenteredMessage(gamePlayer.getPlayer(), message);
-	}
-	public static void sendCenteredMessage(Player player, String message){
-	        if(message == null || message.equals("")) player.sendMessage("");
-	                message = ChatColor.translateAlternateColorCodes('&', message);
-	              
-	                int messagePxSize = 0;
-	                boolean previousCode = false;
-	                boolean isBold = false;
-	               
-	                for(char c : message.toCharArray()){
-	                        if(c == '§'){
-	                                previousCode = true;
-	                                continue;
-	                        }else if(previousCode == true){
-	                                previousCode = false;
-	                                if(c == 'l' || c == 'L'){
-	                                        isBold = true;
-	                                        continue;
-	                                }else isBold = false;
-	                        }else{
-	                                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
-	                                messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
-	                                messagePxSize++;
-	                        }
-	                }
-	               
-	                int halvedMessageSize = messagePxSize / 2;
-	                int toCompensate = CENTER_PX - halvedMessageSize;
-	                int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
-	                int compensated = 0;
-	                StringBuilder sb = new StringBuilder();
-	                while(compensated < toCompensate){
-	                        sb.append(" ");
-	                        compensated += spaceLength;
-	                }
-	                player.sendMessage(sb.toString() + message);
-	        }
-	
-	public enum DefaultFontInfo{		 
+    private final static int CENTER_PX = 154;
+
+    public static void sendCenteredMessage(GamePlayer gamePlayer, String message) {
+        sendCenteredMessage(gamePlayer.getPlayer(), message);
+    }
+
+    public static void sendCenteredMessage(Player player, String message) {
+        if (message == null || message.equals("")) {
+            player.sendMessage("");
+        }
+        message = ChatColor.translateAlternateColorCodes('&', message);
+
+        int messagePxSize = 0;
+        boolean previousCode = false;
+        boolean isBold = false;
+
+        for (char c : message.toCharArray()) {
+            if (c == '§') {
+                previousCode = true;
+                continue;
+            } else if (previousCode == true) {
+                previousCode = false;
+                if (c == 'l' || c == 'L') {
+                    isBold = true;
+                    continue;
+                } else {
+                    isBold = false;
+                }
+            } else {
+                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
+                messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
+                messagePxSize++;
+            }
+        }
+
+        int halvedMessageSize = messagePxSize / 2;
+        int toCompensate = CENTER_PX - halvedMessageSize;
+        int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
+        int compensated = 0;
+        StringBuilder sb = new StringBuilder();
+        while (compensated < toCompensate) {
+            sb.append(" ");
+            compensated += spaceLength;
+        }
+        player.sendMessage(sb.toString() + message);
+    }
+
+    public enum DefaultFontInfo {
         A('A', 5),
         a('a', 5),
         B('B', 5),
@@ -146,36 +151,38 @@ public class CenteredMessageUtil {
         COMMA(',', 1),
         SPACE(' ', 3),
         DEFAULT('a', 4);
-		
+
         private char character;
         private int length;
-       
-        DefaultFontInfo(char character, int length) {
-                this.character = character;
-                this.length = length;
-        }
-       
-        public char getCharacter(){
-                return this.character;
-        }
-       
-        public int getLength(){
-                return this.length;
-        }
-       
-        public int getBoldLength(){
-                if(this == DefaultFontInfo.SPACE) return this.getLength();
-                return this.length + 1;
-        }
-       
-        public static DefaultFontInfo getDefaultFontInfo(char c){
-                for(DefaultFontInfo dFI : DefaultFontInfo.values()){
-                        if(dFI.getCharacter() == c) return dFI;
-                }
-                return DefaultFontInfo.DEFAULT;
-        }
-	}
 
-	
-	
+        DefaultFontInfo(char character, int length) {
+            this.character = character;
+            this.length = length;
+        }
+
+        public char getCharacter() {
+            return this.character;
+        }
+
+        public int getLength() {
+            return this.length;
+        }
+
+        public int getBoldLength() {
+            if (this == DefaultFontInfo.SPACE) {
+                return this.getLength();
+            }
+            return this.length + 1;
+        }
+
+        public static DefaultFontInfo getDefaultFontInfo(char c) {
+            for (DefaultFontInfo dFI : DefaultFontInfo.values()) {
+                if (dFI.getCharacter() == c) {
+                    return dFI;
+                }
+            }
+            return DefaultFontInfo.DEFAULT;
+        }
+    }
+
 }
