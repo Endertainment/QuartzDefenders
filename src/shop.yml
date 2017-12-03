@@ -132,7 +132,7 @@ default:
     breath:
         primary:
             material: DOUBLE_PLANT
-            amount: 30
+            amount: 15
             damage: 0
             name: 'Alchemists coin'
             lore:

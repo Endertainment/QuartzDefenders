@@ -58,8 +58,8 @@ public class Game {
     private String colorWorldName;
     private int playersInTeam;
     private int minPlayers;
-    private int turretLivetime;
-
+    private boolean autostart;
+    
     private MapManager mapManager;
     private World map;
 
@@ -127,7 +127,7 @@ public class Game {
         this.playerRespawnTime = config.getInt("Games." + this.id + ".respawn_time");
         this.quartzHealth = config.getInt("Games." + this.id + ".quartz_health");
         this.teamsCount = config.getInt("Games." + this.id + ".teams_count");
-        this.turretLivetime = config.getInt("Games." + this.id + ".turret_livetime");
+        this.autostart = config.getBoolean("Games." + this.id + ".autostart", true);
 
         this.buildHeight = config.getInt("Games." + this.id + ".build.height");
         this.buildRadius = config.getInt("Games." + this.id + ".build.radius");
@@ -164,6 +164,7 @@ public class Game {
         this.map.setAnimalSpawnLimit(0);
         this.map.setMonsterSpawnLimit(0);
         this.map.setGameRuleValue("keepInventory", "false");
+        this.map.setGameRuleValue("announceAdvancements", "false");
         this.map.setDifficulty(Difficulty.valueOf(config.getString("Games." + this.id + ".difficulty", "NORMAL")));
         
         this.mapSpawn = new Location(Bukkit.getWorld(teckWorldName),
@@ -264,7 +265,7 @@ public class Game {
             return;
         }
 
-        player.getPlayer().setCollidable(false);
+        //player.getPlayer().setCollidable(false); not working with arrows
 
         // EVENT
         PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);
@@ -691,6 +692,10 @@ public class Game {
     public boolean getCustomShop() {
         return customShop;
     }
+    
+    public boolean isAutostart() {
+        return this.autostart;
+    }
 
     public Collection<Location> getShopLocations() {
         return shopLocations.values();
@@ -702,10 +707,6 @@ public class Game {
 
     public HashMap<Material, Set<Location>> getRegenerativeBlocks() {
         return regenerativeBlocks;
-    }
-
-    public int getTurretLivetime() {
-        return turretLivetime;
     }
 
     public String getTechWorldName() {
@@ -742,6 +743,10 @@ public class Game {
 
     public GameState getGameState() {
         return state;
+    }
+    
+    public Scoreboard getScoreboard() {
+        return gameScoreboard;
     }
 
     private ChatColor getChatColor(String name) {

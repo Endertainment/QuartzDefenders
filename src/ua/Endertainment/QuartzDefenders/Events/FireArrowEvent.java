@@ -16,7 +16,7 @@ public class FireArrowEvent implements Listener {
     public FireArrowEvent(QuartzDefenders plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
-
+    
     @EventHandler
     public void onHit(ProjectileHitEvent event) {
         if (event.getHitBlock() == null) {

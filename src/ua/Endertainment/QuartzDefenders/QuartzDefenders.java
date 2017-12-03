@@ -99,7 +99,6 @@ public class QuartzDefenders extends JavaPlugin {
         if (Bukkit.getSpawnRadius() > 0) {
             Bukkit.setSpawnRadius(0);
         }
-
     }
 
     @Override

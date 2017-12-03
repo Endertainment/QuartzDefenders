@@ -1,6 +1,7 @@
 package ua.Coolboy.QuartzDefenders.Shop;
 
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.potion.PotionEffect;
@@ -18,7 +19,8 @@ public abstract class ShopEntity {
         v.setProfession(Profession.NITWIT);
         v.setSilent(true);
         v.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 255, false, false));
-        v.setCollidable(false);
+        v.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
+        //v.setCollidable(false); not working with arrows
         return v;
     }
 
