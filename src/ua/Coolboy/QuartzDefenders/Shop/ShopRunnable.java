@@ -16,6 +16,10 @@ public class ShopRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
+        if(villager.isDead()) {
+            this.cancel();
+            return;
+        }
         if(villager.getLocation().distanceSquared(location)>2) {
             villager.teleport(location);
         }
