@@ -6,9 +6,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Player;
 
+import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
+import ua.Endertainment.QuartzDefenders.GUI.TeamGUI;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
 
 public class CommandTeam implements CommandExecutor {
@@ -25,7 +28,21 @@ public class CommandTeam implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(args.length == 0) {
-			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Check command usage: &b/team help"));
+			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Check command usage: &b/team help"));			
+			
+			if(!(sender instanceof Player)) {
+				return true;
+			}
+			Player p = (Player) sender;
+			Game game = QuartzDefenders.getInstance().getGame(p);
+			
+			if(game == null) {
+				sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou can not join to team when you is not in game"));
+				return true;
+			}		
+			
+			new TeamGUI(game, p).openInventory();
+			
 			return true;
 		}
 		
