@@ -21,6 +21,8 @@ game:
     join_game: 'Player &r{0}&7 joined the game'
     quit_game: 'Player &r{0}&7 quit the game'
     quit_game_reconnect: 'Player {0}&7 has &b{1}&7 minute(s) to reconnect'
+    reconnect_success_1: 'You reconnected to the game'
+    reconnect_success_2: 'Player {0} reconnected to the game'
     waiting_players: 'Waiting for more players'
     choose_team: 'Choose a &ateam&7 and wait a &agame &7start'
     game_running: 'Game is running now. You can choose team and play or stay watching'

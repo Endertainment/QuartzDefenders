@@ -58,6 +58,10 @@ public class JoinEvent implements Listener {
 		
 		ScoreboardLobby s = new ScoreboardLobby(plugin, p);
 		s.setScoreboard();
+		
+		if(plugin.getGame(p) != null) {
+			plugin.getGame(p).reconnect(plugin.getGamePlayer(p));
+		}
 	}
 	
 }
