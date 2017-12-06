@@ -1,6 +1,7 @@
 package ua.Endertainment.QuartzDefenders.GUI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -12,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
+import ua.Endertainment.QuartzDefenders.Utils.DataAdapter;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.Replacer;
@@ -59,26 +61,15 @@ public class TeamGUI {
 			lore.add(" ");
 			lore.add(Language.getRawString("GUI.teams.players", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getPlayersSize() + ""), new Replacer("{1}", team.intPlayersInTeam() + "")));
 			lore.add(" ");
-			ItemStack itemWool = ItemUtil.newItem(Language.getRawString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())), lore, Material.WOOL, 1, getWoolColor(team));
+			ItemStack itemWool = ItemUtil.newItem(Language.getRawString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())), lore, Material.WOOL, 1, DataAdapter.getDamageByColor(team.getColor()));
 			if(x == 24) x = 29;
 			teamsIS.put(itemWool, x);
 			x++;
 		}
 		
+		teamsIS.put(ItemUtil.newItem(Language.getRawString("GUI.teams.item_leave"), Arrays.asList(" ", " ", " "), Material.BARRIER, 1), 40);
 		for(ItemStack s : teamsIS.keySet()) inventory.setItem(teamsIS.get(s), s);
+		
 	}
 	
-	private int getWoolColor(GameTeam team) {
-		int x = 0;		
-		String g = team.getDefName();
-		if(g.equalsIgnoreCase("RED")) x = 14;  
-		if(g.equalsIgnoreCase("BLUE")) x = 11;  
-		if(g.equalsIgnoreCase("GREEN")) x = 5;  
-		if(g.equalsIgnoreCase("YELLOW")) x = 4;  
-		if(g.equalsIgnoreCase("MAGENTA")) x = 2;  
-		if(g.equalsIgnoreCase("AQUA")) x = 9;  
-		if(g.equalsIgnoreCase("WHITE")) x = 0;  
-		if(g.equalsIgnoreCase("BLACK")) x = 15;  
-		return x;
-	}
 }

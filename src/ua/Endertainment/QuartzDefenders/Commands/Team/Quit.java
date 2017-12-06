@@ -48,7 +48,7 @@ public class Quit extends SubCommand{
 			}
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Active teams: " + teams));
 			return;
-		}
+		}		
 		
 		if(args.length >= 2) {
 			

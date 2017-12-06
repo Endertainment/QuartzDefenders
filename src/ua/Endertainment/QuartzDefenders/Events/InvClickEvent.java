@@ -134,6 +134,15 @@ public class InvClickEvent implements Listener {
 			
 			Game game = plugin.getGame(p);
 
+			if(curr.getItemMeta().getDisplayName().equalsIgnoreCase(Language.getString("GUI.teams.item_leave"))) {
+				
+				if(game.getTeam(p) != null) {
+					game.getTeam(p).quitTeam(plugin.getGamePlayer(p));
+				}
+				return;
+				
+			}
+			
 			for(GameTeam team : game.getTeams().values()) {
 				
 				if(curr.getItemMeta().getDisplayName().equals(Language.getString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())))) {

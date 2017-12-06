@@ -157,6 +157,7 @@ GUI:
         glass_id_2: 11
         item_name: '{c}> {0} {c}<'
         players: '&7Players: {c}{0}&7/{c}{1}'
+        item_leave: '&7Leave team'
     achievements:
         name: '&2Achievements'
         glass_id_1: 5

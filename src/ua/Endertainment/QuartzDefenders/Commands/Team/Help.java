@@ -30,7 +30,7 @@ public class Help extends SubCommand {
 				sender.sendMessage(new ColorFormat("&8-------------------- &3Help &8--------------------").format());
 				sender.sendMessage(new ColorFormat("&8» &b/team help &8- &bShow help").format());
 				sender.sendMessage(new ColorFormat("&8» &b/team join <team> [player] &8- &bJoin to team").format());
-				sender.sendMessage(new ColorFormat("&8» &b/team quit [team] [player] &8- &bLeave from team").format());
+				sender.sendMessage(new ColorFormat("&8» &b/team quit|leave|kick [team] [player] &8- &bLeave from team").format());
 				sender.sendMessage(new ColorFormat("&8» &b/team info <team> &8- &bShow team's info").format());
 				sender.sendMessage(new ColorFormat("&8» &b/team lock <team> &8- &bDisable to join in team").format());
 			}
