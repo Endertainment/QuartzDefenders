@@ -41,7 +41,7 @@ public class ScoreboardLobby {
 	
 	private void scoreBuilder() {
 		StatsPlayer sp = new StatsPlayer(p);
-		addString("&a ");
+		addString("&f Hi, " + p.getDisplayName());
 		addString("&f Players online: &b" + Bukkit.getOnlinePlayers().size());
 		addString("&f Active games: &b" + plugin.getGames().size());
 		addString("&1 ");

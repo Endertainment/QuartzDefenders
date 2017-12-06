@@ -43,7 +43,7 @@ public class JoinEvent implements Listener {
 			}
 		}
 		
-		if(p.hasPermission("QuartzDefenders.lobby.joinAlert")) {
+		if(p.hasPermission("QuartzDefenders.lobby.alert.join")) {
 			e.setJoinMessage(new ColorFormat("&3» &f[&3+&f] &r" + p.getDisplayName()).format());
 		} else {
 			e.setJoinMessage("");
@@ -58,10 +58,6 @@ public class JoinEvent implements Listener {
 		
 		ScoreboardLobby s = new ScoreboardLobby(plugin, p);
 		s.setScoreboard();
-		
-		if(plugin.getGame(p) != null) {
-			plugin.getGame(p).reconnect(plugin.getGamePlayer(p));
-		}
 	}
 	
 }
