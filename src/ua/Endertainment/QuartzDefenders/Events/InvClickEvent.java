@@ -138,7 +138,9 @@ public class InvClickEvent implements Listener {
 				
 				if(game.getTeam(p) != null) {
 					game.getTeam(p).quitTeam(plugin.getGamePlayer(p));
+                                        game.refreshScoreboard();
 				}
+                                p.closeInventory();
 				return;
 				
 			}
@@ -150,7 +152,7 @@ public class InvClickEvent implements Listener {
 					if(new Balance(game, game.getBalanceType(), plugin.getGamePlayer(p), game.getTeams().values(), team).isTeamsBalanced()) {
 						
 						team.joinTeam(plugin.getGamePlayer(p), false);
-								
+						game.refreshScoreboard();
 					}
 		
 					p.closeInventory();

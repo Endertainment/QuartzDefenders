@@ -56,7 +56,6 @@ public class GameTeam {
     }
 
     public void joinTeam(GamePlayer player, boolean access) {
-        game.getSidebar().refresh();
         if (!isJoinAllow() && !access) {
             if (!player.getPlayer().hasPermission("QuartzDefenders.team.vipJoin")) {
                 player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_locked")));
@@ -92,7 +91,7 @@ public class GameTeam {
                 StatsPlayer sp = new StatsPlayer(player.getPlayer());
                 sp.addPlayedGame();
             }
-
+            game.refreshScoreboard();
             return;
         }
         player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_already")));

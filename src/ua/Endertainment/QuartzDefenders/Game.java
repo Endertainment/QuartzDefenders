@@ -117,6 +117,7 @@ public class Game {
         LoggerUtil.logInfo(Language.getString("logger.loading_game", new Replacer("{0}", id)));
 
         gameScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        this.sidebar = new GameSidebar(this, gameScoreboard);
         killsStats = new KillsStats(this);
 
         this.id = id;
@@ -282,7 +283,7 @@ public class Game {
 
             if (gameAllPlayers.size() >= minPlayers) {
                 setGameState(GameState.WAITING);
-                this.sidebar = new GameSidebar(this, gameScoreboard);
+                refreshScoreboard();
                 for (GamePlayer p : gameAllPlayers) {
                     p.getPlayer().setGameMode(GameMode.ADVENTURE);
                     p.getPlayer().getInventory().clear();
@@ -336,6 +337,10 @@ public class Game {
             player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_unavailable")));
             return;
         }
+    }
+    
+    public void refreshScoreboard() {
+        sidebar.refresh();
     }
 
     /*

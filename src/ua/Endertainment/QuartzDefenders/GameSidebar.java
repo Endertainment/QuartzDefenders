@@ -46,6 +46,7 @@ public class GameSidebar {
 		addString("&f&m------------------");
 		
 		switch(state) {
+                        case LOBBY:
 			case WAITING : {
 				addString("&fPlayers:");
 				for(GameTeam team : game.getTeams().values()) 

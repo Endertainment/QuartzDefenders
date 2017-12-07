@@ -291,8 +291,7 @@ public class Lobby implements Listener {
 
             setLobbyTools(bp);
 
-            ScoreboardLobby sb = new ScoreboardLobby(plugin, bp);
-            sb.setScoreboard();
+            
 
             GamePlayer p = plugin.getGamePlayer(e.getPlayer());
             p.resetDisplayName();
@@ -307,6 +306,8 @@ public class Lobby implements Listener {
                 }
             }
             sendTabList(bp);
+            ScoreboardLobby sb = new ScoreboardLobby(plugin, bp);
+            sb.setScoreboard();
 
             for (Player targ : location.getWorld().getPlayers()) {
                 targ.showPlayer(e.getPlayer());
