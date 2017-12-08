@@ -1,6 +1,7 @@
 package ua.Endertainment.QuartzDefenders;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -96,6 +97,7 @@ public class Game {
     private GameState state = GameState.LOBBY;
 
     private GameTimer timer;
+    private Calendar started;
 
     private KillsStats killsStats;
     private GameSidebar sidebar;
@@ -407,6 +409,7 @@ public class Game {
             return;
         }
         setGameState(GameState.ACTIVE);
+        started = Calendar.getInstance();
         getSidebar().refresh();
         this.timer = new GameTimer(this);
         this.timer.runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
@@ -788,6 +791,10 @@ public class Game {
 
     public GameTimer getGameTimer() {
         return timer;
+    }
+    
+    public Calendar getStartTime() {
+        return started;
     }
 
     public GameState getGameState() {

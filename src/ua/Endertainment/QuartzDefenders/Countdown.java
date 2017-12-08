@@ -32,7 +32,7 @@ public class Countdown extends BukkitRunnable {
         } else if (time == 20 || time == 15 || time == 10 || time <= 5) {
             for (GamePlayer p : game.getPlayers()) {
                 p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
-                TitleUtil.sendTitle(p.getPlayer(), Language.getString("game.title.waiting.top", new Replacer("{0}", game.getColorWorldName())), Language.getString("game.title.waiting.bot", new Replacer("{0}", time + "")), 3);
+                p.getPlayer().sendTitle(Language.getString("game.title.waiting.top", new Replacer("{0}", game.getColorWorldName())), Language.getString("game.title.waiting.bot", new Replacer("{0}", time + "")), 0, 70, 20);
             }
         }
         time -= 1;

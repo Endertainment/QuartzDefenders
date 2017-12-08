@@ -103,6 +103,9 @@ tablist:
         header: ' \n &3\u00AB &b&lPlayCraft.COM.UA &3\u00BB \n \n &3Time&f: {0}'
         footer: ' \n {0} \n'
 GUI:
+    admin:
+        name: '&4Admin Panel'
+        #more in admin section
     games:
         name: '&5Active Games'
         game: '&7Game: &d{0}'
@@ -184,3 +187,13 @@ items:
         name: '&aShop &7(Right click)'
     achievements:
         name: '&aAchievements &7(Right click)'
+admin:
+    start_game: '&aStart game'
+    info:
+        name: '&aGame info'
+        gameid: 'GameID:'
+        players: 'Players count:'
+        state: 'State:'
+        quartz: 'Quartz:'
+        started: 'Started:'
+    stop_game: '&aStop game'

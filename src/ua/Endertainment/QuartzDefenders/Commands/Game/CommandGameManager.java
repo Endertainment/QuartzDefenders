@@ -23,6 +23,7 @@ public class CommandGameManager {
 		subCommandsGame.put("setupores", new SetupOres());
 		subCommandsGame.put("setupquartz", new SetupQuartz());
 		subCommandsGame.put("setupspawn", new SetupSpawn());
+                subCommandsGame.put("admin", new Admin());
 	}
 	
 	private HashMap<String, SubCommand> subCommandsGame = new HashMap<>();

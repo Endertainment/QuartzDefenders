@@ -65,7 +65,7 @@ public class AchievementsGUI {
 				lore.add(s);
 			}
 			
-			inventory.setItem(index, ItemUtil.newItem(name, lore, d.toItemStack()));
+			inventory.setItem(index, ItemUtil.newItem(name, lore, d.toItemStack(1)));
 			index++;
 			if(index == 17) index = 19;
 			if(index == 26) index = 28;
