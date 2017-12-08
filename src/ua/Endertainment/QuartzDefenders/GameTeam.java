@@ -3,10 +3,14 @@ package ua.Endertainment.QuartzDefenders;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.bukkit.scoreboard.Team.Option;
@@ -86,10 +90,7 @@ public class GameTeam {
                 }
 
             if (game.isGameState(GameState.ACTIVE)) {
-                player.getPlayer().teleport(spawnLocation);
-                player.getPlayer().setGameMode(GameMode.SURVIVAL);
-                player.getPlayer().setHealth(20);
-                player.getPlayer().setFoodLevel(20);
+                f(player);
                 //player.getPlayer().setCollidable(false); not working with arrows!
 
                 StatsPlayer sp = new StatsPlayer(player.getPlayer());
@@ -138,7 +139,6 @@ public class GameTeam {
         }
     }
 
-    @SuppressWarnings("deprecation")
     public boolean removePlayer(GamePlayer player) {
         if (players.contains(player)) {
             team.removeEntry(player.getPlayer().getUniqueId().toString());
@@ -216,5 +216,32 @@ public class GameTeam {
             y += quartz.getQuartzHealth();
         }
         return x == y;
+    }
+    
+    private void f(GamePlayer p) {
+    	p.getPlayer().setHealth(20);
+    	p.getPlayer().setFoodLevel(20);
+    	p.getPlayer().setGameMode(GameMode.SPECTATOR);
+    	p.getPlayer().sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.respawn", new Replacer("{0}", game.getPlayersRespawnTime() + ""))));
+		if(p.getPlayer().getLocation().getY() <= 0) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), new Runnable() {					
+				@Override
+				public void run() {
+					p.teleport(new Location(p.getPlayer().getWorld(), p.getPlayer().getLocation().getX(), 80, p.getPlayer().getLocation().getZ()));						
+				}
+			});				
+		}
+		BukkitRunnable run = new BukkitRunnable() {
+			@Override
+			public void run() {							
+				p.getPlayer().setHealth(20);
+				p.getPlayer().setFoodLevel(20);
+				p.getPlayer().setGameMode(GameMode.SURVIVAL);
+				p.getPlayer().teleport(getSpawnLocation());
+				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5*20, 200));
+				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5*20, 24));
+			}
+		};
+		run.runTaskLater(QuartzDefenders.getInstance(), (game.getPlayersRespawnTime() * 20));
     }
 }

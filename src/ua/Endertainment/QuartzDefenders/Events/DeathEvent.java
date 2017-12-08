@@ -94,7 +94,7 @@ public class DeathEvent implements Listener {
 					p.setGameMode(GameMode.SURVIVAL);
 					p.teleport(team.getSpawnLocation());
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5*20, 200));
-                                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5*20, 24));
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5*20, 24));
 					freeze.remove(p);
 				}
 			};
