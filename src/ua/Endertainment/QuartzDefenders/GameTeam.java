@@ -67,11 +67,11 @@ public class GameTeam {
             }
         }
         if (!canJoin() && !access) {
-            player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_join_disallow")));
+            player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join_disallow")));
             return;
         }
         if(game.isJoinTeamDisabled(player)) {
-        	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_join_disallow")));
+        	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join_disallow")));
         	return;
         }        
         if (game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) != this) {
@@ -90,7 +90,7 @@ public class GameTeam {
                 }
 
             if (game.isGameState(GameState.ACTIVE)) {
-                f(player);
+                respawnPlayer(player);
                 //player.getPlayer().setCollidable(false); not working with arrows!
 
                 StatsPlayer sp = new StatsPlayer(player.getPlayer());
@@ -218,7 +218,7 @@ public class GameTeam {
         return x == y;
     }
     
-    private void f(GamePlayer p) {
+    private void respawnPlayer(GamePlayer p) {
     	p.getPlayer().setHealth(20);
     	p.getPlayer().setFoodLevel(20);
     	p.getPlayer().setGameMode(GameMode.SPECTATOR);

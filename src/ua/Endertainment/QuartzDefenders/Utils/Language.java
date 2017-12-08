@@ -22,10 +22,12 @@ public abstract class Language {
         String s = QuartzDefenders.getInstance().getConfigs().getLang().getString(path);
         if (s == null) {
             s = getDefaultLanguage().getString(path);
+            
             if (s == null) {
                 Bukkit.getLogger().log(Level.WARNING, "Could not find string {0}", path);
+                return "";
             }
-            return " ";
+            
         }
         return s;
     }

@@ -56,7 +56,7 @@ public class ShopInventory implements Listener {
                 p.openMerchant(food, true);
                 break;
             case NAME_TAG:
-                Merchant other = shop.getSection("other", ChatColor.BLUE + Shop.otherName, team);
+                Merchant other = shop.getSection("other", ChatColor.RED + Shop.otherName, team);
                 p.openMerchant(other, true);
                 break;
             case BRICK:

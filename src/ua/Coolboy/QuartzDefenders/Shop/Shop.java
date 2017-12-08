@@ -132,7 +132,6 @@ public class Shop {
                 damage = 7;
             } else {
                 damage = DataAdapter.getDamageByColor(team.getColor());
-                Bukkit.broadcastMessage(team.getColor().toString());
             }
         }
         if (!teams) {
