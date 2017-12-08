@@ -66,6 +66,10 @@ public class GameTeam {
             player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_join_disallow")));
             return;
         }
+        if(game.isJoinTeamDisabled(player)) {
+        	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_join_disallow")));
+        	return;
+        }        
         if (game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) != this) {
             game.getTeam(player.getPlayer()).quitTeam(player);
         }
@@ -106,6 +110,7 @@ public class GameTeam {
                 game.getSpectators().add(player);
                 player.getPlayer().setGameMode(GameMode.SPECTATOR);
                 player.getPlayer().getInventory().clear();
+                game.disableJoinTeam(player);
             }
 
             return;

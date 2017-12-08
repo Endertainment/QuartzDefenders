@@ -89,6 +89,9 @@ public class Game {
     private Set<GamePlayer> gameAllPlayers = new HashSet<>();
 
     private Map<GamePlayer, Kit> kits = new HashMap<>();
+    
+    private Set<GamePlayer> disableJoinGame = new HashSet<>();
+    private Set<GamePlayer> disableJoinTeam = new HashSet<>();
 
     private GameState state = GameState.LOBBY;
 
@@ -262,6 +265,11 @@ public class Game {
             }
         }
 
+        if(isJoinGameDisabled(player)) {
+        	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.join_disabled")));
+        	return;
+        }
+        
         if (gameAllPlayers.contains(player)) {
             return;
         }
@@ -627,6 +635,19 @@ public class Game {
         p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.reconnect_success_1")));
     }
     
+    public void disableJoinGame(GamePlayer p) {
+    	if(!disableJoinGame.contains(p)) disableJoinGame.add(p);
+    }
+    public boolean isJoinGameDisabled(GamePlayer p) {
+    	return disableJoinGame.contains(p);
+    }
+    
+    public void disableJoinTeam(GamePlayer p) {
+    	if(!disableJoinTeam.contains(p)) disableJoinTeam.add(p);
+    }
+    public boolean isJoinTeamDisabled(GamePlayer p) {
+    	return disableJoinTeam.contains(p);
+    }
     
     /*
 	 * ENUMS

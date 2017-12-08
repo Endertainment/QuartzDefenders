@@ -18,6 +18,7 @@ mobs:
 game:
     game: 'Game'
     game_locked: 'This game is locked. Only admins can join'
+    join_disabled: 'You can not join to this game'
     join_game: 'Player &r{0}&7 joined the game'
     quit_game: 'Player &r{0}&7 quit the game'
     quit_game_reconnect: 'Player {0}&7 has &b{1}&7 minute(s) to reconnect'
