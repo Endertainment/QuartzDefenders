@@ -3,6 +3,7 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.logging.Level;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
@@ -29,7 +30,7 @@ public abstract class Language {
             }
             
         }
-        return s;
+        return StringEscapeUtils.unescapeJava(s);
     }
 
     public static String getString(String path) {

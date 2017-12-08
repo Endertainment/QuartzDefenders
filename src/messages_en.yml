@@ -44,10 +44,10 @@ game:
             top: '{0}'
             bot: 'team win the game'
 chat_formats:
-    f_lobby: '&b{lvl}&8 |&r %1$s &8\u00AB&r %2$s'
-    f_spect: '&8Spect |&r %1$s &8\u00AB&r %2$s'
-    f_team: '&8Team |&r %1$s &8\u00AB&r %2$s'
-    f_all: '&8All |&r %1$s &8\u00AB&r %2$s'
+    f_lobby: '&b{lvl}&8 |&r %1$s &8\u00BB&r %2$s'
+    f_spect: '&8Spect |&r %1$s &8\u00BB&r %2$s'
+    f_team: '&8Team |&r %1$s &8\u00BB&r %2$s'
+    f_all: '&8All |&r %1$s &8\u00BB&r %2$s'
 team:
     team: 'Team'
     win: '{0} &7team win the game'
