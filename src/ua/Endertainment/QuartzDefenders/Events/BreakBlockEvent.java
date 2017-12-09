@@ -72,4 +72,58 @@ public class BreakBlockEvent implements Listener {
         }
     }
 
+    public static void regenBlock(Location location) {
+        Game game = null;
+        QuartzDefenders plugin = QuartzDefenders.getInstance();
+        for (Game gam : plugin.getGames()) {
+            if (gam.getGameWorld().equals(location.getWorld())) {
+                game = gam;
+            }
+        }
+        if (game != null) {
+            FileConfiguration config = plugin.getConfigs().getGameInfo();
+
+            if (game.isGameState(GameState.ACTIVE)) {
+                Material material = location.getBlock().getType();
+
+                if (game.getRegenerativeBlocks().containsKey(material)) {
+                    Block block = location.getBlock();
+
+                    for (Location loc : game.getRegenerativeBlocks().get(material)) {
+                        if (loc.getBlockX() == block.getX() && loc.getBlockY() == block.getY() && loc.getBlockZ() == block.getZ()) {
+
+                            /*StatsPlayer sp = new StatsPlayer(player);
+                            sp.addBrokenOre();*/
+
+                            int regenerateTime = config.getInt("Games." + game.getGameId()
+                                    + ".regenerative_blocks." + material.toString() + ".regenerate_time");
+
+                            new BukkitRunnable() {
+
+                                @Override
+                                public void run() {
+                                    block.setType(Material.BEDROCK);
+                                }
+                            }.runTaskLater(QuartzDefenders.getInstance(), 0);
+
+                            BukkitRunnable runnable = new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    if (loc.getBlock().getWorld() != null) {
+                                        block.setType(material);
+                                    }
+                                }
+                            };
+                            runnable.runTaskLater(plugin, regenerateTime);
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+    }
+
 }

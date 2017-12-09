@@ -177,6 +177,7 @@ public class QuartzDefenders extends JavaPlugin {
         new ExplodeEvent(this);
         new LightningEvent(this);
         new FireArrowEvent(this);
+        new PistonFix(this);
     }
 
     /*

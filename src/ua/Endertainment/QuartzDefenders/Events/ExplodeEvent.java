@@ -27,47 +27,25 @@ public class ExplodeEvent implements Listener {
 		if(e.getLocation().getWorld() == plugin.getLobby().getWorld()) {
 			return;
 		}
-		
-		Bukkit.broadcastMessage("1");
-		
 		Game game = null;
 		
 		for(Game g : plugin.getGames()) {
 			if(e.getLocation().getWorld() == g.getGameWorld()) game = g;
 			
 		}
-		
-		Bukkit.broadcastMessage("2");
-		
+
 		if(game == null) {
 			return;
 		}
-		
-		Bukkit.broadcastMessage("3");
-		
 		List<Block> blocks = e.blockList();
 		
 		for(Block b : blocks) {
-			
-			Bukkit.broadcastMessage("4");
-			
 			if(game.getRegenerativeBlocks().containsKey(b.getType())) {
 				
-				Bukkit.broadcastMessage("5");
-				
 				Set<Location> locs = game.getRegenerativeBlocks().get(b.getType());
-				
 				for(Location loc : locs) {
-					
-					Bukkit.broadcastMessage("6");
-					
 					if(b.getLocation().equals(loc)) {
-						
-						Bukkit.broadcastMessage("7");
-						
-						Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                                                    b.setType(b.getType());
-                                                });
+						BreakBlockEvent.regenBlock(loc);
 					}
 				}
 			}
