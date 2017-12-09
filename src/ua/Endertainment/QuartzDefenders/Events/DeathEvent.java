@@ -148,7 +148,7 @@ public class DeathEvent implements Listener {
 		}
 		
 		if(!p.getGameMode().equals(GameMode.SPECTATOR)) {
-			return;
+			return; 
 		} 
 		
 		if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
