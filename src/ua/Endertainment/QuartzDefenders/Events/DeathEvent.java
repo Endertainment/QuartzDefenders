@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -65,6 +66,11 @@ public class DeathEvent implements Listener {
 			
 			StatsPlayer sp = new StatsPlayer(killer);	
 			sp.addKill();
+			
+			killer.getInventory().addItem(new ItemStack(Material.EMERALD));
+			killer.getInventory().addItem(new ItemStack(Material.BONE));
+			killer.getInventory().addItem(new ItemStack(Material.RAW_BEEF));
+			
 		}
 		
 		game.getSidebar().refresh();

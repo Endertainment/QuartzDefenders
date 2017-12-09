@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import ua.Coolboy.QuartzDefenders.Mobs.MobsListener;
 import ua.Coolboy.QuartzDefenders.Shop.ShopInventory;
 import ua.Endertainment.QuartzDefenders.Achievements.AchievementsManager;
+import ua.Endertainment.QuartzDefenders.Combo.ComboManager;
 import ua.Endertainment.QuartzDefenders.Commands.CommandGameBroadcast;
 import ua.Endertainment.QuartzDefenders.Commands.CommandQuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.Game.CommandGame;
@@ -41,6 +42,7 @@ public class QuartzDefenders extends JavaPlugin {
     private TopManager top;
     private Lobby lobby;
     private AchievementsManager achvM;
+    private ComboManager comboManager;
 
     private final Set<Game> games = new HashSet<>();
     private final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
@@ -55,6 +57,7 @@ public class QuartzDefenders extends JavaPlugin {
         lobby = new Lobby(this);
         top = new TopManager(this);
         achvM = new AchievementsManager(this);
+        comboManager = new ComboManager(this);
         /*
 		 * Prevent an exceptions when plugin is disabled
          */
@@ -250,5 +253,9 @@ public class QuartzDefenders extends JavaPlugin {
 
     public AchievementsManager getAchievementsManager() {
         return achvM;
+    }
+    
+    public ComboManager getComboManager() {
+    	return comboManager;
     }
 }
