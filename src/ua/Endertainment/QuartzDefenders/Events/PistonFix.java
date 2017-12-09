@@ -3,6 +3,7 @@ package ua.Endertainment.QuartzDefenders.Events;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPistonRetractEvent;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class PistonFix implements Listener {
@@ -14,7 +15,11 @@ public class PistonFix implements Listener {
         this.plugin = plugin;
     }
     
-    public void onMove(BlockPistonExtendEvent event) {
+    public void onExtend(BlockPistonExtendEvent event) {
+        event.setCancelled(true);
+    }
+    
+    public void onRetract(BlockPistonRetractEvent event) {
         event.setCancelled(true);
     }
         /*if (event.getBlock().getLocation().getWorld() == plugin.getLobby().getWorld()) {

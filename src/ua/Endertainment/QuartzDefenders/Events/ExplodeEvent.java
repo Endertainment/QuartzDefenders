@@ -27,18 +27,16 @@ public class ExplodeEvent implements Listener {
 		if(e.getLocation().getWorld() == plugin.getLobby().getWorld()) {
 			return;
 		}
-		
 		Game game = null;
 		
 		for(Game g : plugin.getGames()) {
 			if(e.getLocation().getWorld() == g.getGameWorld()) game = g;
 			
 		}
-		
+
 		if(game == null) {
 			return;
 		}
-		
 		List<Block> blocks = e.blockList();
 		
 		for(Block b : blocks) {

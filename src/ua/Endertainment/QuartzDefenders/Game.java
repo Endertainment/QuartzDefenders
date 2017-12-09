@@ -285,6 +285,8 @@ public class Game {
             return;
         }
 
+        player.setScoreboard(gameScoreboard);
+        
         if (isGameState(GameState.LOBBY)) {
 
             gameAllPlayers.add(player);
@@ -301,8 +303,6 @@ public class Game {
                     p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
                     //p.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
                     p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
-
-                    player.setScoreboard(gameScoreboard);
 
                     p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.choose_team")));
                     sendTabList();
@@ -322,8 +322,6 @@ public class Game {
             //player.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
             player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
-            player.setScoreboard(gameScoreboard);
-
             player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.choose_team")));
             sendTabList();
             return;
@@ -336,8 +334,6 @@ public class Game {
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
             player.getPlayer().setGameMode(GameMode.SPECTATOR);
-
-            player.setScoreboard(gameScoreboard);
             player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_running")));
             sendTabList();
             return;
