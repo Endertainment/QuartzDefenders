@@ -153,7 +153,7 @@ public class DeathEvent implements Listener {
 		
 		if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			
-			if(e.getClickedBlock().getType().equals(Material.CHEST) || e.getClickedBlock().getType().equals(Material.FURNACE)) {
+			if(e.getClickedBlock().getType().equals(Material.TRAPPED_CHEST) || e.getClickedBlock().getType().equals(Material.CHEST) || e.getClickedBlock().getType().equals(Material.FURNACE)) {
 				e.setCancelled(true);
 			}
 			
