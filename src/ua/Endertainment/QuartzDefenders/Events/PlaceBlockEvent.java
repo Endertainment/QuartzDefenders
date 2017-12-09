@@ -1,6 +1,7 @@
 package ua.Endertainment.QuartzDefenders.Events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -50,6 +51,10 @@ public class PlaceBlockEvent implements Listener {
             p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
             e.setCancelled(true);
             return;
+        }
+        
+        if(e.getBlock().getType().equals(Material.PISTON_BASE) || e.getBlock().getType().equals(Material.PISTON_STICKY_BASE)) {
+            e.setCancelled(true);
         }
 
     }

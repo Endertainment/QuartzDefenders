@@ -122,7 +122,7 @@ public class GameTeam {
         if (players.contains(player)) {
             return false;
         } else if (players.size() < playersInTeam) {
-            team.addEntry(player.getPlayer().getUniqueId().toString());
+            team.addPlayer(player.getPlayer());
             players.add(player);
             player.setDisplayName(color);
             return true;
