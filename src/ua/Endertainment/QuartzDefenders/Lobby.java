@@ -133,7 +133,7 @@ public class Lobby implements Listener {
 
         p.getInventory().setItem(0, QItems.itemGamesChoose());
         p.getInventory().setItem(4, QItems.itemStats());
-        p.getInventory().setItem(7, QItems.itemHidePlayers(getHides().contains(p)));
+        p.getInventory().setItem(8, QItems.itemHidePlayers(getHides().contains(p)));
         //p.getInventory().setItem(8, QItems.itemLobbyShop());
         //p.getInventory().setItem(1, QItems.itemAchievements());
     }
