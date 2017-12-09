@@ -170,14 +170,14 @@ public class ItemsUseEvent implements Listener {
         }
 
         if (i.getItemMeta().getDisplayName() != null
-                && i.getItemMeta().getDisplayName().equals(QItems.itemGamesChoose().getItemMeta().getDisplayName())
+                && (i.getItemMeta().getDisplayName().equals(QItems.itemGamesChoose().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemStats().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemKitsChoose().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemQuit().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemAchievements().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(true).getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemHidePlayers(false).getItemMeta().getDisplayName())
-                || i.getItemMeta().getDisplayName().equals(QItems.itemLobbyShop().getItemMeta().getDisplayName())) {
+                || i.getItemMeta().getDisplayName().equals(QItems.itemLobbyShop().getItemMeta().getDisplayName()))) {
             e.setCancelled(true);
             return;
         }

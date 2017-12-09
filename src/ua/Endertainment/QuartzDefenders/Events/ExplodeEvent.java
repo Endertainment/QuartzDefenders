@@ -45,12 +45,9 @@ public class ExplodeEvent implements Listener {
 			if(game.getRegenerativeBlocks().containsKey(b.getType())) {
 				
 				Set<Location> locs = game.getRegenerativeBlocks().get(b.getType());
-				
 				for(Location loc : locs) {
 					if(b.getLocation().equals(loc)) {
-						Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                                                    b.setType(b.getType());
-                                                });
+						BreakBlockEvent.regenBlock(loc);
 					}
 				}
 			}
