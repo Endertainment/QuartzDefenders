@@ -50,7 +50,7 @@ public class MobsListener implements Listener {
     @EventHandler
     public void alchemistrySoul(GameStartEvent event) {
         Game game = event.getGame();
-        Map<Integer, Location> locat = event.getGame().getAlchemicsLocations();
+        Map<Location, Integer> locat = event.getGame().getAlchemicsLocations();
         if(locat.isEmpty()) return;
         new BukkitRunnable() {
             @Override
@@ -59,9 +59,9 @@ public class MobsListener implements Listener {
                     this.cancel();
                 }
 
-                for (Map.Entry<Integer, Location> entry : locat.entrySet()) {
-                    int rad = entry.getKey();
-                    Location loc = entry.getValue();
+                for (Map.Entry<Location, Integer> entry : locat.entrySet()) {
+                    int rad = entry.getValue();
+                    Location loc = entry.getKey();
                     Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
 
                     if (Mobs.countMobs(nearbyEntities, EntityType.SKELETON) >= 7) {
@@ -69,10 +69,6 @@ public class MobsListener implements Listener {
                     }
 
                     if (Mobs.countMobs(nearbyEntities, EntityType.PLAYER) != 0) {
-                        /*int randomX = Mobs.randomInRadius(rad);
-                        int randomZ = Mobs.randomInRadius(rad);
-                        Location spawnLoc = loc.add(randomX, 0, randomZ);*/
-
                         Location testLoc = loc.clone().add(Mobs.randomInRadius(rad), 0, Mobs.randomInRadius(rad));
 
                         while (!Mobs.canSpawn(testLoc)) {

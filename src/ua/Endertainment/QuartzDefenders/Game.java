@@ -79,7 +79,7 @@ public class Game {
 
     private boolean customShop;
     private Map<GameTeam, Location> shopLocations = new HashMap<>();
-    private Map<Integer, Location> alchemistsLocations = new HashMap<>();
+    private Map<Location, Integer> alchemistsLocations = new HashMap<>();
 
     private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
     private HashMap<Material, Set<Location>> regenerativeBlocks = new HashMap<>();
@@ -248,7 +248,7 @@ public class Game {
                     Integer.parseInt(array[0]),
                     Integer.parseInt(array[1]),
                     Integer.parseInt(array[2]));
-            alchemistsLocations.put(alchemistRadius, alchemist);
+            alchemistsLocations.put(alchemist, alchemistRadius);
         }
 
         LoggerUtil.logInfo(Language.getString("logger.game_load_success", new Replacer("{0}", gameName)));
@@ -750,7 +750,7 @@ public class Game {
         return shopLocations.values();
     }
 
-    public Map<Integer, Location> getAlchemicsLocations() {
+    public Map<Location, Integer> getAlchemicsLocations() {
         return alchemistsLocations;
     }
 
