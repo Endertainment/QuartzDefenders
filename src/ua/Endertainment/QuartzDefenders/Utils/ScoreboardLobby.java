@@ -48,9 +48,9 @@ public class ScoreboardLobby {
 		addString("&f&m------------------");
 		addString("&3 ");
 		addString("&f Wins: &b" + sp.getWins());
-		addString("&3 &3");
-		addString("&f Coins: &b" + sp.getCoins());
-		addString("&f Level: &b" + sp.getLevel());
+		//addString("&3 &3");
+		//addString("&f Coins: &b" + sp.getCoins());
+		//addString("&f Level: &b" + sp.getLevel());
 		addString("&3 &3 ");
 		addString("&f Top position: &b" + plugin.getTopManager().getPlayerKillsPosition(p));
 		addString("&2 ");

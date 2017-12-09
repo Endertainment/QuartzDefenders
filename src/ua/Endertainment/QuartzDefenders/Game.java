@@ -319,7 +319,7 @@ public class Game {
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
             player.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
-            player.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
+            //player.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
             player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
             player.setScoreboard(gameScoreboard);
@@ -416,6 +416,7 @@ public class Game {
         if(generateSpectator) {
             generateSpectatorRoom(Material.AIR);
         }
+        map.setTime(6000);
         ShopEntity.loadShops(game);
         Bukkit.getPluginManager().callEvent(new GameStartEvent(game));
         for (GamePlayer p : gameAllPlayers) {

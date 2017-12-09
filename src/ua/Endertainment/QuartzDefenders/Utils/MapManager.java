@@ -55,6 +55,7 @@ public class MapManager {
 			LoggerUtil.logError(Language.getString("logger.copy_map_failed"));
 		}
 		this.world = Bukkit.getServer().createWorld(new WorldCreator(worldS));
+                this.world.setTime(6000);
 		this.success = true;
 	}
 	
