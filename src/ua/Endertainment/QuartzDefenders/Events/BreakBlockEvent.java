@@ -1,10 +1,15 @@
 package ua.Endertainment.QuartzDefenders.Events;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,6 +53,7 @@ public class BreakBlockEvent implements Listener {
                                     + ".regenerative_blocks." + material.toString() + ".regenerate_time");
 
                             Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                                teleportOres(block);
                                 block.setType(Material.BEDROCK);
                             });
 
@@ -71,7 +77,20 @@ public class BreakBlockEvent implements Listener {
 
         }
     }
-
+    
+    private void teleportOres(Block block) {
+        Set<Item> items = new HashSet<>();
+        Collection<Entity> list = block.getWorld().getNearbyEntities(block.getLocation().add(0.5, 0, 0.5), 0.5, 1, 0.5);
+        for(Entity entity : list) {
+            if(entity instanceof Item) {
+                items.add((Item) entity);
+            }
+        }
+        for(Item item : items) {
+            item.teleport(block.getLocation().add(0.5, 1.5, 0.5));
+        }
+    }
+    
     public static void regenBlock(Location location) {
         Game game = null;
         QuartzDefenders plugin = QuartzDefenders.getInstance();

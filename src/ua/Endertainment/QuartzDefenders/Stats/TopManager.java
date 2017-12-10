@@ -61,7 +61,9 @@ public class TopManager {
             killsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".kills"));
         }
         sortByValues(killsMap);
-        topKills.addAll(killsMap.keySet());
+        for(Map.Entry<OfflinePlayer, Integer> entry : killsMap.entrySet()) {
+            topKills.add(entry.getKey());
+        }
         Collections.reverse(topKills);
     }
 
@@ -94,8 +96,10 @@ public class TopManager {
         for (String s : plugin.getConfigs().getStatsInfo().getKeys(false)) {
             winsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".wins"));
         }
-
-        topWins.addAll(winsMap.keySet());
+        sortByValues(winsMap);
+        for(Map.Entry<OfflinePlayer, Integer> entry : winsMap.entrySet()) {
+            topWins.add(entry.getKey());
+        }
         Collections.reverse(topWins);
     }
 
