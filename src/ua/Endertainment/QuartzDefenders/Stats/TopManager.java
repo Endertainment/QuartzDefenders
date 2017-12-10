@@ -1,7 +1,6 @@
 package ua.Endertainment.QuartzDefenders.Stats;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -61,10 +60,7 @@ public class TopManager {
             killsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".kills"));
         }
         sortByValues(killsMap);
-        for(Map.Entry<OfflinePlayer, Integer> entry : killsMap.entrySet()) {
-            topKills.add(entry.getKey());
-        }
-        Collections.reverse(topKills);
+        topKills.addAll(killsMap.keySet());
     }
 
     public OfflinePlayer getPlayerByKillPosition(int position) {
@@ -97,10 +93,7 @@ public class TopManager {
             winsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".wins"));
         }
         sortByValues(winsMap);
-        for(Map.Entry<OfflinePlayer, Integer> entry : winsMap.entrySet()) {
-            topWins.add(entry.getKey());
-        }
-        Collections.reverse(topWins);
+        topWins.addAll(winsMap.keySet());
     }
 
     public OfflinePlayer getPlayerByWinPosition(int position) {
