@@ -18,8 +18,8 @@ public class Cuboid {
 			throw new IllegalArgumentException("Locations must be on the same world");
 		}
 		Location l1, l2;
-		l1 = new Location(loc1.getWorld(), loc1.getBlockX(), loc1.getBlockY(), loc1.getBlockZ()).add(1, 1, 1);
-		l2 = new Location(loc2.getWorld(), loc2.getBlockX(), loc2.getBlockY(), loc2.getBlockZ()).subtract(1, 1, 1);
+		l1 = new Location(loc1.getWorld(), loc1.getBlockX(), loc1.getBlockY(), loc1.getBlockZ()).add(2, 2, 2);
+		l2 = new Location(loc2.getWorld(), loc2.getBlockX(), loc2.getBlockY(), loc2.getBlockZ()).subtract(2, 2, 2);
 		this.world = l1.getWorld();
 	    this.x1 = Math.min(l1.getBlockX(), l2.getBlockX());
 	    this.y1 = Math.min(l1.getBlockY(), l2.getBlockY());
