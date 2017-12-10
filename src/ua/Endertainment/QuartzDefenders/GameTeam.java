@@ -77,7 +77,11 @@ public class GameTeam {
         if (game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) != this) {
             game.getTeam(player.getPlayer()).quitTeam(player);
         }
-
+        
+        if (game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) == this) {
+            return;
+        }
+        
         if (game.getSpectators().contains(player)) {
             game.getSpectators().remove(player);
         }

@@ -413,6 +413,7 @@ public class Game {
         if(generateSpectator) {
             generateSpectatorRoom(Material.AIR);
         }
+        Bukkit.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_started", new Replacer("{0}", gameName))));
         map.setTime(6000);
         ShopEntity.loadShops(game);
         Bukkit.getPluginManager().callEvent(new GameStartEvent(game));
@@ -497,7 +498,8 @@ public class Game {
             getKillsStats().sendKillsStats();
 
             Bukkit.broadcastMessage(LoggerUtil.gameMessage(gameName, Language.getString("team.win", new Replacer("{0}", winner.getName()))));
-
+            Bukkit.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_ended", new Replacer("{0}", gameName))));
+            
             BukkitRunnable runnable = new BukkitRunnable() {
 
                 @Override

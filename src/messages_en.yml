@@ -17,6 +17,8 @@ mobs:
         lore: 'Special alchemistry currency' #only 1 string, use it in shop.yml
 game:
     game: 'Game'
+    game_start: 'The game {0}&7 started.'
+    game_end: 'The game {0}&7 ended.'
     game_locked: 'This game is locked. Only admins can join'
     join_disabled: 'You can not join to this game'
     join_game: 'Player &r{0}&7 joined the game'
