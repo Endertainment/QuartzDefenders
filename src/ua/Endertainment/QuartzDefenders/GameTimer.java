@@ -23,7 +23,7 @@ public class GameTimer extends BukkitRunnable {
 			game.checkGameEnd();
 		}
 		if(time >= (60*60)) {
-                    if(time % 20*60 == 0) {
+                    if(time % 60 == 0) {
 			for(GameQuartz quartz : game.getQuartzsLocations().values()) {
 				quartz.breakQuartz();
 			}

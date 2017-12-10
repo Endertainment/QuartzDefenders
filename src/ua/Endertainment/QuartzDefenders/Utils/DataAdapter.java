@@ -48,8 +48,9 @@ public abstract class DataAdapter {
                 return 14;
             case BLACK:
                 return 15;
+            default:
+                return 0;
         }
-        return 0;
     }
 
 }

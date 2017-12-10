@@ -45,13 +45,16 @@ public class TopManager {
     }
 
     public OfflinePlayer getPlayerByKillPosition(int position) {
-        return topKills.get(position);
+        if (position < topKills.size()) {
+            return topKills.get(position);
+        }
+        return null;
     }
 
     public int getPlayerKillsPosition(Player p) {
         for (OfflinePlayer entry : topKills) {
             if (entry.getUniqueId().equals(p.getUniqueId())) {
-                return topKills.indexOf(entry);
+                return topKills.indexOf(entry) + 1;
             }
         }
         return topKills.size() /*+ 1*/;
@@ -75,13 +78,16 @@ public class TopManager {
     }
 
     public OfflinePlayer getPlayerByWinPosition(int position) {
-        return topWins.get(position);
+        if (position < topWins.size()) {
+            return topWins.get(position);
+        }
+        return null;
     }
 
     public int getPlayerWinPosition(Player p) {
         for (OfflinePlayer entry : topWins) {
             if (entry.getUniqueId().equals(p.getUniqueId())) {
-                return topWins.indexOf(entry);
+                return topWins.indexOf(entry) + 1;
             }
         }
         return topWins.size() /*+ 1*/;
@@ -106,7 +112,9 @@ public class TopManager {
 
     public static List<List<Integer>> getIntegerListOfLists(List<?> from) {
         List<List<Integer>> list = new ArrayList<>();
-        if(from==null) return list;
+        if (from == null) {
+            return list;
+        }
         for (Object obj : from) {
             if (obj instanceof List) {
                 try {
@@ -132,19 +140,30 @@ public class TopManager {
                 continue;
             }
             Sign sign = (Sign) plugin.getLobby().getWorld().getBlockAt(l).getState();
+            clearSign(sign);
             signs.add(sign);
         }
         return signs;
+    }
+    
+    private void clearSign(Sign sign) {
+        for(int i = 0; i<4; i++) {
+            sign.setLine(i,"");
+        }
     }
 
     private void setKillsText(List<Sign> signs) {
         int index = 0;
         for (Sign s : signs) {
             int x = index + 1;
-            if(getPlayerByKillPosition(index)==null) return;
+            if (getPlayerByKillPosition(index) == null) {
+                return;
+            }
+            String kills = plugin.getConfigs().getStatsInfo().getString(getPlayerByKillPosition(index).getUniqueId().toString() + ".kills");
+            if(kills == null) return;
             s.setLine(0, ChatColor.BLUE + "Top " + x);
-            s.setLine(1, ChatColor.GRAY+ getPlayerByKillPosition(index).getName());
-            s.setLine(2, ChatColor.GOLD + "Kills: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByKillPosition(index).getUniqueId().toString() + ".kills"));
+            s.setLine(1, ChatColor.GRAY + getPlayerByKillPosition(index).getName());
+            s.setLine(2, ChatColor.GOLD + "Kills: " + kills);
             s.update();
             index++;
         }
@@ -154,7 +173,9 @@ public class TopManager {
         int index = 0;
         for (Sign s : signs) {
             int x = index + 1;
-            if(getPlayerByWinPosition(index)==null) return;
+            if (getPlayerByWinPosition(index) == null) {
+                return;
+            }
             s.setLine(0, ChatColor.BLUE + "Top " + x);
             s.setLine(1, ChatColor.GRAY + getPlayerByWinPosition(index).getName());
             s.setLine(2, ChatColor.GOLD + "Wins: " + plugin.getConfigs().getStatsInfo().getString(getPlayerByWinPosition(index).getUniqueId().toString() + ".wins"));

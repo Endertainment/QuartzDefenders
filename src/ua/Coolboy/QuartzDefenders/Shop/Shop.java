@@ -135,7 +135,7 @@ public class Shop {
             }
         }
         if (!teams) {
-            damage = dir.getInt("damage");
+            damage = dir.getInt("damage", 0);
         }
         ItemStack stack = new ItemStack(Material.valueOf(material), amount, (short) damage);
         if (dir.isString("name")) {
