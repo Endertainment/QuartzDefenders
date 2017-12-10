@@ -622,7 +622,7 @@ public class Game {
     	p.getPlayer().setGameMode(GameMode.SURVIVAL);
         p.getPlayer().setVelocity(new Vector(0, 0, 0));
         p.getPlayer().teleport(getTeam(p.getPlayer()).getSpawnLocation());
-        p.getPlayer().sendMessage("you teleported to respawn");
+        p.setDisplayName(getTeam(p.getPlayer()).getColor());
         p.getPlayer().setHealth(20);
         p.getPlayer().setFoodLevel(20);
         p.getPlayer().setExp(0);

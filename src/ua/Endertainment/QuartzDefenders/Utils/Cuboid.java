@@ -72,8 +72,7 @@ public class Cuboid {
 			}
 		}
 		if(type == CubType.SPAWN) 
-			if(team.contains(p)) return true;
-			else return false;
+			return true;
 		return false;
 	}
 }
