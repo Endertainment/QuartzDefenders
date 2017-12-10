@@ -3,9 +3,14 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import ua.Endertainment.QuartzDefenders.GamePlayer;
 import ua.Endertainment.QuartzDefenders.GameTeam;
 
 public class Cuboid {
+	
+	public enum CubType {
+		SPAWN, QUARTZ
+	}
 	
 	private final World world;
 	private final int x1;
@@ -15,14 +20,12 @@ public class Cuboid {
 	private final int y2;
 	private final int z2;
 	private GameTeam team;
+	private CubType type;
 	
-	public Cuboid(Location loc1, Location loc2, GameTeam team) {
-		if(loc1.getWorld() != loc2.getWorld()) {
-			throw new IllegalArgumentException("Locations must be on the same world");
-		}
+	public Cuboid(Location loc, int rad, GameTeam team, CubType type) {
 		Location l1, l2;
-		l1 = new Location(loc1.getWorld(), loc1.getBlockX(), loc1.getBlockY(), loc1.getBlockZ()).add(2, 2, 2);
-		l2 = new Location(loc2.getWorld(), loc2.getBlockX(), loc2.getBlockY(), loc2.getBlockZ()).subtract(2, 2, 2);
+		l1 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()).add(rad, rad, rad);
+		l2 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()).subtract(rad, rad, rad);
 		this.world = l1.getWorld();
 	    this.x1 = Math.min(l1.getBlockX(), l2.getBlockX());
 	    this.y1 = Math.min(l1.getBlockY(), l2.getBlockY());
@@ -31,6 +34,7 @@ public class Cuboid {
 	    this.y2 = Math.max(l1.getBlockY(), l2.getBlockY());
 	    this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ());
 		this.team = team;
+		this.type = type;
 	}
 	
 	public boolean contains(int x, int y, int z) {
@@ -42,5 +46,34 @@ public class Cuboid {
 	}
 	public GameTeam getTeam() {
 		return team;
+	}
+	public CubType getCubType() {
+		return type;
+	}
+	public boolean canBuild(GamePlayer p, Location loc) {
+		if(!contains(loc)) return true; 
+		if(type == CubType.QUARTZ) return false;
+		if(type == CubType.SPAWN) 
+			if(team.contains(p)) return true;
+			else return false;		
+		return false;
+	}
+	
+	public boolean canBreak(GamePlayer p, Location loc) {
+		if(!contains(loc)) return true;
+		if(type == CubType.QUARTZ) { 
+			if(team.contains(p)) {
+				if(loc.equals(team.getTeamQuartz().getLocation())) return false;
+				return true;
+			}
+			if(!team.contains(p)) {
+				if(loc.equals(team.getTeamQuartz().getLocation())) return true;
+				return false;
+			}
+		}
+		if(type == CubType.SPAWN) 
+			if(team.contains(p)) return true;
+			else return false;
+		return false;
 	}
 }

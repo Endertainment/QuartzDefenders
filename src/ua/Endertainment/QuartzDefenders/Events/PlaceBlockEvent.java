@@ -40,7 +40,7 @@ public class PlaceBlockEvent implements Listener {
         sp.addPlacedBlock();
 
         for (Cuboid c : game.getCuboids()) {
-            if (c.contains(e.getBlock().getLocation())) {
+            if (!c.canBuild(plugin.getGamePlayer(p), e.getBlock().getLocation())) {
                 e.setCancelled(true);
                 p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
                 return;

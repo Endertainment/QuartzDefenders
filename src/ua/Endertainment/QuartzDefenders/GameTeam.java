@@ -122,7 +122,8 @@ public class GameTeam {
         }
     }
 
-    public boolean addPlayer(GamePlayer player) {
+    @SuppressWarnings("deprecation")
+	public boolean addPlayer(GamePlayer player) {
         if (players.contains(player)) {
             return false;
         } else if (players.size() < playersInTeam) {
@@ -220,6 +221,10 @@ public class GameTeam {
             y += quartz.getQuartzHealth();
         }
         return x == y;
+    }
+    
+    public GameQuartz getTeamQuartz() {
+    	return game.getQuartz(this);
     }
     
     private void respawnPlayer(GamePlayer p) {

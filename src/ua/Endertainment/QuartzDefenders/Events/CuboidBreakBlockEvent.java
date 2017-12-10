@@ -36,7 +36,7 @@ public class CuboidBreakBlockEvent implements Listener {
 	        }
 	        
 	        for (Cuboid c : game.getCuboids()) {
-	            if (c.contains(e.getBlock().getLocation()) && !e.getBlock().getLocation().equals(game.getQuartz(c.getTeam()).getLocation())) {
+	            if(!c.canBreak(plugin.getGamePlayer(p), e.getBlock().getLocation())) {
 	                e.setCancelled(true);
 	                p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not break block here"));
 	                return;

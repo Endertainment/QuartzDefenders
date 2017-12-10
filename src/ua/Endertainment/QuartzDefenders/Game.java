@@ -35,6 +35,7 @@ import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.BCub;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.Cuboid;
+import ua.Endertainment.QuartzDefenders.Utils.Cuboid.CubType;
 import ua.Endertainment.QuartzDefenders.Utils.FireworkUtil;
 import ua.Endertainment.QuartzDefenders.Utils.Language;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
@@ -212,9 +213,9 @@ public class Game {
 
                     shopLocations.put(getTeam(team), shop);
                     
-                    Cuboid cuboidSpawn = new Cuboid(spawn, spawn, getTeam(team));
+                    Cuboid cuboidSpawn = new Cuboid(spawn, 1, getTeam(team), CubType.SPAWN);
 
-                    Cuboid cuboidQuartz = new Cuboid(quartz, quartz, getTeam(team));
+                    Cuboid cuboidQuartz = new Cuboid(quartz, 2, getTeam(team), CubType.QUARTZ);
 
                     cuboids.add(cuboidQuartz);
                     cuboids.add(cuboidSpawn);
