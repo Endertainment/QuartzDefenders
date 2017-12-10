@@ -164,11 +164,7 @@ public class FilesUtil {
     private void setupShop() {
         shopFile = new File(plugin.getDataFolder() + File.separator, "shop.yml");
         if (!shopFile.exists()) {
-            try {
-                shopFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                plugin.saveResource("shop.yml", false);
         }
         shop = YamlConfiguration.loadConfiguration(shopFile);
     }

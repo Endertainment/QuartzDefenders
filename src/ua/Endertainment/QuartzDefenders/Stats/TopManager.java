@@ -2,7 +2,10 @@ package ua.Endertainment.QuartzDefenders.Stats;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -31,17 +34,35 @@ public class TopManager {
         setupSigns();
     }
 
+    public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
+        Comparator<K> valueComparator = new Comparator<K>() {
+            @Override
+            public int compare(K k1, K k2) {
+                int compare = map.get(k1).compareTo(map.get(k2));
+                if (compare == 0) {
+                    return 1;
+                } else {
+                    return compare;
+                }
+            }
+        };
+        Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
+        sortedByValues.putAll(map);
+        return sortedByValues;
+    }
+
     /*
 	 * KILLS
      */
     private void calcKills() {
-        TreeMap<Integer, OfflinePlayer> killsMap = new TreeMap<>(Collections.reverseOrder());
+        HashMap<OfflinePlayer, Integer> killsMap = new HashMap<>();
 
         for (String s : plugin.getConfigs().getStatsInfo().getKeys(false)) {
-            killsMap.put(plugin.getConfigs().getStatsInfo().getInt(s + ".kills"), Bukkit.getOfflinePlayer(UUID.fromString(s)));
+            killsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".kills"));
         }
-
-        topKills.addAll(killsMap.values());
+        sortByValues(killsMap);
+        topKills.addAll(killsMap.keySet());
+        Collections.reverse(topKills);
     }
 
     public OfflinePlayer getPlayerByKillPosition(int position) {
@@ -54,7 +75,7 @@ public class TopManager {
     public int getPlayerKillsPosition(Player p) {
         for (OfflinePlayer entry : topKills) {
             if (entry.getUniqueId().equals(p.getUniqueId())) {
-                return topKills.indexOf(entry) + 1;
+                return topKills.indexOf(entry);
             }
         }
         return topKills.size() /*+ 1*/;
@@ -68,13 +89,14 @@ public class TopManager {
 	 * WINS
      */
     private void calcWins() {
-        TreeMap<Integer, OfflinePlayer> winsMap = new TreeMap<>(Collections.reverseOrder());
+        HashMap<OfflinePlayer, Integer> winsMap = new HashMap<>();
 
         for (String s : plugin.getConfigs().getStatsInfo().getKeys(false)) {
-            winsMap.put(plugin.getConfigs().getStatsInfo().getInt(s + ".wins"), Bukkit.getOfflinePlayer(UUID.fromString(s)));
+            winsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".wins"));
         }
 
-        topWins.addAll(winsMap.values());
+        topWins.addAll(winsMap.keySet());
+        Collections.reverse(topWins);
     }
 
     public OfflinePlayer getPlayerByWinPosition(int position) {
@@ -87,7 +109,7 @@ public class TopManager {
     public int getPlayerWinPosition(Player p) {
         for (OfflinePlayer entry : topWins) {
             if (entry.getUniqueId().equals(p.getUniqueId())) {
-                return topWins.indexOf(entry) + 1;
+                return topWins.indexOf(entry);
             }
         }
         return topWins.size() /*+ 1*/;
@@ -145,10 +167,10 @@ public class TopManager {
         }
         return signs;
     }
-    
+
     private void clearSign(Sign sign) {
-        for(int i = 0; i<4; i++) {
-            sign.setLine(i,"");
+        for (int i = 0; i < 4; i++) {
+            sign.setLine(i, "");
         }
     }
 
@@ -160,7 +182,9 @@ public class TopManager {
                 return;
             }
             String kills = plugin.getConfigs().getStatsInfo().getString(getPlayerByKillPosition(index).getUniqueId().toString() + ".kills");
-            if(kills == null) return;
+            if (kills == null) {
+                return;
+            }
             s.setLine(0, ChatColor.BLUE + "Top " + x);
             s.setLine(1, ChatColor.GRAY + getPlayerByKillPosition(index).getName());
             s.setLine(2, ChatColor.GOLD + "Kills: " + kills);
