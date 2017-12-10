@@ -16,7 +16,7 @@ public class FireArrowEvent implements Listener {
     public FireArrowEvent(QuartzDefenders plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
-    
+
     @EventHandler
     public void onHit(ProjectileHitEvent event) {
         if (event.getHitBlock() == null) {
@@ -29,12 +29,19 @@ public class FireArrowEvent implements Listener {
         if (arrow.getFireTicks() > 0) {
             Block block = event.getHitBlock();
             Block fire = block.getRelative(getFacing(arrow.getLocation()).getOppositeFace());
-            if(fire.isEmpty()) fire.setType(Material.FIRE);
+            if (fire.isEmpty()) {
+                fire.setType(Material.FIRE);
+            }
         }
     }
     
+    private float roundToNearby(float i) {
+        //Bukkit.getLogger().info("Input: " + i + "Output: " +Math.round((i/90))*90);
+        return Math.round((i/90))*90;
+    }
+    
     private BlockFace getFacing(Location loc) {
-        float pitch = loc.getPitch();
+        float pitch = roundToNearby(loc.getPitch());
         for (; pitch < 0; pitch += 360F);
         pitch %= 360F;
         int pitchdir = Math.round(pitch / 90F) % 4;
@@ -48,7 +55,7 @@ public class FireArrowEvent implements Listener {
                 break;
         }
 
-        float yaw = loc.getYaw();
+        float yaw = roundToNearby(loc.getYaw());
         for (; yaw < 0; yaw += 360F);
         yaw %= 360F;
         int yawdir = Math.round(yaw / 90F) % 4;
