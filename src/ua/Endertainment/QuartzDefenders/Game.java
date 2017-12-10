@@ -206,9 +206,9 @@ public class Game {
                             config.getDouble("Games." + this.id + ".locations." + team + ".shop.y"),
                             config.getDouble("Games." + this.id + ".locations." + team + ".shop.z") + 0.5);
 
-                    Cuboid cuboidSpawn = new Cuboid(spawn.clone().subtract(1, 1, 1), spawn.clone().add(1, 2, 1));
+                    Cuboid cuboidSpawn = new Cuboid(spawn, spawn);
 
-                    Cuboid cuboidQuartz = new Cuboid(quartz.clone().subtract(2, 2, 2), quartz.clone().add(2, 2, 2));
+                    Cuboid cuboidQuartz = new Cuboid(quartz, quartz);
 
                     cuboids.add(cuboidQuartz);
                     cuboids.add(cuboidSpawn);
