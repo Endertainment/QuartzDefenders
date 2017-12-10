@@ -106,7 +106,7 @@ public class DeathEvent implements Listener {
 			};
 			run.runTaskLater(plugin, (resp * 20));
 		} else {
-			team.removePlayer(plugin.getGamePlayer(p));
+			team.removePlayer(plugin.getGamePlayer(p), false);
 			p.setHealth(20);
 			p.setGameMode(GameMode.SPECTATOR);
 			game.getSpectators().add(plugin.getGamePlayer(p));

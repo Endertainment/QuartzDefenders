@@ -104,7 +104,7 @@ public class GameTeam {
 
     public void quitTeam(GamePlayer player) {
         game.getSidebar().refresh();
-        if (removePlayer(player)) {
+        if (removePlayer(player, true)) {
             player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_quit", new Replacer("{0}", getName()))));
 
             if (game.isGameState(GameState.ACTIVE) || game.isGameState(GameState.ENDING)) {
@@ -139,11 +139,11 @@ public class GameTeam {
         }
     }
 
-    public boolean removePlayer(GamePlayer player) {
+    public boolean removePlayer(GamePlayer player, boolean arg) {
         if (players.contains(player)) {
             team.removeEntry(player.getPlayer().getUniqueId().toString());
             players.remove(player);
-            player.resetDisplayName();
+            if(arg) player.resetDisplayName();
             return true;
         }
         return false;
