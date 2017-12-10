@@ -206,18 +206,19 @@ public class Game {
                             config.getDouble("Games." + this.id + ".locations." + team + ".shop.y"),
                             config.getDouble("Games." + this.id + ".locations." + team + ".shop.z") + 0.5);
 
-                    Cuboid cuboidSpawn = new Cuboid(spawn, spawn);
-
-                    Cuboid cuboidQuartz = new Cuboid(quartz, quartz);
-
-                    cuboids.add(cuboidQuartz);
-                    cuboids.add(cuboidSpawn);
-
                     teams.put(team, new GameTeam(this, team, getChatColor(team), playersInTeam, spawn, gameScoreboard));
 
                     quartzs.put(getTeam(team), new GameQuartz(this, getTeam(team), quartz, quartzHealth));
 
                     shopLocations.put(getTeam(team), shop);
+                    
+                    Cuboid cuboidSpawn = new Cuboid(spawn, spawn, getTeam(team));
+
+                    Cuboid cuboidQuartz = new Cuboid(quartz, quartz, getTeam(team));
+
+                    cuboids.add(cuboidQuartz);
+                    cuboids.add(cuboidSpawn);
+                    
                     i++;
                 } else {
                     LoggerUtil.logError(Language.getString("logger.invalid_team", new Replacer("{0}", team)));

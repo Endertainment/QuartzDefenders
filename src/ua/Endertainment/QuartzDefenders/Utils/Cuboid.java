@@ -3,6 +3,8 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import org.bukkit.Location;
 import org.bukkit.World;
 
+import ua.Endertainment.QuartzDefenders.GameTeam;
+
 public class Cuboid {
 	
 	private final World world;
@@ -12,8 +14,9 @@ public class Cuboid {
 	private final int x2;
 	private final int y2;
 	private final int z2;
+	private GameTeam team;
 	
-	public Cuboid(Location loc1, Location loc2) {
+	public Cuboid(Location loc1, Location loc2, GameTeam team) {
 		if(loc1.getWorld() != loc2.getWorld()) {
 			throw new IllegalArgumentException("Locations must be on the same world");
 		}
@@ -27,7 +30,7 @@ public class Cuboid {
 	    this.x2 = Math.max(l1.getBlockX(), l2.getBlockX());
 	    this.y2 = Math.max(l1.getBlockY(), l2.getBlockY());
 	    this.z2 = Math.max(l1.getBlockZ(), l2.getBlockZ());
-		
+		this.team = team;
 	}
 	
 	public boolean contains(int x, int y, int z) {
@@ -36,5 +39,8 @@ public class Cuboid {
 	public boolean contains(Location loc) {
 		if(loc.getWorld() != world) return false;
 		return contains(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+	}
+	public GameTeam getTeam() {
+		return team;
 	}
 }
