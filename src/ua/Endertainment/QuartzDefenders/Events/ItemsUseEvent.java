@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.GUI.AchievementsGUI;
 import ua.Endertainment.QuartzDefenders.GUI.GamesGUI;

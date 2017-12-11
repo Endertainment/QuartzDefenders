@@ -5,9 +5,9 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import ua.Endertainment.QuartzDefenders.Game;
-import ua.Endertainment.QuartzDefenders.Game.GameState;
-import ua.Endertainment.QuartzDefenders.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game.GameState;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
 
 public class PlayerJoinGameEvent extends Event implements Cancellable {
 	

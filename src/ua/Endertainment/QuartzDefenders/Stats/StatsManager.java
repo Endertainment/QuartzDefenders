@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import ua.Endertainment.QuartzDefenders.GamePlayer;
-import ua.Endertainment.QuartzDefenders.GameTeam;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class StatsManager {

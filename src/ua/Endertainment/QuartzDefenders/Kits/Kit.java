@@ -8,7 +8,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import ua.Endertainment.QuartzDefenders.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
 
 public abstract class Kit {
 

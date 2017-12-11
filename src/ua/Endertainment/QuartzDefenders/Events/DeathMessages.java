@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 

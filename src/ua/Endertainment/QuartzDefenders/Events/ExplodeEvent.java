@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class ExplodeEvent implements Listener {

@@ -1,5 +1,7 @@
 package ua.Endertainment.QuartzDefenders;
 
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;

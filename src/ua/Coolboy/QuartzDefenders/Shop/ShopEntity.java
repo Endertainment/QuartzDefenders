@@ -6,7 +6,7 @@ import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public abstract class ShopEntity {

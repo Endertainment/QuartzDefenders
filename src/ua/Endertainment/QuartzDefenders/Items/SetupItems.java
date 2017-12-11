@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import ua.Endertainment.QuartzDefenders.GameTeam;
+import ua.Endertainment.QuartzDefenders.Game.GameTeam;
 import ua.Endertainment.QuartzDefenders.Utils.ItemUtil;
 
 public class SetupItems {

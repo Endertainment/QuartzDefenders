@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Merchant;
-import ua.Endertainment.QuartzDefenders.GameTeam;
+import ua.Endertainment.QuartzDefenders.Game.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class ShopInventory implements Listener {

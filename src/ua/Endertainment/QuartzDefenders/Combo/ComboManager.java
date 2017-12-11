@@ -3,7 +3,7 @@ package ua.Endertainment.QuartzDefenders.Combo;
 import java.util.HashMap;
 import java.util.Map;
 
-import ua.Endertainment.QuartzDefenders.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class ComboManager {

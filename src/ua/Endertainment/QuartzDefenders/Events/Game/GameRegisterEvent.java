@@ -4,7 +4,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 
 public class GameRegisterEvent extends Event implements Cancellable {
 

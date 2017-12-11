@@ -22,8 +22,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import ua.Endertainment.QuartzDefenders.Game;
-import ua.Endertainment.QuartzDefenders.GameTeam;
+import ua.Endertainment.QuartzDefenders.Game.Game;
+import ua.Endertainment.QuartzDefenders.Game.GameTeam;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.Language;

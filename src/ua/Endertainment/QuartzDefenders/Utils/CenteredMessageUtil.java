@@ -3,7 +3,7 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import ua.Endertainment.QuartzDefenders.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
 
 public class CenteredMessageUtil {
 

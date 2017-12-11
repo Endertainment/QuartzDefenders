@@ -3,7 +3,7 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 
 public class BCub {
 

@@ -4,8 +4,8 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import ua.Endertainment.QuartzDefenders.Game;
-import ua.Endertainment.QuartzDefenders.Game.GameState;
+import ua.Endertainment.QuartzDefenders.Game.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game.GameState;
 
 public class GameStateChangeEvent extends Event implements Cancellable{
 

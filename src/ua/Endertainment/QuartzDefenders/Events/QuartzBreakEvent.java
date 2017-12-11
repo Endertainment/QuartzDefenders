@@ -9,9 +9,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import ua.Endertainment.QuartzDefenders.Game;
-import ua.Endertainment.QuartzDefenders.GamePlayer;
-import ua.Endertainment.QuartzDefenders.GameQuartz;
+import ua.Endertainment.QuartzDefenders.Game.Game;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.GameQuartz;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class QuartzBreakEvent implements Listener {

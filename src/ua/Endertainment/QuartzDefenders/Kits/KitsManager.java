@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import ua.Endertainment.QuartzDefenders.Game;
-import ua.Endertainment.QuartzDefenders.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.Game;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;

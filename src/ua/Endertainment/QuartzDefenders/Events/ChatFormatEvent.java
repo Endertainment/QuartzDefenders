@@ -8,10 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
-import ua.Endertainment.QuartzDefenders.Game.GameState;
-import ua.Endertainment.QuartzDefenders.GameTeam;
+import ua.Endertainment.QuartzDefenders.Game.Game.GameState;
+import ua.Endertainment.QuartzDefenders.Game.GameTeam;
 import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 import ua.Endertainment.QuartzDefenders.Utils.Language;

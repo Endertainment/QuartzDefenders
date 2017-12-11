@@ -3,8 +3,8 @@ package ua.Endertainment.QuartzDefenders.Utils;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import ua.Endertainment.QuartzDefenders.GamePlayer;
-import ua.Endertainment.QuartzDefenders.GameTeam;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.GameTeam;
 
 public class Cuboid {
 	

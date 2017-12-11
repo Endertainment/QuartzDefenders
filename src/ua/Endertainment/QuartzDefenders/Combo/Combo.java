@@ -8,7 +8,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 
-import ua.Endertainment.QuartzDefenders.GamePlayer;
+import ua.Endertainment.QuartzDefenders.Game.GamePlayer;
 import ua.Endertainment.QuartzDefenders.Combo.ComboManager.Kills;
 import ua.Endertainment.QuartzDefenders.Utils.ColorFormat;
 

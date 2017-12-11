@@ -23,9 +23,11 @@ public abstract class Mobs {
     public static void middDef(WitherSkeleton skeleton) {
         skeleton.setCustomName(Language.getString("mobs.diamond_defender"));
         skeleton.setCustomNameVisible(true);
-        skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(70);
-        skeleton.setHealth(70);
+        skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(50);
+        skeleton.setHealth(50);
         skeleton.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(3);
+        skeleton.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(0.5);
+        skeleton.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(2);
         skeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
         skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD));
     }
@@ -35,15 +37,14 @@ public abstract class Mobs {
         ItemUtil.setMeta(coin, Language.getString("mobs.alchemists_coin.name"), Arrays.asList(Language.getString("mobs.alchemists_coin.lore")));
         s.setCustomName(Language.getString("mobs.alchemist_soul"));
         s.setCustomNameVisible(true);
-        s.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(55);
-        s.setHealth(55);
+        s.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(35);
+        s.setHealth(35);
         s.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(3);
-        s.setLastDamage(5);
 
         s.getEquipment().setHelmet(new ItemStack(Material.GLASS));
         s.getEquipment().setHelmetDropChance(0.0F);
         s.getEquipment().setChestplate(new ItemStack(new ItemStack(Material.ELYTRA)));
-        s.getEquipment().setChestplateDropChance(0.1F);
+        s.getEquipment().setChestplateDropChance(0F);
         s.getEquipment().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
         s.getEquipment().setLeggingsDropChance(0.3F);
         s.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));

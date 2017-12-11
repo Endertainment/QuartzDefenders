@@ -2,7 +2,7 @@ package ua.Endertainment.QuartzDefenders.Commands.Game;
 
 import org.bukkit.command.CommandSender;
 
-import ua.Endertainment.QuartzDefenders.Game;
+import ua.Endertainment.QuartzDefenders.Game.Game;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 import ua.Endertainment.QuartzDefenders.Commands.SubCommand;
 import ua.Endertainment.QuartzDefenders.Utils.LoggerUtil;
