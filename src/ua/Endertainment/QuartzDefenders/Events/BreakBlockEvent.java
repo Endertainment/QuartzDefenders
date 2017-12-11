@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import ua.Endertainment.QuartzDefenders.Game;
 import ua.Endertainment.QuartzDefenders.Game.GameState;
@@ -88,6 +89,7 @@ public class BreakBlockEvent implements Listener {
         }
         for(Item item : items) {
             item.teleport(block.getLocation().add(0.5, 1.5, 0.5));
+            item.setVelocity(new Vector());
         }
     }
     

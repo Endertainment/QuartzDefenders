@@ -1,8 +1,11 @@
 package ua.Endertainment.QuartzDefenders.Stats;
 
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimaps;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -54,13 +57,12 @@ public class TopManager {
 	 * KILLS
      */
     private void calcKills() {
-        HashMap<OfflinePlayer, Integer> killsMap = new HashMap<>();
+        ListMultimap<Integer, OfflinePlayer> killsMap = Multimaps.newListMultimap(new TreeMap<>(Collections.reverseOrder()), Lists::newArrayList);
 
         for (String s : plugin.getConfigs().getStatsInfo().getKeys(false)) {
-            killsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".kills"));
+            killsMap.put(plugin.getConfigs().getStatsInfo().getInt(s + ".kills"), Bukkit.getOfflinePlayer(UUID.fromString(s)));
         }
-        sortByValues(killsMap);
-        topKills.addAll(killsMap.keySet());
+        topKills.addAll(killsMap.values());
     }
 
     public OfflinePlayer getPlayerByKillPosition(int position) {
@@ -87,13 +89,12 @@ public class TopManager {
 	 * WINS
      */
     private void calcWins() {
-        HashMap<OfflinePlayer, Integer> winsMap = new HashMap<>();
-
+        ListMultimap<Integer, OfflinePlayer> winsMap = Multimaps.newListMultimap(new TreeMap<>(Collections.reverseOrder()), Lists::newArrayList);
+        
         for (String s : plugin.getConfigs().getStatsInfo().getKeys(false)) {
-            winsMap.put(Bukkit.getOfflinePlayer(UUID.fromString(s)), plugin.getConfigs().getStatsInfo().getInt(s + ".wins"));
+            winsMap.put(plugin.getConfigs().getStatsInfo().getInt(s + ".wins"), Bukkit.getOfflinePlayer(UUID.fromString(s)));
         }
-        sortByValues(winsMap);
-        topWins.addAll(winsMap.keySet());
+        topWins.addAll(winsMap.values());
     }
 
     public OfflinePlayer getPlayerByWinPosition(int position) {
