@@ -30,6 +30,7 @@ public abstract class Mobs {
         skeleton.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(2);
         skeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
         skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD));
+        skeleton.getEquipment().setHelmetDropChance(0F);
     }
 
     public static void soulDef(Skeleton s) {

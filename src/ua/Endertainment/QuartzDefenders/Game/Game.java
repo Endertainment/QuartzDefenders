@@ -85,7 +85,7 @@ public class Game {
     private Map<Location, Integer> alchemistsLocations = new HashMap<>();
 
     private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
-    private HashMap<Material, Set<Location>> regenerativeBlocks = new HashMap<>();
+    private Ores ores;
 
     private Set<Cuboid> cuboids = new HashSet<>();
 
@@ -231,19 +231,7 @@ public class Game {
             }
         }
 
-        for (String s : config.getConfigurationSection("Games." + this.id + ".regenerative_blocks").getKeys(false)) {
-            Material blockMaterial = Material.valueOf(s);
-            Set<Location> locs = new HashSet<>();
-            for (String loc : config.getConfigurationSection("Games." + this.id + ".regenerative_blocks").getStringList(s + ".list")) {
-                int x, y, z;
-                String[] array = loc.split(",");
-                x = Integer.parseInt(array[0]);
-                y = Integer.parseInt(array[1]);
-                z = Integer.parseInt(array[2]);
-                locs.add(new Location(map, x, y, z));
-            }
-            regenerativeBlocks.put(blockMaterial, locs);
-        }
+        this.ores = new Ores(this, config.getConfigurationSection("Games." + this.id + ".regenerative_blocks"));
 
         int alchemistRadius = config.getInt("Games." + this.id + ".alchemists.radius");
         for (String loc : config.getConfigurationSection("Games." + this.id + ".alchemists").getStringList(".list")) {
@@ -610,7 +598,7 @@ public class Game {
         }
 
         gameAllPlayers.clear();
-
+        QuartzDefenders.getInstance().getTopManager().refresh();
         mapManager.deleteMap();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
         LoggerUtil.logInfo(Language.getString("logger.game_disable", new Replacer("{0}", gameName), new Replacer("{1}", id)));
@@ -760,8 +748,8 @@ public class Game {
         return alchemistsLocations;
     }
 
-    public HashMap<Material, Set<Location>> getRegenerativeBlocks() {
-        return regenerativeBlocks;
+    public Ores getGameOres() {
+        return ores;
     }
 
     public String getTechWorldName() {

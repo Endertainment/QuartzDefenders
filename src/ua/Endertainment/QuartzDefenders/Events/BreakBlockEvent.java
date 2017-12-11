@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -19,7 +18,7 @@ import org.bukkit.util.Vector;
 
 import ua.Endertainment.QuartzDefenders.Game.Game;
 import ua.Endertainment.QuartzDefenders.Game.Game.GameState;
-import ua.Endertainment.QuartzDefenders.Stats.StatsPlayer;
+import ua.Endertainment.QuartzDefenders.Game.Ores;
 import ua.Endertainment.QuartzDefenders.QuartzDefenders;
 
 public class BreakBlockEvent implements Listener {
@@ -36,63 +35,50 @@ public class BreakBlockEvent implements Listener {
         Player p = e.getPlayer();
         if (plugin.getGame(p) != null) {
             Game game = plugin.getGame(p);
-            FileConfiguration config = plugin.getConfigs().getGameInfo();
+            Ores ores = game.getGameOres();
+            Block block = e.getBlock();
 
             if (game.isGameState(GameState.ACTIVE)) {
                 Material material = e.getBlock().getType();
+                if (ores.isRegenerativeMaterial(material)) {
+                    if (ores.isRegenetiveOre(block.getLocation())) {
+                        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                            teleportOres(block);
+                            block.setType(Material.BEDROCK);
+                        });
 
-                if (game.getRegenerativeBlocks().containsKey(material)) {
-                    Block block = e.getBlock();
+                        BukkitRunnable runnable = new BukkitRunnable() {
 
-                    for (Location loc : game.getRegenerativeBlocks().get(material)) {
-                        if (loc.getBlockX() == block.getX() && loc.getBlockY() == block.getY() && loc.getBlockZ() == block.getZ()) {
-
-                            StatsPlayer sp = new StatsPlayer(p);
-                            sp.addBrokenOre();
-
-                            int regenerateTime = config.getInt("Games." + game.getGameId()
-                                    + ".regenerative_blocks." + material.toString() + ".regenerate_time");
-
-                            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                                teleportOres(block);
-                                block.setType(Material.BEDROCK);
-                            });
-
-                            BukkitRunnable runnable = new BukkitRunnable() {
-
-                                @Override
-                                public void run() {
-                                    if (e.getBlock().getWorld() != null) {
-                                        block.setType(material);
-                                    }
+                            @Override
+                            public void run() {
+                                if (e.getBlock().getWorld() != null) {
+                                    block.setType(material);
                                 }
-                            };
-                            runnable.runTaskLater(plugin, regenerateTime);
-                        }
-
+                            }
+                        };
+                        runnable.runTaskLater(plugin, ores.getRegenerateTime(material));
                     }
-
                 }
-
             }
 
         }
+
     }
-    
+
     private void teleportOres(Block block) {
         Set<Item> items = new HashSet<>();
         Collection<Entity> list = block.getWorld().getNearbyEntities(block.getLocation().add(0.5, 0, 0.5), 0.5, 1, 0.5);
-        for(Entity entity : list) {
-            if(entity instanceof Item) {
+        for (Entity entity : list) {
+            if (entity instanceof Item) {
                 items.add((Item) entity);
             }
         }
-        for(Item item : items) {
+        for (Item item : items) {
             item.teleport(block.getLocation().add(0.5, 1.5, 0.5));
             item.setVelocity(new Vector());
         }
     }
-    
+
     public static void regenBlock(Location location) {
         Game game = null;
         QuartzDefenders plugin = QuartzDefenders.getInstance();
@@ -102,48 +88,31 @@ public class BreakBlockEvent implements Listener {
             }
         }
         if (game != null) {
-            FileConfiguration config = plugin.getConfigs().getGameInfo();
-
+            Ores ores = game.getGameOres();
             if (game.isGameState(GameState.ACTIVE)) {
                 Material material = location.getBlock().getType();
-
-                if (game.getRegenerativeBlocks().containsKey(material)) {
+                if (ores.isRegenerativeMaterial(material)) {
                     Block block = location.getBlock();
-
-                    for (Location loc : game.getRegenerativeBlocks().get(material)) {
-                        if (loc.getBlockX() == block.getX() && loc.getBlockY() == block.getY() && loc.getBlockZ() == block.getZ()) {
-
-                            /*StatsPlayer sp = new StatsPlayer(player);
-                            sp.addBrokenOre();*/
-
-                            int regenerateTime = config.getInt("Games." + game.getGameId()
-                                    + ".regenerative_blocks." + material.toString() + ".regenerate_time");
-
-                            new BukkitRunnable() {
-
-                                @Override
-                                public void run() {
-                                    block.setType(Material.BEDROCK);
+                    if (ores.isRegenetiveOre(location)) {
+                        int time = ores.getRegenerateTime(material);
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                block.setType(Material.BEDROCK);
+                            }
+                        }.runTaskLater(QuartzDefenders.getInstance(), 0);
+                        BukkitRunnable runnable = new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                if (location.getBlock().getWorld() != null) {
+                                    block.setType(material);
                                 }
-                            }.runTaskLater(QuartzDefenders.getInstance(), 0);
-
-                            BukkitRunnable runnable = new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    if (loc.getBlock().getWorld() != null) {
-                                        block.setType(material);
-                                    }
-                                }
-                            };
-                            runnable.runTaskLater(plugin, regenerateTime);
-                        }
-
+                            }
+                        };
+                        runnable.runTaskLater(plugin, time);
                     }
-
                 }
-
             }
-
         }
     }
 
