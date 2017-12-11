@@ -598,7 +598,7 @@ public class Game {
         }
 
         gameAllPlayers.clear();
-        QuartzDefenders.getInstance().getTopManager().refresh();
+
         mapManager.deleteMap();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
         LoggerUtil.logInfo(Language.getString("logger.game_disable", new Replacer("{0}", gameName), new Replacer("{1}", id)));
