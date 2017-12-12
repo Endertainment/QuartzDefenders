@@ -8,7 +8,7 @@ commands:
   team:
     usage: /<command> help
   stats:
-    usage: /<command> help
+    usage: /<command> help 
   gamebroadcast:
     usage: /<command> <message>
     aliases: [bc, gbc, gamebc, bcast]

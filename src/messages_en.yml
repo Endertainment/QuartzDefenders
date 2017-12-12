@@ -34,7 +34,7 @@ game:
     quartz_destroy: 'Player {0}&7 has destroyed the quartz of the {1}&7 team'
     quartz_broken: '&cYour quartz is broken'
     chat_failed: '&cYou can not write in chat here'
-    respawn: 'You will respawn after &b{0}&7 seconds'
+    respawn: 'You will respawn after &b{0}&7 seconds' 
     title:
         waiting: 
             top: '{0}'
