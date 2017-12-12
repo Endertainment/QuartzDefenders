@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Achievements;
+package ua.endertainment.quartzdefenders.achievements;
 
 import java.util.ArrayList;
 import java.util.List;

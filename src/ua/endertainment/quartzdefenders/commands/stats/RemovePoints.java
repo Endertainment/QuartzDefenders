@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Commands.Stats;
+package ua.endertainment.quartzdefenders.commands.stats;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

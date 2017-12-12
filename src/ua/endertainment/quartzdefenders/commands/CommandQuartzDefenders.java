@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Commands;
+package ua.endertainment.quartzdefenders.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

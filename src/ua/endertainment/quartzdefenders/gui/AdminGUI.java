@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.GUI;
+package ua.endertainment.quartzdefenders.gui;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

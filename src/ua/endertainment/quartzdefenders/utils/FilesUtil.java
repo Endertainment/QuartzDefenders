@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Utils;
+package ua.endertainment.quartzdefenders.utils;
 
 import java.io.File;
 import java.io.IOException;

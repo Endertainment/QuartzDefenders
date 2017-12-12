@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Commands.Team;
+package ua.endertainment.quartzdefenders.commands.team;
 
 import org.bukkit.command.CommandSender;
 

@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Utils;
+package ua.endertainment.quartzdefenders.utils;
 
 import java.util.Arrays;
 import java.util.List;

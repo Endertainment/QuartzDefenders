@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Events.Game;
+package ua.endertainment.quartzdefenders.events.game;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

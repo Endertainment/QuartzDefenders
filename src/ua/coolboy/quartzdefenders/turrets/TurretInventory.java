@@ -1,4 +1,4 @@
-package ua.Coolboy.quartzdefenders.turrets;
+package ua.coolboy.quartzdefenders.turrets;
 
 import java.util.Arrays;
 import org.bukkit.Bukkit;

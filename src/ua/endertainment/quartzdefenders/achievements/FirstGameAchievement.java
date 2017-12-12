@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Achievements;
+package ua.endertainment.quartzdefenders.achievements;
 
 public class FirstGameAchievement extends Achievement{
 

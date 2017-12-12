@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Commands.Kit;
+package ua.endertainment.quartzdefenders.commands.kit;
 
 import java.util.HashMap;
 

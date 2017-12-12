@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Game;
+package ua.endertainment.quartzdefenders.game;
 
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.Game;

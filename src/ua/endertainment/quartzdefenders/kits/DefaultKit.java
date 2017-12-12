@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Kits;
+package ua.endertainment.quartzdefenders.kits;
 
 import org.bukkit.Material;
 

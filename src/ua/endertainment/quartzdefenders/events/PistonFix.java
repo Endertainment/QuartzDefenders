@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Events;
+package ua.endertainment.quartzdefenders.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;

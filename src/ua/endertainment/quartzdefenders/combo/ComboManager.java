@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Combo;
+package ua.endertainment.quartzdefenders.combo;
 
 import java.util.HashMap;
 import java.util.Map;

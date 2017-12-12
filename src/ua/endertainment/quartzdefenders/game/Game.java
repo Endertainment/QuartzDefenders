@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Game;
+package ua.endertainment.quartzdefenders.game;
 
 import java.util.ArrayList;
 import java.util.Calendar;

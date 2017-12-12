@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Stats;
+package ua.endertainment.quartzdefenders.stats;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

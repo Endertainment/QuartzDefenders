@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.Commands.Game;
+package ua.endertainment.quartzdefenders.commands.game;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
