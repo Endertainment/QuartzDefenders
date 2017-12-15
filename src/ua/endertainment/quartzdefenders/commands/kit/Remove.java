@@ -3,10 +3,10 @@ package ua.endertainment.quartzdefenders.commands.kit;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import ua.endertainment.quartzdefenders.QuartzDefenders;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.kits.Kit;
-import ua.endertainment.quartzdefenders.kits.KitsManager;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Remove extends SubCommand {
@@ -31,7 +31,7 @@ public class Remove extends SubCommand {
 		Kit kit = null;
 		Player p = null;
 		
-		kit = KitsManager.getInstance().getKit(args[0]);
+		kit = QuartzDefenders.getInstance().getKitManager().getKit(args[0]);
 		
 		if(kit == null) {
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Kit " + args[0] + "&7 is not exist"));
@@ -48,7 +48,7 @@ public class Remove extends SubCommand {
 			p = (Player) sender;
 		}
 		
-		KitsManager.getInstance().removeKit(kit, p);
+		QuartzDefenders.getInstance().getKitManager().removeKit(kit, p);
 		sender.sendMessage(LoggerUtil.gameMessage("Kits", "You remove kit " + kit.getDisplayName() + "&7 from player " + p.getDisplayName()));
 		return;
 	}

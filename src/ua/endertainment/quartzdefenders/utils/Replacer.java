@@ -6,9 +6,9 @@ public class Replacer {
 	private String what;
 	private String to;
 		
-	public Replacer(String what, String to) {
+	public Replacer(String what, Object to) {
 		this.what = what;
-		this.to = to;
+		this.to = to.toString();
 	}
 	public void addString(String s) {
 		this.s = s;

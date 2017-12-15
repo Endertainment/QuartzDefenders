@@ -1,5 +1,6 @@
 package ua.endertainment.quartzdefenders;
 
+import java.util.Collections;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.Game;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import ua.endertainment.quartzdefenders.commands.stats.CommandStats;
 import ua.endertainment.quartzdefenders.commands.team.CommandTeam;
 import ua.endertainment.quartzdefenders.events.*;
 import ua.endertainment.quartzdefenders.events.game.GameRegisterEvent;
+import ua.endertainment.quartzdefenders.kits.KitsManager;
 import ua.endertainment.quartzdefenders.stats.PlayerJoinStats;
 import ua.endertainment.quartzdefenders.stats.TopManager;
 import ua.endertainment.quartzdefenders.utils.FilesUtil;
@@ -45,7 +47,9 @@ public class QuartzDefenders extends JavaPlugin {
     private Lobby lobby;
     private AchievementsManager achvM;
     private ComboManager comboManager;
+    private KitsManager kitsManager;
 
+    private final static Set<JavaPlugin> plugins = new HashSet<>();
     private final Set<Game> games = new HashSet<>();
     private final HashMap<UUID, GamePlayer> gamePlayers = new HashMap<>();
 
@@ -60,6 +64,7 @@ public class QuartzDefenders extends JavaPlugin {
         top = new TopManager(this);
         achvM = new AchievementsManager(this);
         comboManager = new ComboManager(this);
+        kitsManager = new KitsManager(this);
         /*
 		 * Prevent an exceptions when plugin is disabled
          */
@@ -189,7 +194,25 @@ public class QuartzDefenders extends JavaPlugin {
     public static void sendInfo(String s) {
         Bukkit.getConsoleSender().sendMessage(s);
     }
-
+    
+    public static void hook(JavaPlugin plugin) {
+        plugins.add(plugin);
+        LoggerUtil.logInfo("Successfully hooked plugin: " + plugin.getName());
+    }
+    
+    public static void unhook(JavaPlugin plugin) {
+        if(plugins.remove(plugin)) {
+        LoggerUtil.logInfo("Successfully unhooked plugin: " + plugin.getName());   
+        }
+    }
+    
+    public static boolean isHooked(JavaPlugin plugin) {
+        return plugins.contains(plugin);
+    }
+    
+    public static Set<JavaPlugin> getHookedPlugins() {
+        return Collections.unmodifiableSet(plugins);
+    }
     /*
 	 * Games Management
      */
@@ -246,7 +269,11 @@ public class QuartzDefenders extends JavaPlugin {
     public TopManager getTopManager() {
         return top;
     }
-
+    
+    public KitsManager getKitManager() {
+        return kitsManager;
+    }
+    
     public Lobby getLobby() {
         return lobby;
     }

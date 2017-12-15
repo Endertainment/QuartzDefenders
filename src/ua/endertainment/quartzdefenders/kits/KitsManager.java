@@ -1,150 +1,151 @@
 package ua.endertainment.quartzdefenders.kits;
 
-import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
+import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
-import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
+import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Replacer;
 
 public class KitsManager {
 
-	private static KitsManager kitsManager = new KitsManager();
-	public static KitsManager getInstance() {
-		return kitsManager;
-	}
-	
-	private ArrayList<Kit> kits;
-	
-	private KitsManager() {
-		kits = new ArrayList<>();
-		
-		kits.add(new DefaultKit());
-		kits.add(new ArcherKit());
-	}
-	
-	public Kit getKit(String name) {
-		for(Kit kit : kits) {
-			if(kit.getName().equals(name)){
-				return kit;
-			}
-		}
-		return null;
-	}
-	public ArrayList<Kit> getKits() {
-		return kits;
-	}
-	
-	
-	public void buyKitFailed(Kit kit, Player p) {
-		String access = accessBuy(kit, p);
-		if(access.contains("Available")) return;
-		p.sendMessage(LoggerUtil.gameMessage("Shop", "You can not buy kit " + kit.getDisplayName() + "&7. Reason: " + accessBuy(kit, p)));
-	}
-	public void giveKit(Kit kit, Player p) {
-		StatsPlayer sp = new StatsPlayer(p);
-		sp.addCoins(kit.getPrice());
-		buyKit(kit, p);
-	}
-	public void removeKit(Kit kit, Player p) {
-		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
-		if(c.isList(p.getUniqueId().toString())) {
-			ArrayList<String> l = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());
-			if(l.contains(kit.getName())) {
-				l.remove(kit.getName());
-			}			
-			c.set(p.getUniqueId().toString(), l);
-		} 
-		QuartzDefenders.getInstance().getConfigs().saveKitsInfo();
-	}
-	public void buyKit(Kit kit, Player p) {
-		StatsPlayer sp = new StatsPlayer(p);
-		int i = sp.getCoins() - kit.getPrice();
-		sp.setCoins(i);
-		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
-		if(c.isList(p.getUniqueId().toString())) {
-			ArrayList<String> l = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());
-			if(l.contains(kit.getName())) {
-				return;
-			}
-			l.add(kit.getName());
-			c.set(p.getUniqueId().toString(), l);
-		} else {
-			ArrayList<String> l = new ArrayList<>();
-			l.add(kit.getName());
-			c.set(p.getUniqueId().toString(), l);
-		}
-		QuartzDefenders.getInstance().getConfigs().saveKitsInfo();
-		p.sendMessage(LoggerUtil.gameMessage("Shop", "You buy a new kit: &a" + kit.getDisplayName()));
-	}
-	public void chooseKit(Kit kit, Game game, GamePlayer p) {
-		game.setKit(p, kit);
-		p.sendMessage(LoggerUtil.gameMessage("Kits", "You choose a kit " + kit.getDisplayName()));
-	}
-	public void chooseKitFailed(Kit kit, GamePlayer p) {
-		p.sendMessage(LoggerUtil.gameMessage("Kits", "You do not have a kit " + kit.getDisplayName()));
-	}
-	
-	public boolean isKitAccess(Kit kit, Player p) {
-		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
-		
-		if(!c.isList(p.getUniqueId().toString())) return false;
-		
-		ArrayList<String> plKits = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());		
-		if(plKits.contains(kit.getName())) return true;
-		
-		return false;		
-	}
-	
-	public boolean isKitAccessToBuy(Kit kit, Player p) {
-		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
-		
-		if(c.isList(p.getUniqueId().toString())) {
-			ArrayList<String> plKits = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());		
-			if(plKits.contains(kit.getName())) return false;
-		}
-		
-		StatsPlayer sp = new StatsPlayer(p);
-		int coins = sp.getCoins();
-		int level = sp.getLevel();
-		if(kit.getLevel() > level) return false;
-		
-		if(kit.getPrice() > coins) return false; 
-		
-		return true;		
-	}
-	
-	public String accessChoose(Kit kit, Player p) {		
-		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
-		
-		if(c.isList(p.getUniqueId().toString())) {
-			ArrayList<String> plKits = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());		
-			if(plKits.contains(kit.getName())) return "&aAvailable";
-		}
-		
-		return "&cUnavailable";
-	}
-	
-	public String accessBuy(Kit kit, Player p) {
-		StatsPlayer sp = new StatsPlayer(p);
-		int level = sp.getLevel();
-		int coins = sp.getCoins();
-		
-		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getKitsInfo();
-		
-		if(c.isList(p.getUniqueId().toString())) {
-			ArrayList<String> plKits = (ArrayList<String>) c.getStringList(p.getUniqueId().toString());		
-			if(plKits.contains(kit.getName())) return "&aAvailable";
-		}
-		
-		if(kit.getLevel() > level) return "&cUnavailable. Requested level " + kit.getLevel();
-		
-		if(kit.getPrice() > coins) return "&cUnavailable. Price " + kit.getPrice();
-		
-		return "&aAvailable &7(Click to buy)";
-	}
+    QuartzDefenders plugin;
+    FileConfiguration config;
+    String kitsName = Language.getString("kits.kits");
+
+    private static HashMap<Kit, JavaPlugin> kits = new HashMap<>();
+
+    public KitsManager(QuartzDefenders plugin) {
+        this.plugin = plugin;
+        config = plugin.getConfigs().getKitsInfo();
+    }
+
+    public void registerKit(Kit kit, JavaPlugin plugin) {
+        kits.put(kit, plugin);
+    }
+
+    public void unregisterKit(Kit kit) {
+        kits.remove(kit);
+    }
+
+    public void unregisterAll(JavaPlugin plugin) {
+        kits.entrySet().removeIf(e -> e.getValue().equals(plugin));
+    }
+
+    public HashMap<Kit, JavaPlugin> getKitsRegistry() {
+        return kits;
+    }
+
+    public Kit getKit(String string) {
+        for (Kit kit : kits.keySet()) {
+            if (kit.getName().equals(string)) {
+                return kit;
+            }
+        }
+        return null;
+    }
+
+    public boolean isBought(Kit kit, Player player) {
+        String kitName = (getPlugin(kit).getName() + ":" + kit.getName()).toLowerCase();
+        List<String> list = config.getStringList(player.getUniqueId().toString());
+        return list.contains(kitName);
+    }
+
+    public Set<Kit> getPlayerKits(Player player) {
+        Set<Kit> kits = new HashSet<>();
+        List<String> list = config.getStringList(player.getUniqueId().toString());
+        for (String kit : list) {
+            String n = kit.split(":")[1];
+            Kit k = getKit(n);
+            if (k != null) {
+                kits.add(k);
+            }
+        }
+        return kits;
+    }
+
+    public boolean isObtainable(Kit kit, Player player) {
+        if (getPlayerKits(player).contains(kit)) {
+            return false;
+        }
+        StatsPlayer pl = new StatsPlayer(player);
+        if (pl.getLevel() >= kit.getLevel()) {
+            if (pl.getCoins() >= kit.getPrice()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeKit(Kit kit, Player player) {
+        String kitName = (getPlugin(kit).getName() + ":" + kit.getName()).toLowerCase();//plugin_name:kit_name
+        List<String> list = config.getStringList(player.getUniqueId().toString());
+        list.remove(kitName);
+        config.set(player.getUniqueId().toString(), list);
+    }
+
+    public void giveKit(Kit kit, Player player) {
+        writeKit(player, kit);
+    }
+
+    public void buyKit(Kit kit, Player player) {
+        StatsPlayer pl = new StatsPlayer(player);
+        if (pl.getLevel() >= kit.getLevel()) {
+            if (pl.getCoins() >= kit.getPrice()) {
+                pl.removeCoins(kit.getPrice());
+                writeKit(player, kit);
+                LoggerUtil.gameMessage(kitsName, Language.getString("kits.kit_buy_success", new Replacer("{0}", kit.getDisplayName())));
+            }
+            LoggerUtil.gameMessage(kitsName, Language.getString("kits.not_enough_coins", new Replacer("{0}", kit.getPrice())));
+        }
+        LoggerUtil.gameMessage(kitsName, Language.getString("kits.low_level", new Replacer("{0}", kit.getLevel())));
+    }
+
+    private JavaPlugin getPlugin(Kit kit) {
+        for (Entry<Kit, JavaPlugin> entry : kits.entrySet()) {
+            if (entry.getKey().getName().equals(kit.getName())) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
+    private void writeKit(Player player, Kit kit) {
+        String kitName = (getPlugin(kit).getName() + ":" + kit.getName()).toLowerCase();//plugin_name:kit_name
+        List<String> list = config.getStringList(player.getUniqueId().toString());
+        if (!list.contains(kitName)) {
+            list.add(kitName);
+        }
+        config.set(player.getUniqueId().toString(), list);
+    }
+
+    public void chooseKit(Kit kit, Game game, GamePlayer gamePlayer) {
+        if (isBought(kit, gamePlayer.getPlayer())) {
+            game.setKit(gamePlayer, kit);
+            gamePlayer.getPlayer().sendMessage(LoggerUtil.gameMessage(kitsName, Language.getString("kit_choose_success", new Replacer("{0}", kit.getDisplayName()))));
+        } else {
+            gamePlayer.getPlayer().sendMessage(LoggerUtil.gameMessage(kitsName, Language.getString("kit_choose_failed", new Replacer("{0}", kit.getDisplayName()))));
+        }
+    }
+
+    public String getAvailability(Kit kit, Player player) {
+        boolean b = isObtainable(kit, player);
+        return b? Language.getString("kits.kit_available") : Language.getString("kits.kit_unavailable");
+    }
+    
+    public String getAccess(Kit kit, Player player) {
+        boolean b = isBought(kit, player);
+        return b? Language.getString("kits.kit_available") : Language.getString("kits.kit_unavailable");
+    }
+
 }

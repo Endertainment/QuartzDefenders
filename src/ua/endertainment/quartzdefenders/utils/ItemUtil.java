@@ -102,6 +102,15 @@ public class ItemUtil {
         stack.setItemMeta(meta);
         return stack;
     }
+    
+    public static ItemStack addLore(ItemStack stack, String newLine) {
+        ItemMeta meta = stack.getItemMeta();
+        List<String> lore = meta.getLore();
+        lore.add(new ColorFormat(newLine).format());
+        meta.setLore(lore);
+        stack.setItemMeta(meta);
+        return stack;
+    }
 
     //inserts a formatting character between every character, making it invisible when displayed as lore
     public static String encodeHiddenLore(String lore) {

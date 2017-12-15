@@ -191,6 +191,14 @@ public class StatsPlayer {
         }
         StatsManager.saveInfo(id, "coins", this.coins);
     }
+    
+    public void removeCoins(int coins) {
+        this.coins -= coins;
+        if (this.coins < 0) {
+            this.coins = 0;
+        }
+        StatsManager.saveInfo(id, "coins", this.coins);
+    }
 
     public void setCoins(int coins) {
         this.coins = coins;

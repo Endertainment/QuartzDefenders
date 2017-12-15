@@ -15,6 +15,7 @@ import ua.endertainment.quartzdefenders.game.Balance;
 import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.gui.StatsGUI;
 import ua.endertainment.quartzdefenders.items.QItems;
 import ua.endertainment.quartzdefenders.kits.Kit;
@@ -84,16 +85,12 @@ public class InvClickEvent implements Listener {
          */
         if (inv.getName().equals(Language.getString("GUI.shop.name"))) {
             e.setCancelled(true);
+            KitsManager m = plugin.getKitManager();
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
-            for (Kit kit : KitsManager.getInstance().getKits()) {
+            for (Kit kit : m.getKitsRegistry().keySet()) {
                 if (curr.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', kit.getDisplayName()))) {
-                    if (KitsManager.getInstance().isKitAccessToBuy(kit, p)) {
-                        KitsManager.getInstance().buyKit(kit, p);
+                        m.buyKit(kit, p);
                         p.closeInventory();
-                    } else {
-                        KitsManager.getInstance().buyKitFailed(kit, p);
-                        p.closeInventory();
-                    }
                 }
             }
 
@@ -105,16 +102,13 @@ public class InvClickEvent implements Listener {
          */
         if (inv.getName().equals(Language.getString("GUI.kits.name"))) {
             e.setCancelled(true);
+            KitsManager m = plugin.getKitManager();
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
-            for (Kit kit : KitsManager.getInstance().getKits()) {
+            GamePlayer gp = plugin.getGamePlayer(p);
+            for (Kit kit : m.getKitsRegistry().keySet()) {
                 if (curr.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', kit.getDisplayName()))) {
-                    if (KitsManager.getInstance().isKitAccess(kit, p)) {
-                        KitsManager.getInstance().chooseKit(kit, plugin.getGame(p), plugin.getGamePlayer(p));
+                        m.chooseKit(kit, plugin.getGame(p), plugin.getGamePlayer(p));
                         p.closeInventory();
-                    } else {
-                        KitsManager.getInstance().chooseKitFailed(kit, plugin.getGamePlayer(p));
-                        p.closeInventory();
-                    }
                 }
             }
 
