@@ -8,6 +8,8 @@ import ua.endertainment.quartzdefenders.game.GamePlayer;
 
 public interface Kit {
 
+	public abstract String getKitID();
+	
     public abstract String getDisplayName();
 
     public abstract String getName();
@@ -15,6 +17,10 @@ public interface Kit {
     public abstract int getPrice();
 
     public abstract int getLevel();
+    
+    public abstract String getAchievemet();
+    
+    public abstract String getPermission();
 
     public abstract ItemStack getPreviewItem();
 
