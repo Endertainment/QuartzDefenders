@@ -18,6 +18,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -608,6 +609,18 @@ public class Game {
         this.game = null;
     }
 
+    public void showBossBar(BossBar bar) {
+    	for(GamePlayer p : gameAllPlayers) {
+    		bar.addPlayer(p.getPlayer());
+    	}
+    	new BukkitRunnable() {			
+			@Override
+			public void run() {
+				bar.removeAll();
+			}
+		}.runTaskLater(QuartzDefenders.getInstance(), 100);
+    }
+    
     public void reconnect(GamePlayer p) {
         p.getPlayer().getInventory().clear();
     	p.getPlayer().setGameMode(GameMode.SURVIVAL);

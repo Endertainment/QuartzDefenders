@@ -8,6 +8,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 
+import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.combo.ComboManager.Kills;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
@@ -20,13 +21,15 @@ public class Combo {
 	
 	private GamePlayer player;
 	private Kills count;
-	private long time;
+	private long lastTime;
 	private BossBar bossBar;
+	private Game game;
 	
-	public Combo(GamePlayer player) {
+	public Combo(GamePlayer player, Game game) {
 		this.player = player;
 		this.count = Kills.ZERO;
-		this.time = time;
+		this.game = game;
+		this.lastTime = System.currentTimeMillis();
 		
 		this.bossBar = Bukkit.createBossBar(" ", BarColor.WHITE, BarStyle.SEGMENTED_20);
 	}
@@ -40,8 +43,8 @@ public class Combo {
 		return count;
 	}
 	
-	public long getTime() {
-		return time;
+	public long getLastTime() {
+		return lastTime;
 	}
 	
 	public BossBar getBossBar() {
@@ -56,14 +59,42 @@ public class Combo {
 	public void reset() {
 		this.bossBar = Bukkit.createBossBar(" ", BarColor.WHITE, BarStyle.SEGMENTED_20);
 		this.count = Kills.ZERO;
-		this.time = 0;
+		this.lastTime = 0;
 	}
 	
+	public void up() {
+		lastTime = System.currentTimeMillis();
+		switch(count) {
+			case ZERO:
+				count = Kills.FIRST;
+			case FIRST:
+				count = Kills.DOUBLE;
+				show();
+			case DOUBLE:
+				count = Kills.TRIPLE;
+				show();
+			case TRIPLE:
+				count = Kills.ULTRA;
+				show();
+			case ULTRA:
+				count = Kills.RAMPAGE;
+				show();
+			case RAMPAGE:
+				count = Kills.RAMPAGE;
+				show();
+			default:
+				count = Kills.ZERO;		
+		}
+	}
 	
-	
-	
-	
-	private void gen() {
+	public boolean compareTime() {
+		if((lastTime + 15*1000) >= System.currentTimeMillis()) {
+			return true;
+		}
+		return false;
+	}
+		
+	private void show() {
 		Random rand = new Random();
 		int i = rand.nextInt(7) + 1;
 		switch (i) {
@@ -90,6 +121,12 @@ public class Combo {
 				this.cc = ChatColor.WHITE;
 		}
 		
-		this.title = new ColorFormat(cc + "" + count + " kill by " + player.getDisplayName()).format();
+		this.title = new ColorFormat(cc + "" + count + (count == Kills.RAMPAGE ? "" : " kill") + " by " + player.getDisplayName()).format();
+		
+		bossBar.setColor(bc);
+		bossBar.setTitle(title);
+		
+		game.showBossBar(bossBar);
+		
 	}
 }

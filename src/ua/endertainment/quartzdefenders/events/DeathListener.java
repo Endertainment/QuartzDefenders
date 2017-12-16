@@ -71,6 +71,8 @@ public class DeathListener implements Listener {
 			killer.getInventory().addItem(new ItemStack(Material.BONE));
 			killer.getInventory().addItem(new ItemStack(Material.RAW_BEEF));
 			
+			plugin.getComboManager().start(plugin.getGamePlayer(killer), game);
+			
 		}
 		
 		game.getSidebar().refresh();

@@ -63,7 +63,7 @@ public class QuartzDefenders extends JavaPlugin {
         lobby = new Lobby(this);
         top = new TopManager(this);
         achvM = new AchievementsManager(this);
-        comboManager = new ComboManager(this);
+        comboManager = new ComboManager();
         kitsManager = new KitsManager(this);
         /*
 		 * Prevent an exceptions when plugin is disabled
