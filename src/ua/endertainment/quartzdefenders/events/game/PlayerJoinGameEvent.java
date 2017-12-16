@@ -16,7 +16,7 @@ public class PlayerJoinGameEvent extends Event implements Cancellable {
 	private Player player;
 	private GameState state;
 	
-	private boolean cansel;
+	private boolean cancel;
 	
 	public PlayerJoinGameEvent(Game game, GamePlayer gamePlayer) {
 		this.game = game;
@@ -24,7 +24,7 @@ public class PlayerJoinGameEvent extends Event implements Cancellable {
 		this.player = gamePlayer.getPlayer();
 		this.state = game.getGameState();
 		
-		this.cansel = false;
+		this.cancel = false;
 	}
 	
 	public Game getGame() {
@@ -40,16 +40,19 @@ public class PlayerJoinGameEvent extends Event implements Cancellable {
 		return player;
 	}
 
+        @Override
 	public boolean isCancelled() {
-		return cansel;
+		return cancel;
 	}
 
+        @Override
 	public void setCancelled(boolean paramBoolean) {
-		this.cansel = paramBoolean;
+		this.cancel = paramBoolean;
 	}
 	
 	public static final HandlerList handlers = new HandlerList();
 	
+        @Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}

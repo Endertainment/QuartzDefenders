@@ -11,11 +11,11 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class ExplodeEvent implements Listener {
+public class ExplodeListener implements Listener {
 
     private QuartzDefenders plugin;
 
-    public ExplodeEvent(QuartzDefenders plugin) {
+    public ExplodeListener(QuartzDefenders plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
@@ -41,7 +41,7 @@ public class ExplodeEvent implements Listener {
 
         for (Block b : blocks) {
             if (game.getGameOres().isRegenetiveOre(b.getLocation())) {
-                BreakBlockEvent.regenBlock(b.getLocation());
+                BreakBlockListener.regenBlock(b.getLocation());
 
             }
         }

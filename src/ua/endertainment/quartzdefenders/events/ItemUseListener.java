@@ -23,11 +23,11 @@ import ua.endertainment.quartzdefenders.gui.TeamGUI;
 import ua.endertainment.quartzdefenders.items.QItems;
 import ua.endertainment.quartzdefenders.items.SetupItems;
 
-public class ItemsUseEvent implements Listener {
+public class ItemUseListener implements Listener {
 
     private QuartzDefenders plugin;
 
-    public ItemsUseEvent(QuartzDefenders plugin) {
+    public ItemUseListener(QuartzDefenders plugin) {
         this.plugin = plugin;
 
         Bukkit.getPluginManager().registerEvents(this, plugin);

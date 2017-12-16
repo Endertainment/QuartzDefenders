@@ -30,12 +30,12 @@ import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.Replacer;
 
-public class DeathEvent implements Listener {
+public class DeathListener implements Listener {
 
 	private QuartzDefenders plugin;
 	private Set<Player> freeze; 
 	
-	public DeathEvent(QuartzDefenders plugin) {
+	public DeathListener(QuartzDefenders plugin) {
 		this.plugin = plugin;
 		this.freeze = new HashSet<>();
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);

@@ -32,6 +32,7 @@ import ua.endertainment.quartzdefenders.items.QItems;
 import ua.endertainment.quartzdefenders.stats.KillsStats;
 import ua.endertainment.quartzdefenders.kits.Kit;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.events.game.GameEndEvent;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.BCub;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
@@ -526,6 +527,7 @@ public class Game {
         } catch (Exception e) {
 
         }
+        Bukkit.getPluginManager().callEvent(new GameEndEvent(game));
         disableGame();
     }
 
@@ -599,9 +601,8 @@ public class Game {
         gameAllPlayers.clear();
 
         mapManager.deleteMap();
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game remove " + id);
         LoggerUtil.logInfo(Language.getString("logger.game_disable", new Replacer("{0}", gameName), new Replacer("{1}", id)));
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "game add " + id);
+        QuartzDefenders.getInstance().restartGame(this);
 
         this.game = null;
     }

@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 
-public abstract class Kit {
+public interface Kit {
 
     public abstract String getDisplayName();
 

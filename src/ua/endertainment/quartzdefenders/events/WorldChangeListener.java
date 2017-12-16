@@ -9,11 +9,11 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class WorldChangeEvent implements Listener {
+public class WorldChangeListener implements Listener {
 
 	private QuartzDefenders plugin;
 	
-	public WorldChangeEvent(QuartzDefenders plugin) {
+	public WorldChangeListener(QuartzDefenders plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}

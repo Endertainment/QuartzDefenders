@@ -15,11 +15,11 @@ import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.Game.GameState;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class DamageEvent implements Listener {
+public class DamageListener implements Listener {
 
     private QuartzDefenders plugin;
 
-    public DamageEvent(QuartzDefenders plugin) {
+    public DamageListener(QuartzDefenders plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }

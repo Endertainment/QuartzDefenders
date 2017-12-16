@@ -13,11 +13,11 @@ import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.Cuboid;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
-public class PlaceBlockEvent implements Listener {
+public class BlockPlaceListener implements Listener {
 
     private QuartzDefenders plugin;
 
-    public PlaceBlockEvent(QuartzDefenders plugin) {
+    public BlockPlaceListener(QuartzDefenders plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }

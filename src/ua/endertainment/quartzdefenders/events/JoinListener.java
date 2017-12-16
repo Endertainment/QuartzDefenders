@@ -12,11 +12,11 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
 
-public class JoinEvent implements Listener {
+public class JoinListener implements Listener {
 
 	private QuartzDefenders plugin;
 	
-	public JoinEvent(QuartzDefenders quartzDefenders) {
+	public JoinListener(QuartzDefenders quartzDefenders) {
 		this.plugin = quartzDefenders;
 		
 		Bukkit.getPluginManager().registerEvents(this, plugin);

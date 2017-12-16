@@ -13,11 +13,11 @@ import ua.coolboy.quartzdefenders.shop.Shop;
 import ua.coolboy.quartzdefenders.shop.ShopEntity;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class LightningEvent implements Listener {
+public class LightningListener implements Listener {
 
     QuartzDefenders plugin;
 
-    public LightningEvent(QuartzDefenders plugin) {
+    public LightningListener(QuartzDefenders plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }

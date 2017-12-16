@@ -1,6 +1,6 @@
 name: QuartzDefenders
 version: 3.0
-main: ua.Endertainment.QuartzDefenders.QuartzDefenders
+main: ua.endertainment.quartzdefenders.QuartzDefenders
 commands:
   quartzdefenders:
     usage: /<command> help

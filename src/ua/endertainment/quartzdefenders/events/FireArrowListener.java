@@ -11,9 +11,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class FireArrowEvent implements Listener {
+public class FireArrowListener implements Listener {
 
-    public FireArrowEvent(QuartzDefenders plugin) {
+    public FireArrowListener(QuartzDefenders plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

@@ -11,11 +11,11 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.Cuboid;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
-public class CuboidBreakBlockEvent implements Listener {
+public class CuboidBlockBreakListener implements Listener {
 
 	private QuartzDefenders plugin;
 	
-	public CuboidBreakBlockEvent(QuartzDefenders plugin) {
+	public CuboidBlockBreakListener(QuartzDefenders plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}

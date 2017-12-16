@@ -2,9 +2,7 @@ package ua.endertainment.quartzdefenders.utils;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.logging.Level;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
@@ -23,14 +21,24 @@ public abstract class Language {
         String s = QuartzDefenders.getInstance().getConfigs().getLang().getString(path);
         if (s == null) {
             s = getDefaultLanguage().getString(path);
-            
+
             if (s == null) {
-                Bukkit.getLogger().log(Level.WARNING, "Could not find string {0}", path);
+                LoggerUtil.logError("Could not find string: "+ path);
                 return "";
             }
-            
+
         }
         return StringEscapeUtils.unescapeJava(s);
+    }
+
+    public static String getString(String path, Object... replace) {
+        String s = getString(path);
+        int i = 0;
+        for (Object st : replace) {
+            s = s.replace("{" + i + "}", st.toString());
+            i++;
+        }
+        return s;
     }
 
     public static String getString(String path) {
@@ -42,15 +50,7 @@ public abstract class Language {
     }
 
     public static String getRawString(String path, Replacer... replacer) {
-        String s = QuartzDefenders.getInstance().getConfigs().getLang().getString(path);
-        if (s == null) {
-            s = getDefaultLanguage().getString(path);
-            if (s == null) {
-                Bukkit.getLogger().log(Level.WARNING, "Could not find string {0}", path);
-            }
-            return " ";
-        }
-        
+        String s = getRawString(path);
         for (Replacer repl : replacer) {
             repl.addString(s);
             s = repl.getReplaced();

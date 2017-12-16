@@ -23,11 +23,11 @@ import ua.endertainment.quartzdefenders.kits.KitsManager;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.Replacer;
 
-public class InvClickEvent implements Listener {
+public class InventoryClickListener implements Listener {
 
     private QuartzDefenders plugin;
 
-    public InvClickEvent(QuartzDefenders plugin) {
+    public InventoryClickListener(QuartzDefenders plugin) {
         this.plugin = plugin;
 
         Bukkit.getPluginManager().registerEvents(this, plugin);

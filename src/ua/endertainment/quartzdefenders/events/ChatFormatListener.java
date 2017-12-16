@@ -17,11 +17,11 @@ import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
-public class ChatFormatEvent implements Listener{
+public class ChatFormatListener implements Listener{
 
 	private QuartzDefenders plugin;
 	
-	public ChatFormatEvent(QuartzDefenders plugin) {
+	public ChatFormatListener(QuartzDefenders plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}

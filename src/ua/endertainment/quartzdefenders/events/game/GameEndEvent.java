@@ -5,11 +5,11 @@ import org.bukkit.event.HandlerList;
 
 import ua.endertainment.quartzdefenders.game.Game;
 
-public class GameStartEvent extends Event{
+public class GameEndEvent extends Event{
 
 	private Game game;
 	
-	public GameStartEvent(Game game) {
+	public GameEndEvent(Game game) {
 		this.game = game;
 	}
 	

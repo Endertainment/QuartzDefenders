@@ -165,27 +165,27 @@ public class QuartzDefenders extends JavaPlugin {
     }
 
     private void registerEvents() {
-        new JoinEvent(this);
-        new QuitEvent(this);
-        new ItemsUseEvent(this);
-        new InvClickEvent(this);
-        new ChatFormatEvent(this);
+        new JoinListener(this);
+        new QuitListener(this);
+        new ItemUseListener(this);
+        new InventoryClickListener(this);
+        new ChatFormatListener(this);
         new ShopInventory(this);
         new PlayerJoinStats(this);
-        new ProjectileDamageEvent(this);
+        new ProjectileDamageListener(this);
         new MobsListener(this);
-        new BreakBlockEvent(this);
-        new DeathEvent(this);
-        new QuartzBreakEvent(this);
-        new PlaceBlockEvent(this);
-        new WorldChangeEvent(this);
-        new DamageEvent(this);
+        new BreakBlockListener(this);
+        new DeathListener(this);
+        new QuartzBreakListener(this);
+        new BlockPlaceListener(this);
+        new WorldChangeListener(this);
+        new DamageListener(this);
         new DeathMessages(this);
-        new ExplodeEvent(this);
-        new LightningEvent(this);
-        new FireArrowEvent(this);
+        new ExplodeListener(this);
+        new LightningListener(this);
+        new FireArrowListener(this);
         new PistonFix(this);
-        new CuboidBreakBlockEvent(this);
+        new CuboidBlockBreakListener(this);
     }
 
     /*
@@ -219,7 +219,13 @@ public class QuartzDefenders extends JavaPlugin {
     public Set<Game> getGames() {
         return games;
     }
-
+    
+    public void restartGame(Game game) {
+        String id = game.getGameId();
+        deleteGame(game);
+        addGame(id);
+    }
+    
     public void deleteGame(Game gameToDelete) {
         games.remove(gameToDelete);
     }

@@ -14,11 +14,11 @@ import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 
-public class QuitEvent implements Listener {
+public class QuitListener implements Listener {
 
 	private QuartzDefenders plugin;
 	
-	public QuitEvent(QuartzDefenders plugin) {
+	public QuitListener(QuartzDefenders plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, this.plugin);
 	}

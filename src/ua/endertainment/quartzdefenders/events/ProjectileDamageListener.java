@@ -13,9 +13,9 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ActionBarMessage;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 
-public class ProjectileDamageEvent implements Listener {
+public class ProjectileDamageListener implements Listener {
 
-    public ProjectileDamageEvent(QuartzDefenders plugin) {
+    public ProjectileDamageListener(QuartzDefenders plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     

@@ -34,7 +34,7 @@ game:
     quartz_destroy: 'Player {0}&7 has destroyed the quartz of the {1}&7 team'
     quartz_broken: '&cYour quartz is broken'
     chat_failed: '&cYou can not write in chat here'
-    respawn: 'You will respawn after &b{0}&7 seconds' 
+    respawn: 'You will respawn in &b{0}&7 seconds'
     title:
         waiting: 
             top: '{0}'
@@ -63,6 +63,30 @@ quartz:
     break_quartz_own: '&cYou can not break quartz your own team'
     break_quartz_destroy: 'Player {0} &7has destroyed the quartz of the {1}&7 team'
     quartz_broken: '&cYour quartz was broken'
+#{0} - player
+#{1} - killer
+death:
+    self: '{0} died'
+    killed: '{0} killed by {1}'
+    fall_self: '{0} was doomed to fall'
+    fall: '{0} was doomed to fall by {1}'
+    fire_self: '{0} burned to death'
+    fire: '{0} was burned by {1}'
+    fire_aspect: '{0} was burnt to a crisp whilst fighting {1}'
+    magic_self: '{0} killed by magic'
+    magic: '{0} killed by {1} using magic'
+    blown_up: '{0} blown up'
+    blown_up_by: '{0} blown up by {1}'
+    void_self: '{0} fell out of the world'
+    void: '{1} thrown {0} out of the world'
+    lava_self: '{0} tried to swim in lava'
+    lava: '{0} tried to swim in lava to escape {1}'
+    projectile: '{0} was shot by {1}'
+    magma: '{0} walked into danger zone due to {1}'
+    magma_self: '{0} died on magma floor'
+    poison: '{0} poisoned by {1}'
+    poison_self: '{0} was poisoned'
+    hunger: '{0} was very hungry'
 logger:
     info: 'Info'
     error: 'Error'

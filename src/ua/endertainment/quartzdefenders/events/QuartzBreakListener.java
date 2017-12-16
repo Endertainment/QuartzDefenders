@@ -14,11 +14,11 @@ import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.GameQuartz;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class QuartzBreakEvent implements Listener {
+public class QuartzBreakListener implements Listener {
 	
 	private QuartzDefenders plugin;
 
-	public QuartzBreakEvent(QuartzDefenders plugin) {
+	public QuartzBreakListener(QuartzDefenders plugin) {
 		this.plugin = plugin;
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
