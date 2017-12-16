@@ -140,9 +140,9 @@ public class Lobby implements Listener {
         //p.getInventory().setItem(1, QItems.itemAchievements());
     }
 
-    private boolean listContains(List<List<Integer>> where, List find) {
+    private boolean listContains(List<List<Integer>> where, List<Integer> find) {
         boolean finded;
-        for (List list : where) {
+        for (List<?> list : where) {
             finded = list.containsAll(find);
             if (finded == true) {
                 return finded;
