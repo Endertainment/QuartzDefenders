@@ -26,7 +26,7 @@ public interface Kit {
 
     public abstract List<String> getDescription();
 
-    public abstract List<ItemStack> getItems();
+    public abstract List<KitItem> getItems();
 
     public abstract void apply(GamePlayer gp);
 }

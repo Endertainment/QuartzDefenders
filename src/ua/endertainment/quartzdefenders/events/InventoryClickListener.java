@@ -107,7 +107,7 @@ public class InventoryClickListener implements Listener {
             GamePlayer gp = plugin.getGamePlayer(p);
             for (Kit kit : m.getKitsRegistry().keySet()) {
                 if (curr.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', kit.getDisplayName()))) {
-                        m.chooseKit(kit, plugin.getGame(p), plugin.getGamePlayer(p));
+                        m.chooseKit(kit, plugin.getGame(p), gp);
                         p.closeInventory();
                 }
             }
