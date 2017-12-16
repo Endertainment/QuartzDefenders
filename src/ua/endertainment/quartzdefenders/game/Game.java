@@ -424,6 +424,7 @@ public class Game {
                 p.getPlayer().setExp(0);
                 p.getPlayer().setLevel(0);
                 p.getPlayer().setTotalExperience(0);
+                disableJoinTeam(p);
                 Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
                 while (i.hasNext()) {
                     p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
