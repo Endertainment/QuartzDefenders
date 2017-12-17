@@ -14,6 +14,8 @@ public interface Kit {
 
     public abstract String getName();
 
+    public abstract KitUnlockType[] getUnlockTypes();
+    
     public abstract int getPrice();
 
     public abstract int getLevel();
