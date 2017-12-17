@@ -33,6 +33,7 @@ public class ComboManager {
 			c.up();
 		} else {
 			c.reset();
+			c.up();
 		}
 	}
 	
