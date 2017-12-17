@@ -18,7 +18,7 @@ public interface Kit {
 
     public abstract int getLevel();
     
-    public abstract String getAchievemet();
+    public abstract String getAchievement();
     
     public abstract String getPermission();
 
