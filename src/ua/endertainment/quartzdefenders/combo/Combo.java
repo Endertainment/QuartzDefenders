@@ -57,7 +57,8 @@ public class Combo {
 	}
 	
 	public void reset() {
-		this.bossBar = Bukkit.createBossBar(" ", BarColor.WHITE, BarStyle.SEGMENTED_20);
+		bossBar.setTitle(" ");
+		
 		this.count = Kills.ZERO;
 		this.lastTime = 0;
 	}
