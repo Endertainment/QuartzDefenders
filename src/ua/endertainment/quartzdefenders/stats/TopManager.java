@@ -115,7 +115,8 @@ public class TopManager {
         }
     }
 
-    public static List<List<Integer>> getIntegerListOfLists(List<?> from) {
+    @SuppressWarnings("unchecked")
+	public static List<List<Integer>> getIntegerListOfLists(List<?> from) {
         List<List<Integer>> list = new ArrayList<>();
         if (from == null) {
             return list;

@@ -79,12 +79,46 @@ public class KitsManager {
             return false;
         }
         StatsPlayer pl = new StatsPlayer(player);
-        if (pl.getLevel() >= kit.getLevel()) {
-            if (pl.getCoins() >= kit.getPrice()) {
-                return true;
-            }
+        
+        boolean b = true;
+        
+        cycle:
+        for(KitUnlockType t : kit.getUnlockTypes()) {
+        	switch (t) {
+				case ACHIEVEMENT:
+									if(!b) break cycle;
+									b = false;
+									break;
+				case FREE:
+									b = true;
+									break cycle;
+				case GIFT:
+									b = false;
+									break cycle;
+				case LEVEL:
+									if(!b) break cycle;
+									b = pl.getLevel() >= kit.getLevel();
+									break;
+				case PERMISSION:
+									if(!b) break cycle;	
+									b = player.hasPermission(kit.getPermission());
+									break;
+				case PRICE:
+									if(!b) break cycle;
+									b = pl.getCoins() >= kit.getPrice();
+									break;
+				default:
+									b = false;
+									break;        	
+	        }
         }
-        return false;
+        
+//        if (pl.getLevel() >= kit.getLevel()) {
+//            if (pl.getCoins() >= kit.getPrice()) {
+//                return true;
+//            }
+//        }
+        return b;
     }
 
     public void removeKit(Kit kit, Player player) {
@@ -92,6 +126,7 @@ public class KitsManager {
         List<String> list = config.getStringList(player.getUniqueId().toString());
         list.remove(kitName);
         config.set(player.getUniqueId().toString(), list);
+        plugin.getConfigs().saveKitsInfo();
     }
 
     public void giveKit(Kit kit, Player player) {
@@ -100,15 +135,64 @@ public class KitsManager {
 
     public void buyKit(Kit kit, Player player) {
         StatsPlayer pl = new StatsPlayer(player);
-        if (pl.getLevel() >= kit.getLevel()) {
-            if (pl.getCoins() >= kit.getPrice()) {
-                pl.removeCoins(kit.getPrice());
-                writeKit(player, kit);
-                LoggerUtil.gameMessage(kitsName, Language.getString("kits.kit_buy_success", new Replacer("{0}", kit.getDisplayName())));
-            }
-            LoggerUtil.gameMessage(kitsName, Language.getString("kits.not_enough_coins", new Replacer("{0}", kit.getPrice())));
+        
+        boolean b = true;
+        String m = "";
+        
+        cycle:
+        for(KitUnlockType t : kit.getUnlockTypes()) {
+        	switch (t) {
+				case ACHIEVEMENT:
+									if(!b) break cycle;
+									b = false;
+									if(!b) m = Language.getString("kits.not_achievement", new Replacer("{0}", kit.getAchievement()));
+									break;
+				case FREE:
+									b = true;
+									break cycle;
+				case GIFT:
+									b = false;
+									m = Language.getString("kits.gift");
+									break cycle;
+				case LEVEL:
+									if(!b) break cycle;
+									b = pl.getLevel() >= kit.getLevel();
+									if(!b) m = Language.getString("kits.low_level", new Replacer("{0}", kit.getLevel()));
+									break;
+				case PERMISSION:
+									if(!b) break cycle;	
+									b = player.hasPermission(kit.getPermission());
+									if(!b) m = Language.getString("kits.not_permission");
+									break;
+				case PRICE:
+									if(!b) break cycle;
+									b = pl.getCoins() >= kit.getPrice();
+									if(b) pl.removeCoins(kit.getPrice());
+									if(!b) m = Language.getString("kits.not_enough_coins", new Replacer("{0}", kit.getPrice()));
+									break;
+				default:
+									b = false;
+									break;        	
+	        }
         }
-        LoggerUtil.gameMessage(kitsName, Language.getString("kits.low_level", new Replacer("{0}", kit.getLevel())));
+        
+        if (b) {
+			writeKit(player, kit);
+			player.sendMessage(LoggerUtil.gameMessage(kitsName, m));
+		} else {
+			player.sendMessage(LoggerUtil.gameMessage(kitsName, 
+					Language.getString("kits.kit_buy_success", new Replacer("{0}", kit.getDisplayName()))));
+		}
+        
+//        if (pl.getLevel() >= kit.getLevel()) {
+//            if (pl.getCoins() >= kit.getPrice()) {
+//                pl.removeCoins(kit.getPrice());
+//                writeKit(player, kit);
+//                LoggerUtil.gameMessage(kitsName, Language.getString("kits.kit_buy_success", new Replacer("{0}", kit.getDisplayName())));
+//            }
+//            LoggerUtil.gameMessage(kitsName, Language.getString("kits.not_enough_coins", new Replacer("{0}", kit.getPrice())));
+//        }
+//        LoggerUtil.gameMessage(kitsName, Language.getString("kits.low_level", new Replacer("{0}", kit.getLevel())));
     }
 
     private JavaPlugin getPlugin(Kit kit) {
@@ -127,14 +211,17 @@ public class KitsManager {
             list.add(kitName);
         }
         config.set(player.getUniqueId().toString(), list);
+        plugin.getConfigs().saveKitsInfo();
     }
 
     public void chooseKit(Kit kit, Game game, GamePlayer gamePlayer) {
         if (isBought(kit, gamePlayer.getPlayer())) {
             game.setKit(gamePlayer, kit);
-            gamePlayer.getPlayer().sendMessage(LoggerUtil.gameMessage(kitsName, Language.getString("kit_choose_success", new Replacer("{0}", kit.getDisplayName()))));
+            gamePlayer.getPlayer().sendMessage(LoggerUtil.gameMessage(kitsName, 
+            		Language.getString("kit_choose_success", new Replacer("{0}", kit.getDisplayName()))));
         } else {
-            gamePlayer.getPlayer().sendMessage(LoggerUtil.gameMessage(kitsName, Language.getString("kit_choose_failed", new Replacer("{0}", kit.getDisplayName()))));
+            gamePlayer.getPlayer().sendMessage(LoggerUtil.gameMessage(kitsName, 
+            		Language.getString("kit_choose_failed", new Replacer("{0}", kit.getDisplayName()))));
         }
     }
 
