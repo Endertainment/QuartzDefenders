@@ -132,7 +132,7 @@ public class Game {
 
         this.id = id;
         this.gameName = new ColorFormat(config.getString("Games." + this.id + ".game_name")).format();
-        this.teckWorldName = config.getString("Games." + this.id + ".tech_map_name");
+        this.teckWorldName = config.getString("Games." + this.id + ".world_name");
         this.colorWorldName = new ColorFormat(config.getString("Games." + this.id + ".map_name")).format();
         this.playersInTeam = config.getInt("Games." + this.id + ".players_in_team");
         this.playerRespawnTime = config.getInt("Games." + this.id + ".respawn_time");
