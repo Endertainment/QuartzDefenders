@@ -83,6 +83,8 @@ public class DeathListener implements Listener {
 		if(team.canRespawn()) {
 			p.setHealth(20);
 			p.setFoodLevel(20);
+                        p.setExp(0);
+                        p.setLevel(0);
 			p.setGameMode(GameMode.SPECTATOR);
 			p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.respawn", new Replacer("{0}", resp + ""))));
 			freeze.add(p);

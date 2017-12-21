@@ -68,9 +68,9 @@ public class DeathMessages implements Listener {
                             String name = ev.getDamager().getCustomName() == null ? ev.getDamager().getName() : ev.getDamager().getCustomName();
                             game.broadcastMessage("&8»" + Language.getString("death.killed", p.getDisplayName(), name));
                         }
+                        break;
                     default:
                         game.broadcastMessage("&8»" + Language.getString("death.self", p.getDisplayName()));
-                        break;
                 }
             }
             if (killer instanceof Player) {
