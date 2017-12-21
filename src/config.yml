@@ -10,7 +10,7 @@ Lobby:
     pitch: 0
 database:
     use_mysql: true
-    table: QuartzDefenders
+    table_prefix: quartzdefenders
     host: localhost
     port: 3306
     database: database

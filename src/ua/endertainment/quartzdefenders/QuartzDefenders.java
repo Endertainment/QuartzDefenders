@@ -23,6 +23,7 @@ import ua.endertainment.quartzdefenders.commands.kit.CommandKit;
 import ua.endertainment.quartzdefenders.commands.stats.CommandStats;
 import ua.endertainment.quartzdefenders.commands.team.CommandTeam;
 import ua.endertainment.quartzdefenders.configuration.Database;
+import ua.endertainment.quartzdefenders.configuration.Info;
 import ua.endertainment.quartzdefenders.events.*;
 import ua.endertainment.quartzdefenders.events.game.GameRegisterEvent;
 import ua.endertainment.quartzdefenders.kits.KitsManager;
@@ -69,6 +70,7 @@ public class QuartzDefenders extends JavaPlugin {
         comboManager = new ComboManager();
         kitsManager = new KitsManager(this);
         database = new Database(this);
+        new Info(this);
         /*
 		 * Prevent an exceptions when plugin is disabled
          */

@@ -37,6 +37,7 @@ public class MobsListener implements Listener {
         if (game == null) {
             return;
         }
+        if(!game.isDiamondDefenders()) return;
         Ores ores = game.getGameOres();
         if (game.isGameState(GameState.ACTIVE)) {
             Material material = e.getBlock().getType();

@@ -13,11 +13,21 @@ public abstract class LoggerUtil {
         return prefix;
     }
 
+    @Deprecated
     public static void logError(String message) {
+        error(message);
+    }
+
+    public static void error(String message) {
         LOGGER.log(Level.SEVERE, new ColorFormat(prefix + "&4 " + Language.getString("logger.error") + " &8: &4" + message).format());
     }
 
+    @Deprecated
     public static void logInfo(String message) {
+        info(message);
+    }
+
+    public static void info(String message) {
         LOGGER.log(Level.INFO, new ColorFormat(prefix + "&7 " + Language.getString("logger.info") + " &8: &7" + message).format());
     }
 
