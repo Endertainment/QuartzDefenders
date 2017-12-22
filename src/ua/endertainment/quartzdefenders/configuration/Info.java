@@ -21,7 +21,7 @@ public class Info {
 
     public static int getPlayedGames(Player player) {
         int games = 0;
-        try (ResultSet query = getPlayerInfo(player)) {
+        try (ResultSet query = getInfo(player, Type.STATS)) {
             while (query.next()) {
                 games = query.getInt("games");
             }
@@ -33,7 +33,7 @@ public class Info {
 
     public static int getWonGames(Player player) {
         int won = 0;
-        try (ResultSet query = getPlayerInfo(player)) {
+        try (ResultSet query = getInfo(player, Type.STATS)) {
             while (query.next()) {
                 won = query.getInt("wins");
             }
@@ -44,24 +44,56 @@ public class Info {
     }
 
     public static int getPoints(Player player) {
-        return 0;
+        int points = 0;
+        try (ResultSet query = getInfo(player, Type.PLAYER)) {
+            while (query.next()) {
+                points = query.getInt("points");
+            }
+        } catch (SQLException ex) {
+            database.error(ex);
+        }
+        return points;
     }
 
     public static int getCoins(Player player) {
-        return 0;
+        int coins = 0;
+        try (ResultSet query = getInfo(player, Type.PLAYER)) {
+            while (query.next()) {
+                coins = query.getInt("coins");
+            }
+        } catch (SQLException ex) {
+            database.error(ex);
+        }
+        return coins;
     }
 
     public static int getKills(Player player) {
-        return 0;
+        int kills = 0;
+        try (ResultSet query = getInfo(player, Type.STATS)) {
+            while (query.next()) {
+                kills = query.getInt("kills");
+            }
+        } catch (SQLException ex) {
+            database.error(ex);
+        }
+        return kills;
     }
 
     public static int getDeath(Player player) {
-        return 0;
+        int deaths = 0;
+        try (ResultSet query = getInfo(player, Type.STATS)) {
+            while (query.next()) {
+                deaths = query.getInt("deaths");
+            }
+        } catch (SQLException ex) {
+            database.error(ex);
+        }
+        return deaths;
     }
 
-    private static ResultSet getPlayerInfo(Player player) {
+    private static ResultSet getInfo(Player player, Type type) {
         try {
-            statement = database.getConnection().prepareStatement(selectStats);
+            statement = database.getConnection().prepareStatement(type.getSelectQuery());
             statement.setString(1, player.getUniqueId().toString());
             ResultSet query = database.query(statement);
             return query;
@@ -69,5 +101,33 @@ public class Info {
             database.error(ex);
         }
         return null;
+    }
+    
+    private static ResultSet setInfo(Player player, Type type, Object info) {
+        try {
+            statement = database.getConnection().prepareStatement("TODO");
+            statement.setString(1, player.getUniqueId().toString());
+            ResultSet query = database.query(statement);
+            return query;
+        } catch (SQLException ex) {
+            database.error(ex);
+        }
+        return null;
+    }
+
+    private enum Type {
+        PLAYER, GAME, STATS;
+
+        public String getSelectQuery() {
+            switch (this) {
+                case GAME:
+                    return selectGames;
+                case PLAYER:
+                    return selectPlayers;
+                case STATS:
+                    return selectStats;
+            }
+            return "";
+        }
     }
 }

@@ -27,7 +27,7 @@ public abstract class LoggerUtil {
     }
 
     public static void info(String message) {
-        LOGGER.sendMessage(new ColorFormat(prefix + "&4 " + Language.getString("logger.error") + " &8: &4" + message).format());
+        LOGGER.sendMessage(new ColorFormat(prefix + "&7 " + Language.getString("logger.info") + " &8: &7" + message).format());
     }
 
     public static String gameMessage(String type, String message) {

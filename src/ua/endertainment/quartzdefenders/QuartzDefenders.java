@@ -151,6 +151,7 @@ public class QuartzDefenders extends JavaPlugin {
     }
 
     public void addGamePlayer(Player p) {
+        database.insertPlayer(p);
         if (gamePlayers.containsKey(p.getUniqueId())) {
             getGamePlayer(p.getUniqueId()).updatePlayer(p);
             return;

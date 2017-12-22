@@ -1,5 +1,6 @@
 package ua.endertainment.quartzdefenders.configuration;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.Statement;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import org.bukkit.entity.Player;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
@@ -17,6 +19,8 @@ public class Database {
     private QuartzDefenders plugin;
     private Connection connection;
     private boolean mysql;
+
+    private final String playersSuffix = "players", gamesSuffix = "games", statsSuffix = "stats";
 
     public static String prefix;
 
@@ -32,16 +36,19 @@ public class Database {
             this.database = plugin.getConfig().getString("database.database");
             this.username = plugin.getConfig().getString("database.username", "");
             this.password = plugin.getConfig().getString("database.password", "");
-            this.prefix = plugin.getConfig().getString("database.table_prefix");
         }
-        if (!isTable("games")) {
-            createTable("games");
+        this.prefix = plugin.getConfig().getString("database.table_prefix", "quartzdefenders").replace("'", "").replace("\"", "");
+
+        open();
+
+        if (!isTable(gamesSuffix)) {
+            createTable(gamesSuffix);
         }
-        if (!isTable("players")) {
-            createTable("players");
+        if (!isTable(playersSuffix)) {
+            createTable(playersSuffix);
         }
-        if (!isTable("stats")) {
-            createTable("stats");
+        if (!isTable(statsSuffix)) {
+            createTable(statsSuffix);
         }
     }
 
@@ -55,46 +62,52 @@ public class Database {
         }
     }
 
-    public boolean open() {
+    public final boolean open() {
         return mysql ? openMySQL() : openSQLLite();
     }
 
     private boolean createTable(String suffix) {
+        if (connection == null) {
+            LoggerUtil.error("Can't connect to database!");
+            return false;
+        }
         String query;
         try {
             switch (suffix) {
-                case "games":
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL AUTO_INCREMENT, game_id VARCHAR(255), PRIMARY KEY(id))";
+                case gamesSuffix:
+                    String inc = mysql ? "AUTO_INCREMENT" : "";//sql injection? How to fix?
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL " + inc + ", game_id VARCHAR(255), PRIMARY KEY(id))";
                     break;
-                case "players":
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, name VARCHAR(16), coins INTEGER, points INTEGER, PRIMARY KEY(UUID))";
+                case playersSuffix:
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, name VARCHAR(16), coins INTEGER DEFAULT 0, points INTEGER DEFAULT 0, PRIMARY KEY(UUID))";
                     break;
-                case "stats":
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, games INTEGER, wins INTEGER, kills INTEGER, deaths INTEGER, PRIMARY KEY(UUID))";
+                case statsSuffix:
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, games INTEGER DEFAULT 0, wins INTEGER DEFAULT 0, kills INTEGER DEFAULT 0, deaths INTEGER DEFAULT 0, PRIMARY KEY(UUID))";
                     break;
                 default:
                     return false;
             }
-            PreparedStatement stat = connection.prepareStatement(query);
-            stat.setString(1, prefix);
-            stat.setString(2, suffix);
-            update(stat);
-            return true;
-        } catch (SQLException e) {
+            PreparedStatement stat = connection.prepareStatement(query.replace("?_?", prefix + "_" + suffix));
+            if (update(stat) > 0) {
+                LoggerUtil.info("Created table: " + suffix);
+                stat.close();
+                return true;
+            }
+            stat.close();
+        } catch (SQLException ex) {
+            LoggerUtil.error("Can't create table: " + prefix + "_" + suffix + ". Error: " + ex.getMessage());
             return false;
         }
+        return false;
     }
 
     private boolean isTable(String suffix) {
-        Statement statement = null;
         try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            LoggerUtil.error("Could not create a statement in checkTable(), SQLException: " + e.getMessage());
-            return false;
-        }
-        try {
-            statement.executeQuery("SELECT 1 FROM " + prefix + suffix); //async?
+            PreparedStatement stat = connection.prepareStatement("SELECT 1 FROM ?_? LIMIT 1");
+            stat.setString(1, prefix);
+            stat.setString(2, suffix);
+            stat.executeQuery(); //async?
+            stat.close();
             return true;
         } catch (SQLException e) {
             return false;
@@ -104,11 +117,13 @@ public class Database {
     private boolean openSQLLite() {
         if (init()) {
             try {
-                connection = DriverManager.getConnection("jdbc:sqlite:plugins/QuartzDefenders/database.db");
-                return true;
-            } catch (SQLException e) {
+                File file = new File(plugin.getDataFolder(), "database.db");
+                connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
+                if (connection != null) {
+                    return true;
+                }
+            } catch (Exception e) {
                 LoggerUtil.error("Could not establish an SQLite connection, SQLException: " + e.getMessage());
-                return false;
             }
         }
         return false;
@@ -122,13 +137,11 @@ public class Database {
                     this.connection = DriverManager.getConnection(url, username, password);
                     try (Statement statement = connection.createStatement()) {
                         statement.executeUpdate("SET NAMES 'utf8'");
+                        return true;
                     }
-                    return true;
                 }
-                return false;
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 LoggerUtil.error("Could not establish a MySQL connection, SQLException: " + e.getMessage());
-                return false;
             }
         }
         return false;
@@ -155,6 +168,7 @@ public class Database {
             });
 
             if (future.get() != null) {
+                statement.clearParameters();
                 return future.get();
             }
         } catch (Exception e) {
@@ -196,23 +210,49 @@ public class Database {
         return resultSet;
     }
 
-    public String getUserName(String uuid) {
-        String user = "";
-        try {
-            PreparedStatement st = getConnection().prepareStatement("SELECT UUID, name FROM " + prefix + "_players WHERE UUID='" + uuid + "' LIMIT 1");
-            st.setString(1, uuid);
-            ResultSet rs = query(st);
-            while (rs.next()) {
-                user = rs.getString("user");
+    public boolean insertPlayer(Player player) {
+        if (isOpen()) {
+            try {
+                PreparedStatement preparedStmt = mysql?
+                        connection.prepareStatement("INSERT INTO " + prefix + "_players (UUID, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE UUID=UUID;"):
+                        connection.prepareStatement("INSERT OR REPLACE INTO " + prefix + "_players (UUID, name) VALUES (?, ?)");
+                preparedStmt.setString(1, player.getUniqueId().toString());
+                preparedStmt.setString(2, player.getName());
+                return update(preparedStmt) > 0;
+            } catch (SQLException ex) {
+                LoggerUtil.error("Can't add player " + player.getName() + " to database! " + ex.getMessage());
+                return false;
             }
-        } catch (SQLException ex) {
-            error(ex);
         }
-        return user;
+        LoggerUtil.error("Can't connect to database!");
+        return false;
+    }
+
+    public String getUserName(String uuid) {
+        if (isOpen()) {
+            String user = "";
+            try {
+                PreparedStatement st = getConnection().prepareStatement("SELECT UUID, name FROM " + prefix + "_players WHERE UUID='" + uuid + "' LIMIT 1");
+                st.setString(1, uuid);
+                ResultSet rs = query(st);
+                while (rs.next()) {
+                    user = rs.getString("user");
+                }
+            } catch (SQLException ex) {
+                error(ex);
+            }
+            return user;
+        }
+        LoggerUtil.error("Can't connect to database!");
+        return "";
     }
 
     public void error(Exception ex) {
         LoggerUtil.error("Database error! " + ex.getMessage());
+    }
+
+    public final boolean isOpen() {
+        return isOpen(1);
     }
 
     public final boolean isOpen(int timeout) {

@@ -9,7 +9,7 @@ Lobby:
     yaw: 0
     pitch: 0
 database:
-    use_mysql: true
+    use_mysql: false
     table_prefix: quartzdefenders
     host: localhost
     port: 3306
