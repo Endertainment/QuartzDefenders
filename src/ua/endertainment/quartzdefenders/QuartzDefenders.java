@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ua.coolboy.quartzdefenders.mobs.MobsListener;
@@ -21,6 +22,8 @@ import ua.endertainment.quartzdefenders.commands.game.CommandGame;
 import ua.endertainment.quartzdefenders.commands.kit.CommandKit;
 import ua.endertainment.quartzdefenders.commands.stats.CommandStats;
 import ua.endertainment.quartzdefenders.commands.team.CommandTeam;
+import ua.endertainment.quartzdefenders.configuration.Database;
+import ua.endertainment.quartzdefenders.configuration.Info;
 import ua.endertainment.quartzdefenders.events.*;
 import ua.endertainment.quartzdefenders.events.game.GameRegisterEvent;
 import ua.endertainment.quartzdefenders.kits.KitsManager;
@@ -48,6 +51,7 @@ public class QuartzDefenders extends JavaPlugin {
     private AchievementsManager achvM;
     private ComboManager comboManager;
     private KitsManager kitsManager;
+    private Database database;
 
     private final static Set<JavaPlugin> plugins = new HashSet<>();
     private final Set<Game> games = new HashSet<>();
@@ -65,6 +69,8 @@ public class QuartzDefenders extends JavaPlugin {
         achvM = new AchievementsManager(this);
         comboManager = new ComboManager();
         kitsManager = new KitsManager(this);
+        database = new Database(this);
+        new Info(this);
         /*
 		 * Prevent an exceptions when plugin is disabled
          */
@@ -246,6 +252,15 @@ public class QuartzDefenders extends JavaPlugin {
         }
         return null;
     }
+    
+    public Game getGame(World world) {
+        for (Game game : games) {
+            if (game.getGameWorld().equals(world)) {
+                return game;
+            }
+        }
+        return null;
+    }
 
     public Game getGame(Player player) {
         for (Game game : games) {
@@ -270,6 +285,10 @@ public class QuartzDefenders extends JavaPlugin {
      */
     public FilesUtil getConfigs() {
         return files;
+    }
+    
+    public Database getDatabase() {
+        return database;
     }
 
     public TopManager getTopManager() {

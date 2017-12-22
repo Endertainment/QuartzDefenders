@@ -82,6 +82,7 @@ public class Game {
     private Map<String, GameTeam> teams = new HashMap<>();
 
     private boolean customShop;
+    private boolean diamondDef;
     private Map<GameTeam, Location> shopLocations = new HashMap<>();
     private Map<Location, Integer> alchemistsLocations = new HashMap<>();
 
@@ -131,12 +132,12 @@ public class Game {
 
         this.id = id;
         this.gameName = new ColorFormat(config.getString("Games." + this.id + ".game_name")).format();
-        this.teckWorldName = config.getString("Games." + this.id + ".tech_map_name");
+        this.teckWorldName = config.getString("Games." + this.id + ".world_name");
         this.colorWorldName = new ColorFormat(config.getString("Games." + this.id + ".map_name")).format();
         this.playersInTeam = config.getInt("Games." + this.id + ".players_in_team");
         this.playerRespawnTime = config.getInt("Games." + this.id + ".respawn_time");
         this.quartzHealth = config.getInt("Games." + this.id + ".quartz_health");
-        this.teamsCount = config.getInt("Games." + this.id + ".teams_count");
+        this.teamsCount = config.getStringList("Games." + this.id + ".teams").size();
         this.autostart = config.getBoolean("Games." + this.id + ".autostart", true);
 
         this.buildHeight = config.getInt("Games." + this.id + ".build.height");
@@ -149,24 +150,24 @@ public class Game {
         this.balanceType = BalanceType.valueOf(config.getString("Games." + this.id + ".balance_type"));
 
         if (QuartzDefenders.getInstance().getGame(gameName) != null) {
-            LoggerUtil.logInfo(LoggerUtil.gameMessage(Language.getString("logger.info"), Language.getString("game.game_already_exist", new Replacer("{0}", gameName))));
+            LoggerUtil.info(LoggerUtil.gameMessage(Language.getString("logger.info"), Language.getString("game.game_already_exist", new Replacer("{0}", gameName))));
             return;
         }
 
-        LoggerUtil.logInfo(Language.getString("logger.cfg_load_success"));
+        LoggerUtil.info(Language.getString("logger.cfg_load_success"));
 
         this.mapManager = new MapManager(teckWorldName);
         try {
             mapManager.resetMap();
         } catch (Exception e) {
-            LoggerUtil.logError(Language.getString("logger.load_map_failed", new Replacer("{0}", gameName)));
+            LoggerUtil.error(Language.getString("logger.load_map_failed", new Replacer("{0}", gameName)));
             return;
         }
         if (!mapManager.isSuccess()) {
             return;
         }
 
-        LoggerUtil.logInfo(Language.getString("logger.load_map_success"));
+        LoggerUtil.info(Language.getString("logger.load_map_success"));
 
         this.map = mapManager.getWorld();
         
@@ -225,7 +226,7 @@ public class Game {
                     
                     i++;
                 } else {
-                    LoggerUtil.logError(Language.getString("logger.invalid_team", new Replacer("{0}", team)));
+                    LoggerUtil.error(Language.getString("logger.invalid_team", new Replacer("{0}", team)));
                 }
             } else {
                 break;
@@ -243,8 +244,9 @@ public class Game {
                     Integer.parseInt(array[2]));
             alchemistsLocations.put(alchemist, alchemistRadius);
         }
+        this.diamondDef = config.getBoolean("Games." + this.id + ".diamond_defenders", false);
 
-        LoggerUtil.logInfo(Language.getString("logger.game_load_success", new Replacer("{0}", gameName)));
+        LoggerUtil.info(Language.getString("logger.game_load_success", new Replacer("{0}", gameName)));
         loadSuccess = true;
     }
 
@@ -729,7 +731,7 @@ public class Game {
         return teams;
     }
 
-    public GameTeam getTeam(String team) {
+    public final GameTeam getTeam(String team) {
         return teams.get(team);
     }
 
@@ -761,7 +763,11 @@ public class Game {
     public Map<Location, Integer> getAlchemicsLocations() {
         return alchemistsLocations;
     }
-
+    
+    public boolean isDiamondDefenders() {
+        return diamondDef;
+    }
+    
     public Ores getGameOres() {
         return ores;
     }

@@ -40,7 +40,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 12
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -50,7 +50,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 8
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -60,7 +60,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 3
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -70,7 +70,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 7
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -80,7 +80,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 9
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -90,7 +90,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 7
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -100,7 +100,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 1
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -110,7 +110,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 15
-            name: 'Alchemists coin'
+            name: 'Alchemistry coin'
             lore:
             - 'Special alchemistry currency'
         result:
