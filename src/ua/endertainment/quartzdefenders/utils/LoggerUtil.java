@@ -14,28 +14,20 @@ public abstract class LoggerUtil {
 
     @Deprecated
     public static void logError(String message) {
-<<<<<<< HEAD
-        LOGGER.sendMessage(new ColorFormat(prefix + "&4 " + Language.getString("logger.error") + " &8: &4" + message).format());
-=======
         error(message);
     }
 
     public static void error(String message) {
-        LOGGER.log(Level.SEVERE, new ColorFormat(prefix + "&4 " + Language.getString("logger.error") + " &8: &4" + message).format());
->>>>>>> branch 'master' of https://github.com/Endertainment/QuartzDefenders.git
+        LOGGER.sendMessage(new ColorFormat(prefix + "&4 " + Language.getString("logger.error") + " &8: &4" + message).format());
     }
 
     @Deprecated
     public static void logInfo(String message) {
-<<<<<<< HEAD
-        LOGGER.sendMessage(new ColorFormat(prefix + "&7 " + Language.getString("logger.info") + " &8: &7" + message).format());
-=======
         info(message);
     }
 
     public static void info(String message) {
-        LOGGER.log(Level.INFO, new ColorFormat(prefix + "&7 " + Language.getString("logger.info") + " &8: &7" + message).format());
->>>>>>> branch 'master' of https://github.com/Endertainment/QuartzDefenders.git
+        LOGGER.sendMessage(new ColorFormat(prefix + "&4 " + Language.getString("logger.error") + " &8: &4" + message).format());
     }
 
     public static String gameMessage(String type, String message) {

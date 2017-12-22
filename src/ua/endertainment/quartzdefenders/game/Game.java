@@ -115,7 +115,7 @@ public class Game {
         FileConfiguration config = QuartzDefenders.getInstance().getConfigs().getGameInfo();
 
         if (config.getConfigurationSection("Games." + id) == null) {
-            LoggerUtil.logInfo(Language.getString("logger.game_not_exist", new Replacer("{0}", id)));
+            LoggerUtil.info(Language.getString("logger.game_not_exist", new Replacer("{0}", id)));
 
             return;
         }
@@ -124,7 +124,7 @@ public class Game {
             return;
         }
 
-        LoggerUtil.logInfo(Language.getString("logger.loading_game", new Replacer("{0}", id)));
+        LoggerUtil.info(Language.getString("logger.loading_game", new Replacer("{0}", id)));
 
         gameScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         this.sidebar = new GameSidebar(this, gameScoreboard);

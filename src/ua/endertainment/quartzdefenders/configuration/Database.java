@@ -18,7 +18,9 @@ public class Database {
     private Connection connection;
     private boolean mysql;
 
-    private String hostname, database, username, password, prefix;
+    public static String prefix;
+
+    private String hostname, database, username, password;
     private int port;
 
     public Database(QuartzDefenders plugin) {
@@ -60,15 +62,15 @@ public class Database {
     private boolean createTable(String suffix) {
         String query;
         try {
-            switch(suffix) {
+            switch (suffix) {
                 case "games":
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL AUTO_INCREMENT, game_id VARCHAR(255) NOT NULL, PRIMARY KEY(id))";
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL AUTO_INCREMENT, game_id VARCHAR(255), PRIMARY KEY(id))";
                     break;
                 case "players":
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, name VARCHAR(16) NOT NULL, PRIMARY KEY(UUID))";
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, name VARCHAR(16), coins INTEGER, points INTEGER, PRIMARY KEY(UUID))";
                     break;
                 case "stats":
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, PRIMARY KEY(UUID))";
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, games INTEGER, wins INTEGER, kills INTEGER, deaths INTEGER, PRIMARY KEY(UUID))";
                     break;
                 default:
                     return false;
@@ -76,7 +78,7 @@ public class Database {
             PreparedStatement stat = connection.prepareStatement(query);
             stat.setString(1, prefix);
             stat.setString(2, suffix);
-            query(stat);
+            update(stat);
             return true;
         } catch (SQLException e) {
             return false;
@@ -115,9 +117,12 @@ public class Database {
     private boolean openMySQL() {
         if (init()) {
             try {
-                String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database;
+                String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useUnicode=true&characterEncoding=utf-8&connectTimeout=10000";
                 if (init()) {
                     this.connection = DriverManager.getConnection(url, username, password);
+                    try (Statement statement = connection.createStatement()) {
+                        statement.executeUpdate("SET NAMES 'utf8'");
+                    }
                     return true;
                 }
                 return false;
@@ -128,8 +133,37 @@ public class Database {
         }
         return false;
     }
-    
-     public static ResultSet query(final PreparedStatement statement) {
+
+    public int update(final PreparedStatement statement) {
+        try {
+            if (statement.getConnection().isClosed()) {
+                return 0;
+            }
+        } catch (SQLException ex) {
+            LoggerUtil.error("Connection not valid!");
+        }
+        try {
+            ExecutorService exe = Executors.newCachedThreadPool();
+
+            Future<Integer> future = exe.submit(() -> {
+                try {
+                    return statement.executeUpdate();
+                } catch (SQLException e) {
+                    error(e);
+                }
+                return null;
+            });
+
+            if (future.get() != null) {
+                return future.get();
+            }
+        } catch (Exception e) {
+            LoggerUtil.error("Error in query: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    public ResultSet query(final PreparedStatement statement) {
         ResultSet resultSet = null;
         try {
             if (statement.getConnection().isClosed()) {
@@ -143,7 +177,9 @@ public class Database {
 
             Future<ResultSet> future = exe.submit(() -> {
                 try {
-                    return statement.executeQuery();
+                    ResultSet query = statement.executeQuery();
+                    statement.closeOnCompletion();
+                    return query;
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -159,7 +195,26 @@ public class Database {
 
         return resultSet;
     }
-    
+
+    public String getUserName(String uuid) {
+        String user = "";
+        try {
+            PreparedStatement st = getConnection().prepareStatement("SELECT UUID, name FROM " + prefix + "_players WHERE UUID='" + uuid + "' LIMIT 1");
+            st.setString(1, uuid);
+            ResultSet rs = query(st);
+            while (rs.next()) {
+                user = rs.getString("user");
+            }
+        } catch (SQLException ex) {
+            error(ex);
+        }
+        return user;
+    }
+
+    public void error(Exception ex) {
+        LoggerUtil.error("Database error! " + ex.getMessage());
+    }
+
     public final boolean isOpen(int timeout) {
         if (connection != null) {
             try {
