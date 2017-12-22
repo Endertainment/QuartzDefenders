@@ -167,7 +167,6 @@ public class KitsManager {
 				case PRICE:
 									if(!b) break cycle;
 									b = pl.getCoins() >= kit.getPrice();
-									if(b) pl.removeCoins(kit.getPrice());
 									if(!b) m = Language.getString("kits.not_enough_coins", new Replacer("{0}", kit.getPrice()));
 									break;
 				default:
@@ -178,6 +177,7 @@ public class KitsManager {
         
         if (b) {
 			writeKit(player, kit);
+			pl.removeCoins(kit.getPrice());
 			player.sendMessage(LoggerUtil.gameMessage(kitsName, m));
 		} else {
 			player.sendMessage(LoggerUtil.gameMessage(kitsName, 
