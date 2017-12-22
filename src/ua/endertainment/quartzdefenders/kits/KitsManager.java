@@ -136,7 +136,7 @@ public class KitsManager {
     public void buyKit(Kit kit, Player player) {
         StatsPlayer pl = new StatsPlayer(player);
         
-        boolean b = true;
+        boolean b = true, p = false;
         String m = "";
         
         cycle:
@@ -167,6 +167,7 @@ public class KitsManager {
 				case PRICE:
 									if(!b) break cycle;
 									b = pl.getCoins() >= kit.getPrice();
+									p = true;
 									if(!b) m = Language.getString("kits.not_enough_coins", new Replacer("{0}", kit.getPrice()));
 									break;
 				default:
@@ -177,7 +178,7 @@ public class KitsManager {
         
         if (b) {
 			writeKit(player, kit);
-			pl.removeCoins(kit.getPrice());
+			if(p) pl.removeCoins(kit.getPrice());
 			player.sendMessage(LoggerUtil.gameMessage(kitsName, m));
 		} else {
 			player.sendMessage(LoggerUtil.gameMessage(kitsName, 
