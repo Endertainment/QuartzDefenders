@@ -56,8 +56,10 @@ public class JoinListener implements Listener {
 		
 		plugin.getLobby().setLobbyTools(p);
 		
-		ScoreboardLobby s = new ScoreboardLobby(plugin, p);
-		s.setScoreboard();
+		for(Player pp : Bukkit.getOnlinePlayers()) {
+			new ScoreboardLobby(plugin, pp).setScoreboard();
+		}
+		
 	}
 	
 }

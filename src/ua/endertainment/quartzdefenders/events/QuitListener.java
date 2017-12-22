@@ -13,6 +13,7 @@ import ua.endertainment.quartzdefenders.game.GameLeaveTimer;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
 
 public class QuitListener implements Listener {
 
@@ -31,6 +32,12 @@ public class QuitListener implements Listener {
 		} else {
 			e.setQuitMessage("");
 		}
+		
+		for(Player pp : Bukkit.getOnlinePlayers()) {
+			if(pp.getUniqueId() == p.getUniqueId()) continue;
+			new ScoreboardLobby(plugin, pp).setScoreboard();
+		}
+		
 		GamePlayer pp = plugin.getGamePlayer(p);
 		if(plugin.getGame(p) != null) {
 			Game game = plugin.getGame(p);
