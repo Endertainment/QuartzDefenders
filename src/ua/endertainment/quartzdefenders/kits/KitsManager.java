@@ -134,6 +134,11 @@ public class KitsManager {
     }
 
     public void buyKit(Kit kit, Player player) {
+    	if(isBought(kit, player)) {
+    		player.sendMessage(LoggerUtil.gameMessage(kitsName, 
+					Language.getString("kits.kit_is_bought", new Replacer("{0}", kit.getDisplayName()))));
+    		return;
+    	}
         StatsPlayer pl = new StatsPlayer(player);
         
         boolean b = true, p = false;
