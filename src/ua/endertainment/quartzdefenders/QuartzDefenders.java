@@ -101,7 +101,7 @@ public class QuartzDefenders extends JavaPlugin {
             }
         }
 
-        LoggerUtil.logInfo(LoggerUtil.getPrefix() + Language.getString("logger.games_loaded"));
+        LoggerUtil.info(LoggerUtil.getPrefix() + Language.getString("logger.games_loaded"));
 
         /*
 		 * Register GamePlayers
@@ -123,6 +123,8 @@ public class QuartzDefenders extends JavaPlugin {
         for (Game game : games) {
             game.disableGame();
         }
+        
+        database.close();
         main = null;
     }
 
@@ -151,12 +153,12 @@ public class QuartzDefenders extends JavaPlugin {
     }
 
     public void addGamePlayer(Player p) {
-        database.insertPlayer(p);
         if (gamePlayers.containsKey(p.getUniqueId())) {
             getGamePlayer(p.getUniqueId()).updatePlayer(p);
             return;
         }
         gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
+        database.insertPlayerIfNotExist(p);
     }
 
     /*

@@ -9,6 +9,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.configuration.Info;
 import ua.endertainment.quartzdefenders.items.SetupItems;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.FireworkUtil;
@@ -45,6 +46,10 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		
 		Player p = (Player) sender;
 		
+                if(args.length>=1 && args[0].equalsIgnoreCase("debug")) {
+                    Info.setKills(p,900);
+                }
+                
 		if(args.length >= 1 && args[0].equalsIgnoreCase("lobbyTools")) {
 			
 			plugin.getLobby().setLobbyTools(p);

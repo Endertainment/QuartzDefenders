@@ -20,9 +20,10 @@ public class Database {
     private Connection connection;
     private boolean mysql;
 
-    private final String playersSuffix = "players", gamesSuffix = "games", statsSuffix = "stats";
+    public final String playersSuffix = "players", gamesSuffix = "games", statsSuffix = "stats";
 
-    public static String prefix;
+    public static final String PREFIX = QuartzDefenders.getInstance().getConfig().getString("database.table_prefix", "quartzdefenders").replace("'", "").replace("\"", "");
+    ;
 
     private String hostname, database, username, password;
     private int port;
@@ -37,7 +38,6 @@ public class Database {
             this.username = plugin.getConfig().getString("database.username", "");
             this.password = plugin.getConfig().getString("database.password", "");
         }
-        this.prefix = plugin.getConfig().getString("database.table_prefix", "quartzdefenders").replace("'", "").replace("\"", "");
 
         open();
 
@@ -76,7 +76,7 @@ public class Database {
             switch (suffix) {
                 case gamesSuffix:
                     String inc = mysql ? "AUTO_INCREMENT" : "";//sql injection? How to fix?
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL " + inc + ", game_id VARCHAR(255), PRIMARY KEY(id))";
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL " + inc + ", game_id VARCHAR(255), start DATETIME NULL, end DATETIME NULL, PRIMARY KEY(id))";
                     break;
                 case playersSuffix:
                     query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, name VARCHAR(16), coins INTEGER DEFAULT 0, points INTEGER DEFAULT 0, PRIMARY KEY(UUID))";
@@ -87,7 +87,7 @@ public class Database {
                 default:
                     return false;
             }
-            PreparedStatement stat = connection.prepareStatement(query.replace("?_?", prefix + "_" + suffix));
+            PreparedStatement stat = connection.prepareStatement(query.replace("?_?", PREFIX + "_" + suffix));
             if (update(stat) > 0) {
                 LoggerUtil.info("Created table: " + suffix);
                 stat.close();
@@ -95,7 +95,7 @@ public class Database {
             }
             stat.close();
         } catch (SQLException ex) {
-            LoggerUtil.error("Can't create table: " + prefix + "_" + suffix + ". Error: " + ex.getMessage());
+            LoggerUtil.error("Can't create table: " + PREFIX + "_" + suffix + ". Error: " + ex.getMessage());
             return false;
         }
         return false;
@@ -104,7 +104,7 @@ public class Database {
     private boolean isTable(String suffix) {
         try {
             PreparedStatement stat = connection.prepareStatement("SELECT 1 FROM ?_? LIMIT 1");
-            stat.setString(1, prefix);
+            stat.setString(1, PREFIX);
             stat.setString(2, suffix);
             stat.executeQuery(); //async?
             stat.close();
@@ -120,6 +120,7 @@ public class Database {
                 File file = new File(plugin.getDataFolder(), "database.db");
                 connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
                 if (connection != null) {
+                    LoggerUtil.info("Successfully conected to SQLLite database!");
                     return true;
                 }
             } catch (Exception e) {
@@ -137,6 +138,7 @@ public class Database {
                     this.connection = DriverManager.getConnection(url, username, password);
                     try (Statement statement = connection.createStatement()) {
                         statement.executeUpdate("SET NAMES 'utf8'");
+                        LoggerUtil.info("Successfully conected to MySQL database!");
                         return true;
                     }
                 }
@@ -145,6 +147,10 @@ public class Database {
             }
         }
         return false;
+    }
+    
+    public boolean isMySQL() {
+        return mysql;
     }
 
     public int update(final PreparedStatement statement) {
@@ -210,29 +216,47 @@ public class Database {
         return resultSet;
     }
 
-    public boolean insertPlayer(Player player) {
+    public void insertPlayerIfNotExist(Player player) {
         if (isOpen()) {
             try {
-                PreparedStatement preparedStmt = mysql?
-                        connection.prepareStatement("INSERT INTO " + prefix + "_players (UUID, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE UUID=UUID;"):
-                        connection.prepareStatement("INSERT OR REPLACE INTO " + prefix + "_players (UUID, name) VALUES (?, ?)");
+                PreparedStatement preparedStmt = connection.prepareStatement("SELECT * FROM " + PREFIX + "_players WHERE UUID=?");
                 preparedStmt.setString(1, player.getUniqueId().toString());
-                preparedStmt.setString(2, player.getName());
-                return update(preparedStmt) > 0;
+                ResultSet query = query(preparedStmt);
+                if (!query.next()) {
+                    initPlayer(player);
+                    LoggerUtil.info("Init: "+player.getName());
+                }
             } catch (SQLException ex) {
-                LoggerUtil.error("Can't add player " + player.getName() + " to database! " + ex.getMessage());
-                return false;
+                //LoggerUtil.error("Can't add player " + player.getName() + " to database! " + ex.getMessage());
+                return;
+            }
+        } else {
+            LoggerUtil.error("Can't connect to database!");
+        }
+    }
+
+    public void initPlayer(Player player) {
+        if (isOpen()) {
+            try {
+                PreparedStatement statP = connection.prepareStatement("INSERT INTO " + PREFIX + "_players (UUID, name) VALUES (?, ?)");
+                statP.setString(1, player.getUniqueId().toString());
+                statP.setString(2, player.getName());
+                update(statP);
+                PreparedStatement statS = connection.prepareStatement("INSERT INTO " + PREFIX + "_stats (UUID) VALUES (?)");
+                statS.setString(1, player.getUniqueId().toString());
+                update(statS);
+            } catch (SQLException ex) {
+                LoggerUtil.error("Error while adding player " + player.getName() + " to database! " + ex.getMessage());
+                return;
             }
         }
-        LoggerUtil.error("Can't connect to database!");
-        return false;
     }
 
     public String getUserName(String uuid) {
         if (isOpen()) {
             String user = "";
             try {
-                PreparedStatement st = getConnection().prepareStatement("SELECT UUID, name FROM " + prefix + "_players WHERE UUID='" + uuid + "' LIMIT 1");
+                PreparedStatement st = getConnection().prepareStatement("SELECT UUID, name FROM " + PREFIX + "_players WHERE UUID='" + uuid + "' LIMIT 1");
                 st.setString(1, uuid);
                 ResultSet rs = query(st);
                 while (rs.next()) {
@@ -248,7 +272,7 @@ public class Database {
     }
 
     public void error(Exception ex) {
-        LoggerUtil.error("Database error! " + ex.getMessage());
+        LoggerUtil.error("Database error!\n" + ex.getMessage());
     }
 
     public final boolean isOpen() {
