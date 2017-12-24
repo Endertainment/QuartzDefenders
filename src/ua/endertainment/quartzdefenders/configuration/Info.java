@@ -1,10 +1,14 @@
 package ua.endertainment.quartzdefenders.configuration;
 
+import java.sql.Date;
+import ua.endertainment.quartzdefenders.configuration.database.Database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import org.bukkit.entity.Player;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Info {
@@ -160,21 +164,67 @@ public class Info {
     public static boolean setDeaths(Player player, int amount) {
         return set(player, amount, Type.STATS, StatsColumns.deaths.getName());
     }
+    
+    public static boolean addGame(Game game) {
+        if(game.getStartTime()==null) return false;
+        int i = 0;
+        try {
+            PreparedStatement stat = database.getConnection().prepareStatement("INSERT INTO " + Database.PREFIX + "_" + Type.GAME.getSuffix() + " (game_id, start) VALUES(?,?)");
+            stat.setString(1, game.getGameId());
+            stat.setString(2, new Date(game.getStartTime().getTimeInMillis()).toString());
+            i = database.update(stat);
+            stat.close();
+        } catch (SQLException ex) {
+            LoggerUtil.error("Can't add game: " + game.getGameId() + ". Error:\n" + ex.getMessage());
+        }
+        return i>0;
+    }
+    
+    public static boolean updateGame(Game game, Calendar end) {
+        if(game.getStartTime()==null || end==null) return false;
+        int i = 0;
+        try {
+            PreparedStatement stat = database.getConnection().prepareStatement("UPDATE " + Database.PREFIX + "_" + Type.GAME.getSuffix() + " SET end = ? WHERE game_id = ? AND start = ?");
+            stat.setString(1, new Date(end.getTimeInMillis()).toString());
+            stat.setString(2, game.getGameId());
+            stat.setString(3, new Date(game.getStartTime().getTimeInMillis()).toString());
+            i = database.update(stat);
+            stat.close();
+        } catch (SQLException ex) {
+            LoggerUtil.error("Can't update game: " + game.getGameId() + ". Error:\n" + ex.getMessage());
+        }
+        return i>0;
+    }
 
     public static boolean clearAll(Player player) {
         boolean r = true;
         for (Type type : Type.values()) {
+            if(type.equals(Type.GAME)) continue;
             if (!clear(player, type)) { //if, at least, one not edited - return false
                 r = false;
             }
         }
         return r;
     }
-
-    public static boolean clear(Player player, Type table) {
+    
+    public static boolean deleteGame(Game game) {
         int i = 0;
         try {
-            PreparedStatement stat = database.getConnection().prepareStatement("DELETE FROM " + Database.PREFIX + "_" + table.getSuffix() + "WHERE UUID=?");
+            PreparedStatement stat = database.getConnection().prepareStatement(Type.GAME.getClearQuery());
+            stat.setString(1, game.getGameId());
+            stat.setString(2, new Date(game.getStartTime().getTimeInMillis()).toString());
+            i = database.update(stat);
+            stat.close();
+        } catch (SQLException ex) {
+            LoggerUtil.error("Can't delete game: " + game.getGameId() + ". Error:\n" + ex.getMessage());
+        }
+        return i>0;
+    }
+
+    public static boolean clear(Player player, Type type) {
+        int i = 0;
+        try {
+            PreparedStatement stat = database.getConnection().prepareStatement(type.getClearQuery());
             stat.setString(1, player.getUniqueId().toString());
             i = database.update(stat);
             stat.close();
@@ -234,7 +284,7 @@ public class Info {
         return i > 0;
     }
 
-    private static ResultSet getInfo(Player player, Type type) {
+    public static ResultSet getInfo(Player player, Type type) {
         try {
             statement = database.getConnection().prepareStatement(type.getSelectQuery());
             statement.setString(1, player.getUniqueId().toString());
@@ -295,6 +345,19 @@ public class Info {
                     return selectPlayers;
                 case STATS:
                     return selectStats;
+                default:
+                    return "";
+            }
+        }
+        
+        protected String getClearQuery() {
+            switch (this) {
+                case GAME:
+                    return "DELETE FROM " + Database.PREFIX + "_" + this.getSuffix() + " WHERE game_id=? AND start=?";
+                case PLAYER:
+                    return "UPDATE "+Database.PREFIX +"_"+this.getSuffix() + " SET coins=0, points=0 WHERE UUID=?";
+                case STATS:
+                    return "UPDATE "+Database.PREFIX +"_"+this.getSuffix() + " SET games=0, wins=0, kills=0, deaths=0 WHERE UUID=?";
                 default:
                     return "";
             }

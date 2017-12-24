@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.configuration;
+package ua.endertainment.quartzdefenders.configuration.database;
 
 import java.io.File;
 import java.sql.Connection;
@@ -309,5 +309,5 @@ public class Database {
             return false;
         }
     }
-
+    
 }

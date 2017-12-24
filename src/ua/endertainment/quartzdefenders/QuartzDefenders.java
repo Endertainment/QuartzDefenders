@@ -22,14 +22,14 @@ import ua.endertainment.quartzdefenders.commands.game.CommandGame;
 import ua.endertainment.quartzdefenders.commands.kit.CommandKit;
 import ua.endertainment.quartzdefenders.commands.stats.CommandStats;
 import ua.endertainment.quartzdefenders.commands.team.CommandTeam;
-import ua.endertainment.quartzdefenders.configuration.Database;
+import ua.endertainment.quartzdefenders.configuration.database.Database;
 import ua.endertainment.quartzdefenders.configuration.Info;
 import ua.endertainment.quartzdefenders.events.*;
 import ua.endertainment.quartzdefenders.events.game.GameRegisterEvent;
 import ua.endertainment.quartzdefenders.kits.KitsManager;
 import ua.endertainment.quartzdefenders.stats.PlayerJoinStats;
 import ua.endertainment.quartzdefenders.stats.TopManager;
-import ua.endertainment.quartzdefenders.utils.FilesUtil;
+import ua.endertainment.quartzdefenders.configuration.Config;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
@@ -45,7 +45,7 @@ public class QuartzDefenders extends JavaPlugin {
 
     private final String[] devs = {"_Endertainment_", "Cool_boy"};
 
-    private FilesUtil files;
+    private Config files;
     private TopManager top;
     private Lobby lobby;
     private AchievementsManager achvM;
@@ -63,7 +63,7 @@ public class QuartzDefenders extends JavaPlugin {
 
         saveDefaultConfig();
 
-        files = new FilesUtil(this);
+        files = new Config(this);
         lobby = new Lobby(this);
         top = new TopManager(this);
         achvM = new AchievementsManager(this);
@@ -286,7 +286,7 @@ public class QuartzDefenders extends JavaPlugin {
     /*
 	 * Another Managers
      */
-    public FilesUtil getConfigs() {
+    public Config getConfigs() {
         return files;
     }
     

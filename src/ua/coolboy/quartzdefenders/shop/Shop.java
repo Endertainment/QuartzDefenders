@@ -17,7 +17,7 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.DataAdapter;
-import ua.endertainment.quartzdefenders.utils.FilesUtil;
+import ua.endertainment.quartzdefenders.configuration.Config;
 import ua.endertainment.quartzdefenders.utils.ItemUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
 
@@ -25,7 +25,7 @@ public class Shop {
 
     QuartzDefenders plugin;
     Inventory main;
-    FilesUtil files;
+    Config files;
     ItemUtil item;
 
     public static String name, stuffName, resourcesName, potionsName,

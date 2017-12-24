@@ -1,4 +1,4 @@
-package ua.endertainment.quartzdefenders.utils;
+package ua.endertainment.quartzdefenders.configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class FilesUtil {
+public class Config {
 
     private QuartzDefenders plugin;
 
@@ -30,7 +30,7 @@ public class FilesUtil {
     private FileConfiguration shop;
     private FileConfiguration achv;
 
-    public FilesUtil(QuartzDefenders plugin) {
+    public Config(QuartzDefenders plugin) {
         this.plugin = plugin;
 
         setupGames();

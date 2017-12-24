@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import ua.endertainment.quartzdefenders.configuration.Info;
 
 public class StatsPlayer {
 
@@ -98,11 +99,13 @@ public class StatsPlayer {
             this.points = 0;
         }
         StatsManager.saveInfo(id, "points", this.points);
+        Info.addPoints(player, points);
     }
 
     public void setPoints(int points) {
         this.points = points;
         StatsManager.saveInfo(id, "points", this.points);
+        Info.setPoints(player, points);
     }
 
     /*
@@ -115,11 +118,13 @@ public class StatsPlayer {
     public void addKill() {
         this.kills += 1;
         StatsManager.saveInfo(id, "kills", this.kills);
+        Info.addKill(player);
     }
     
     public void setKills(int kills) {
         this.kills = kills;
         StatsManager.saveInfo(id, "kills", this.kills);
+        Info.setKills(player, kills);
     }
 
     /*
@@ -132,11 +137,13 @@ public class StatsPlayer {
     public void addDeath() {
         this.deaths += 1;
         StatsManager.saveInfo(id, "deaths", this.deaths);
+        Info.addDeath(player);
     }
 
     public void setDeaths(int deaths) {
         this.deaths = deaths;
         StatsManager.saveInfo(id, "deaths", this.deaths);
+        Info.setDeaths(player, deaths);
     }
 
     /*
