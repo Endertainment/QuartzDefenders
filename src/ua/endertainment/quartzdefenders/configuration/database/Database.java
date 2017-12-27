@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -76,7 +75,7 @@ public class Database {
             switch (suffix) {
                 case gamesSuffix:
                     String inc = mysql ? "AUTO_INCREMENT" : "";//sql injection? How to fix?
-                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL " + inc + ", game_id VARCHAR(255), start DATETIME NULL, end DATETIME NULL, PRIMARY KEY(id))";
+                    query = "CREATE TABLE IF NOT EXISTS ?_?(id MEDIUMINT NOT NULL " + inc + ", game_id VARCHAR(255), start TIMESTAMP, end TIMESTAMP, PRIMARY KEY(id))";
                     break;
                 case playersSuffix:
                     query = "CREATE TABLE IF NOT EXISTS ?_?(UUID varchar(36) NOT NULL, name VARCHAR(16), coins INTEGER DEFAULT 0, points INTEGER DEFAULT 0, PRIMARY KEY(UUID))";
@@ -136,11 +135,11 @@ public class Database {
                 String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?useUnicode=true&characterEncoding=utf-8&connectTimeout=10000";
                 if (init()) {
                     this.connection = DriverManager.getConnection(url, username, password);
-                    try (Statement statement = connection.createStatement()) {
-                        statement.executeUpdate("SET NAMES 'utf8'");
+                    /*try (Statement statement = connection.createStatement()) {
+                        statement.executeUpdate("SET NAMES 'utf8'");*/
                         LoggerUtil.info("Successfully conected to MySQL database!");
                         return true;
-                    }
+                    //}
                 }
             } catch (Exception e) {
                 LoggerUtil.error("Could not establish a MySQL connection, SQLException: " + e.getMessage());

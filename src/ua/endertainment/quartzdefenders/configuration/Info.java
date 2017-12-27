@@ -171,7 +171,7 @@ public class Info {
         try {
             PreparedStatement stat = database.getConnection().prepareStatement("INSERT INTO " + Database.PREFIX + "_" + Type.GAME.getSuffix() + " (game_id, start) VALUES(?,?)");
             stat.setString(1, game.getGameId());
-            stat.setString(2, new Date(game.getStartTime().getTimeInMillis()).toString());
+            stat.setLong(2, game.getStartTime().getTimeInMillis()/1000);
             i = database.update(stat);
             stat.close();
         } catch (SQLException ex) {
@@ -185,9 +185,9 @@ public class Info {
         int i = 0;
         try {
             PreparedStatement stat = database.getConnection().prepareStatement("UPDATE " + Database.PREFIX + "_" + Type.GAME.getSuffix() + " SET end = ? WHERE game_id = ? AND start = ?");
-            stat.setString(1, new Date(end.getTimeInMillis()).toString());
+            stat.setLong(1, end.getTimeInMillis()/1000);
             stat.setString(2, game.getGameId());
-            stat.setString(3, new Date(game.getStartTime().getTimeInMillis()).toString());
+            stat.setLong(3, game.getStartTime().getTimeInMillis()/1000);
             i = database.update(stat);
             stat.close();
         } catch (SQLException ex) {
