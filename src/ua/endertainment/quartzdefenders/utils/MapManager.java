@@ -22,8 +22,8 @@ public class MapManager {
 	
 	public MapManager(String world) {
 		this.worldS = world;
-		this.sourseDir = new File(QuartzDefenders.getInstance().getDataFolder().getPath(), "maps" + File.separator + world);
-		this.serverDir = new File(QuartzDefenders.getInstance().getServer().getWorldContainer().getAbsolutePath());
+		this.sourseDir = new File(QuartzDefenders.getInstance().getDataFolder(), "maps" + File.separator + world);
+		this.serverDir = QuartzDefenders.getInstance().getServer().getWorldContainer();
 	}
 	
 	public void resetMap() {
@@ -34,25 +34,25 @@ public class MapManager {
 	public void deleteMap() {
 		World w = Bukkit.getWorld(worldS);
 		if(w != null) {
-			File worldFolder = new File(w.getWorldFolder().getPath());
+			File worldFolder = w.getWorldFolder();
 			Bukkit.unloadWorld(w, false);
 			try {
 				FileUtils.deleteDirectory(worldFolder);
 			} catch (IOException e) {
-				LoggerUtil.logError(Language.getString("logger.delete_map_failed", new Replacer("{0}", worldS)));
+				LoggerUtil.error(Language.getString("logger.delete_map_failed", new Replacer("{0}", worldS)));
 			}
 		}
 	}
 	
 	public void copyMap() {
 		if(!isFolderExist()) {
-			LoggerUtil.logError(Language.getString("logger.find_map_failed", new Replacer("{0}", worldS), new Replacer("{1}", sourseDir.toString())));
+			LoggerUtil.error(Language.getString("logger.find_map_failed", new Replacer("{0}", worldS), new Replacer("{1}", sourseDir.toString())));
 			return;
 		}
 		try {
 			FileUtils.copyDirectory(sourseDir, serverDir);
 		} catch (IOException e) {
-			LoggerUtil.logError(Language.getString("logger.copy_map_failed"));
+			LoggerUtil.error(Language.getString("logger.copy_map_failed"));
 		}
 		this.world = Bukkit.getServer().createWorld(new WorldCreator(worldS));
                 this.world.setTime(6000);
