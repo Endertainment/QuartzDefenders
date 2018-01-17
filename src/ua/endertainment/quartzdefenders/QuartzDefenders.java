@@ -234,7 +234,7 @@ public class QuartzDefenders extends JavaPlugin {
         GameRegisterEvent e = new GameRegisterEvent(game, gameId);
         Bukkit.getPluginManager().callEvent(e);
         if (e.isCancelled()) {
-            return;
+            return false;
         }
         if (game.isLoadSuccess()) {
             games.add(game);
