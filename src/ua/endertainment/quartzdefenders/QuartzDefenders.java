@@ -87,18 +87,7 @@ public class QuartzDefenders extends JavaPlugin {
 		 * Register games
          */
         for (String gameId : getConfigs().getGameInfo().getConfigurationSection("Games").getKeys(false)) {
-            Game game = new Game(gameId);
-
-            // EVENT
-            GameRegisterEvent e = new GameRegisterEvent(game, gameId);
-            Bukkit.getPluginManager().callEvent(e);
-            if (e.isCancelled()) {
-                return;
-            }
-
-            if (game.isLoadSuccess()) {
-                games.add(game);
-            }
+            addGame(gameId);
         }
 
         LoggerUtil.info(LoggerUtil.getPrefix() + Language.getString("logger.games_loaded"));
@@ -241,6 +230,12 @@ public class QuartzDefenders extends JavaPlugin {
 
     public boolean addGame(String gameId) {
         Game game = new Game(gameId);
+	 // EVENT
+        GameRegisterEvent e = new GameRegisterEvent(game, gameId);
+        Bukkit.getPluginManager().callEvent(e);
+        if (e.isCancelled()) {
+            return;
+        }
         if (game.isLoadSuccess()) {
             games.add(game);
         }
