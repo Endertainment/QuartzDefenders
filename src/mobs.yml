@@ -1,0 +1,6 @@
+alchemist:
+  type: SKELETON
+  health: 50
+  name: TEST
+  attributes:
+    GENERIC_MAX_HEALTH: 50
