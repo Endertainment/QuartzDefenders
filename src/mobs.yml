@@ -1,6 +1,15 @@
 alchemist:
   type: SKELETON
-  health: 50
   name: TEST
+  name_visibility: true
   attributes:
     GENERIC_MAX_HEALTH: 50
+  equipment:
+    boots:
+      drop_chance: 0.5
+      item:
+        material: STONE
+        amount: 16
+        lore:
+          - "Test lore"
+          - "Another test lore line"

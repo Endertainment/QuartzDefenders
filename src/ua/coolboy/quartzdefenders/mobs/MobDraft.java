@@ -175,7 +175,12 @@ public class MobDraft<T extends LivingEntity> {
             attributes.put(Attribute.GENERIC_MAX_HEALTH, (double) health);
             return this;
         }
-
+        
+        public MobDraftBuilder<T> setAttributes(HashMap<Attribute, Double> map) {
+            attributes = map;
+            return this;
+        }
+        
         public MobDraftBuilder<T> setAttribute(Attribute attribute, double value) {
             attributes.put(attribute, value);
             return this;
@@ -185,7 +190,12 @@ public class MobDraft<T extends LivingEntity> {
             name = customname;
             return this;
         }
-
+        
+        public MobDraftBuilder<T> setEquipment(List<Entry<ItemStack, Float>> equip) {
+            equipment = equip;
+            return this;
+        }
+        
         public MobDraftBuilder<T> setBoots(ItemStack boots, float dropChance) {
             equipment.add(0, new AbstractMap.SimpleEntry<>(boots, dropChance));
             return this;
