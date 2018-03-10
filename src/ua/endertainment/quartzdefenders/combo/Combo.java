@@ -63,8 +63,11 @@ public class Combo {
 		this.lastTime = 0;
 	}
 	
-	public void up() {
+	public void updTime() {
 		lastTime = System.currentTimeMillis();
+	}
+	
+	public void up() {
 		switch(count) {
 			case ZERO:
 				count = Kills.FIRST;

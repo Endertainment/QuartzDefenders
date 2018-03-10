@@ -30,6 +30,7 @@ public class ComboManager {
 		}
 		Combo c = comboList.get(p);
 		if(c.compareTime()) {
+			c.updTime();
 			c.up();
 		} else {
 			c.reset();
