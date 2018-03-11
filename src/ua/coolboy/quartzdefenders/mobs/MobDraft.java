@@ -34,19 +34,19 @@ public class MobDraft<T extends LivingEntity> {
         }
         entity.setCustomNameVisible(nameVisibility);
 
-        entity.getEquipment().setBoots(getOrAir(equipment, 0).getKey());
-        entity.getEquipment().setLeggings(getOrAir(equipment, 1).getKey());
-        entity.getEquipment().setChestplate(getOrAir(equipment, 2).getKey());
-        entity.getEquipment().setHelmet(getOrAir(equipment, 3).getKey());
-        entity.getEquipment().setItemInMainHand(getOrAir(equipment, 4).getKey());
-        entity.getEquipment().setItemInOffHand(getOrAir(equipment, 5).getKey());
+        entity.getEquipment().setBoots(getOrDefault(equipment, 0).getKey());
+        entity.getEquipment().setLeggings(getOrDefault(equipment, 1).getKey());
+        entity.getEquipment().setChestplate(getOrDefault(equipment, 2).getKey());
+        entity.getEquipment().setHelmet(getOrDefault(equipment, 3).getKey());
+        entity.getEquipment().setItemInMainHand(getOrDefault(equipment, 4).getKey());
+        entity.getEquipment().setItemInOffHand(getOrDefault(equipment, 5).getKey());
         
-        entity.getEquipment().setBootsDropChance(getOrAir(equipment, 0).getValue());
-        entity.getEquipment().setLeggingsDropChance(getOrAir(equipment, 1).getValue());
-        entity.getEquipment().setChestplateDropChance(getOrAir(equipment, 2).getValue());
-        entity.getEquipment().setHelmetDropChance(getOrAir(equipment, 3).getValue());
-        entity.getEquipment().setItemInMainHandDropChance(getOrAir(equipment, 4).getValue());
-        entity.getEquipment().setItemInOffHandDropChance(getOrAir(equipment, 5).getValue());
+        entity.getEquipment().setBootsDropChance(getOrDefault(equipment, 0).getValue());
+        entity.getEquipment().setLeggingsDropChance(getOrDefault(equipment, 1).getValue());
+        entity.getEquipment().setChestplateDropChance(getOrDefault(equipment, 2).getValue());
+        entity.getEquipment().setHelmetDropChance(getOrDefault(equipment, 3).getValue());
+        entity.getEquipment().setItemInMainHandDropChance(getOrDefault(equipment, 4).getValue());
+        entity.getEquipment().setItemInOffHandDropChance(getOrDefault(equipment, 5).getValue());
 
         for (Entry<Attribute, Double> entry : attributes.entrySet()) {
             entity.getAttribute(entry.getKey()).setBaseValue(entry.getValue());
@@ -54,7 +54,7 @@ public class MobDraft<T extends LivingEntity> {
         return entity;
     }
 
-    private Entry<ItemStack, Float> getOrAir(List<Entry<ItemStack, Float>> stacks, int i) {
+    private Entry<ItemStack, Float> getOrDefault(List<Entry<ItemStack, Float>> stacks, int i) {
         AbstractMap.SimpleEntry<ItemStack, Float> air = new AbstractMap.SimpleEntry<>(new ItemStack(Material.AIR),(float) 0);
         if (stacks.size() < i) {
             return stacks.get(i) == null ? air : stacks.get(i);

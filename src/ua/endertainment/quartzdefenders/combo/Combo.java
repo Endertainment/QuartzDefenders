@@ -31,7 +31,7 @@ public class Combo {
 		this.game = game;
 		this.lastTime = System.currentTimeMillis();
 		
-		this.bossBar = Bukkit.createBossBar(" ", BarColor.WHITE, BarStyle.SEGMENTED_20);
+		this.bossBar = Bukkit.createBossBar(" ", BarColor.WHITE, BarStyle.SOLID);
 	}
 	
 	
