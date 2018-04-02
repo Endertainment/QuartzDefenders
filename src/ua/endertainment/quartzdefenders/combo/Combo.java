@@ -61,6 +61,7 @@ public class Combo {
 		
 		this.count = Kills.ZERO;
 		this.lastTime = 0;
+		updTime();
 	}
 	
 	public void updTime() {
