@@ -49,10 +49,10 @@ public class GameTeam {
         this.allowJoin = true;
 
         this.team = this.scoreboard.registerNewTeam(this.name);
+        this.team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
         this.team.setAllowFriendlyFire(false);
         this.team.setCanSeeFriendlyInvisibles(true);
         this.team.setPrefix(color.toString());
-        this.team.setOption(Option.COLLISION_RULE, OptionStatus.FOR_OWN_TEAM);
     }
 
     public Game getGame() {
