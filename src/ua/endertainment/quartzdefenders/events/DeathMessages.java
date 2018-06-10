@@ -27,6 +27,7 @@ public class DeathMessages implements Listener {
         Player p = e.getEntity();
         Player killer = p.getKiller();
         EntityDamageEvent ldc = p.getLastDamageCause();
+        if(ldc==null) return;
         EntityDamageEvent.DamageCause cause = ldc.getCause();
 
         Game game = plugin.getGame(p);

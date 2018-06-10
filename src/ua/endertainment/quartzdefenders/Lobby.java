@@ -217,10 +217,10 @@ public class Lobby implements Listener {
         sendTabList(p);
         for (Player pp : Bukkit.getOnlinePlayers()) {
             if (hide.contains(pp) && pp.getWorld() == location.getWorld() && !p.hasPermission("QuartzDefenders.lobby.visible")) {
-                pp.hidePlayer(p);
+                pp.hidePlayer(plugin,p);
             }
             if (pp.getWorld() != location.getWorld()) {
-                p.hidePlayer(pp);
+                p.hidePlayer(plugin,pp);
             }
         }
     }

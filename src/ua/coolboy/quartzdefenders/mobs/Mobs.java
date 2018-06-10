@@ -26,7 +26,7 @@ public abstract class Mobs {
         skeleton.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(50);
         skeleton.setHealth(50);
         skeleton.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE).setBaseValue(3);
-        skeleton.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(0.5);
+        //skeleton.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(0.5);
         skeleton.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(2);
         skeleton.getEquipment().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
         skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.IRON_SWORD));

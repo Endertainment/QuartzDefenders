@@ -39,7 +39,7 @@ public class GameSidebar {
 	
 	private void build(GameState state) {
 		objective.unregister();
-		objective = this.scoreboard.registerNewObjective("GameBar", "MEOW");
+		objective = this.scoreboard.registerNewObjective("GameBar", "dummy");
 		objective.setDisplayName(title);
 		objective.setDisplaySlot(slot);
 		

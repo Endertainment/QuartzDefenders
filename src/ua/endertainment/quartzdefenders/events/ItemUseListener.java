@@ -183,9 +183,10 @@ public class ItemUseListener implements Listener {
         }
 
         if (plugin.getGame(p) != null) {
-            if (i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose().getItemMeta().getDisplayName())) {
+            if (i.getItemMeta().getDisplayName()!= null 
+                    && i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose().getItemMeta().getDisplayName())) {
                 e.setCancelled(true);
-            };
+            }
         }
 
     }

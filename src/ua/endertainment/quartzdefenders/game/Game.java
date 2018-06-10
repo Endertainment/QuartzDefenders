@@ -605,7 +605,7 @@ public class Game {
         gameAllPlayers.clear();
 
         mapManager.deleteMap();
-        LoggerUtil.logInfo(Language.getString("logger.game_disable", new Replacer("{0}", gameName), new Replacer("{1}", id)));
+        LoggerUtil.info(Language.getString("logger.game_disable", new Replacer("{0}", gameName), new Replacer("{1}", id)));
         QuartzDefenders.getInstance().restartGame(this);
 
         this.game = null;
@@ -638,7 +638,7 @@ public class Game {
         while (i.hasNext()) {
             p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
         }
-        
+        p.getPlayer().setScoreboard(gameScoreboard);
         broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), 
         		Language.getString("game.reconnect_success_2", new Replacer("{0}", p.getDisplayName()))));
         

@@ -77,6 +77,7 @@ public class GameQuartz {
     public void breakQuartz() {
         setQuartzHealth(getQuartzHealth() - 1);
         replace();
+        game.refreshScoreboard();
     }
 
     public void destroyQuartz() {
@@ -93,7 +94,7 @@ public class GameQuartz {
     }
 
     public void setQuartzHealth(int quartzHealth) {
-        if (this.quartzHealth == 0) {//why?
+        if (quartzHealth < 0 || this.quartzHealth==0) {//why?
             return;
         }
         this.quartzHealth = quartzHealth;
@@ -109,18 +110,12 @@ public class GameQuartz {
     public void replace() {
         Block b = game.getGameWorld().getBlockAt(getLocation());
         if (getQuartzHealth() > 0) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    b.setType(Material.QUARTZ_ORE);
-                }
+            Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), () -> {
+                b.setType(Material.QUARTZ_ORE);
             });
         } else {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    b.setType(Material.BEDROCK);
-                }
+            Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), () -> {
+                b.setType(Material.BEDROCK);
             });
         }
     }

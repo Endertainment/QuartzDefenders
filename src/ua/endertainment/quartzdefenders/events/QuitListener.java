@@ -27,7 +27,7 @@ public class QuitListener implements Listener {
 	@EventHandler
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
-		if(p.hasPermission("QuartzDefenders.lobby.alert.join")) {
+		if(p.hasPermission("QuartzDefenders.lobby.alert.quit")) {
 			e.setQuitMessage(new ColorFormat("&3» &f[&3-&f] &r" + p.getDisplayName()).format()); 
 		} else {
 			e.setQuitMessage("");
@@ -52,7 +52,7 @@ public class QuitListener implements Listener {
 					game.quitGame(pp);
 					return;
 				}
-				BukkitRunnable runnable = new GameLeaveTimer(game, pp, p);
+				BukkitRunnable runnable = new GameLeaveTimer(game, pp);
 				runnable.runTaskTimerAsynchronously(plugin, 0, 20); //may cause some thoubles
 				p.setHealth(0);
 			}
