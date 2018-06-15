@@ -95,6 +95,6 @@ public class MobsListener implements Listener {
                     }
                 }
             }
-        }.runTaskTimer(plugin, 0, 120);
+        }.runTaskTimer(plugin, 0, game.getAlchemistDelay()*20);
     }
 }

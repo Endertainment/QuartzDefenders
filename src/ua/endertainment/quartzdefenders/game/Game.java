@@ -64,7 +64,7 @@ public class Game {
     private int playersInTeam;
     private int minPlayers;
     private boolean autostart;
-    
+
     private MapManager mapManager;
     private World map;
 
@@ -85,9 +85,12 @@ public class Game {
     private boolean diamondDef;
     private Map<GameTeam, Location> shopLocations = new HashMap<>();
     private Map<Location, Integer> alchemistsLocations = new HashMap<>();
+    private int alchemistDelay;
 
     private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
     private Ores ores;
+
+    private boolean blockBowCraft;
 
     private Set<Cuboid> cuboids = new HashSet<>();
 
@@ -95,7 +98,7 @@ public class Game {
     private Set<GamePlayer> gameAllPlayers = new HashSet<>();
 
     private Map<GamePlayer, Kit> kits = new HashMap<>();
-    
+
     private Set<GamePlayer> disableJoinGame = new HashSet<>();
     private Set<GamePlayer> disableJoinTeam = new HashSet<>();
 
@@ -170,24 +173,26 @@ public class Game {
         LoggerUtil.info(Language.getString("logger.load_map_success"));
 
         this.map = mapManager.getWorld();
-        
+
         this.map.setAmbientSpawnLimit(0);
         this.map.setAnimalSpawnLimit(0);
         this.map.setMonsterSpawnLimit(0);
         this.map.setGameRuleValue("keepInventory", "false");
         this.map.setGameRuleValue("announceAdvancements", "false");
         this.map.setDifficulty(Difficulty.valueOf(config.getString("Games." + this.id + ".difficulty", "NORMAL")));
-        
+
         this.mapSpawn = new Location(Bukkit.getWorld(teckWorldName),
                 config.getDouble("Games." + this.id + ".map_spawn.x") + 0.5,
                 config.getDouble("Games." + this.id + ".map_spawn.y"),
                 config.getDouble("Games." + this.id + ".map_spawn.z") + 0.5);
         this.customShop = config.getBoolean("Games." + this.id + ".custom_shop", false);
         this.buildCuboid = new BCub(mapSpawn, this);
-        
+
         if (this.generateSpectator) {
             generateSpectatorRoom(Material.GLASS);
         }
+
+        this.blockBowCraft = config.getBoolean("Games." + this.id + ".block_bow", false);
 
         int i = 0;
         for (String team : (List<String>) config.getList("Games." + this.id + ".teams")) {
@@ -216,14 +221,14 @@ public class Game {
                     quartzs.put(getTeam(team), new GameQuartz(this, getTeam(team), quartz, quartzHealth));
 
                     shopLocations.put(getTeam(team), shop);
-                    
+
                     Cuboid cuboidSpawn = new Cuboid(spawn, 1, getTeam(team), CubType.SPAWN);
 
                     Cuboid cuboidQuartz = new Cuboid(quartz, 2, getTeam(team), CubType.QUARTZ);
 
                     cuboids.add(cuboidQuartz);
                     cuboids.add(cuboidSpawn);
-                    
+
                     i++;
                 } else {
                     LoggerUtil.error(Language.getString("logger.invalid_team", new Replacer("{0}", team)));
@@ -235,7 +240,8 @@ public class Game {
 
         this.ores = new Ores(this, config.getConfigurationSection("Games." + this.id + ".regenerative_blocks"));
 
-        int alchemistRadius = config.getInt("Games." + this.id + ".alchemists.radius");
+        int alchemistRadius = config.getInt("Games." + this.id + ".alchemists.radius",5);
+        alchemistDelay = config.getInt("Games." + this.id + ".alchemists.delay",10);
         for (String loc : config.getConfigurationSection("Games." + this.id + ".alchemists").getStringList(".list")) {
             String[] array = loc.split(",");
             Location alchemist = new Location(Bukkit.getWorld(teckWorldName),
@@ -245,7 +251,7 @@ public class Game {
             alchemistsLocations.put(alchemist, alchemistRadius);
         }
         this.diamondDef = config.getBoolean("Games." + this.id + ".diamond_defenders", false);
-
+        
         LoggerUtil.info(Language.getString("logger.game_load_success", new Replacer("{0}", gameName)));
         loadSuccess = true;
     }
@@ -262,17 +268,16 @@ public class Game {
             }
         }
 
-        if(isJoinGameDisabled(player)) {
-        	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.join_disabled")));
-        	return;
+        if (isJoinGameDisabled(player)) {
+            player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.join_disabled")));
+            return;
         }
-        
+
         if (gameAllPlayers.contains(player)) {
             return;
         }
 
         //player.getPlayer().setCollidable(false); not working with arrows
-
         // EVENT
         PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);
         Bukkit.getPluginManager().callEvent(e);
@@ -281,7 +286,7 @@ public class Game {
         }
 
         player.setScoreboard(gameScoreboard);
-        
+
         if (isGameState(GameState.LOBBY)) {
 
             gameAllPlayers.add(player);
@@ -330,6 +335,7 @@ public class Game {
             player.getPlayer().teleport(mapSpawn);
             player.getPlayer().setGameMode(GameMode.SPECTATOR);
             player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_running")));
+            player.sendMessage(ChatColor.GRAY + "Use " + ChatColor.BLUE + "/team" + ChatColor.GRAY + " to choose team");
             sendTabList();
             return;
         }
@@ -339,7 +345,7 @@ public class Game {
             return;
         }
     }
-    
+
     public void refreshScoreboard() {
         sidebar.refresh();
     }
@@ -404,7 +410,7 @@ public class Game {
         getSidebar().refresh();
         this.timer = new GameTimer(this);
         this.timer.runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
-        if(generateSpectator) {
+        if (generateSpectator) {
             generateSpectatorRoom(Material.AIR);
         }
         Bukkit.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_started", new Replacer("{0}", gameName))));
@@ -494,7 +500,7 @@ public class Game {
 
             Bukkit.broadcastMessage(LoggerUtil.gameMessage(gameName, Language.getString("team.win", new Replacer("{0}", winner.getName()))));
             Bukkit.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.game_ended", new Replacer("{0}", gameName))));
-            
+
             BukkitRunnable runnable = new BukkitRunnable() {
 
                 @Override
@@ -612,23 +618,28 @@ public class Game {
     }
 
     public void showBossBar(BossBar bar) {
-    	for(GamePlayer p : gameAllPlayers) {
-    		bar.addPlayer(p.getPlayer());
-    	}
-    	new BukkitRunnable() {			
-			@Override
-			public void run() {
-				bar.removeAll();
-			}
-		}.runTaskLater(QuartzDefenders.getInstance(), 100);
+        for (GamePlayer p : gameAllPlayers) {
+            bar.addPlayer(p.getPlayer());
+        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                bar.removeAll();
+            }
+        }.runTaskLater(QuartzDefenders.getInstance(), 100);
     }
-    
+
     public void reconnect(GamePlayer p) {
+        GameTeam team = getTeam(p.getPlayer());
+        if (team == null) {
+            return;
+        }
+        Location loc = team.getSpawnLocation();
         p.getPlayer().getInventory().clear();
-    	p.getPlayer().setGameMode(GameMode.SURVIVAL);
+        p.getPlayer().setGameMode(GameMode.SURVIVAL);
         p.getPlayer().setVelocity(new Vector(0, 0, 0));
-        p.getPlayer().teleport(getTeam(p.getPlayer()).getSpawnLocation());
-        p.setDisplayName(getTeam(p.getPlayer()).getColor());
+        p.getPlayer().teleport(loc);
+        p.setDisplayName(team.getColor());
         p.getPlayer().setHealth(20);
         p.getPlayer().setFoodLevel(20);
         p.getPlayer().setExp(0);
@@ -639,26 +650,32 @@ public class Game {
             p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
         }
         p.getPlayer().setScoreboard(gameScoreboard);
-        broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), 
-        		Language.getString("game.reconnect_success_2", new Replacer("{0}", p.getDisplayName()))));
-        
+        broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"),
+                Language.getString("game.reconnect_success_2", new Replacer("{0}", p.getDisplayName()))));
+
         p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.reconnect_success_1")));
     }
-    
+
     public void disableJoinGame(GamePlayer p) {
-    	if(!disableJoinGame.contains(p)) disableJoinGame.add(p);
+        if (!disableJoinGame.contains(p)) {
+            disableJoinGame.add(p);
+        }
     }
+
     public boolean isJoinGameDisabled(GamePlayer p) {
-    	return disableJoinGame.contains(p);
+        return disableJoinGame.contains(p);
     }
-    
+
     public void disableJoinTeam(GamePlayer p) {
-    	if(!disableJoinTeam.contains(p)) disableJoinTeam.add(p);
+        if (!disableJoinTeam.contains(p)) {
+            disableJoinTeam.add(p);
+        }
     }
+
     public boolean isJoinTeamDisabled(GamePlayer p) {
-    	return disableJoinTeam.contains(p);
+        return disableJoinTeam.contains(p);
     }
-    
+
     /*
 	 * ENUMS
      */
@@ -715,6 +732,10 @@ public class Game {
     public boolean isGameLocked() {
         return lockGame;
     }
+    
+    public boolean isBowBlocked() {
+        return blockBowCraft;
+    }
 
     /*
 	 * GETTERS
@@ -751,7 +772,7 @@ public class Game {
     public boolean getCustomShop() {
         return customShop;
     }
-    
+
     public boolean isAutostart() {
         return this.autostart;
     }
@@ -764,10 +785,14 @@ public class Game {
         return alchemistsLocations;
     }
     
+    public int getAlchemistDelay() {
+        return alchemistDelay;
+    }
+
     public boolean isDiamondDefenders() {
         return diamondDef;
     }
-    
+
     public Ores getGameOres() {
         return ores;
     }
@@ -803,7 +828,7 @@ public class Game {
     public GameTimer getGameTimer() {
         return timer;
     }
-    
+
     public Calendar getStartTime() {
         return started;
     }
@@ -811,7 +836,7 @@ public class Game {
     public GameState getGameState() {
         return state;
     }
-    
+
     public Scoreboard getScoreboard() {
         return gameScoreboard;
     }
@@ -930,16 +955,16 @@ public class Game {
             }
         }
         for (int y = 0; y < 5; y++) {
-            for(int x = 0; x<=20; x++) {
+            for (int x = 0; x <= 20; x++) {
                 start.clone().add(x, y, 0).getBlock().setType(material);
             }
-            for(int x = 0; x<=20; x++) {
+            for (int x = 0; x <= 20; x++) {
                 start.clone().add(x, y, 20).getBlock().setType(material);
             }
-            for(int z = 0; z<=20; z++) {
+            for (int z = 0; z <= 20; z++) {
                 start.clone().add(0, y, z).getBlock().setType(material);
             }
-            for(int z = 0; z<=20; z++) {
+            for (int z = 0; z <= 20; z++) {
                 start.clone().add(20, y, z).getBlock().setType(material);
             }
         }

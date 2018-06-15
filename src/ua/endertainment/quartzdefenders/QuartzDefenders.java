@@ -184,6 +184,8 @@ public class QuartzDefenders extends JavaPlugin {
         new FireArrowListener(this);
         new PistonFix(this);
         new CuboidBlockBreakListener(this);
+        new ItemCraftListener(this);
+        new CommandListener(this);
     }
 
     /*

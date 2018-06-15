@@ -42,7 +42,7 @@ public class Lobby implements Listener {
         this.plugin = plugin;
 
         if (plugin.getConfig().getString("Lobby.lobby_world_name") == null || plugin.getConfig().getString("Lobby.lobby_world_name").equalsIgnoreCase("null")) {
-            LoggerUtil.logError("Can not find 'Lobby.lobby_world_name' in configuration file. Check config or visit web page to see more info");
+            LoggerUtil.error("Can not find 'Lobby.lobby_world_name' in configuration file. Check config or visit web page to see more info");
             Bukkit.getPluginManager().disablePlugin(plugin);
             return;
         }
@@ -74,33 +74,30 @@ public class Lobby implements Listener {
     }
 
     public void hidePlayers(Player p) {
-        if (p.getLocation().getWorld() != location.getWorld()) {
+        if (!p.getLocation().getWorld().equals(location.getWorld())) {
             return;
         }
         if (!hide.contains(p)) {
             hide.add(p);
             for (Player targ : Bukkit.getOnlinePlayers()) {
-                if (targ.hasPermission("QuartzDefenders.lobby.visible")) {
-                    if (targ.getLocation().getWorld() != location.getWorld()) {
-                        p.hidePlayer(targ);
-                        continue;
-                    } else {
-                        continue;
-                    }
+                if (targ.hasPermission("QuartzDefenders.lobby.visible")
+                        && !targ.getLocation().getWorld().equals(location.getWorld())) {
+                    p.hidePlayer(plugin, targ);
                 }
-                p.hidePlayer(targ);
+
+                p.hidePlayer(plugin, targ);
             }
         }
     }
 
     public void showPlayers(Player p) {
-        if (p.getLocation().getWorld() != location.getWorld()) {
+        if (!p.getLocation().getWorld().equals(location.getWorld())) {
             return;
         }
         if (hide.contains(p)) {
             hide.remove(p);
             for (Player targ : location.getWorld().getPlayers()) {
-                p.showPlayer(targ);
+                p.showPlayer(plugin, targ);
             }
         }
     }
@@ -216,10 +213,10 @@ public class Lobby implements Listener {
         p.teleport(getLocation());
         sendTabList(p);
         for (Player pp : Bukkit.getOnlinePlayers()) {
-            if (hide.contains(pp) && pp.getWorld() == location.getWorld() && !p.hasPermission("QuartzDefenders.lobby.visible")) {
+            if (hide.contains(pp) && pp.getWorld().equals(location.getWorld()) && !p.hasPermission("QuartzDefenders.lobby.visible")) {
                 pp.hidePlayer(plugin,p);
             }
-            if (pp.getWorld() != location.getWorld()) {
+            if (!pp.getWorld().equals(location.getWorld())) {
                 p.hidePlayer(plugin,pp);
             }
         }
@@ -292,8 +289,6 @@ public class Lobby implements Listener {
             bp.setFoodLevel(20);
 
             setLobbyTools(bp);
-
-            
 
             GamePlayer p = plugin.getGamePlayer(e.getPlayer());
             p.resetDisplayName();

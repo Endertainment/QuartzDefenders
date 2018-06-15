@@ -27,12 +27,12 @@ public class WorldChangeListener implements Listener {
 		}
 		
 		for(Player p : Bukkit.getOnlinePlayers()) {
-			p.hidePlayer(player);
-			player.hidePlayer(p);
+			p.hidePlayer(plugin,player);
+			player.hidePlayer(plugin,p);
 		}
 		for(Player p : to.getPlayers()) {
-			p.showPlayer(player);
-			player.showPlayer(p);
+			p.showPlayer(plugin,player);
+			player.showPlayer(plugin,p);
 		}
 	}
 	

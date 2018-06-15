@@ -49,14 +49,13 @@ public class GameTimer extends BukkitRunnable {
         } else {
             times = times.replace("HH", h + "");
         }
-        int x = time - (h * 3600);
-        int m = x / 60;
+        int m = time / 60 % 60;
         if (m < 10) {
             times = times.replace("MM", "0" + m);
         } else {
             times = times.replace("MM", m + "");
         }
-        int s = time - ((h * 3600) + (m * 60));
+        int s = time % 60;
         if (s < 10) {
             times = times.replace("SS", "0" + s);
         } else {

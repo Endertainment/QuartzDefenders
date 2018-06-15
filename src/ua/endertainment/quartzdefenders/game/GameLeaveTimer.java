@@ -26,7 +26,13 @@ public class GameLeaveTimer extends BukkitRunnable {
 		if(Bukkit.getServer().getPlayerExact(player.getPlayer().getName()) == null) {
 			if(time == 0) {
 				cancel();
-				game.quitGame(player);
+                                new BukkitRunnable() {
+                                    @Override
+                                    public void run() {
+                                        game.quitGame(player);
+                                    }
+                                };
+				
 			} 
 			else if(time == 300 || time == 120 || time == 60) {
 				int x = time/60;
