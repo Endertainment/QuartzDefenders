@@ -1,5 +1,5 @@
 name: QuartzDefenders
-version: 3.0
+version: 3.1
 main: ua.endertainment.quartzdefenders.QuartzDefenders
 database: true
 commands:

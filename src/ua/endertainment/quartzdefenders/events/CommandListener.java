@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
@@ -21,8 +22,9 @@ public class CommandListener implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     
+    @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent e) {
-        String command = e.getMessage().split(" ")[0].replace("/", "");
+        String command = e.getMessage().split(" ")[0].replace("/", "").toLowerCase();
         if(blockedCmds.contains(command) && !e.getPlayer().hasPermission("quartzdefenders.command.bypass_blocked")) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(LoggerUtil.getPrefix()+ChatColor.RED+"This command is blocked!");

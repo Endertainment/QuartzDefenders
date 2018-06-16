@@ -187,7 +187,12 @@ public class Game {
                 config.getDouble("Games." + this.id + ".map_spawn.z") + 0.5);
         this.customShop = config.getBoolean("Games." + this.id + ".custom_shop", false);
         this.buildCuboid = new BCub(mapSpawn, this);
-
+        
+        map.getWorldBorder().setCenter(mapSpawn);
+        map.getWorldBorder().setDamageBuffer(1);
+        map.getWorldBorder().setSize(buildRadius*2);
+        map.getWorldBorder().setDamageAmount(1);
+        
         if (this.generateSpectator) {
             generateSpectatorRoom(Material.GLASS);
         }
@@ -639,6 +644,9 @@ public class Game {
         p.getPlayer().setGameMode(GameMode.SURVIVAL);
         p.getPlayer().setVelocity(new Vector(0, 0, 0));
         p.getPlayer().teleport(loc);
+        for(Player player : loc.getWorld().getPlayers()) {
+            p.getPlayer().showPlayer(QuartzDefenders.getInstance(), player);
+        }
         p.setDisplayName(team.getColor());
         p.getPlayer().setHealth(20);
         p.getPlayer().setFoodLevel(20);
@@ -753,7 +761,7 @@ public class Game {
     }
 
     public final GameTeam getTeam(String team) {
-        return teams.get(team);
+        return teams.get(team.toUpperCase());
     }
 
     public GameTeam getTeam(Player p) {
