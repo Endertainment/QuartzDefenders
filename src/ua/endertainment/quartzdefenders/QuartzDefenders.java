@@ -19,7 +19,6 @@ import ua.coolboy.quartzdefenders.mobs.MobsListener;
 import ua.coolboy.quartzdefenders.nms.NMSHandler;
 import ua.coolboy.quartzdefenders.shop.ShopInventory;
 import ua.endertainment.quartzdefenders.achievements.AchievementsManager;
-import ua.endertainment.quartzdefenders.combo.ComboManager;
 import ua.endertainment.quartzdefenders.commands.CommandGameBroadcast;
 import ua.endertainment.quartzdefenders.commands.CommandQuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.game.CommandGame;
@@ -53,7 +52,6 @@ public class QuartzDefenders extends JavaPlugin {
     private TopManager top;
     private Lobby lobby;
     private AchievementsManager achvM;
-    private ComboManager comboManager;
     private KitsManager kitsManager;
     private Database database;
     
@@ -73,7 +71,6 @@ public class QuartzDefenders extends JavaPlugin {
         lobby = new Lobby(this);
         top = new TopManager(this);
         achvM = new AchievementsManager(this);
-        comboManager = new ComboManager();
         kitsManager = new KitsManager(this);
         database = new Database(this);
         new Info(this);
@@ -126,7 +123,12 @@ public class QuartzDefenders extends JavaPlugin {
         for (Game game : games) {
             game.disableGame();
         }
-        
+        //show all players on reload
+        for(Player player : Bukkit.getOnlinePlayers()) {
+            for(Player pl:Bukkit.getOnlinePlayers()) {
+                player.showPlayer(this, pl);
+            }
+        }
         database.close();
         NMSHandler.getNMS().onDisable();
         main = null;
@@ -324,9 +326,5 @@ public class QuartzDefenders extends JavaPlugin {
 
     public AchievementsManager getAchievementsManager() {
         return achvM;
-    }
-    
-    public ComboManager getComboManager() {
-    	return comboManager;
     }
 }

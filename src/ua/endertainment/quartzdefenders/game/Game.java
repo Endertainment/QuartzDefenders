@@ -36,6 +36,7 @@ import ua.endertainment.quartzdefenders.items.QItems;
 import ua.endertainment.quartzdefenders.stats.KillsStats;
 import ua.endertainment.quartzdefenders.kits.Kit;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.combo.ComboManager;
 import ua.endertainment.quartzdefenders.events.game.GameEndEvent;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.BCub;
@@ -70,6 +71,7 @@ public class Game {
     private int minPlayers;
     private boolean autostart;
 
+    private ComboManager comboManager;
     private MapManager mapManager;
     private World map;
 
@@ -269,6 +271,7 @@ public class Game {
         this.autosmelt = config.getBoolean("Games." + this.id + ".auto_smelt", false);
         
         voteManager = new VoteManager(config,this);
+        comboManager = new ComboManager();
     }
 
     /*
@@ -379,6 +382,10 @@ public class Game {
 
         this.broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.quit_game", new Replacer("{0}", player.getDisplayName()))));
         QuartzDefenders.getInstance().getLobby().teleportToSpawn(player.getPlayer(), false);
+        for(Player pl : player.getPlayer().getWorld().getPlayers()) {
+            player.getPlayer().showPlayer(QuartzDefenders.getInstance(), pl);
+            pl.showPlayer(QuartzDefenders.getInstance(), player.getPlayer());
+        }
 
         Player p = player.getPlayer();
         p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
@@ -662,6 +669,7 @@ public class Game {
                 }
 
             }
+            comboManager.reset();
             QuartzDefenders.getInstance().getTopManager().refresh();
             QuartzDefenders.getInstance().getTopManager().setupSigns();
 
@@ -813,6 +821,10 @@ public class Game {
     /*
 	 * GETTERS
      */
+    
+    public ComboManager getComboManager() {
+        return comboManager;
+    }
     
     public VoteManager getVoteManager() {
         return voteManager;

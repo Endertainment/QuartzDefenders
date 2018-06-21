@@ -12,6 +12,7 @@ import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.combo.ComboManager.Kills;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Combo {
 
@@ -27,7 +28,7 @@ public class Combo {
 	
 	public Combo(GamePlayer player, Game game) {
 		this.player = player;
-		this.count = Kills.ZERO;
+		this.count = Kills.FIRST;
 		this.game = game;
 		this.lastTime = System.currentTimeMillis();
 		
@@ -61,42 +62,46 @@ public class Combo {
 		
 		this.count = Kills.ZERO;
 		this.lastTime = 0;
-		updTime();
+		updateTime();
 	}
 	
-	public void updTime() {
+	public void updateTime() {
 		lastTime = System.currentTimeMillis();
 	}
 	
 	public void up() {
+            LoggerUtil.info(count.toString());
 		switch(count) {
 			case ZERO:
 				count = Kills.FIRST;
+                                break;
 			case FIRST:
 				count = Kills.DOUBLE;
 				show();
+                                break;
 			case DOUBLE:
 				count = Kills.TRIPLE;
 				show();
+                                break;
 			case TRIPLE:
 				count = Kills.ULTRA;
 				show();
+                                break;
 			case ULTRA:
 				count = Kills.RAMPAGE;
 				show();
+                                break;
 			case RAMPAGE:
 				count = Kills.RAMPAGE;
 				show();
+                                break;
 			default:
 				count = Kills.ZERO;		
 		}
 	}
 	
 	public boolean compareTime() {
-		if((lastTime + 15*1000) >= System.currentTimeMillis()) {
-			return true;
-		}
-		return false;
+		return (lastTime + 15*1000) >= System.currentTimeMillis();
 	}
 		
 	private void show() {
@@ -124,9 +129,12 @@ public class Combo {
 			case 7:
 				this.bc = BarColor.WHITE;
 				this.cc = ChatColor.WHITE;
+                        default:
+                                this.bc = BarColor.YELLOW;
+                                this.cc = ChatColor.GOLD;
 		}
 		
-		this.title = new ColorFormat(cc + "" + count + (count == Kills.RAMPAGE ? "" : " kill") + " by " + player.getDisplayName()).format();
+		this.title = new ColorFormat(cc + "" + count.getName()+ChatColor.GRAY + (count == Kills.RAMPAGE ? "" : " kill") + " by " + player.getDisplayName()).format();
 		
 		bossBar.setColor(bc);
 		bossBar.setTitle(title);
