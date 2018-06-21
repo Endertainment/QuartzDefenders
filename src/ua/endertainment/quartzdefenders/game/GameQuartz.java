@@ -56,6 +56,8 @@ public class GameQuartz {
         this.replace();
 
         player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4 * 20, 0), true);
+        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 4*20, 0), true);
+        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 4*20, 0), true);
 
         if (getQuartzHealth() == 0) {
             for (GamePlayer p : game.getPlayers()) {

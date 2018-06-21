@@ -4,15 +4,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
+import ua.coolboy.quartzdefenders.voting.Vote;
 
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 
 public class GamePlayer {
 	
+        private Vote vote;
 	private Player player;
 	
 	public GamePlayer(Player player) {
 		this.player = player;
+                vote = new Vote(this);
 	}
 
 	public Player getPlayer() {
@@ -51,4 +54,12 @@ public class GamePlayer {
 	public void sendMessage(String s) {
 		getPlayer().sendMessage(new ColorFormat(s).format());
 	}
+        
+        public Vote getVote() {
+            return vote;
+        }
+        
+        public void resetVote() {
+            vote = new Vote(this);
+        }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -73,6 +74,13 @@ public class ItemUtil {
         return item;
     }
 
+    public static ItemStack addGlow(ItemStack stack) {
+        ItemMeta meta = stack.getItemMeta();
+        meta.addEnchant(Enchantment.LUCK, 0, true);
+        stack.setItemMeta(meta);
+        return hideAll(stack);
+    }
+
     public static ItemStack setName(ItemStack stack, String rename) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(new ColorFormat(rename).format());
@@ -102,7 +110,7 @@ public class ItemUtil {
         stack.setItemMeta(meta);
         return stack;
     }
-    
+
     public static ItemStack addLore(ItemStack stack, String newLine) {
         ItemMeta meta = stack.getItemMeta();
         List<String> lore = meta.getLore();

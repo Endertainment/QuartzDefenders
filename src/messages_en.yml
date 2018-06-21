@@ -9,6 +9,11 @@ shop:
     blocks: '&8Blocks'
     stuff: '&eStuff'
     resources: '&2Resources'
+generic:
+    "yes": "&aYes"
+    "no": "&cNo"
+    enabled: '&aEnabled'
+    disabled: '&cDisabled'
 mobs:
     diamond_defender: '&5Diamond defender'
     alchemist_soul: '&bAlchemist soul'
@@ -125,6 +130,13 @@ kits:
     kit_choose_failed: 'You do not have a kit {0}'
     kit_available: '&aAvailable'
     kit_unavailable: '&cUnavailable.'
+vote:
+    chat_prefix: 'Voting'
+    voted: "You're voted for {0}!"
+    ended: 'Voting ended! Results:'
+    result: '{0} &7is {1}'
+    count: '&a{0}+ &c{1}-'
+    not_in_team: 'You must be in team to vote!'
 tablist:
     lobby: 
         header: ' \n &3\u00AB &b&lPlayCraft.COM.UA &3\u00BB \n '
@@ -148,6 +160,8 @@ GUI:
         name: '&2Kits'
         glass_id_1: 5
         glass_id_2: 13
+    vote:
+        name: '&2Voting'
     shop: 
         name: '&2Shop'
         glass_id_1: 2
@@ -203,6 +217,8 @@ items:
         games: '&7Games: &d{0}'
     kits:
         name: '&2Kits &7(Right click)'
+    vote:
+        name: '&1Vote &7(Right click)'
     stats:
         name: '&6My Stats &7(Right click)'
     teams:

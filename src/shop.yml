@@ -35,12 +35,21 @@ default:
             amount: 1
             bookEnchant:
                 LOOT_BONUS_BLOCKS : 2
+    vanishing:
+        primary:
+            material: EMERALD
+            amount: 8
+        result:
+            material: ENCHANTED_BOOK
+            amount: 1
+            bookEnchant:
+                VANISHING_CURSE: 1
   potions:
     blaze_rod:
         primary:
             material: DOUBLE_PLANT
             amount: 12
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -50,7 +59,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 8
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -60,7 +69,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 3
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -70,7 +79,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 7
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -80,7 +89,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 9
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -90,7 +99,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 7
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -100,7 +109,7 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 1
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
@@ -110,14 +119,14 @@ default:
         primary:
             material: DOUBLE_PLANT
             amount: 15
-            name: 'Alchemistry coin'
+            name: 'Alchemists coin'
             lore:
             - 'Special alchemistry currency'
         result:
             material: DRAGONS_BREATH
             amount: 1
 
-  ###Food  
+  ###Food
   food:
     cake:
         primary:

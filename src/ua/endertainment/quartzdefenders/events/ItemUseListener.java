@@ -20,8 +20,11 @@ import ua.endertainment.quartzdefenders.gui.KitsGUI;
 import ua.endertainment.quartzdefenders.gui.LobbyShopGUI;
 import ua.endertainment.quartzdefenders.gui.StatsGUI;
 import ua.endertainment.quartzdefenders.gui.TeamGUI;
+import ua.endertainment.quartzdefenders.gui.VoteGUI;
 import ua.endertainment.quartzdefenders.items.QItems;
 import ua.endertainment.quartzdefenders.items.SetupItems;
+import ua.endertainment.quartzdefenders.utils.Language;
+import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class ItemUseListener implements Listener {
 
@@ -56,6 +59,7 @@ public class ItemUseListener implements Listener {
             String compass = QItems.itemGamesChoose().getItemMeta().getDisplayName();
             String stats = QItems.itemStats().getItemMeta().getDisplayName();
             String kits = QItems.itemKitsChoose().getItemMeta().getDisplayName();
+            String vote = QItems.itemVote().getItemMeta().getDisplayName();
             String quit = QItems.itemQuit().getItemMeta().getDisplayName();
             String show = QItems.itemHidePlayers(true).getItemMeta().getDisplayName();
             String hide = QItems.itemHidePlayers(false).getItemMeta().getDisplayName();
@@ -143,6 +147,16 @@ public class ItemUseListener implements Listener {
                     return;
                 }
 
+                if (i.getItemMeta().getDisplayName().equalsIgnoreCase(vote)) {
+                    e.setCancelled(true);
+                    if (game.getTeam(p) != null) {
+                        new VoteGUI(game).openInventory(p);
+                    } else {
+                        p.sendMessage(LoggerUtil.gameMessage(Language.getString("vote.chat_prefix"), Language.getString("vote.not_in_team")));
+                    }
+                    return;
+                }
+
                 if (i.getItemMeta().getDisplayName().equalsIgnoreCase(setupOres)) {
                     e.setCancelled(true);
                     Block b = e.getClickedBlock();
@@ -183,7 +197,7 @@ public class ItemUseListener implements Listener {
         }
 
         if (plugin.getGame(p) != null) {
-            if (i.getItemMeta().getDisplayName()!= null 
+            if (i.getItemMeta().getDisplayName() != null
                     && i.getItemMeta().getDisplayName().equals(QItems.itemTeamChoose().getItemMeta().getDisplayName())) {
                 e.setCancelled(true);
             }

@@ -26,6 +26,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Vector;
 import ua.coolboy.quartzdefenders.shop.ShopEntity;
+import ua.coolboy.quartzdefenders.voting.Vote;
+import ua.coolboy.quartzdefenders.voting.VoteManager;
+import ua.coolboy.quartzdefenders.voting.VoteObject;
 import ua.endertainment.quartzdefenders.events.game.GameStartEvent;
 import ua.endertainment.quartzdefenders.events.game.GameStateChangeEvent;
 import ua.endertainment.quartzdefenders.events.game.PlayerJoinGameEvent;
@@ -56,6 +59,8 @@ public class Game {
     private boolean loadSuccess = false;
 
     private boolean lockGame = false;
+    
+    private VoteManager voteManager;
 
     private String id;
     private String gameName;
@@ -91,6 +96,7 @@ public class Game {
     private Ores ores;
 
     private boolean blockBowCraft;
+    private boolean autosmelt;
 
     private Set<Cuboid> cuboids = new HashSet<>();
 
@@ -259,6 +265,10 @@ public class Game {
         
         LoggerUtil.info(Language.getString("logger.game_load_success", new Replacer("{0}", gameName)));
         loadSuccess = true;
+        
+        this.autosmelt = config.getBoolean("Games." + this.id + ".auto_smelt", false);
+        
+        voteManager = new VoteManager(config,this);
     }
 
     /*
@@ -282,14 +292,14 @@ public class Game {
             return;
         }
 
-        //player.getPlayer().setCollidable(false); not working with arrows
         // EVENT
         PlayerJoinGameEvent e = new PlayerJoinGameEvent(this, player);
         Bukkit.getPluginManager().callEvent(e);
         if (e.isCancelled()) {
             return;
         }
-
+        
+        player.resetVote();
         player.setScoreboard(gameScoreboard);
 
         if (isGameState(GameState.LOBBY)) {
@@ -306,6 +316,7 @@ public class Game {
                     p.getPlayer().getInventory().clear();
                     p.getPlayer().teleport(mapSpawn);
                     p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
+                    p.getPlayer().getInventory().setItem(4, QItems.itemVote());
                     //p.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
                     p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
@@ -324,6 +335,7 @@ public class Game {
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
             player.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
+            player.getPlayer().getInventory().setItem(4, QItems.itemVote());
             //player.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
             player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
@@ -371,6 +383,9 @@ public class Game {
         Player p = player.getPlayer();
         p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
         p.setPlayerListName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
+        
+        p.setExp(0);
+        p.setLevel(0);
 
         if (p.hasPermission("QuartzDefenders.lobby.colorName")) {
             p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
@@ -469,6 +484,51 @@ public class Game {
         getSidebar().refresh();
         new Countdown(this).runTaskTimer(QuartzDefenders.getInstance(), 0, 20);
         return true;
+    }
+    
+    public void endVoting() {
+        Map<VoteObject, Vote.VoteResult> results = voteManager.getResults();
+        for(Map.Entry<VoteObject, Vote.VoteResult> entry : results.entrySet()) {
+            Boolean bool = entry.getValue().asBoolean();
+            if(bool==null) bool = entry.getKey().getDefault().asBoolean();
+            switch(entry.getKey().getType()) {
+                case AUTOSMELT:
+                    autosmelt = bool;
+                    break;
+                case BLOCK_BOW:
+                    blockBowCraft = bool;
+                    break;
+                case DIAMOND_DEFENDERS:
+                    diamondDef = bool;
+                    break;
+            }
+        }
+        
+        for(GamePlayer player : getPlayers()) {
+            player.sendMessage(LoggerUtil.gameMessage(Language.getString("vote.chat_prefix"), Language.getString("vote.ended")));
+            for(Map.Entry<VoteObject, Vote.VoteResult> entry : results.entrySet()) {
+                String name = entry.getKey().getType().getItem().getItemMeta().getDisplayName();
+                String status="";
+                
+                String enabled = Language.getString("generic.enabled");
+                String disabled = Language.getString("generic.disabled");
+                
+                switch(entry.getKey().getType()) {
+                    case AUTOSMELT:
+                        status = autosmelt ? enabled : disabled;
+                        break;
+                    case BLOCK_BOW:
+                        status = blockBowCraft ? enabled : disabled;
+                        break;
+                    case DIAMOND_DEFENDERS:
+                        status = diamondDef ? enabled : disabled;
+                        break;
+                }
+                if(!status.equals("")) {
+                    player.sendMessage(Language.getString("vote.result", name, status));
+                }
+            }
+        }
     }
 
     public void checkGameEnd() {
@@ -698,6 +758,11 @@ public class Game {
     /*
 	 * IS
      */
+    
+    public boolean isAutoSmelt() {
+        return autosmelt;
+    }
+    
     public boolean isLoadSuccess() {
         return loadSuccess;
     }
@@ -748,6 +813,11 @@ public class Game {
     /*
 	 * GETTERS
      */
+    
+    public VoteManager getVoteManager() {
+        return voteManager;
+    }
+    
     public String getGameName() {
         return gameName;
     }

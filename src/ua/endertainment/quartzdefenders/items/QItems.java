@@ -50,6 +50,10 @@ public class QItems {
 	public static ItemStack itemTeamChoose() {		
 		return ItemUtil.newItem(Language.getRawString("items.teams.name"), null, Material.COMPASS, 1);
 	}
+        
+        public static ItemStack itemVote() {
+                return ItemUtil.newItem(Language.getRawString("items.vote.name"), null, Material.PAPER, 1);
+        }
 	
 	public static ItemStack itemQuit() {
 		return ItemUtil.newItem(Language.getRawString("items.quit.name"), null, Material.MAGMA_CREAM, 1);

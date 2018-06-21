@@ -37,6 +37,9 @@ public class Countdown extends BukkitRunnable {
                 p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
                 p.getPlayer().sendTitle(Language.getString("game.title.waiting.top", new Replacer("{0}", game.getColorWorldName())), Language.getString("game.title.waiting.bot", new Replacer("{0}", time + "")), 0, 70, 20);
             }
+            if(time==5) {
+                game.endVoting();
+            }
         }
         time -= 1;
     }

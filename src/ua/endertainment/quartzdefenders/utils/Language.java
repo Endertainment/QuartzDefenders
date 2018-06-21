@@ -3,6 +3,7 @@ package ua.endertainment.quartzdefenders.utils;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
@@ -24,7 +25,7 @@ public abstract class Language {
 
             if (s == null) {
                 LoggerUtil.error("Could not find string: "+ path);
-                return path; //return path, not empty string
+                return ChatColor.DARK_RED+path; //return red path, not empty string
             }
 
         }
