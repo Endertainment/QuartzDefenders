@@ -30,7 +30,7 @@ public class LobbyShopGUI {
 
     public LobbyShopGUI(Player player) {
         this.title = new ColorFormat(Language.getString("GUI.shop.name")).format();
-        this.inventory = Bukkit.createInventory(null, 6 * 9, title);
+        this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 6 * 9, title);
         this.player = player;
         this.kitM = QuartzDefenders.getInstance().getKitManager();
         this.items = new ArrayList<>();

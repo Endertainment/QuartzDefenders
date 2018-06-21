@@ -23,7 +23,7 @@ public class AdminGUI {
         this.game = game;
         
         this.title = Language.getString("GUI.admin.name");
-	this.inventory = Bukkit.createInventory(null, 9*1, title);
+	this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 9*1, title);
         generateInventory();
     }
     

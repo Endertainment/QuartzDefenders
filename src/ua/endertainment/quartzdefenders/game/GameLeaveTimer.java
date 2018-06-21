@@ -3,6 +3,7 @@ package ua.endertainment.quartzdefenders.game;
 import ua.endertainment.quartzdefenders.game.Game;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
+import ua.endertainment.quartzdefenders.QuartzDefenders;
 
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
@@ -25,14 +26,14 @@ public class GameLeaveTimer extends BukkitRunnable {
 	public void run() {
 		if(Bukkit.getServer().getPlayerExact(player.getPlayer().getName()) == null) {
 			if(time == 0) {
-				cancel();
+				
                                 new BukkitRunnable() {
                                     @Override
                                     public void run() {
                                         game.quitGame(player);
                                     }
-                                };
-				
+                                }.runTaskLater(QuartzDefenders.getInstance(), 0);
+                                cancel();
 			} 
 			else if(time == 300 || time == 120 || time == 60) {
 				int x = time/60;

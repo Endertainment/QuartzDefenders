@@ -25,7 +25,7 @@ public class AchievementsGUI {
 	public AchievementsGUI(Player player) {
 		this.player = player;
 		this.title = Language.getString("GUI.achievements.name");
-		this.inventory = Bukkit.createInventory(null, 9*6, title);
+		this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 9*6, title);
 		
 		this.menuCorner();
 		

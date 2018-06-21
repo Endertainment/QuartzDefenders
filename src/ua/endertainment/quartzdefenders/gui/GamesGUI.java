@@ -27,7 +27,7 @@ public class GamesGUI {
 	public GamesGUI(QuartzDefenders plugin) {
 		this.plugin = plugin;
 		this.title = new ColorFormat(Language.getString("GUI.games.name")).format();
-		this.inventory = Bukkit.createInventory(null, 6*9, title);
+		this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 6*9, title);
 		this.menuCorner();
 		this.a();
 	}

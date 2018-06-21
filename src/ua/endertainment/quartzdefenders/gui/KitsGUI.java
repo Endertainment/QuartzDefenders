@@ -30,7 +30,7 @@ public class KitsGUI {
 
     public KitsGUI(Player player) {
         this.title = new ColorFormat(Language.getString("GUI.kits.name")).format();
-        this.inventory = Bukkit.createInventory(null, 6 * 9, title);
+        this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 6 * 9, title);
         this.player = player;
         this.kitM = QuartzDefenders.getInstance().getKitManager();
         this.items = new ArrayList<>();

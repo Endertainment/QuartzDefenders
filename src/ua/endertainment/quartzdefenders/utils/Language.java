@@ -23,8 +23,8 @@ public abstract class Language {
             s = getDefaultLanguage().getString(path);
 
             if (s == null) {
-                LoggerUtil.logError("Could not find string: "+ path);
-                return "";
+                LoggerUtil.error("Could not find string: "+ path);
+                return path; //return path, not empty string
             }
 
         }

@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -45,16 +46,16 @@ public class BreakBlockListener implements Listener {
                 Material material = e.getBlock().getType();
                 if (ores.isRegenerativeMaterial(material)) {
                     if (ores.isRegenetiveOre(block.getLocation())) {
-                        
+
                         OreBreakEvent bEvent = new OreBreakEvent(block);
                         Bukkit.getPluginManager().callEvent(bEvent);
                         if (bEvent.isCancelled()) {
                             return;
                         }
-                        
+
                         StatsPlayer player = new StatsPlayer(p);
                         player.addBrokenOre();
-                        
+
                         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                             teleportOres(block);
                             block.setType(Material.BEDROCK);
@@ -65,13 +66,13 @@ public class BreakBlockListener implements Listener {
                             @Override
                             public void run() {
                                 if (e.getBlock().getWorld() != null) {
-                                    
+
                                     OreRegenerationEvent event = new OreRegenerationEvent(block);
                                     Bukkit.getPluginManager().callEvent(event);
                                     if (event.isCancelled()) {
                                         return;
                                     }
-                                    
+
                                     block.setType(material);
                                 }
                             }
@@ -90,7 +91,20 @@ public class BreakBlockListener implements Listener {
         Collection<Entity> list = block.getWorld().getNearbyEntities(block.getLocation().add(0.5, 0, 0.5), 0.5, 1, 0.5);
         for (Entity entity : list) {
             if (entity instanceof Item) {
-                items.add((Item) entity);
+                Item item = (Item) entity;
+                Game game = plugin.getGame(block.getWorld());
+                if (game != null && game.isAutoSmelt()) {
+                    ItemStack stack = item.getItemStack().clone();
+                    if (stack.getType().equals(Material.GOLD_ORE)) {
+                        stack.setType(Material.GOLD_INGOT);
+                        item.setItemStack(stack);
+                    }
+                    if (stack.getType().equals(Material.IRON_ORE)) {
+                        stack.setType(Material.IRON_INGOT);
+                        item.setItemStack(stack);
+                    }
+                }
+                items.add(item);
             }
         }
         for (Item item : items) {

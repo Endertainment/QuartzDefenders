@@ -22,7 +22,7 @@ public class StatsGUI {
 	public StatsGUI(Player player) {
 		this.player = player;
 		this.title = new ColorFormat("&6" + player.getName() +"&6's Stats").format();
-		this.inventory = Bukkit.createInventory(null, 6*9, title);		
+		this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 6*9, title);		
 		this.menuCorner();
 	}
 	

@@ -16,6 +16,7 @@ import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
+import ua.endertainment.quartzdefenders.gui.QuartzInventoryHolder;
 import ua.endertainment.quartzdefenders.gui.StatsGUI;
 import ua.endertainment.quartzdefenders.items.QItems;
 import ua.endertainment.quartzdefenders.kits.Kit;
@@ -37,6 +38,7 @@ public class InventoryClickListener implements Listener {
     public void onInvClick(InventoryClickEvent e) {
 
         Inventory inv = e.getInventory();
+        if(inv.getHolder() == null || !(inv.getHolder() instanceof QuartzInventoryHolder)) return; //avoiding conflicts with other plugins
 
         if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) {
             return;

@@ -1,6 +1,5 @@
 package ua.endertainment.quartzdefenders.events;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,10 +14,7 @@ public class CommandListener implements Listener {
     private List<String> blockedCmds;
     
     public CommandListener(QuartzDefenders plugin) {
-        blockedCmds = new ArrayList<>();
-        blockedCmds.add("me");
-        blockedCmds.add("tell");
-        blockedCmds.add("w");
+        blockedCmds = plugin.getConfig().getStringList("blocked_commands");
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     

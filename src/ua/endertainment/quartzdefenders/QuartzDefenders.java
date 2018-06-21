@@ -1,18 +1,22 @@
 package ua.endertainment.quartzdefenders;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.Game;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import ua.coolboy.quartzdefenders.mobs.MobsListener;
+import ua.coolboy.quartzdefenders.nms.NMSHandler;
 import ua.coolboy.quartzdefenders.shop.ShopInventory;
 import ua.endertainment.quartzdefenders.achievements.AchievementsManager;
 import ua.endertainment.quartzdefenders.combo.ComboManager;
@@ -52,6 +56,8 @@ public class QuartzDefenders extends JavaPlugin {
     private ComboManager comboManager;
     private KitsManager kitsManager;
     private Database database;
+    
+    private List<Enchantment> blockedEnchantments;
 
     private final static Set<JavaPlugin> plugins = new HashSet<>();
     private final Set<Game> games = new HashSet<>();
@@ -104,6 +110,14 @@ public class QuartzDefenders extends JavaPlugin {
         if (Bukkit.getSpawnRadius() > 0) {
             Bukkit.setSpawnRadius(0);
         }
+        
+        blockedEnchantments = new ArrayList<>();
+        for(String string : getConfig().getStringList("blocked_enchants")) {
+            Enchantment ench = Enchantment.getByName(string.toUpperCase());
+            if(ench != null) blockedEnchantments.add(ench);
+        }
+        
+        NMSHandler.getNMS().removeEnchantments(blockedEnchantments);
     }
 
     @Override
@@ -114,6 +128,7 @@ public class QuartzDefenders extends JavaPlugin {
         }
         
         database.close();
+        NMSHandler.getNMS().onDisable();
         main = null;
     }
 
@@ -197,12 +212,12 @@ public class QuartzDefenders extends JavaPlugin {
     
     public static void hook(JavaPlugin plugin) {
         plugins.add(plugin);
-        LoggerUtil.logInfo("Successfully hooked plugin: " + plugin.getName());
+        LoggerUtil.info("Successfully hooked plugin: " + plugin.getName());
     }
     
     public static void unhook(JavaPlugin plugin) {
         if(plugins.remove(plugin)) {
-        LoggerUtil.logInfo("Successfully unhooked plugin: " + plugin.getName());   
+        LoggerUtil.info("Successfully unhooked plugin: " + plugin.getName());   
         }
     }
     

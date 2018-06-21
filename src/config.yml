@@ -8,6 +8,13 @@ Lobby:
     z: 0
     yaw: 0
     pitch: 0
+blocked_commands:
+  - "me"
+  - "tell"
+  - "w"
+#There's no warranty to this thing to work correctly, use at own risk
+blocked_enchants: []
+    
 database:
     use_mysql: false
     table_prefix: quartzdefenders

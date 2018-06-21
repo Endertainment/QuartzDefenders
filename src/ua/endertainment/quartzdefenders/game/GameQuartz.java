@@ -3,12 +3,14 @@ package ua.endertainment.quartzdefenders.game;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.Game;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.events.game.QuartzBreakEvent;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
@@ -75,8 +77,20 @@ public class GameQuartz {
     }
 
     public void breakQuartz() {
+        if(getQuartzHealth()==0) return; //prevent flood
         setQuartzHealth(getQuartzHealth() - 1);
-        replace();
+        if(getQuartzHealth()==0) {
+            for (GamePlayer p : game.getPlayers()) {
+                p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), "Quartz of team "+team.getName()+ChatColor.GRAY+" was destroyed!"));
+                p.getPlayer().playSound(p.getPlayer().getLocation(), Sound.ENTITY_WITHER_DEATH, 1, 1);
+            }
+            for (GamePlayer p : team.getPlayers()) {
+                p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.quartz_broken")));
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0), true);
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0), true);
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0), true);
+            }
+        }
         game.refreshScoreboard();
     }
 

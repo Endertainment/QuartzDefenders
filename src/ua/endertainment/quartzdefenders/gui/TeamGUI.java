@@ -32,7 +32,7 @@ public class TeamGUI {
 		this.game = game;
 		this.p = p;
 		this.title = new ColorFormat(Language.getString("GUI.teams.name")).format();
-		this.inventory = Bukkit.createInventory(null, 6*9, title);
+		this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 6*9, title);
 		this.menuCorner();
 		this.a();
 	}
