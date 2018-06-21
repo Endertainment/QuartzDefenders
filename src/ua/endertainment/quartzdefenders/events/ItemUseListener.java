@@ -186,6 +186,7 @@ public class ItemUseListener implements Listener {
         if (i.getItemMeta().getDisplayName() != null
                 && (i.getItemMeta().getDisplayName().equals(QItems.itemGamesChoose().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemStats().getItemMeta().getDisplayName())
+                || i.getItemMeta().getDisplayName().equals(QItems.itemVote().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemKitsChoose().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemQuit().getItemMeta().getDisplayName())
                 || i.getItemMeta().getDisplayName().equals(QItems.itemAchievements().getItemMeta().getDisplayName())
