@@ -189,7 +189,7 @@ public class QuartzDefenders extends JavaPlugin {
         new PlayerJoinStats(this);
         new ProjectileDamageListener(this);
         new MobsListener(this);
-        new BreakBlockListener(this);
+        new BlockBreakListener(this);
         new DeathListener(this);
         new QuartzBreakListener(this);
         new BlockPlaceListener(this);
@@ -199,7 +199,7 @@ public class QuartzDefenders extends JavaPlugin {
         new ExplodeListener(this);
         new LightningListener(this);
         new FireArrowListener(this);
-        new PistonFix(this);
+        new PistonListener(this);
         new CuboidBlockBreakListener(this);
         new ItemCraftListener(this);
         new CommandListener(this);
@@ -295,6 +295,10 @@ public class QuartzDefenders extends JavaPlugin {
             }
         }
         return null;
+    }
+    
+    public boolean isLobby(World world) {
+        return lobby.getWorld().equals(world);
     }
 
     /*

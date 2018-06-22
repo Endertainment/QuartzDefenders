@@ -25,11 +25,11 @@ import ua.endertainment.quartzdefenders.events.game.OreBreakEvent;
 import ua.endertainment.quartzdefenders.events.game.OreRegenerationEvent;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 
-public class BreakBlockListener implements Listener {
+public class BlockBreakListener implements Listener {
 
     private QuartzDefenders plugin;
 
-    public BreakBlockListener(QuartzDefenders plugin) {
+    public BlockBreakListener(QuartzDefenders plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
@@ -44,41 +44,38 @@ public class BreakBlockListener implements Listener {
 
             if (game.isGameState(GameState.ACTIVE)) {
                 Material material = e.getBlock().getType();
-                if (ores.isRegenerativeMaterial(material)) {
-                    if (ores.isRegenetiveOre(block.getLocation())) {
+                if (ores.isRegenetiveOre(block.getLocation())) {
 
-                        OreBreakEvent bEvent = new OreBreakEvent(block);
-                        Bukkit.getPluginManager().callEvent(bEvent);
-                        if (bEvent.isCancelled()) {
-                            return;
-                        }
-
-                        StatsPlayer player = new StatsPlayer(p);
-                        player.addBrokenOre();
-
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                            teleportOres(block);
-                            block.setType(Material.BEDROCK);
-                        });
-
-                        BukkitRunnable runnable = new BukkitRunnable() {
-
-                            @Override
-                            public void run() {
-                                if (e.getBlock().getWorld() != null) {
-
-                                    OreRegenerationEvent event = new OreRegenerationEvent(block);
-                                    Bukkit.getPluginManager().callEvent(event);
-                                    if (event.isCancelled()) {
-                                        return;
-                                    }
-
-                                    block.setType(material);
-                                }
-                            }
-                        };
-                        runnable.runTaskLater(plugin, ores.getRegenerateTime(material));
+                    OreBreakEvent bEvent = new OreBreakEvent(block);
+                    Bukkit.getPluginManager().callEvent(bEvent);
+                    if (bEvent.isCancelled()) {
+                        return;
                     }
+                    StatsPlayer player = new StatsPlayer(p);
+                    player.addBrokenOre();
+
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        teleportOres(block);
+                        block.setType(Material.BEDROCK);
+                    });
+
+                    BukkitRunnable runnable = new BukkitRunnable() {
+
+                        @Override
+                        public void run() {
+                            if (e.getBlock().getWorld() != null) {
+
+                                OreRegenerationEvent event = new OreRegenerationEvent(block);
+                                Bukkit.getPluginManager().callEvent(event);
+                                if (event.isCancelled()) {
+                                    return;
+                                }
+
+                                block.setType(material);
+                            }
+                        }
+                    };
+                    runnable.runTaskLater(plugin, ores.getRegenerateTime(material));
                 }
             }
 

@@ -114,6 +114,7 @@ commands:
     no_permissions: '&cYou do not have permissions'
     command_ussage: 'Check command usage: &b/{0} help'
     only_players_can_use: '&cOnly players can use this command'
+    command_blocked : '&cThis command is blocked!'
     player_offline: 'Player {0} is not online'
     game_not_exist: '&cGame is not exist'
 kits:

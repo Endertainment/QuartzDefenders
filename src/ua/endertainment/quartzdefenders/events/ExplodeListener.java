@@ -41,7 +41,7 @@ public class ExplodeListener implements Listener {
 
         for (Block b : blocks) {
             if (game.getGameOres().isRegenetiveOre(b.getLocation())) {
-                BreakBlockListener.regenBlock(b.getLocation());
+                BlockBreakListener.regenBlock(b.getLocation());
 
             }
         }
