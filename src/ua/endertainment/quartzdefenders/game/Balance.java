@@ -55,7 +55,7 @@ public class Balance {
 	private boolean DEFAULT_BALANCE() {
 		if(player.getPlayer().hasPermission("QuartzDefenders.team.balanceJoin")) return true; 
 		for(GameTeam team : setOfTeams) {
-			if(game.isPlayerInTeam(player)) {
+			if(game.isInTeam(player)) {
 				if(this.chooseTeam.getPlayers().size() > (team.getPlayers().size() - 1)) {
 					player.sendMessage(LoggerUtil.gameMessage(Language.getString("team.team"), Language.getString("team.team_join_unbalanced")));
 					return false;

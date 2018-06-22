@@ -42,7 +42,7 @@ public class MobsListener implements Listener {
         if (game.isGameState(GameState.ACTIVE)) {
             Material material = e.getBlock().getType();
             if (material.equals(Material.DIAMOND_ORE)) {
-                if (ores.isRegenetiveOre(b.getLocation())) {
+                if (ores.isOre(b.getLocation())) {
                     Location loc = b.getLocation().add(0.5, 0, 0.5);
                     Random random = new Random();
                     WitherSkeleton w = (WitherSkeleton) b.getWorld()

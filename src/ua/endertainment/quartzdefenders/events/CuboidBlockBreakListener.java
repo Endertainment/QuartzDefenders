@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.Cuboid;
+import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class CuboidBlockBreakListener implements Listener {
@@ -31,14 +32,14 @@ public class CuboidBlockBreakListener implements Listener {
 
 	        Game game = plugin.getGame(p);
 
-	        if (!game.isPlayerInTeam(plugin.getGamePlayer(p))) {
+	        if (!game.isInTeam(plugin.getGamePlayer(p))) {
 	            return;
 	        }
 	        
 	        for (Cuboid c : game.getCuboids()) {
 	            if(!c.canBreak(plugin.getGamePlayer(p), e.getBlock().getLocation())) {
 	                e.setCancelled(true);
-	                p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not break block here"));
+	                p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.block.cant_break")));
 	                return;
 	            }
 	        }

@@ -47,7 +47,7 @@ public class PistonListener implements Listener {
         Ores ores = game.getGameOres();
 
         for (Block b : blocks) {
-            if (ores.isRegenetiveOre(b.getLocation())) {
+            if (ores.isOre(b.getLocation())) {
                 event.setCancelled(true);
                 Location loc = event.getBlock().getLocation();
                 loc.getWorld().spawnParticle(Particle.SMOKE_NORMAL, loc.add(0.5, 1.1, 0.5), 25, 0.1, 0.1, 0.1, 0.01);

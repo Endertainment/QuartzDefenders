@@ -40,6 +40,9 @@ game:
     quartz_broken: '&cYour quartz is broken'
     chat_failed: '&cYou can not write in chat here'
     respawn: 'You will respawn in &b{0}&7 seconds'
+    block:
+      cant_place: "&cYou can't place block here"
+      cant_break: "&cYou can't break block here"
     title:
         waiting: 
             top: '{0}'

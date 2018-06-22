@@ -38,6 +38,8 @@ import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
 import ua.endertainment.quartzdefenders.utils.TitleUtil;
 
+//TODO Totems, Kits, Abilities
+
 public class QuartzDefenders extends JavaPlugin {
 
     private static QuartzDefenders main;

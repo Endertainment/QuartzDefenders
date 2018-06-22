@@ -31,7 +31,7 @@ public class Quit extends SubCommand{
 		}
 		
 		if(args.length == 0) {
-			if(game.isPlayerInTeam(gp)) {
+			if(game.isInTeam(gp)) {
 				GameTeam team = game.getTeam(p);
 				team.quitTeam(gp);
 			}

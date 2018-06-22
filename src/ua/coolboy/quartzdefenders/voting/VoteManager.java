@@ -63,7 +63,7 @@ public class VoteManager {
     public Pair<Integer, Integer> countVotes(Type type) {
         int yes = 0, no = 0;
         for (GamePlayer player : game.getPlayers()) {
-            if(game.getTeam(player.getPlayer())==null) continue;
+            if(!game.isInTeam(player)) continue;
             Vote.VoteResult result = player.getVote().getResultFor(type);
             if (result.equals(Vote.VoteResult.NO)) {
                 no++;

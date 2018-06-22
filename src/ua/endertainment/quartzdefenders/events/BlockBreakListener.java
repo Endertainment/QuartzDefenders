@@ -44,7 +44,7 @@ public class BlockBreakListener implements Listener {
 
             if (game.isGameState(GameState.ACTIVE)) {
                 Material material = e.getBlock().getType();
-                if (ores.isRegenetiveOre(block.getLocation())) {
+                if (ores.isOre(block.getLocation())) {
 
                     OreBreakEvent bEvent = new OreBreakEvent(block);
                     Bukkit.getPluginManager().callEvent(bEvent);
@@ -124,7 +124,7 @@ public class BlockBreakListener implements Listener {
                 Material material = location.getBlock().getType();
                 if (ores.isRegenerativeMaterial(material)) {
                     Block block = location.getBlock();
-                    if (ores.isRegenetiveOre(location)) {
+                    if (ores.isOre(location)) {
                         int time = ores.getRegenerateTime(material);
                         new BukkitRunnable() {
                             @Override

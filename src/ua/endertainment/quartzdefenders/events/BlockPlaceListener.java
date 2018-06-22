@@ -10,6 +10,7 @@ import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.Cuboid;
+import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class BlockPlaceListener implements Listener {
@@ -31,7 +32,7 @@ public class BlockPlaceListener implements Listener {
 
         Game game = plugin.getGame(p);
 
-        if (!game.isPlayerInTeam(plugin.getGamePlayer(p))) {
+        if (!game.isInTeam(plugin.getGamePlayer(p))) {
             return;
         }
 
@@ -41,13 +42,13 @@ public class BlockPlaceListener implements Listener {
         for (Cuboid c : game.getCuboids()) {
             if (!c.canBuild(plugin.getGamePlayer(p), e.getBlock().getLocation())) {
                 e.setCancelled(true);
-                p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
+                p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.block.cant_place")));
                 return;
             }
         }
 
         if (!game.getBuildCuboid().contains(e.getBlock().getLocation())) {
-            p.sendMessage(LoggerUtil.gameMessage("Game", "&cYou can not place block here"));
+            p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.block.cant_place")));
             e.setCancelled(true);
             return;
         }

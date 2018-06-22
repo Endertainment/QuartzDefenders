@@ -29,17 +29,20 @@ public class FireArrowListener implements Listener {
         if (arrow.getFireTicks() > 0) {
             Block block = event.getHitBlock();
             Block fire = block.getRelative(getFacing(arrow.getLocation()).getOppositeFace());
-            if (fire.isEmpty()) {
-                fire.setType(Material.FIRE);
+            if (!fire.isEmpty()) {
+                fire = arrow.getLocation().getBlock();
+                if (!fire.isEmpty()) {
+                    return;
+                }
             }
+            fire.setType(Material.FIRE);
         }
     }
-    
+
     private float roundToNearby(float i) {
-        //Bukkit.getLogger().info("Input: " + i + "Output: " +Math.round((i/90))*90);
-        return Math.round((i/90))*90;
+        return Math.round((i / 90)) * 90;
     }
-    
+
     private BlockFace getFacing(Location loc) {
         float pitch = roundToNearby(loc.getPitch());
         for (; pitch < 0; pitch += 360F);

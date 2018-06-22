@@ -17,47 +17,41 @@ import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
 
 public class QuitListener implements Listener {
 
-	private QuartzDefenders plugin;
-	
-	public QuitListener(QuartzDefenders plugin) {
-		this.plugin = plugin;
-		Bukkit.getPluginManager().registerEvents(this, this.plugin);
-	}
-	
-	@EventHandler
-	public void onQuit(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		if(p.hasPermission("QuartzDefenders.lobby.alert.quit")) {
-			e.setQuitMessage(new ColorFormat("&3» &f[&3-&f] &r" + p.getDisplayName()).format()); 
-		} else {
-			e.setQuitMessage("");
-		}
-		
-		for(Player pp : Bukkit.getOnlinePlayers()) {
-			if(pp.getUniqueId() == p.getUniqueId()) continue;
-			new ScoreboardLobby(plugin, pp).setScoreboard();
-		}
-		
-		GamePlayer pp = plugin.getGamePlayer(p);
-		if(plugin.getGame(p) != null) {
-			Game game = plugin.getGame(p);
-			if(game.isGameState(GameState.LOBBY) || game.isGameState(GameState.WAITING) || 
-					game.isGameState(GameState.STARTING) || game.isGameState(GameState.ENDING)) {
-				game.quitGame(pp);
-				return;
-			}
-			
-			if(game.isGameState(GameState.ACTIVE)) {
-				if(game.getSpectators().contains(pp)) {
-					game.quitGame(pp);
-					return;
-				}
-				BukkitRunnable runnable = new GameLeaveTimer(game, pp);
-				runnable.runTaskTimerAsynchronously(plugin, 0, 20); //may cause some thoubles
-				p.setHealth(0);
-			}
-		}
-		
-	}
-	
+    private QuartzDefenders plugin;
+
+    public QuitListener(QuartzDefenders plugin) {
+        this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, this.plugin);
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        if (p.hasPermission("QuartzDefenders.lobby.alert.quit")) {
+            e.setQuitMessage(new ColorFormat("&3» &f[&3-&f] &r" + p.getDisplayName()).format());
+        } else {
+            e.setQuitMessage("");
+        }
+
+        for (Player pp : Bukkit.getOnlinePlayers()) {
+            if (pp.getUniqueId() == p.getUniqueId()) {
+                continue;
+            }
+            new ScoreboardLobby(plugin, pp).setScoreboard();
+        }
+
+        GamePlayer pp = plugin.getGamePlayer(p);
+        if (plugin.getGame(p) != null) {
+            Game game = plugin.getGame(p);
+            if (!game.isGameState(GameState.ACTIVE) || game.getSpectators().contains(pp)) {
+                game.quitGame(pp);
+            } else {
+                BukkitRunnable runnable = new GameLeaveTimer(game, pp);
+                runnable.runTaskTimerAsynchronously(plugin, 0, 20); //may cause some thoubles
+                p.setHealth(0);
+            }
+        }
+
+    }
+
 }

@@ -78,11 +78,11 @@ public class GameTeam {
         	player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join_disallow")));
         	return;
         }        
-        if (game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) != this) {
+        if (game.isInTeam(player) && game.getTeam(player.getPlayer()) != this) {
             game.getTeam(player.getPlayer()).quitTeam(player);
         }
         
-        if (game.isPlayerInTeam(player) && game.getTeam(player.getPlayer()) == this) {
+        if (game.isInTeam(player) && game.getTeam(player.getPlayer()) == this) {
             return;
         }
         

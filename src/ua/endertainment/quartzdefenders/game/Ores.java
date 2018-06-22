@@ -48,7 +48,7 @@ public class Ores {
         return false;
     }
     
-    public boolean isRegenetiveOre(Location location) {
+    public boolean isOre(Location location) {
         if(!isRegenerativeMaterial(location.getBlock().getType())) return false;
         for(OreMaterial mat : materials) {
             for(Location loc : mat.getLocations()) {

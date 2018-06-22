@@ -58,8 +58,8 @@ public class InventoryClickListener implements Listener {
         Player p = (Player) e.getWhoClicked();
 
         /*
-		 * GAMES
-         */
+	* GAMES
+        */
         if (inv.getName().equals(Language.getString("GUI.games.name"))) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
@@ -79,8 +79,8 @@ public class InventoryClickListener implements Listener {
         }
 
         /*
-		 * STATS
-         */
+	* STATS
+        */
         if (inv.getName().equals(new StatsGUI(p).getInventory().getName())) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
@@ -88,8 +88,8 @@ public class InventoryClickListener implements Listener {
             return;
         }
         /*
-		 * SHOP
-         */
+	* SHOP
+        */
         if (inv.getName().equals(Language.getString("GUI.shop.name"))) {
             e.setCancelled(true);
             KitsManager m = plugin.getKitManager();
@@ -105,8 +105,8 @@ public class InventoryClickListener implements Listener {
         }
 
         /*
-		 * KITS
-         */
+	* KITS
+        */
         if (inv.getName().equals(Language.getString("GUI.kits.name"))) {
             e.setCancelled(true);
             KitsManager m = plugin.getKitManager();
@@ -123,8 +123,8 @@ public class InventoryClickListener implements Listener {
         }
 
         /*
-                * Voting
-         */
+        * Voting
+        */
         if (inv.getName().equals(Language.getString("GUI.vote.name"))) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
@@ -140,7 +140,8 @@ public class InventoryClickListener implements Listener {
             }
             return;
         }
-
+        
+        //Vote submit
         for (Type type : Type.values()) {
             if (inv.getName().toLowerCase().replace(" ", "_").equals(type.getID())) {
                 GamePlayer gp = plugin.getGamePlayer(p);
@@ -166,8 +167,8 @@ public class InventoryClickListener implements Listener {
         }
 
         /*
-		 * ACHIEVEMENTS
-         */
+	* ACHIEVEMENTS
+        */
         if (inv.getName().equals(Language.getString("GUI.achievements.name"))) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
@@ -175,8 +176,8 @@ public class InventoryClickListener implements Listener {
         }
 
         /*
-		 * TEAMS
-         */
+	* TEAMS
+        */
         if (inv.getName().equals(Language.getString("GUI.teams.name"))) {
             e.setCancelled(true);
 
@@ -214,8 +215,8 @@ public class InventoryClickListener implements Listener {
         }
 
         /*
-                Admin panel
-         */
+        Admin panel
+        */
         if (inv.getName().equals(Language.getString("GUI.admin.name"))) {
             e.setCancelled(true);
             String id = inv.getItem(4).getItemMeta().getLore().get(0).split(":")[1].substring(1);
@@ -234,8 +235,8 @@ public class InventoryClickListener implements Listener {
             return;
         }
         /*
-		 * Player's inventory
-         */
+	* Player's inventory
+        */
         if (!curr.getItemMeta().hasDisplayName()) {
             return;
         }

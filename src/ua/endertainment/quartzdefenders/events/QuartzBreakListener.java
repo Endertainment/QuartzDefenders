@@ -34,11 +34,11 @@ public class QuartzBreakListener implements Listener {
 		Game game = plugin.getGame(p);
 		Block b = e.getBlock();
 		
-		if(b.getWorld() != game.getGameWorld()) {
+		if(!b.getWorld().equals(game.getGameWorld())) {
 			return;
 		}
 		
-		if(b.getType() != Material.QUARTZ_ORE) {
+		if(b.getType().equals(Material.QUARTZ_ORE)) {
 			return;
 		}
 		

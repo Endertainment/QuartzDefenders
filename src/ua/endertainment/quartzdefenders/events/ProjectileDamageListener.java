@@ -19,6 +19,7 @@ public class ProjectileDamageListener implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     
+    //Displaying damage
     @EventHandler
     public void onShootBow(EntityDamageByEntityEvent event) {
         Entity entity = event.getEntity();

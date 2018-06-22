@@ -21,7 +21,9 @@ public class LightningListener implements Listener {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
-
+    
+    
+    //Unlikely scenario, but best to be prepared
     @EventHandler
     public void onLightning(LightningStrikeEvent event) {
         Location loc = event.getLightning().getLocation().add(0, 20, 0);

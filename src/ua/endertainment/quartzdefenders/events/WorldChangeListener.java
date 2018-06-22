@@ -18,6 +18,7 @@ public class WorldChangeListener implements Listener {
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 	
+        //Does this working?
 	@EventHandler
 	public void onWorldChange(PlayerChangedWorldEvent e) {
 		World to = e.getPlayer().getLocation().getWorld();

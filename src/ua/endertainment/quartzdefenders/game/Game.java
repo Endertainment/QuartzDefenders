@@ -376,7 +376,7 @@ public class Game {
     public void quitGame(GamePlayer player) {
         gameAllPlayers.remove(player);
 
-        if (isPlayerInTeam(player)) {
+        if (isInTeam(player)) {
             getTeam(player.getPlayer()).quitTeam(player);
         }
 
@@ -641,7 +641,7 @@ public class Game {
     public void disableGame() {
         for (GamePlayer p : gameAllPlayers) {
 
-            if (isPlayerInTeam(p)) {
+            if (isInTeam(p)) {
                 getTeam(p.getPlayer()).quitTeam(p);
             }
 
@@ -801,7 +801,7 @@ public class Game {
         return isGameState(GameState.WAITING) && i >= minPlayers;
     }
 
-    public boolean isPlayerInTeam(GamePlayer player) {
+    public boolean isInTeam(GamePlayer player) {
         for (GameTeam team : teams.values()) {
             if (team.contains(player)) {
                 return true;

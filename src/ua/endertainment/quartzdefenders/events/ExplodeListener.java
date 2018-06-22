@@ -22,17 +22,10 @@ public class ExplodeListener implements Listener {
 
     @EventHandler
     public void onExplode(EntityExplodeEvent e) {
-        if (e.getLocation().getWorld() == plugin.getLobby().getWorld()) {
+        if (plugin.isLobby(e.getLocation().getWorld())) {
             return;
         }
-        Game game = null;
-
-        for (Game g : plugin.getGames()) {
-            if (e.getLocation().getWorld() == g.getGameWorld()) {
-                game = g;
-            }
-
-        }
+        Game game = plugin.getGame(e.getLocation().getWorld());
 
         if (game == null) {
             return;
@@ -40,9 +33,8 @@ public class ExplodeListener implements Listener {
         List<Block> blocks = e.blockList();
 
         for (Block b : blocks) {
-            if (game.getGameOres().isRegenetiveOre(b.getLocation())) {
+            if (game.getGameOres().isOre(b.getLocation())) {
                 BlockBreakListener.regenBlock(b.getLocation());
-
             }
         }
 
