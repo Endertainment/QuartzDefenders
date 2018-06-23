@@ -18,7 +18,6 @@ public class Combo {
 
 	private String title;
 	private BarColor bc;
-	private ChatColor cc;
 	
 	private GamePlayer player;
 	private Kills count;
@@ -105,36 +104,10 @@ public class Combo {
 	}
 		
 	private void show() {
-		Random rand = new Random();
-		int i = rand.nextInt(7) + 1;
-		switch (i) {
-			case 1:
-				this.bc = BarColor.PINK;
-				this.cc = ChatColor.LIGHT_PURPLE;
-			case 2:
-				this.bc = BarColor.BLUE;
-				this.cc = ChatColor.BLUE;
-			case 3:
-				this.bc = BarColor.RED;
-				this.cc = ChatColor.RED;
-			case 4:
-				this.bc = BarColor.GREEN;
-				this.cc = ChatColor.GREEN;
-			case 5:
-				this.bc = BarColor.YELLOW;
-				this.cc = ChatColor.YELLOW;
-			case 6:
-				this.bc = BarColor.PURPLE;
-				this.cc = ChatColor.DARK_PURPLE;
-			case 7:
-				this.bc = BarColor.WHITE;
-				this.cc = ChatColor.WHITE;
-                        default:
-                                this.bc = BarColor.YELLOW;
-                                this.cc = ChatColor.GOLD;
-		}
+		Random random = new Random();
+		bc = BarColor.values()[random.nextInt(BarColor.values().length)];
 		
-		this.title = new ColorFormat(cc + "" + count.getName()+ChatColor.GRAY + (count == Kills.RAMPAGE ? "" : " kill") + " by " + player.getDisplayName()).format();
+		this.title = new ColorFormat(count.getName()+ChatColor.GRAY + (count == Kills.RAMPAGE ? "" : " kill") + " by " + player.getDisplayName()).format();
 		
 		bossBar.setColor(bc);
 		bossBar.setTitle(title);

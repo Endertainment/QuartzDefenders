@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
@@ -36,21 +37,23 @@ public class Stack {
         if (material == null) {
             throw new IllegalArgumentException("Invalid material: " + material);
         }
-        this.amount = config.getInt("amount",1);
-        this.data = config.getInt("data",0);
+        this.amount = config.getInt("amount", 1);
+        this.data = config.getInt("data", 0);
         this.name = config.getString("name");
-        this.lore = (List<String>) config.get("lore");
+        this.lore = config.getStringList("lore");
         this.enchant = new HashMap<>();
         this.bookEnchants = new HashMap<>();
-        for (String key : config.getConfigurationSection("enchantments").getKeys(false)) {
-            Enchantment enchantment = Enchantment.getByName(key.toUpperCase());
-            if (enchantment == null) {
-                LoggerUtil.info("Invalid enchantment: " + key); //Util for colored logs
-                continue;
+        if (config.isConfigurationSection("enchantments")) {
+            for (String key : config.getConfigurationSection("enchantments").getKeys(false)) {
+                Enchantment enchantment = Enchantment.getByName(key.toUpperCase());
+                if (enchantment == null) {
+                    LoggerUtil.info("Invalid enchantment: " + key); //Util for colored logs
+                    continue;
+                }
+                enchant.put(enchantment, config.getConfigurationSection("enchantments").getInt(key, 0));
             }
-            enchant.put(enchantment, config.getConfigurationSection("enchantments").getInt(key, 0));
         }
-
+        
         if (material.equals(Material.ENCHANTED_BOOK)) {
             for (String key : config.getConfigurationSection("book_enchantments").getKeys(false)) {
                 Enchantment enchantment = Enchantment.getByName(key.toUpperCase());
@@ -61,7 +64,8 @@ public class Stack {
                 bookEnchants.put(enchantment, config.getConfigurationSection("book_enchantments").getInt(key, 0));
             }
         }
-
+        
+        flags = new ArrayList<>();
         config.getStringList("flags").forEach(fl -> {
             ItemFlag flag = ItemFlag.valueOf(fl.toUpperCase());
             if (flag == null) {

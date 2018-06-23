@@ -2,10 +2,10 @@ package ua.coolboy.quartzdefenders.voting;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 import javafx.util.Pair;
 import javax.annotation.Nullable;
 import org.bukkit.configuration.ConfigurationSection;
@@ -42,7 +42,7 @@ public class VoteManager {
     }
     
     public Map<VoteObject, VoteResult> getResults() {
-        Map<VoteObject, VoteResult> map = new HashMap<>();
+        Map<VoteObject, VoteResult> map = new TreeMap<>((VoteObject t, VoteObject t1) -> t.getType().compareTo(t1.getType())); //sort by enum
         for(VoteObject object : objects) {
             Pair<Integer,Integer> votes = countVotes(object.getType());
             VoteResult result = VoteResult.NOT_VOTED;

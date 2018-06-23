@@ -21,7 +21,7 @@ public class ShopInventory implements Listener {
 
     public ShopInventory(QuartzDefenders plugin) {
         this.plugin = plugin;
-        this.shop = new Shop(plugin);
+        this.shop = new Shop(plugin.getConfigs().getShopInfo());
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     

@@ -15,7 +15,7 @@ import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import ua.coolboy.quartzdefenders.mobs.MobsListener;
+import ua.endertainment.quartzdefenders.events.MobsListener;
 import ua.coolboy.quartzdefenders.nms.NMSHandler;
 import ua.coolboy.quartzdefenders.shop.ShopInventory;
 import ua.endertainment.quartzdefenders.achievements.AchievementsManager;
@@ -56,6 +56,7 @@ public class QuartzDefenders extends JavaPlugin {
     private AchievementsManager achvM;
     private KitsManager kitsManager;
     private Database database;
+    private NMSHandler nmsHandler;
     
     private List<Enchantment> blockedEnchantments;
 
@@ -115,13 +116,13 @@ public class QuartzDefenders extends JavaPlugin {
             Enchantment ench = Enchantment.getByName(string.toUpperCase());
             if(ench != null) blockedEnchantments.add(ench);
         }
-        
-        NMSHandler.getNMS().removeEnchantments(blockedEnchantments);
+        nmsHandler = new NMSHandler();
+        nmsHandler.getNMS().removeEnchantments(blockedEnchantments);
     }
 
     @Override
     public void onDisable() {
-
+        nmsHandler.getNMS().onDisable();
         for (Game game : games) {
             game.disableGame();
         }
@@ -132,7 +133,7 @@ public class QuartzDefenders extends JavaPlugin {
             }
         }
         database.close();
-        NMSHandler.getNMS().onDisable();
+        
         main = null;
     }
 
@@ -320,6 +321,10 @@ public class QuartzDefenders extends JavaPlugin {
     
     public KitsManager getKitManager() {
         return kitsManager;
+    }
+    
+    public NMSHandler getNMSHandler() {
+        return nmsHandler;
     }
     
     public Lobby getLobby() {

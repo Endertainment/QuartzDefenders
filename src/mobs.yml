@@ -1,15 +1,51 @@
-alchemist:
-  type: SKELETON
-  name: TEST
+diamond_defender:
+  type: WITHER_SKELETON
+  name: "&5Diamond defender"
   name_visibility: true
   attributes:
     GENERIC_MAX_HEALTH: 50
+    GENERIC_KNOCKBACK_RESISTANCE: 3
+    GENERIC_ATTACK_DAMAGE: 2
   equipment:
-    boots:
-      drop_chance: 0.5
+    chestplate:
       item:
-        material: STONE
-        amount: 16
-        lore:
-          - "Test lore"
-          - "Another test lore line"
+        material: IRON_CHESTPLATE
+    right_hand:
+      item:
+        material: DIAMOND_SWORD
+alchemist:
+    type: SKELETON
+    name: "&bAlchemist soul"
+    name_visibility: false
+    attributes:
+      GENERIC_MAX_HEALTH: 35
+      GENERIC_KNOCKBACK_RESISTANCE: 3
+    equipment:
+      helmet:
+        drop_chance: 0
+        item:
+          material: GLASS
+      chestplate:
+        drop_chance: 0
+        item:
+          material: ELYTRA
+      leggings:
+        drop_chance: 0.3
+        item:
+          material: IRON_LEGGINGS
+      boots:
+        drop_chance: 0.2
+        item:
+          material: DIAMOND_BOOTS
+      right_hand:
+        drop_chance: 0.2
+        item:
+          material: DIAMOND_SWORD
+      left_hand:
+        drop_chance: 0.5
+        item:
+          material: DOUBLE_PLANT
+          amount: 4
+          name: Alchemists coin
+          lore:
+            - "Special alchemistry currency"

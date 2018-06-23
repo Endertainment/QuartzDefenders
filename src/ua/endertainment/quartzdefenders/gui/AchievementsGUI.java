@@ -1,16 +1,10 @@
 package ua.endertainment.quartzdefenders.gui;
 
-import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.material.Dye;
-
-import ua.endertainment.quartzdefenders.QuartzDefenders;
-import ua.endertainment.quartzdefenders.achievements.Achievement;
 import ua.endertainment.quartzdefenders.utils.ItemUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
 
@@ -29,7 +23,7 @@ public class AchievementsGUI {
 		
 		this.menuCorner();
 		
-		this.a();
+		//this.a();
 	}
 	
 	public void openInventory() {
@@ -48,7 +42,7 @@ public class AchievementsGUI {
 		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));
 	}
 	
-	private void a() {
+	/*private void a() {
 		int index = 10;
 		for(Achievement achv : QuartzDefenders.getInstance().getAchievementsManager().getAchievements()) {
 			boolean unlock = QuartzDefenders.getInstance().getAchievementsManager().isUnlocked(achv, player);
@@ -74,7 +68,7 @@ public class AchievementsGUI {
 		}
 		
 		
-	}
+	}*/
 	
 	
 }

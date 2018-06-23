@@ -22,13 +22,13 @@ public class Config {
     private File statsFile;
     private File kitsFile;
     private File shopFile;
-    private File achvFile;
+    private File mobsFile;
 
     private FileConfiguration games;
     private FileConfiguration stats;
     private FileConfiguration kits;
     private FileConfiguration shop;
-    private FileConfiguration achv;
+    private FileConfiguration mobs;
 
     public Config(QuartzDefenders plugin) {
         this.plugin = plugin;
@@ -37,8 +37,8 @@ public class Config {
         setupStats();
         setupKits();
         setupShop();
-        setupAchv();
-        
+        setupMobs();
+
         setupLang();
     }
 
@@ -52,7 +52,9 @@ public class Config {
             langFile = new File(langFolder, "messages_en.yml");
             if (!langFile.exists()) {
                 InputStream input = plugin.getResource("messages_en.yml");
-                if(input == null) plugin.getLogger().warning("Failed to load language file!!!");
+                if (input == null) {
+                    plugin.getLogger().warning("Failed to load language file!!!");
+                }
                 try {
                     FileUtils.copyInputStreamToFile(input, langFile);
                 } catch (IOException ex) {
@@ -164,7 +166,7 @@ public class Config {
     private void setupShop() {
         shopFile = new File(plugin.getDataFolder() + File.separator, "shop.yml");
         if (!shopFile.exists()) {
-                plugin.saveResource("shop.yml", false);
+            plugin.saveResource("shop.yml", false);
         }
         shop = YamlConfiguration.loadConfiguration(shopFile);
     }
@@ -185,29 +187,25 @@ public class Config {
     /*
      * ACHIEVEMENTS
      */
-    private void setupAchv() {
-        achvFile = new File(plugin.getDataFolder() + File.separator, "achievements.yml");
-        if (!achvFile.exists()) {
-            try {
-            	achvFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private void setupMobs() {
+        mobsFile = new File(plugin.getDataFolder() + File.separator, "mobs.yml");
+        if (!mobsFile.exists()) {
+            plugin.saveResource("mobs.yml", false);
         }
-        achv = YamlConfiguration.loadConfiguration(achvFile);
+        mobs = YamlConfiguration.loadConfiguration(mobsFile);
     }
 
-    public FileConfiguration getAchvInfo() {
-        return achv;
+    public FileConfiguration getMobsInfo() {
+        return mobs;
     }
 
-    public void saveAchvInfo() {
+    public void saveMobsInfo() {
         try {
-            achv.save(achvFile);
+            mobs.save(mobsFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        achv = YamlConfiguration.loadConfiguration(achvFile);
+        mobs = YamlConfiguration.loadConfiguration(mobsFile);
     }
 
 }

@@ -17,23 +17,20 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.DataAdapter;
-import ua.endertainment.quartzdefenders.configuration.Config;
 import ua.endertainment.quartzdefenders.utils.ItemUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
 
 public class Shop {
 
-    QuartzDefenders plugin;
+    FileConfiguration shop;
     Inventory main;
-    Config files;
     ItemUtil item;
 
     public static String name, stuffName, resourcesName, potionsName,
             enchantName, otherName, foodName, blocksName;
 
-    public Shop(QuartzDefenders plugin) {
-        this.plugin = plugin;
-        this.files = plugin.getConfigs();
+    public Shop(FileConfiguration shop) {
+        this.shop = shop;
         name = Language.getString("shop.name");
         stuffName = Language.getString("shop.stuff");
         resourcesName = Language.getString("shop.resources");
@@ -80,7 +77,6 @@ public class Shop {
     }
 
     public Merchant getSection(String sectionName, String merchantName, GameTeam team) {
-        FileConfiguration shop = files.getShopInfo();
         ConfigurationSection sect = shop.getConfigurationSection("default");;
         if (team == null || !team.getGame().getCustomShop()) {
             sect = shop.getConfigurationSection("default");

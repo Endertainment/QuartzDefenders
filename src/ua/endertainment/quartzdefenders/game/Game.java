@@ -1091,19 +1091,23 @@ public class Game {
     }
 
     public void setQuartz(Block b, String team, Player p) {
+        if(b.getType().equals(Material.QUARTZ_ORE)) {
+            p.sendMessage(LoggerUtil.gameMessage("Setup", "&cIt's not quartz ore!"));
+            return;
+        }
         if (!isTeamValid(team)) {
             p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
             return;
         }
 
         FileConfiguration cfg = QuartzDefenders.getInstance().getConfigs().getGameInfo();
-
+        
         cfg.set("Games." + id + ".locations." + team + ".quartz.x", b.getX());
         cfg.set("Games." + id + ".locations." + team + ".quartz.y", b.getY());
         cfg.set("Games." + id + ".locations." + team + ".quartz.z", b.getZ());
 
         p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team
-                + "&f, X:&a" + b.getX() + "&f,Y:&a" + b.getY() + "&f,Z:&a" + b.getZ()));
+                + "&f, X:&a " + b.getX() + "&f,Y:&a " + b.getY() + "&f,Z:&a " + b.getZ()));
         QuartzDefenders.getInstance().getConfigs().saveGameInfo();
     }
 

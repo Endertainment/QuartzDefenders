@@ -8,8 +8,11 @@ import java.util.Map.Entry;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
+import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class MobDraft<T extends LivingEntity> {
 
@@ -20,11 +23,19 @@ public class MobDraft<T extends LivingEntity> {
     private String name;
     private boolean nameVisibility = false;
 
-    public MobDraft(Class<T> clazz) {
+    protected MobDraft(Class<T> clazz) {
         if (clazz == null) {
             throw new RuntimeException("Entity class cannot be null!");
         }
         this.clazz = clazz;
+    }
+
+    protected MobDraft(EntityType type) {
+        try {
+            clazz = (Class<T>) type.getEntityClass();
+        } catch (ClassCastException ex) {
+            throw new RuntimeException("Only Living Entities supported!");
+        }
     }
 
     public T spawn(Location location) {
@@ -40,7 +51,7 @@ public class MobDraft<T extends LivingEntity> {
         entity.getEquipment().setHelmet(getOrDefault(equipment, 3).getKey());
         entity.getEquipment().setItemInMainHand(getOrDefault(equipment, 4).getKey());
         entity.getEquipment().setItemInOffHand(getOrDefault(equipment, 5).getKey());
-        
+
         entity.getEquipment().setBootsDropChance(getOrDefault(equipment, 0).getValue());
         entity.getEquipment().setLeggingsDropChance(getOrDefault(equipment, 1).getValue());
         entity.getEquipment().setChestplateDropChance(getOrDefault(equipment, 2).getValue());
@@ -49,14 +60,20 @@ public class MobDraft<T extends LivingEntity> {
         entity.getEquipment().setItemInOffHandDropChance(getOrDefault(equipment, 5).getValue());
 
         for (Entry<Attribute, Double> entry : attributes.entrySet()) {
-            entity.getAttribute(entry.getKey()).setBaseValue(entry.getValue());
+            AttributeInstance attr = entity.getAttribute(entry.getKey());
+            if (attr != null) {
+                attr.setBaseValue(entry.getValue());
+                if(entry.getKey().equals(Attribute.GENERIC_MAX_HEALTH)) entity.setHealth(entry.getValue()); //set max health
+            } else {
+                LoggerUtil.error(entity.getType() + " doesn't have attribute "+entry.getKey());
+            }
         }
         return entity;
     }
 
     private Entry<ItemStack, Float> getOrDefault(List<Entry<ItemStack, Float>> stacks, int i) {
-        AbstractMap.SimpleEntry<ItemStack, Float> air = new AbstractMap.SimpleEntry<>(new ItemStack(Material.AIR),(float) 0);
-        if (stacks.size() < i) {
+        AbstractMap.SimpleEntry<ItemStack, Float> air = new AbstractMap.SimpleEntry<>(new ItemStack(Material.AIR), (float) 0);
+        if (stacks.size() > i) {
             return stacks.get(i) == null ? air : stacks.get(i);
         }
         return air;
@@ -111,23 +128,23 @@ public class MobDraft<T extends LivingEntity> {
     }
 
     public void setLeggins(ItemStack leggins, float dropChance) {
-        equipment.add(0, new AbstractMap.SimpleEntry<>(leggins, dropChance));
+        equipment.add(1, new AbstractMap.SimpleEntry<>(leggins, dropChance));
     }
 
     public void setChestplate(ItemStack chestplate, float dropChance) {
-        equipment.add(0, new AbstractMap.SimpleEntry<>(chestplate, dropChance));
+        equipment.add(2, new AbstractMap.SimpleEntry<>(chestplate, dropChance));
     }
 
     public void setHelmet(ItemStack helmet, float dropChance) {
-        equipment.add(0, new AbstractMap.SimpleEntry<>(helmet, dropChance));
+        equipment.add(3, new AbstractMap.SimpleEntry<>(helmet, dropChance));
     }
 
     public void setRightArm(ItemStack rarm, float dropChance) {
-        equipment.add(0, new AbstractMap.SimpleEntry<>(rarm, dropChance));
+        equipment.add(4, new AbstractMap.SimpleEntry<>(rarm, dropChance));
     }
 
     public void setLeftArm(ItemStack larm, float dropChance) {
-        equipment.add(0, new AbstractMap.SimpleEntry<>(larm, dropChance));
+        equipment.add(5, new AbstractMap.SimpleEntry<>(larm, dropChance));
     }
 
     /*public List<ItemStack> getInventory() {
@@ -175,12 +192,12 @@ public class MobDraft<T extends LivingEntity> {
             attributes.put(Attribute.GENERIC_MAX_HEALTH, (double) health);
             return this;
         }
-        
+
         public MobDraftBuilder<T> setAttributes(HashMap<Attribute, Double> map) {
             attributes = map;
             return this;
         }
-        
+
         public MobDraftBuilder<T> setAttribute(Attribute attribute, double value) {
             attributes.put(attribute, value);
             return this;
@@ -190,39 +207,39 @@ public class MobDraft<T extends LivingEntity> {
             name = customname;
             return this;
         }
-        
+
         public MobDraftBuilder<T> setEquipment(List<Entry<ItemStack, Float>> equip) {
             equipment = equip;
             return this;
         }
-        
+
         public MobDraftBuilder<T> setBoots(ItemStack boots, float dropChance) {
             equipment.add(0, new AbstractMap.SimpleEntry<>(boots, dropChance));
             return this;
         }
 
         public MobDraftBuilder<T> setLeggins(ItemStack leggins, float dropChance) {
-            equipment.add(0, new AbstractMap.SimpleEntry<>(leggins, dropChance));
+            equipment.add(1, new AbstractMap.SimpleEntry<>(leggins, dropChance));
             return this;
         }
 
         public MobDraftBuilder<T> setChestplate(ItemStack chestplate, float dropChance) {
-            equipment.add(0, new AbstractMap.SimpleEntry<>(chestplate, dropChance));
+            equipment.add(2, new AbstractMap.SimpleEntry<>(chestplate, dropChance));
             return this;
         }
 
         public MobDraftBuilder<T> setHelmet(ItemStack helmet, float dropChance) {
-            equipment.add(0, new AbstractMap.SimpleEntry<>(helmet, dropChance));
+            equipment.add(3, new AbstractMap.SimpleEntry<>(helmet, dropChance));
             return this;
         }
 
         public MobDraftBuilder<T> setRightArm(ItemStack rarm, float dropChance) {
-            equipment.add(0, new AbstractMap.SimpleEntry<>(rarm, dropChance));
+            equipment.add(4, new AbstractMap.SimpleEntry<>(rarm, dropChance));
             return this;
         }
 
         public MobDraftBuilder<T> setLeftArm(ItemStack larm, float dropChance) {
-            equipment.add(0, new AbstractMap.SimpleEntry<>(larm, dropChance));
+            equipment.add(5, new AbstractMap.SimpleEntry<>(larm, dropChance));
             return this;
         }
 
@@ -249,6 +266,7 @@ public class MobDraft<T extends LivingEntity> {
             }
             draft.setAttributes(attributes);
             draft.setEquipment(equipment);
+            draft.setCustomNameVisible(nameVisibility);
             //draft.setInventory(inventory);
             return draft;
         }

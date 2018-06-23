@@ -14,12 +14,6 @@ generic:
     "no": "&cNo"
     enabled: '&aEnabled'
     disabled: '&cDisabled'
-mobs:
-    diamond_defender: '&5Diamond defender'
-    alchemist_soul: '&bAlchemist soul'
-    alchemists_coin:
-        name: 'Alchemistry coin'
-        lore: 'Special alchemistry currency' #only 1 string, use it in shop.yml
 game:
     game: 'Game'
     game_started: 'The game {0}&7 started.'

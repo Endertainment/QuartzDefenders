@@ -27,30 +27,30 @@ public class ComboManager {
         Combo c = comboList.get(p);
         if (c.compareTime()) {
             c.updateTime();
-            c.up();
         } else {
             c.reset();
-            c.up();
         }
+        c.up();
     }
-    
+
     public void reset() {
         comboList.clear();
     }
 
     public enum Kills {
-        ZERO(ChatColor.WHITE+"Zero"),
-        FIRST(ChatColor.YELLOW+"First"),
-        DOUBLE(ChatColor.GOLD+"DOUBLE"),
-        TRIPLE(ChatColor.BLUE+"TRIPLE"),
-        ULTRA(ChatColor.RED+"ULTRA"),
-        RAMPAGE(ChatColor.DARK_PURPLE+"RAMPAGE");
-        
+        ZERO(ChatColor.WHITE + "ZERO"),
+        FIRST(ChatColor.YELLOW + "FIRST"),
+        DOUBLE(ChatColor.GOLD + "DOUBLE"),
+        TRIPLE(ChatColor.BLUE + "TRIPLE"),
+        ULTRA(ChatColor.RED + "ULTRA"),
+        RAMPAGE(ChatColor.DARK_PURPLE + "RAMPAGE");
+
         private String name;
+
         private Kills(String name) {
             this.name = name;
         }
-        
+
         public String getName() {
             return name;
         }

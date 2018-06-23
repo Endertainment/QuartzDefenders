@@ -2,12 +2,8 @@ package ua.endertainment.quartzdefenders.achievements;
 
 import java.util.ArrayList;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
-import ua.endertainment.quartzdefenders.stats.StatsPlayer;
-import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class AchievementsManager {
 
@@ -27,7 +23,7 @@ public class AchievementsManager {
 		return achievements;
 	}
 	
-	public boolean isUnlocked(Achievement achievement, Player player) {
+	/*public boolean isUnlocked(Achievement achievement, Player player) {
 		FileConfiguration c = QuartzDefenders.getInstance().getConfigs().getAchvInfo();
 		
 		if(c.isList(player.getUniqueId().toString())) {
@@ -63,6 +59,6 @@ public class AchievementsManager {
 		}
 		QuartzDefenders.getInstance().getConfigs().saveAchvInfo();
 		player.sendMessage(LoggerUtil.gameMessage("AM", "Achievement get: &a" + achievement.getName()));
-	}
+	}*/
 	
 }
