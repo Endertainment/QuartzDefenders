@@ -12,11 +12,11 @@ import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class NMS1_12_R1 extends NMSAbstract {
 
-    private final String version;
-    private Map<Integer, Object> removedEnchants;
-    private Class<?> cNMSEnchantment;
-    private Field enchantmentArray;
-    private Object registryID;
+    protected final String version;
+    protected Map<Integer, Object> removedEnchants;
+    protected Class<?> cNMSEnchantment;
+    protected Field enchantmentArray;
+    protected Object registryID;
 
     protected NMS1_12_R1(String version) {
         this.version = version;
@@ -30,7 +30,7 @@ public class NMS1_12_R1 extends NMSAbstract {
             Object[] values = (Object[]) enchantmentArray.get(registryID);
             List<Object> remove = new ArrayList<>();
             for (Enchantment ench : enchantments) {
-                Object rem = cNMSEnchantment.getMethod("c", String.class).invoke(null,ench.getKey()); //need to check by NamespacedKey
+                Object rem = cNMSEnchantment.getMethod("c", String.class).invoke(null,ench.getName());
                 if (rem != null) {
                     remove.add(rem);
                 }
