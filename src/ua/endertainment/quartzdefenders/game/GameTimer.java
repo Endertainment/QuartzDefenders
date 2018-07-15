@@ -9,9 +9,11 @@ public class GameTimer extends BukkitRunnable {
     private Game game;
 
     private int time = 0;
+    private String format;
 
     public GameTimer(Game game) {
         this.game = game;
+        format = "HH:MM:SS";
     }
 
     @Override
@@ -27,7 +29,7 @@ public class GameTimer extends BukkitRunnable {
         if (time >= (60 * 60)) {
             if (time % 60 == 0) {
                 for (GameQuartz quartz : game.getQuartzsLocations().values()) {
-                    quartz.breakQuartz();
+                    if(quartz.getQuartzHealth()>0) quartz.breakQuartz();
                 }
             }
         }
@@ -37,30 +39,18 @@ public class GameTimer extends BukkitRunnable {
         cancel();
     }
 
-    public int getIntTime() {
+    public int getSeconds() {
         return time;
     }
 
     public String getStringTime() {
-        String times = "HH:MM:SS";
         int h = time / 3600;
-        if (h < 10) {
-            times = times.replace("HH", "0" + h);
-        } else {
-            times = times.replace("HH", h + "");
-        }
         int m = time / 60 % 60;
-        if (m < 10) {
-            times = times.replace("MM", "0" + m);
-        } else {
-            times = times.replace("MM", m + "");
-        }
         int s = time % 60;
-        if (s < 10) {
-            times = times.replace("SS", "0" + s);
-        } else {
-            times = times.replace("SS", s + "");
-        }
-        return times;
+        return format.replace("HH", a(h)).replace("MM",a(m)).replace("SS",a(s));
+    }
+    
+    private String a(int time) {
+        return time < 10: "0"+time : time;
     }
 }

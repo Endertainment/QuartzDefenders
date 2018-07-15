@@ -12,6 +12,7 @@ blocked_commands:
   - "me"
   - "tell"
   - "w"
+  - "msg"
 #There's no warranty to this thing to work correctly, use at own risk
 blocked_enchants: []
     

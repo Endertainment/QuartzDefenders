@@ -46,7 +46,7 @@ public class VoteGUI {
     public void openInventory(Player p) {
         if(game==null) return;
         for (VoteObject obj : voteManager.getVoteObjects()) {
-            if (obj.getType().equals(Type.UNDEFINED)) {
+            if (obj.getType().equals(Type.UNDEFINED) || !obj.isVoting()) {
                 continue;
             }
             ItemStack item = addLore(obj.getType().getItem(), obj.getType());

@@ -319,7 +319,9 @@ public class Game {
                     p.getPlayer().getInventory().clear();
                     p.getPlayer().teleport(mapSpawn);
                     p.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
+                    if(isVoting()) {
                     p.getPlayer().getInventory().setItem(4, QItems.itemVote());
+                    }
                     //p.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
                     p.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
@@ -338,7 +340,7 @@ public class Game {
             player.getPlayer().getInventory().clear();
             player.getPlayer().teleport(mapSpawn);
             player.getPlayer().getInventory().setItem(0, QItems.itemTeamChoose());
-            player.getPlayer().getInventory().setItem(4, QItems.itemVote());
+            if(isVoting()) player.getPlayer().getInventory().setItem(4, QItems.itemVote());
             //player.getPlayer().getInventory().setItem(7, QItems.itemKitsChoose());
             player.getPlayer().getInventory().setItem(8, QItems.itemQuit());
 
@@ -1128,5 +1130,12 @@ public class Game {
         p.sendMessage(LoggerUtil.gameMessage("Setup", "&aQuartz setup success. Team&f: " + team
                 + "&f, X:&a" + loc.getBlockX() + "&f,Y:&a" + loc.getBlockY() + "&f,Z:&a" + loc.getBlockZ() + "&f,Yaw:&a" + loc.getYaw() + "&f,Pitch:&a" + loc.getPitch()));
         QuartzDefenders.getInstance().getConfigs().saveGameInfo();
+    }
+    
+    private boolean isVoting() {
+        for(VoteObject obj : voteManager.getVoteObjects()) {
+            if(obj.isVoting()) return true;
+        }
+        return false;
     }
 }

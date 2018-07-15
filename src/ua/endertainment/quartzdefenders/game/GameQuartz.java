@@ -81,6 +81,7 @@ public class GameQuartz {
     public void breakQuartz() {
         if(getQuartzHealth()==0) return; //prevent flood
         setQuartzHealth(getQuartzHealth() - 1);
+        replace();
         if(getQuartzHealth()==0) {
             for (GamePlayer p : game.getPlayers()) {
                 p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), "Quartz of team "+team.getName()+ChatColor.GRAY+" was destroyed!"));

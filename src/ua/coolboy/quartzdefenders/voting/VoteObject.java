@@ -11,11 +11,12 @@ public class VoteObject {
 
     private Type type;
     private Default defaultt;
+    private boolean isVoting;
 
-    public VoteObject(Type type, Default defaultt) {
+    public VoteObject(Type type, Default defaultt, boolean isVoting) {
         this.type = type;
         this.defaultt = defaultt;
-
+        this.isVoting = isVoting;
     }
 
     public boolean isDefault() {
@@ -24,6 +25,10 @@ public class VoteObject {
     
     public Type getType() {
         return type;
+    }
+    
+    public boolean isVoting() {
+        return isVoting;
     }
 
     public Default getDefault() {

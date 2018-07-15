@@ -23,7 +23,11 @@ import ua.endertainment.quartzdefenders.game.Ores;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.events.game.OreBreakEvent;
 import ua.endertainment.quartzdefenders.events.game.OreRegenerationEvent;
+import ua.endertainment.quartzdefenders.game.GamePlayer;
+import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
+import ua.endertainment.quartzdefenders.utils.Language;
+import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class BlockBreakListener implements Listener {
 
@@ -39,6 +43,7 @@ public class BlockBreakListener implements Listener {
         Player p = e.getPlayer();
         if (plugin.getGame(p) != null) {
             Game game = plugin.getGame(p);
+            GamePlayer gpl = plugin.getGamePlayer(p);
             Ores ores = game.getGameOres();
             Block block = e.getBlock();
 
@@ -76,11 +81,38 @@ public class BlockBreakListener implements Listener {
                         }
                     };
                     runnable.runTaskLater(plugin, ores.getRegenerateTime(material));
+                } else if (isBelowTeamMate(gpl, block)) {
+                    gpl.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), "You can't break blocks below your teammate!"));
+                    e.setCancelled(true);
                 }
             }
 
         }
 
+    }
+
+    private boolean isBelowTeamMate(GamePlayer pl, Block block) {
+        Game game = plugin.getGame(block.getWorld());
+        GameTeam team = game.getTeam(pl.getPlayer());
+        if (team != null) {
+            for(GamePlayer player : team.getPlayers()) {
+                if(isBelow(player.getPlayer().getLocation(),block.getLocation())) {
+                    if(player.equals(pl)) continue;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean isBelow(Location what, Location below) {
+        Location cloned = what.clone();
+        below = below.clone().add(0.5,0,0.5);
+        cloned.setY(below.getY());
+        if(cloned.distanceSquared(below)<0.8) {
+            return true;
+        }
+        return false;
     }
 
     private void teleportOres(Block block) {

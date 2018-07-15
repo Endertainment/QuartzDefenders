@@ -26,7 +26,6 @@ public class QuartzBreakListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
-		
 		if(plugin.getGame(p) == null) {
 			return;
 		}
@@ -38,7 +37,7 @@ public class QuartzBreakListener implements Listener {
 			return;
 		}
 		
-		if(b.getType().equals(Material.QUARTZ_ORE)) {
+		if(!b.getType().equals(Material.QUARTZ_ORE)) {
 			return;
 		}
 		
@@ -49,7 +48,7 @@ public class QuartzBreakListener implements Listener {
 		GamePlayer gp = plugin.getGamePlayer(p);
 				
 		GameQuartz quartz = game.getQuartz(b.getLocation());
-		
+
 		if(!quartz.breakQuartz(gp)) e.setCancelled(true);
 		game.getSidebar().refresh();
 	}

@@ -26,14 +26,13 @@ public class VoteManager {
         objects = new ArrayList<>();
         for (String key : section.getKeys(false)) {
             Type type = Type.fromID(key);
-            if (section.isBoolean(key)) {
-                objects.add(new VoteObject(type, Default.fromBoolean(section.getBoolean(key))));
-            } else {
-                String value = section.getString(key, "vote");
-                if (value.equalsIgnoreCase("vote")) {
-                    objects.add(new VoteObject(type, Default.NOT_SET));
-                }
+            boolean voting = section.getBoolean(key+".voting");
+            if(section.isBoolean(key+".default")) {
+                boolean bool = section.getBoolean(key+".default");
+                objects.add(new VoteObject(type, Default.fromBoolean(bool), voting));
+                continue;
             }
+            objects.add(new VoteObject(type, Default.NOT_SET, voting));
         }
     }
     
@@ -56,7 +55,6 @@ public class VoteManager {
     
     /**
      *
-     * @param game - Game
      * @param type - VoteType
      * @return Yes and no
      */
