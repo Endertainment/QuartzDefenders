@@ -29,7 +29,9 @@ public class GameTimer extends BukkitRunnable {
         if (time >= (60 * 60)) {
             if (time % 60 == 0) {
                 for (GameQuartz quartz : game.getQuartzsLocations().values()) {
-                    if(quartz.getQuartzHealth()>0) quartz.breakQuartz();
+                    if (quartz.getQuartzHealth() > 0) {
+                        quartz.breakQuartz();
+                    }
                 }
             }
         }
@@ -47,10 +49,10 @@ public class GameTimer extends BukkitRunnable {
         int h = time / 3600;
         int m = time / 60 % 60;
         int s = time % 60;
-        return format.replace("HH", a(h)).replace("MM",a(m)).replace("SS",a(s));
+        return format.replace("HH", a(h)).replace("MM", a(m)).replace("SS", a(s));
     }
-    
+
     private String a(int time) {
-        return time < 10: "0"+time : time;
+        return time < 10 ? "0" + time : "" + time;
     }
 }

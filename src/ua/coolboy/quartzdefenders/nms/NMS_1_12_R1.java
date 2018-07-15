@@ -30,7 +30,7 @@ public class NMS_1_12_R1 extends NMSAbstract {
             Object[] values = (Object[]) enchantmentArray.get(registryID);
             List<Object> remove = new ArrayList<>();
             for (Enchantment ench : enchantments) {
-                Object rem = NMSEnchantment.getMethod("c", int.class).invoke(null,ench.getId());
+                Object rem = NMSEnchantment.getMethod("b", String.class).invoke(null, ench.getName());
                 if (rem != null) {
                     remove.add(rem);
                 }
@@ -50,7 +50,7 @@ public class NMS_1_12_R1 extends NMSAbstract {
         }
 
     }
-    
+
     private void init() {
         try {
             NMSEnchantment = getNMSClass("Enchantment");
@@ -64,7 +64,7 @@ public class NMS_1_12_R1 extends NMSAbstract {
             enchantmentArray.setAccessible(true);
 
         } catch (Exception ex) {
-            LoggerUtil.error("Failed to init NMS for version "+version);
+            LoggerUtil.error("Failed to init NMS for version " + version);
         }
     }
 
@@ -80,7 +80,7 @@ public class NMS_1_12_R1 extends NMSAbstract {
             }
             enchantmentArray.set(registryID, values);
         } catch (Exception ex) {
-            LoggerUtil.error("Failed to put back removed enchantments!\n"+ex.getMessage());
+            LoggerUtil.error("Failed to put back removed enchantments!\n" + ex.getMessage());
         }
     }
 
