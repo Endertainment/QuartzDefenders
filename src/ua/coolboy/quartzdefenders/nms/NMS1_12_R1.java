@@ -10,15 +10,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
-public class NMS_1_12_R1 extends NMSAbstract {
+public class NMS1_12_R1 extends NMSAbstract {
 
     private final String version;
     private Map<Integer, Object> removedEnchants;
-    private Class<?> NMSEnchantment;
+    private Class<?> cNMSEnchantment;
     private Field enchantmentArray;
     private Object registryID;
 
-    protected NMS_1_12_R1(String version) {
+    protected NMS1_12_R1(String version) {
         this.version = version;
         removedEnchants = new HashMap<>();
         init();
@@ -30,7 +30,7 @@ public class NMS_1_12_R1 extends NMSAbstract {
             Object[] values = (Object[]) enchantmentArray.get(registryID);
             List<Object> remove = new ArrayList<>();
             for (Enchantment ench : enchantments) {
-                Object rem = NMSEnchantment.getMethod("c", int.class).invoke(null,ench.getId());
+                Object rem = cNMSEnchantment.getMethod("c", String.class).invoke(null,ench.getKey()); //need to check by NamespacedKey
                 if (rem != null) {
                     remove.add(rem);
                 }
@@ -53,8 +53,8 @@ public class NMS_1_12_R1 extends NMSAbstract {
     
     private void init() {
         try {
-            NMSEnchantment = getNMSClass("Enchantment");
-            Object registry = NMSEnchantment.getDeclaredField("enchantments").get(null);
+            cNMSEnchantment = getNMSClass("Enchantment");
+            Object registry = cNMSEnchantment.getDeclaredField("enchantments").get(null);
             Class<?> regMat = getNMSClass("RegistryMaterials");
             Field regIDField = regMat.getDeclaredField("a");
             regIDField.setAccessible(true);

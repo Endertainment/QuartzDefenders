@@ -62,7 +62,7 @@ public class InventoryClickListener implements Listener {
         */
         if (inv.getName().equals(Language.getString("GUI.games.name"))) {
             e.setCancelled(true);
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
 
             for (Game game : plugin.getGames()) {
                 if (curr.getItemMeta().getDisplayName().equals(game.getColorWorldName())) {
@@ -83,7 +83,7 @@ public class InventoryClickListener implements Listener {
         */
         if (inv.getName().equals(new StatsGUI(p).getInventory().getName())) {
             e.setCancelled(true);
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
 
             return;
         }
@@ -93,7 +93,7 @@ public class InventoryClickListener implements Listener {
         if (inv.getName().equals(Language.getString("GUI.shop.name"))) {
             e.setCancelled(true);
             KitsManager m = plugin.getKitManager();
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
             for (Kit kit : m.getKitsRegistry().keySet()) {
                 if (curr.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', kit.getDisplayName()))) {
                     m.buyKit(kit, p);
@@ -110,7 +110,7 @@ public class InventoryClickListener implements Listener {
         if (inv.getName().equals(Language.getString("GUI.kits.name"))) {
             e.setCancelled(true);
             KitsManager m = plugin.getKitManager();
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
             GamePlayer gp = plugin.getGamePlayer(p);
             for (Kit kit : m.getKitsRegistry().keySet()) {
                 if (curr.getItemMeta().getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', kit.getDisplayName()))) {
@@ -127,7 +127,7 @@ public class InventoryClickListener implements Listener {
         */
         if (inv.getName().equals(Language.getString("GUI.vote.name"))) {
             e.setCancelled(true);
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
             GamePlayer gp = plugin.getGamePlayer(p);
             if (gp == null) {
                 return;
@@ -157,7 +157,7 @@ public class InventoryClickListener implements Listener {
                     result = Vote.VoteResult.NO;
                 }
                 if (result != Vote.VoteResult.NOT_VOTED) {
-                    p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+                    p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
                     gp.getVote().voteFor(type, result);
                     gp.sendMessage(LoggerUtil.gameMessage("Voting", Language.getRawString("vote.voted", new Replacer("{0}", type.getItem().getItemMeta().getDisplayName()))));
                     gp.getPlayer().closeInventory();
@@ -171,7 +171,7 @@ public class InventoryClickListener implements Listener {
         */
         if (inv.getName().equals(Language.getString("GUI.achievements.name"))) {
             e.setCancelled(true);
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
             return;
         }
 
@@ -181,7 +181,7 @@ public class InventoryClickListener implements Listener {
         if (inv.getName().equals(Language.getString("GUI.teams.name"))) {
             e.setCancelled(true);
 
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
 
             Game game = plugin.getGame(p);
 
@@ -224,7 +224,7 @@ public class InventoryClickListener implements Listener {
             if (game == null) {
                 return;
             }
-            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSUREPLATE_CLICK_ON, 1F, 2F);
+            p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
             if (curr.getItemMeta().getDisplayName().equals(Language.getString("admin.start_game"))) {
                 game.startCountdown();
             }

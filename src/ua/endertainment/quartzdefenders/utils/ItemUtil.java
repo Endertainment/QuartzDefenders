@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemUtil {
 
+    @Deprecated
     public static ItemStack newItem(String name, Material material, int amount, int type) {
         return newItem(name, null, material, amount, type);
     }
@@ -54,6 +55,7 @@ public class ItemUtil {
         return item;
     }
 
+    @Deprecated
     public static ItemStack newItem(String name, List<String> lore, Material material, int amount, int type) {
         name = new ColorFormat(name).format();
         if (lore == null) {

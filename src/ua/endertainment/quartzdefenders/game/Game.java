@@ -1093,7 +1093,7 @@ public class Game {
     }
 
     public void setQuartz(Block b, String team, Player p) {
-        if(b.getType().equals(Material.QUARTZ_ORE)) {
+        if(b.getType().equals(Material.NETHER_QUARTZ_ORE)) {
             p.sendMessage(LoggerUtil.gameMessage("Setup", "&cIt's not quartz ore!"));
             return;
         }

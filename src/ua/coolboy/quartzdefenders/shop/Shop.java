@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -43,7 +44,7 @@ public class Shop {
 
     public Inventory getInventory(GameTeam team) {
         this.main = Bukkit.createInventory(null, 27, ChatColor.GOLD + name);
-        ItemStack enchant = new ItemStack(Material.EXP_BOTTLE);
+        ItemStack enchant = new ItemStack(Material.EXPERIENCE_BOTTLE);
         enchant = ItemUtil.setName(enchant, enchantName);
         ItemStack potions = new ItemStack(Material.POTION);
         potions = ItemUtil.hideAll(ItemUtil.setName(potions, potionsName));
@@ -57,8 +58,7 @@ public class Shop {
         stuff = ItemUtil.setName(stuff, stuffName);
         ItemStack resources = new ItemStack(Material.DIAMOND_PICKAXE);
         resources = ItemUtil.hideAll(ItemUtil.setName(resources, resourcesName));
-        int damage = team == null ? 15 : DataAdapter.getDamageByColor(team.getColor());
-        ItemStack frame = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) damage);
+        ItemStack frame = new ItemStack(DataAdapter.getGlassPaneByColor(team.getDyeColor()));//add color by team
         frame = ItemUtil.setName(frame, " ");
 
         main.setItem(10, enchant);
@@ -116,7 +116,7 @@ public class Shop {
     private ItemStack createItem(ConfigurationSection section, String itemDir, GameTeam team) {
         ConfigurationSection dir = section.getConfigurationSection(itemDir);
 
-        int damage = 0;
+        DyeColor color = null;
         boolean teams = false;
 
         String material = dir.getString("material");
@@ -125,15 +125,16 @@ public class Shop {
         if (dir.isBoolean("team")) {
             teams = dir.getBoolean("team");
             if (team == null) {
-                damage = 7;
+                color = DyeColor.GRAY;
             } else {
-                damage = DataAdapter.getDamageByColor(team.getColor());
+                color = team.getDyeColor();
             }
         }
         if (!teams) {
-            damage = dir.getInt("damage", 0);
+            color = DyeColor.valueOf(dir.getString("color", "WHITE"));
+            if(color == null) color = DyeColor.GRAY;
         }
-        ItemStack stack = new ItemStack(Material.valueOf(material), amount, (short) damage);
+        ItemStack stack = new ItemStack(DataAdapter.getMaterialByColor(color, material), amount);
         if (dir.isString("name")) {
             String stackName = dir.getString("name");
             stack = ItemUtil.setName(stack, stackName);

@@ -3,7 +3,7 @@ package ua.endertainment.quartzdefenders.gui;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +12,7 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.kits.Kit;
 import ua.endertainment.quartzdefenders.kits.KitsManager;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.DataAdapter;
 import ua.endertainment.quartzdefenders.utils.ItemUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
 
@@ -54,14 +55,20 @@ public class LobbyShopGUI {
     }
 
     private void menuCorner() {
-        short z = Short.parseShort(Language.getString("GUI.shop.glass_id_1")),
-                y = Short.parseShort(Language.getString("GUI.shop.glass_id_2"));
+        DyeColor y = DyeColor.valueOf(Language.getString("GUI.shop.glass_color_1"));
+        DyeColor z = DyeColor.valueOf(Language.getString("GUI.shop.glass_color_2"));
+        if (y == null) {
+            y = DyeColor.PURPLE;
+        }
+        if (z == null) {
+            z = DyeColor.BLACK;
+        }
         int[] arg1 = {0, 2, 4, 6, 8, 18, 26, 36, 44, 46, 48, 50, 52}, arg2 = {1, 3, 5, 7, 9, 17, 27, 35, 45, 47, 49, 51, 53}; // z, y
         for (int a : arg1) {
-            inventory.setItem(a, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, z));
+            inventory.setItem(a, ItemUtil.newItem(" ", null, DataAdapter.getGlassPaneByColor(z), 1));
         }
         for (int b : arg2) {
-            inventory.setItem(b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));
+            inventory.setItem(b, ItemUtil.newItem(" ", null, DataAdapter.getGlassPaneByColor(y), 1));
         }
     }
 

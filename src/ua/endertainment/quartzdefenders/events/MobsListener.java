@@ -126,7 +126,7 @@ public class MobsListener implements Listener {
     private boolean canSpawn(Location loc) {
         Block block = loc.getWorld().getHighestBlockAt(loc);
         return !(block.getY() == 0
-                || block.getType() == Material.WEB
-                || block.getRelative(BlockFace.DOWN).getType().equals(Material.MAGMA));
+                || block.getType() == Material.COBWEB
+                || block.getRelative(BlockFace.DOWN).getType().equals(Material.MAGMA_BLOCK));
     }
 }

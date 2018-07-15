@@ -34,16 +34,15 @@ public class ShopInventory implements Listener {
         Player p = (Player) e.getWhoClicked();
         e.setCancelled(true);
         GameTeam team = plugin.getGame(p).getTeam(p);
-
         if (e.getCurrentItem() == null
-                || e.getCurrentItem().getType() == Material.STAINED_GLASS
+                || e.getCurrentItem().getType().toString().contains("STAINED_GLASS") //temporary fix
                 || e.getCurrentItem().getType() == Material.AIR
                 || !e.getCurrentItem().hasItemMeta()) {
             p.closeInventory();
             return;
         }
         switch (e.getCurrentItem().getType()) {
-            case EXP_BOTTLE:
+            case EXPERIENCE_BOTTLE:
                 Merchant enchants = shop.getSection("enchants", ChatColor.LIGHT_PURPLE + Shop.enchantName, team);
                 p.openMerchant(enchants, true);
                 break;

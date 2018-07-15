@@ -44,7 +44,7 @@ public class QItems {
 	}
 	
 	public static ItemStack itemStats() {		
-		return ItemUtil.newItem(Language.getRawString("items.stats.name"), null, Material.EXP_BOTTLE, 1);
+		return ItemUtil.newItem(Language.getRawString("items.stats.name"), null, Material.EXPERIENCE_BOTTLE, 1);
 	}
 	
 	public static ItemStack itemTeamChoose() {		

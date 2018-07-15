@@ -37,7 +37,7 @@ public class QuartzBreakListener implements Listener {
 			return;
 		}
 		
-		if(!b.getType().equals(Material.QUARTZ_ORE)) {
+		if(!b.getType().equals(Material.NETHER_QUARTZ_ORE)) {
 			return;
 		}
 		

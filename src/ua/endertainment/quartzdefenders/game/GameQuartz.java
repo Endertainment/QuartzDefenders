@@ -119,7 +119,7 @@ public class GameQuartz {
 
     public void checkQuartz() {
         Block b = game.getGameWorld().getBlockAt(getLocation());
-        if (b.getType() != Material.QUARTZ_ORE || b.getType() != Material.BEDROCK) {
+        if (b.getType() != Material.NETHER_QUARTZ_ORE || b.getType() != Material.BEDROCK) {
             replace();
         }
     }
@@ -128,7 +128,7 @@ public class GameQuartz {
         Block b = game.getGameWorld().getBlockAt(getLocation());
         if (getQuartzHealth() > 0) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), () -> {
-                b.setType(Material.QUARTZ_ORE);
+                b.setType(Material.NETHER_QUARTZ_ORE);
             });
         } else {
             Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), () -> {

@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -22,6 +23,7 @@ import org.bukkit.scoreboard.Team.OptionStatus;
 import ua.endertainment.quartzdefenders.game.Game.GameState;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
+import ua.endertainment.quartzdefenders.utils.DataAdapter;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.Replacer;
@@ -256,5 +258,9 @@ public class GameTeam {
 			}
 		};
 		run.runTaskLater(QuartzDefenders.getInstance(), (game.getPlayersRespawnTime() * 20));
+    }
+    
+    public DyeColor getDyeColor() {
+        return DataAdapter.getDyeColor(color);
     }
 }
