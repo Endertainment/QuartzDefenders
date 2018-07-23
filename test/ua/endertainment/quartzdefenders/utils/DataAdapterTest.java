@@ -105,7 +105,7 @@ public class DataAdapterTest {
         assertEquals(DyeColor.RED, DataAdapter.getDyeColor(ChatColor.RED));
         assertEquals(DyeColor.LIGHT_BLUE, DataAdapter.getDyeColor(ChatColor.BLUE));
         assertEquals(DyeColor.GRAY, DataAdapter.getDyeColor(ChatColor.DARK_GRAY));
-        assertEquals(DyeColor.SILVER, DataAdapter.getDyeColor(ChatColor.GRAY));
+        assertEquals(DyeColor.LIGHT_GRAY, DataAdapter.getDyeColor(ChatColor.GRAY));
     }
 
 }

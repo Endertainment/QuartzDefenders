@@ -19,7 +19,7 @@ public abstract class DataAdapter {
     }
 
     public static Material getMaterialByColor(DyeColor color, String suffix) {
-        return Material.getMaterial((color.equals(DyeColor.SILVER) ? "LIGHT_GRAY" : color.name()) + "_" + suffix);
+        return Material.getMaterial(color + "_" + suffix);
     }
     
     public static DyeColor getDyeColor(ChatColor color) {
@@ -33,7 +33,7 @@ public abstract class DataAdapter {
             case DARK_GREEN: return DyeColor.GREEN;
             case DARK_PURPLE: return DyeColor.PURPLE;
             case DARK_RED: return DyeColor.RED;
-            case GRAY: return DyeColor.SILVER;
+            case GRAY: return DyeColor.LIGHT_GRAY;
             case GREEN: return DyeColor.LIME;
             case LIGHT_PURPLE: return DyeColor.PINK;
             case RED: return DyeColor.RED;
