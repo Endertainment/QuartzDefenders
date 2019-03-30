@@ -168,7 +168,8 @@ public class ItemUseListener implements Listener {
 
             if (i.getItemMeta().getDisplayName().equalsIgnoreCase(quit)) {
                 e.setCancelled(true);
-                plugin.getGame(p).quitGame(plugin.getGamePlayer(p));
+                Game game = plugin.getGame(p);
+                if(game != null) game.quitGame(plugin.getGamePlayer(p));
                 return;
             }
 
