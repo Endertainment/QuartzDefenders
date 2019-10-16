@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import ua.coolboy.quartzdefenders.voting.Vote;
 import ua.coolboy.quartzdefenders.voting.VoteObject.Type;
@@ -42,6 +43,7 @@ public class InventoryClickListener implements Listener {
     public void onInvClick(InventoryClickEvent e) {
 
         Inventory inv = e.getInventory();
+        InventoryView view = e.getView();
         if (inv.getHolder() == null || !(inv.getHolder() instanceof QuartzInventoryHolder)) {
             return; //avoiding conflicts with other plugins
         }
@@ -60,7 +62,7 @@ public class InventoryClickListener implements Listener {
         /*
 	* GAMES
         */
-        if (inv.getName().equals(Language.getString("GUI.games.name"))) {
+        if (view.getTitle().equals(Language.getString("GUI.games.name"))) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
 
@@ -81,7 +83,7 @@ public class InventoryClickListener implements Listener {
         /*
 	* STATS
         */
-        if (inv.getName().equals(new StatsGUI(p).getInventory().getName())) {
+        if (view.getTitle().equals(new StatsGUI(p).getTitle())) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
 
@@ -90,7 +92,7 @@ public class InventoryClickListener implements Listener {
         /*
 	* SHOP
         */
-        if (inv.getName().equals(Language.getString("GUI.shop.name"))) {
+        if (view.getTitle().equals(Language.getString("GUI.shop.name"))) {
             e.setCancelled(true);
             KitsManager m = plugin.getKitManager();
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
@@ -107,7 +109,7 @@ public class InventoryClickListener implements Listener {
         /*
 	* KITS
         */
-        if (inv.getName().equals(Language.getString("GUI.kits.name"))) {
+        if (view.getTitle().equals(Language.getString("GUI.kits.name"))) {
             e.setCancelled(true);
             KitsManager m = plugin.getKitManager();
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
@@ -125,7 +127,7 @@ public class InventoryClickListener implements Listener {
         /*
         * Voting
         */
-        if (inv.getName().equals(Language.getString("GUI.vote.name"))) {
+        if (view.getTitle().equals(Language.getString("GUI.vote.name"))) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
             GamePlayer gp = plugin.getGamePlayer(p);
@@ -143,7 +145,7 @@ public class InventoryClickListener implements Listener {
         
         //Vote submit
         for (Type type : Type.values()) {
-            if (inv.getName().toLowerCase().replace(" ", "_").equals(type.getID())) {
+            if (view.getTitle().toLowerCase().replace(" ", "_").equals(type.getID())) {
                 GamePlayer gp = plugin.getGamePlayer(p);
                 if (gp == null) {
                     return;
@@ -169,7 +171,7 @@ public class InventoryClickListener implements Listener {
         /*
 	* ACHIEVEMENTS
         */
-        if (inv.getName().equals(Language.getString("GUI.achievements.name"))) {
+        if (view.getTitle().equals(Language.getString("GUI.achievements.name"))) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
             return;
@@ -178,7 +180,7 @@ public class InventoryClickListener implements Listener {
         /*
 	* TEAMS
         */
-        if (inv.getName().equals(Language.getString("GUI.teams.name"))) {
+        if (view.getTitle().equals(Language.getString("GUI.teams.name"))) {
             e.setCancelled(true);
 
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
@@ -217,7 +219,7 @@ public class InventoryClickListener implements Listener {
         /*
         Admin panel
         */
-        if (inv.getName().equals(Language.getString("GUI.admin.name"))) {
+        if (view.getTitle().equals(Language.getString("GUI.admin.name"))) {
             e.setCancelled(true);
             String id = inv.getItem(4).getItemMeta().getLore().get(0).split(":")[1].substring(1);
             Game game = QuartzDefenders.getInstance().getGame(id);
