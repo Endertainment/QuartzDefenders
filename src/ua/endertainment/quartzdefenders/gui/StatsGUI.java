@@ -31,6 +31,10 @@ public class StatsGUI {
     public Inventory getInventory() {
         return inventory;
     }
+    
+    public String getTitle() {
+        return title;
+    }
 
     public void openInventory() {
         a(new StatsPlayer(player));

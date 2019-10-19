@@ -28,7 +28,7 @@ public class ShopInventory implements Listener {
     @SuppressWarnings("incomplete-switch")
 	@EventHandler
     public void onClick(InventoryClickEvent e) {
-        if (!(e.getInventory().getName().contains(Shop.name))) {
+        if (!(e.getView().getTitle().contains(Shop.name))) {
             return;
         }
         Player p = (Player) e.getWhoClicked();
