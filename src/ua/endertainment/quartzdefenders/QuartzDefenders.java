@@ -49,7 +49,7 @@ public class QuartzDefenders extends JavaPlugin {
     }
 
     private final String[] devs = {"_Endertainment_", "Cool_boy"};
-
+ 
     private Config files;
     private TopManager top;
     private Lobby lobby;
