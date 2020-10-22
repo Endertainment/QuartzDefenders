@@ -35,5 +35,11 @@ public class Admin extends SubCommand {
             new AdminGUI(game).openInventory(player);
         }
     }
+
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

@@ -36,9 +36,6 @@ public class BlockPlaceListener implements Listener {
             return;
         }
 
-        StatsPlayer sp = new StatsPlayer(p);
-        sp.addPlacedBlock();
-
         for (Cuboid c : game.getCuboids()) {
             if (!c.canBuild(plugin.getGamePlayer(p), e.getBlock().getLocation())) {
                 e.setCancelled(true);
@@ -52,7 +49,11 @@ public class BlockPlaceListener implements Listener {
             e.setCancelled(true);
             return;
         }
+        
+        StatsPlayer sp = new StatsPlayer(p);
+        sp.addPlacedBlock();
 
+        
     }
 
 }

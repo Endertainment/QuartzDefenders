@@ -29,4 +29,10 @@ public class GamesList extends SubCommand {
 		
 	}
 
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

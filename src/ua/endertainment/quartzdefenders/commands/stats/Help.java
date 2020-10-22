@@ -16,7 +16,7 @@ public class Help extends SubCommand {
 		}
 		try {
 			page = Integer.parseInt(args[0]);
-			if(page >= 2) page = 1; 
+			if(page > 2) page = 1; 
 		} catch(NumberFormatException ex) {
 			page = 1;
 		}
@@ -24,7 +24,7 @@ public class Help extends SubCommand {
 	}
 
 	private void sendHelp(int page, CommandSender sender) {		
-		
+		System.out.println(page);
 		switch(page) {
 			case 1: {
 				sender.sendMessage(new ColorFormat("&8-------------------- &3Help &8--------------------").format());
@@ -35,6 +35,7 @@ public class Help extends SubCommand {
 				sender.sendMessage(new ColorFormat("&8» &b/stats addPoints <points> [player] &8- &bAdd points").format());
 				sender.sendMessage(new ColorFormat("&8» &b/stats removePoints <points> [player] &8- &bAdd points").format());
 				// TODO
+				break;
 			}
 			case 2: {
 				

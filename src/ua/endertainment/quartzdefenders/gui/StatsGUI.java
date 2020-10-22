@@ -1,5 +1,6 @@
 package ua.endertainment.quartzdefenders.gui;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -42,7 +43,7 @@ public class StatsGUI {
 		ArrayList<String> lore1 = new ArrayList<>();
 		lore1.add(" ");
 		lore1.add("&7Kills: &6" + p.getKills());
-		lore1.add("&7KD: &6" + p.getKdr() + "%");
+		lore1.add("&7KD: &6" + new DecimalFormat("##.##").format(p.getKdr()) + "%");
 		lore1.add("&7Top kills: &6" + QuartzDefenders.getInstance().getTopManager().getPlayerKillsPosition(p.getPlayer()));
 		lore1.add(" ");
 		ItemStack kills = ItemUtil.newItem("&6Kills", lore1, Material.DIAMOND_SWORD, 1);

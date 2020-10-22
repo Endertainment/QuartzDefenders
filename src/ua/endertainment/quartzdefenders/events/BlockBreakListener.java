@@ -41,6 +41,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
+        if(e.isCancelled()) return;
         if (plugin.getGame(p) != null) {
             Game game = plugin.getGame(p);
             GamePlayer gpl = plugin.getGamePlayer(p);

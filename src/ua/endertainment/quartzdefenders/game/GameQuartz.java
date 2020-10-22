@@ -1,7 +1,5 @@
 package ua.endertainment.quartzdefenders.game;
 
-import ua.endertainment.quartzdefenders.game.GamePlayer;
-import ua.endertainment.quartzdefenders.game.Game;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

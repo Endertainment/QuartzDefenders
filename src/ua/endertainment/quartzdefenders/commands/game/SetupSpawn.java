@@ -53,5 +53,11 @@ public class SetupSpawn extends SubCommand {
 		game.setSpawn(loc, args[0], p);
 		
 	}
+
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

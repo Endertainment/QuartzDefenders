@@ -1,7 +1,5 @@
 package ua.endertainment.quartzdefenders.game;
 
-import ua.endertainment.quartzdefenders.game.GameQuartz;
-import ua.endertainment.quartzdefenders.game.Game;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameTimer extends BukkitRunnable {

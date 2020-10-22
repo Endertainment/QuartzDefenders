@@ -1,3 +1,6 @@
+single_server_mode:
+  enable: false
+  
 Lobby:
   lobby_world_name: world
   disable_damage: true
@@ -11,7 +14,7 @@ Lobby:
 blocked_commands:
   - "me"
   - "tell"
-  - "w"
+  - "w" 
   - "msg"
 #There's no warranty to this thing to work correctly, use at own risk
 blocked_enchants: []

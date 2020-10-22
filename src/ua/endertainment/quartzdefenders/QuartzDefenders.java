@@ -47,9 +47,9 @@ public class QuartzDefenders extends JavaPlugin {
     public static QuartzDefenders getInstance() {
         return main;
     }
-
-    private final String[] devs = {"_Endertainment_", "Cool_boy"};
- 
+    
+    private boolean disable = false;
+    
     private Config files;
     private TopManager top;
     private Lobby lobby;
@@ -122,6 +122,8 @@ public class QuartzDefenders extends JavaPlugin {
 
     @Override
     public void onDisable() {
+    	disable = true;
+    	
         nmsHandler.getNMS().onDisable();
         for (Game game : games) {
             game.disableGame();
@@ -241,6 +243,7 @@ public class QuartzDefenders extends JavaPlugin {
     }
     
     public void restartGame(Game game) {
+    	if(disable) return;
         String id = game.getGameId();
         deleteGame(game);
         addGame(id);
@@ -329,10 +332,6 @@ public class QuartzDefenders extends JavaPlugin {
     
     public Lobby getLobby() {
         return lobby;
-    }
-
-    public String[] getDevs() {
-        return devs;
     }
 
     public AchievementsManager getAchievementsManager() {

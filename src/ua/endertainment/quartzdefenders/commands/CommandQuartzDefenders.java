@@ -45,10 +45,10 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		}
 		
 		Player p = (Player) sender;
-		
-                if(args.length>=1 && args[0].equalsIgnoreCase("debug")) {
-                    Info.setKills(p,900);
-                }
+		/*
+        if(args.length>=1 && args[0].equalsIgnoreCase("debug")) {
+       		Info.setKills(p,900);
+        }
                 
 		if(args.length >= 1 && args[0].equalsIgnoreCase("lobbyTools")) {
 			
@@ -56,7 +56,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			return true;
 			
 		}
-		
+		*/
 		if(args.length >= 1 && args[0].equalsIgnoreCase("firework")) {
 			if(!p.hasPermission("QuartzDefenders.fun.firework")) {
 				return true;

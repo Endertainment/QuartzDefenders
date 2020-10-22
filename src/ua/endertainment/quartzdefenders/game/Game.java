@@ -70,7 +70,7 @@ public class Game {
     private int playersInTeam;
     private int minPlayers;
     private boolean autostart;
-
+    
     private ComboManager comboManager;
     private MapManager mapManager;
     private World map;
@@ -396,17 +396,9 @@ public class Game {
         p.setExp(0);
         p.setLevel(0);
 
-        if (p.hasPermission("QuartzDefenders.lobby.colorName")) {
-            p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-            p.setPlayerListName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-        }
-
-        for (String s : QuartzDefenders.getInstance().getDevs()) {
-            if (p.getName().equals(s)) {
-                p.setDisplayName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-                p.setPlayerListName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-            }
-        }
+        p.setDisplayName(QuartzDefenders.getInstance().getGamePlayer(p).getDefaultDisplayName());
+        p.setPlayerListName(QuartzDefenders.getInstance().getGamePlayer(p).getDefaultDisplayName());
+        
 
         Iterator<PotionEffect> i = p.getActivePotionEffects().iterator();
         while (i.hasNext()) {
@@ -414,7 +406,7 @@ public class Game {
         }
 
         p.setGameMode(GameMode.ADVENTURE);
-
+        p.setBedSpawnLocation(QuartzDefenders.getInstance().getLobby().getLocation());
         QuartzDefenders.getInstance().getLobby().setLobbyTools(p);
 
         ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
@@ -456,6 +448,7 @@ public class Game {
                 spectators.remove(p);
                 p.getPlayer().setGameMode(GameMode.SURVIVAL);
                 p.getPlayer().setVelocity(new Vector(0, 0, 0));
+                p.setRespawn(team.getSpawnLocation());
                 p.getPlayer().teleport(team.getSpawnLocation());
                 p.getPlayer().setHealth(20);
                 p.getPlayer().setFoodLevel(20);
@@ -648,29 +641,15 @@ public class Game {
             }
 
             p.getPlayer().teleport(QuartzDefenders.getInstance().getLobby().getLocation());
+            p.setRespawn(QuartzDefenders.getInstance().getLobby().getLocation());
             p.getPlayer().setHealth(20);
             p.getPlayer().setFoodLevel(20);
             p.getPlayer().setGameMode(GameMode.ADVENTURE);
 
             QuartzDefenders.getInstance().getLobby().setLobbyTools(p.getPlayer());
-            // p.getPlayer().setGameMode(GameMode.ADVENTURE);
-            for (Player pl : Bukkit.getOnlinePlayers()) {
-                pl.setDisplayName(ChatColor.GRAY + pl.getName() + ChatColor.RESET);
-                pl.setPlayerListName(ChatColor.GRAY + pl.getName() + ChatColor.RESET);
-
-                if (pl.hasPermission("QuartzDefenders.lobby.colorName")) {
-                    pl.setDisplayName(ChatColor.AQUA + pl.getName() + ChatColor.RESET);
-                    pl.setPlayerListName(ChatColor.AQUA + pl.getName() + ChatColor.RESET);
-                }
-
-                for (String s : QuartzDefenders.getInstance().getDevs()) {
-                    if (s.equalsIgnoreCase(pl.getName())) {
-                        pl.setDisplayName(ChatColor.DARK_RED + pl.getName() + ChatColor.RESET);
-                        pl.setPlayerListName(ChatColor.DARK_RED + pl.getName() + ChatColor.RESET);
-                    }
-                }
-
-            }
+            
+            p.resetDisplayName();
+            
             comboManager.reset();
             QuartzDefenders.getInstance().getTopManager().refresh();
             QuartzDefenders.getInstance().getTopManager().setupSigns();
@@ -1093,7 +1072,7 @@ public class Game {
     }
 
     public void setQuartz(Block b, String team, Player p) {
-        if(b.getType().equals(Material.QUARTZ_ORE)) {
+        if(!b.getType().equals(Material.QUARTZ_ORE)) {
             p.sendMessage(LoggerUtil.gameMessage("Setup", "&cIt's not quartz ore!"));
             return;
         }

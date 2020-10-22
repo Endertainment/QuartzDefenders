@@ -1,7 +1,6 @@
 package ua.endertainment.quartzdefenders.events;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,21 +27,11 @@ public class JoinListener implements Listener {
 		
 		plugin.addGamePlayer(p);
 		
-		p.setDisplayName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
-		p.setPlayerListName(ChatColor.GRAY + p.getName() + ChatColor.RESET);
 		
-		if(p.hasPermission("QuartzDefenders.lobby.colorName")) {
-			p.setDisplayName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-			p.setPlayerListName(ChatColor.AQUA + p.getName() + ChatColor.RESET);
-		}
 		
-		for(String s : plugin.getDevs()) {
-			if(s.equalsIgnoreCase(p.getName())) {
-				p.setDisplayName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-				p.setPlayerListName(ChatColor.DARK_RED + p.getName() + ChatColor.RESET);
-			}
-		}
-		
+		p.setDisplayName(plugin.getGamePlayer(p).getDefaultDisplayName());
+		p.setPlayerListName(plugin.getGamePlayer(p).getDefaultDisplayName());
+						
 		if(p.hasPermission("QuartzDefenders.lobby.alert.join")) {
 			e.setJoinMessage(new ColorFormat("&3» &f[&3+&f] &r" + p.getDisplayName()).format());
 		} else {

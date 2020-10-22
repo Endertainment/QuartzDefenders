@@ -39,5 +39,11 @@ public class End extends SubCommand {
 		
 		game.endGame();		
 	}
+
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

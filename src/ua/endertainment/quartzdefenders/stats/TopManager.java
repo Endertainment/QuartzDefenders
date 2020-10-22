@@ -115,7 +115,7 @@ public class TopManager {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "deprecation" })
 	public static List<List<Integer>> getIntegerListOfLists(List<?> from) {
         List<List<Integer>> list = new ArrayList<>();
         if (from == null) {

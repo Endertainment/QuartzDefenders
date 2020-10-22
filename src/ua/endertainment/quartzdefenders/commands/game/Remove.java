@@ -33,4 +33,10 @@ public class Remove extends SubCommand {
 		QuartzDefenders.getInstance().deleteGame(game);
 	}
 
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

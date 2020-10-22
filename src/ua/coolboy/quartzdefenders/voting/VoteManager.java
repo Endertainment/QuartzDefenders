@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
-import javafx.util.Pair;
 import javax.annotation.Nullable;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import ua.coolboy.quartzdefenders.voting.Vote.VoteResult;
@@ -22,13 +22,13 @@ public class VoteManager {
 
     public VoteManager(FileConfiguration config, Game game) {
         this.game = game;
-        ConfigurationSection section = config.getConfigurationSection("Games."+game.getGameId()+".voting");
+        ConfigurationSection section = config.getConfigurationSection("Games." + game.getGameId() + ".voting");
         objects = new ArrayList<>();
         for (String key : section.getKeys(false)) {
             Type type = Type.fromID(key);
-            boolean voting = section.getBoolean(key+".voting");
-            if(section.isBoolean(key+".default")) {
-                boolean bool = section.getBoolean(key+".default");
+            boolean voting = section.getBoolean(key + ".voting");
+            if(section.isBoolean(key + ".default")) {
+                boolean bool = section.getBoolean(key + ".default");
                 objects.add(new VoteObject(type, Default.fromBoolean(bool), voting));
                 continue;
             }
@@ -39,8 +39,9 @@ public class VoteManager {
     public List<VoteObject> getVoteObjects() {
         return Collections.unmodifiableList(objects);
     }
-    
+  
     public Map<VoteObject, VoteResult> getResults() {
+    	
         Map<VoteObject, VoteResult> map = new TreeMap<>((VoteObject t, VoteObject t1) -> t.getType().compareTo(t1.getType())); //sort by enum
         for(VoteObject object : objects) {
             Pair<Integer,Integer> votes = countVotes(object.getType());
@@ -50,14 +51,11 @@ public class VoteManager {
             if(votes.getKey().equals(votes.getValue())) result = VoteResult.NOT_VOTED;
             map.put(object, result);
         }
+        
         return map;
+        
     }
-    
-    /**
-     *
-     * @param type - VoteType
-     * @return Yes and no
-     */
+   
     public Pair<Integer, Integer> countVotes(Type type) {
         int yes = 0, no = 0;
         for (GamePlayer player : game.getPlayers()) {
@@ -70,7 +68,7 @@ public class VoteManager {
                 yes++;
             }
         }
-        return new Pair<>(yes, no);
+        return new Pair<Integer, Integer>(yes, no);
     }
 
     public enum Default {

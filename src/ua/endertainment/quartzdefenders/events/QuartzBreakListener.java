@@ -30,6 +30,8 @@ public class QuartzBreakListener implements Listener {
 			return;
 		}
 		
+		if(e.isCancelled()) return;
+		
 		Game game = plugin.getGame(p);
 		Block b = e.getBlock();
 		

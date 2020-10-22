@@ -79,13 +79,18 @@ public class DeathListener implements Listener {
 
         StatsPlayer sp = new StatsPlayer(p);
         sp.addDeath();
-
+        
         if (team.canRespawn()) {
-            p.setHealth(20);
+        	
+        	Location loc = p.getLocation();
+        	if(loc.getY() < 20) loc.setY(80);
+        	p.spigot().respawn();
+        	p.setHealth(20);
             p.setFoodLevel(20);
             p.setExp(0);
             p.setLevel(0);
             p.setGameMode(GameMode.SPECTATOR);
+            p.teleport(loc);
             p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.respawn", new Replacer("{0}", resp + ""))));
             freeze.add(p);
             if (p.getLocation().getY() <= 0) {

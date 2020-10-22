@@ -43,6 +43,12 @@ public class Lock extends SubCommand {
 		
 	}
 
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

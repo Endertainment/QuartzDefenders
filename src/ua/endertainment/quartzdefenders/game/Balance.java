@@ -1,8 +1,5 @@
 package ua.endertainment.quartzdefenders.game;
 
-import ua.endertainment.quartzdefenders.game.GameTeam;
-import ua.endertainment.quartzdefenders.game.GamePlayer;
-import ua.endertainment.quartzdefenders.game.Game;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

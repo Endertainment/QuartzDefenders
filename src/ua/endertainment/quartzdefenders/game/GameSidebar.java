@@ -1,6 +1,5 @@
 package ua.endertainment.quartzdefenders.game;
 
-import ua.endertainment.quartzdefenders.game.Game;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;

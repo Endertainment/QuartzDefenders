@@ -62,7 +62,7 @@ public class TeamGUI {
 			lore.add(Language.getRawString("GUI.teams.players", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getPlayersSize() + ""), new Replacer("{1}", team.intPlayersInTeam() + "")));
 			lore.add(" ");
 			ItemStack itemWool = ItemUtil.newItem(Language.getRawString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())), lore, Material.WOOL, 1, DataAdapter.getDamageByColor(team.getColor()));
-			if(x == 24) x = 29;
+			if(x == 25) x = 29;
 			teamsIS.put(itemWool, x);
 			x++;
 		}
@@ -73,3 +73,9 @@ public class TeamGUI {
 	}
 	
 }
+//00 01 02 03 04 05 06 07 08
+//09 10 11 12 13 14 15 16 17
+//18 19 20 21 22 23 24 25 26
+//27 28 29 30 31 32 33 34 35
+//36 37 38 39 40 41 42 43 44
+//45 46 47 48 49 50 51 52 53

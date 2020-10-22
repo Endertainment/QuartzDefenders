@@ -28,4 +28,10 @@ public class SetupOres extends SubCommand {
         p.getInventory().setItem(0, SetupItems.itemSetupOres());
     }
 
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

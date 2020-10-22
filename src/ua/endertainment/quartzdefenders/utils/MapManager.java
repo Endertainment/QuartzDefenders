@@ -50,7 +50,9 @@ public class MapManager {
 			return;
 		}
 		try {
-			FileUtils.copyDirectory(sourseDir, serverDir);
+			File srvDirF = new File(serverDir + File.separator + worldS);
+			srvDirF.mkdir();
+			FileUtils.copyDirectory(sourseDir, srvDirF);
 		} catch (IOException e) {
 			LoggerUtil.error(Language.getString("logger.copy_map_failed"));
 		}

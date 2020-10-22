@@ -46,7 +46,7 @@ public class Lobby implements Listener {
             Bukkit.getPluginManager().disablePlugin(plugin);
             return;
         }
-
+        
         World world = Bukkit.getWorld(plugin.getConfig().getString("Lobby.lobby_world_name"));
         double x = plugin.getConfig().getDouble("Lobby.spawn.x") + 0.5;
         double y = plugin.getConfig().getDouble("Lobby.spawn.y");
@@ -297,18 +297,17 @@ public class Lobby implements Listener {
 
             }
 
-            for (String s : QuartzDefenders.getInstance().getDevs()) {
-                if (s.equalsIgnoreCase(p.getPlayer().getName())) {
-                    p.setDisplayName(ChatColor.DARK_RED);
-                }
-            }
             sendTabList(bp);
             ScoreboardLobby sb = new ScoreboardLobby(plugin, bp);
             sb.setScoreboard();
 
             for (Player targ : location.getWorld().getPlayers()) {
-                targ.showPlayer(e.getPlayer());
-                e.getPlayer().showPlayer(targ);
+            		targ.showPlayer(plugin, e.getPlayer());
+                    e.getPlayer().showPlayer(plugin, targ);
+            }
+            for(Player targ : e.getFrom().getPlayers()) {
+            	targ.hidePlayer(plugin, e.getPlayer());
+            	e.getPlayer().hidePlayer(plugin, targ);
             }
 
         }

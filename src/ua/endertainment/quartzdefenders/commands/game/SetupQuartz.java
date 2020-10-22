@@ -56,6 +56,12 @@ public class SetupQuartz extends SubCommand {
 		
 	}
 
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

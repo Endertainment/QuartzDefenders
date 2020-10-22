@@ -1,7 +1,6 @@
 package ua.endertainment.quartzdefenders.gui;
 
 import java.util.List;
-import javafx.util.Pair;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
@@ -10,6 +9,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Wool;
+
+import ua.coolboy.quartzdefenders.voting.Pair;
 import ua.coolboy.quartzdefenders.voting.Vote;
 import ua.coolboy.quartzdefenders.voting.VoteManager;
 import ua.coolboy.quartzdefenders.voting.VoteObject;

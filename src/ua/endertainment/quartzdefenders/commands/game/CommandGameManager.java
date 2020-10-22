@@ -1,6 +1,7 @@
 package ua.endertainment.quartzdefenders.commands.game;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 
@@ -13,6 +14,8 @@ public class CommandGameManager {
 	}
 	
 	private CommandGameManager() {
+		subCommandsGame = new LinkedHashMap<>();
+		
 		subCommandsGame.put("help", new Help());
 		subCommandsGame.put("add", new Add());
 		subCommandsGame.put("remove", new Remove());
@@ -23,16 +26,20 @@ public class CommandGameManager {
 		subCommandsGame.put("setupores", new SetupOres());
 		subCommandsGame.put("setupquartz", new SetupQuartz());
 		subCommandsGame.put("setupspawn", new SetupSpawn());
-                subCommandsGame.put("admin", new Admin());
+        subCommandsGame.put("admin", new Admin());
 	}
 	
-	private HashMap<String, SubCommand> subCommandsGame = new HashMap<>();
+	private static LinkedHashMap<String, SubCommand> subCommandsGame;
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsGame.keySet()) {
 			if(s.equalsIgnoreCase(name)) return subCommandsGame.get(s);
 		}
 		return subCommandsGame.get(name);
+	}
+	
+	public static LinkedHashMap<String, SubCommand> getCommands() {
+		return subCommandsGame;
 	}
 	
 }

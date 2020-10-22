@@ -25,4 +25,10 @@ public class Add extends SubCommand {
 		QuartzDefenders.getInstance().addGame(gameID);		
 	}
 
+	@Override
+	public String getUsage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

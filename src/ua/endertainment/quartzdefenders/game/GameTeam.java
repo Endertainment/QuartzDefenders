@@ -1,8 +1,5 @@
 package ua.endertainment.quartzdefenders.game;
 
-import ua.endertainment.quartzdefenders.game.GameQuartz;
-import ua.endertainment.quartzdefenders.game.GamePlayer;
-import ua.endertainment.quartzdefenders.game.Game;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -93,9 +90,9 @@ public class GameTeam {
         if (addPlayer(player)) {
             player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_join", new Replacer("{0}", getName()))));
 
-                if (game.isAutostart() && game.isGameReady()) {
-                    game.startCountdown();
-                }
+            if (game.isAutostart() && game.isGameReady()) {
+                game.startCountdown();
+            }
 
             if (game.isGameState(GameState.ACTIVE)) {
                 respawnPlayer(player);
@@ -107,7 +104,7 @@ public class GameTeam {
             game.refreshScoreboard();
             return;
         }
-        player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.team_already")));
+        player.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("team.team_already")));
     }
 
     public void quitTeam(GamePlayer player) {

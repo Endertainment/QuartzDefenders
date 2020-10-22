@@ -57,7 +57,7 @@ public class GamesGUI {
 			lore.add(Language.getRawString("GUI.games.players", new Replacer("{0}", game.getPlayers().size() + "")));
 			lore.add(" ");
 			ItemStack s = ItemUtil.newItem(game.getColorWorldName(), lore, Material.QUARTZ_ORE, 1);
-			if(x == 24) x = 29;
+			if(x == 25) x = 29;
 			gamesIS.put(s, x);
 			x++;
 		}

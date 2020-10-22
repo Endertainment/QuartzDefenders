@@ -10,7 +10,7 @@ import ua.endertainment.quartzdefenders.utils.ColorFormat;
 
 public class GamePlayer {
 	
-        private Vote vote;
+    private Vote vote;
 	private Player player;
 	
 	public GamePlayer(Player player) {
@@ -42,13 +42,22 @@ public class GamePlayer {
 		getPlayer().setDisplayName(color + getPlayer().getName() + ChatColor.RESET);
 		getPlayer().setPlayerListName(color + getPlayer().getName() + ChatColor.RESET);
 	}
+	
 	public void resetDisplayName() {
-		getPlayer().setDisplayName(ChatColor.GRAY + getPlayer().getName() + ChatColor.RESET);
-		getPlayer().setPlayerListName(ChatColor.GRAY + getPlayer().getName() + ChatColor.RESET);
+		getPlayer().setDisplayName(getPlayer().hasPermission("QuartzDefenders.lobby.colorName") ? ChatColor.AQUA + getPlayer().getName() + ChatColor.RESET : ChatColor.GRAY + getPlayer().getName() + ChatColor.RESET);
+		getPlayer().setPlayerListName(getPlayer().hasPermission("QuartzDefenders.lobby.colorName") ? ChatColor.AQUA + getPlayer().getName() + ChatColor.RESET : ChatColor.GRAY + getPlayer().getName() + ChatColor.RESET);
 	}
 	
 	public void teleport(Location loc) {
 		getPlayer().teleport(loc);
+	}
+	
+	public void setRespawn(Location loc) {
+		getPlayer().setBedSpawnLocation(loc, true);
+	}
+	
+	public String getDefaultDisplayName() {
+		return getPlayer().hasPermission("QuartzDefenders.lobby.colorName") ? ChatColor.AQUA + getPlayer().getName() + ChatColor.RESET : ChatColor.GRAY + getPlayer().getName() + ChatColor.RESET;
 	}
 
 	public void sendMessage(String s) {

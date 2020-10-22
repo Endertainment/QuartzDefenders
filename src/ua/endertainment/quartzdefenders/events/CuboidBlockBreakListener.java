@@ -25,7 +25,9 @@ public class CuboidBlockBreakListener implements Listener {
 	@EventHandler
 	public void onBreak(BlockBreakEvent e) {
 			Player p = e.getPlayer();
-
+			
+			if(e.isCancelled()) return;
+			
 	        if (plugin.getGame(p) == null) {
 	            return;
 	        }
