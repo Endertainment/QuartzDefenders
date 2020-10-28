@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
 
@@ -14,7 +16,7 @@ public class Reset extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if(!sender.hasPermission("QuartzDefenders.stats.reset")) {
+		if(!sender.hasPermission(PermissionsList.STATS_RESET)) {
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
@@ -33,6 +35,9 @@ public class Reset extends SubCommand {
 		if(args.length == 0) {
 			if(sender instanceof Player) {
 				p = (Player) sender;
+			} else {
+				sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou are not a player"));
+				return;
 			}
 		}
 		
@@ -40,6 +45,11 @@ public class Reset extends SubCommand {
 		sp.reset();
 		sender.sendMessage(LoggerUtil.gameMessage("Chat", p.getName() + "'s stats has beed reset"));
 		new ScoreboardLobby(QuartzDefenders.getInstance(), p).setScoreboard();
+	}
+
+	@Override
+	public String getUsage() {
+		return new ColorFormat("&8» &b/stats reset [player] &8- &bReset all player's stats").format();
 	}
 
 	

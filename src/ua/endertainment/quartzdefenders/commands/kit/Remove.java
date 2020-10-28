@@ -3,17 +3,20 @@ package ua.endertainment.quartzdefenders.commands.kit;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.kits.Kit;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Remove extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if(!sender.hasPermission("QuartzDefenders.kit.remove")) {
+		if(!sender.hasPermission(PermissionsList.KIT_REMOVE)) {
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
@@ -51,6 +54,11 @@ public class Remove extends SubCommand {
 		QuartzDefenders.getInstance().getKitManager().removeKit(kit, p);
 		sender.sendMessage(LoggerUtil.gameMessage("Kits", "You remove kit " + kit.getDisplayName() + "&7 from player " + p.getDisplayName()));
 		return;
+	}
+
+	@Override
+	public String getUsage() {
+		return new ColorFormat("&8» &b/kit remove <kit> [player] &8- &bRemove kit from player").format();
 	}
 
 }

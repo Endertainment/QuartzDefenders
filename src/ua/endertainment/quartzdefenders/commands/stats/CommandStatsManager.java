@@ -1,6 +1,6 @@
 package ua.endertainment.quartzdefenders.commands.stats;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 
@@ -12,8 +12,10 @@ public class CommandStatsManager {
 	}
 	
 	private CommandStatsManager() {
-		subCommandsStats.put("info", new Info());
+		subCommandsStats = new LinkedHashMap<>();
+
 		subCommandsStats.put("help", new Help());
+		subCommandsStats.put("info", new Info());
 		subCommandsStats.put("addcoins", new AddCoins());
 		subCommandsStats.put("removecoins", new RemoveCoins());
 		subCommandsStats.put("addpoints", new AddPoints());
@@ -25,7 +27,7 @@ public class CommandStatsManager {
 		subCommandsStats.put("setplacedblocks", new SetPlacedBlocks());
 	}
 	
-	private HashMap<String, SubCommand> subCommandsStats = new HashMap<>();
+	private static LinkedHashMap<String, SubCommand> subCommandsStats;
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsStats.keySet()) {
@@ -33,5 +35,9 @@ public class CommandStatsManager {
 		}
 
 		return subCommandsStats.get(name);
+	}
+	
+	public static LinkedHashMap<String, SubCommand> getCommands() {
+		return subCommandsStats;
 	}
 }

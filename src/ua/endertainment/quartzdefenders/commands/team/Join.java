@@ -8,8 +8,10 @@ import ua.endertainment.quartzdefenders.game.Balance;
 import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.GameTeam;
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Join extends SubCommand {
@@ -50,7 +52,7 @@ public class Join extends SubCommand {
 		
 		if(args.length >= 2) {
 			
-			if(!sender.hasPermission("QuartzDefenders.team.addPlayer")) return; 
+			if(!sender.hasPermission(PermissionsList.TEAM_ADD_PLAYER)) return; 
 			
 			Player pp = Bukkit.getPlayer(args[1]);
 			if(pp != null && pp.isOnline()) {
@@ -73,6 +75,11 @@ public class Join extends SubCommand {
 		if(new Balance(game, game.getBalanceType(), gp, game.getTeams().values(), team).isTeamsBalanced()) {
 			team.joinTeam(gp, false);
 		}
+	}
+
+	@Override
+	public String getUsage() {
+		return new ColorFormat("&8» &b/team join <team> [player] &8- &bJoin to team").format();
 	}
 
 }

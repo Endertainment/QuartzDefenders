@@ -1,3 +1,5 @@
+language: en
+
 single_server_mode:
   enable: false
   

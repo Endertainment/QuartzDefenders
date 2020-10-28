@@ -3,15 +3,17 @@ package ua.endertainment.quartzdefenders.commands.game;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.items.SetupItems;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class SetupOres extends SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("QuartzDefenders.setup.regenerativeBlocks")) {
+        if (!sender.hasPermission(PermissionsList.GAME_SETUP_BLOCKS)) {
             sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
             return;
         }
@@ -30,8 +32,7 @@ public class SetupOres extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ColorFormat("&8» &b/game setupOres &8- &bAdd new regenerative ores").format();
 	}
 
 }

@@ -503,6 +503,8 @@ public class Game {
                 case DIAMOND_DEFENDERS:
                     diamondDef = bool;
                     break;
+                default:
+                	break;
             }
         }
         
@@ -525,6 +527,8 @@ public class Game {
                     case DIAMOND_DEFENDERS:
                         status = diamondDef ? enabled : disabled;
                         break;
+                    default:
+                    	break;
                 }
                 if(!status.equals("")) {
                     player.sendMessage(Language.getString("vote.result", name, status));
@@ -1093,7 +1097,7 @@ public class Game {
     }
 
     public void setSpawn(Location loc, String team, Player p) {
-        if (!isTeamValid(team)) {
+        if (!isTeamValid(team.toUpperCase())) {
             p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
             return;
         }

@@ -5,7 +5,9 @@ import org.bukkit.entity.Player;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.gui.AdminGUI;
 import ua.endertainment.quartzdefenders.game.Game;
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Admin extends SubCommand {
@@ -15,9 +17,10 @@ public class Admin extends SubCommand {
         
         if (!(sender instanceof Player)) {
             LoggerUtil.logInfo("This command only for players");
+            return;
         }
         
-        if (!sender.hasPermission("QuartzDefenders.game.admin")) {
+        if (!sender.hasPermission(PermissionsList.GAME_ADMIN_GUI)) {
             sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
             return;
         }
@@ -38,8 +41,7 @@ public class Admin extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ColorFormat("&8» &b/game admin [gameID] &8- &bOpen Admin GUI").format();
 	}
     
 }

@@ -1,6 +1,6 @@
 package ua.endertainment.quartzdefenders.commands.kit;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 
@@ -13,12 +13,13 @@ public class CommandKitManager {
 	}
 	
 	private CommandKitManager() {
+		subCommandsKit = new LinkedHashMap<>();
 		subCommandsKit.put("help", new Help());
 		subCommandsKit.put("give", new Give());
 		subCommandsKit.put("remove", new Remove());
 	}
 	
-	private HashMap<String, SubCommand> subCommandsKit = new HashMap<>();
+	private static LinkedHashMap<String, SubCommand> subCommandsKit;
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsKit.keySet()) {
@@ -26,6 +27,10 @@ public class CommandKitManager {
 		}
 
 		return subCommandsKit.get(name);
+	}
+	
+	public static LinkedHashMap<String, SubCommand> getCommands() {
+		return subCommandsKit;
 	}
 	
 }

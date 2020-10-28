@@ -8,8 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
-import ua.endertainment.quartzdefenders.configuration.Info;
 import ua.endertainment.quartzdefenders.items.SetupItems;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.FireworkUtil;
@@ -58,7 +58,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		}
 		*/
 		if(args.length >= 1 && args[0].equalsIgnoreCase("firework")) {
-			if(!p.hasPermission("QuartzDefenders.fun.firework")) {
+			if(!p.hasPermission(PermissionsList.FUN_FIREWORK)) {
 				return true;
 			}
 			long detonate = 2;
@@ -76,14 +76,14 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			return true;
 		}
 		if(args.length >= 1 && args[0].equalsIgnoreCase("setupSigns")) {
-			if(!p.hasPermission("QuartzDefenders.lobby.setupSigns")) {
+			if(!p.hasPermission(PermissionsList.LOBBY_SETUP_SIGNS)) {
 				return true;
 			}
 			p.getInventory().setItem(1, SetupItems.itemSetupSignsK());
 			p.getInventory().setItem(2, SetupItems.itemSetupSignsW());
 		}
 		if(args.length >= 2 && args[0].equalsIgnoreCase("setDisplayName")) {
-			if(!p.hasPermission("QuartzDefenders.fun.setName")) {
+			if(!p.hasPermission(PermissionsList.FUN_SET_NAME)) {
 				return true;
 			}
 			
@@ -99,8 +99,8 @@ public class CommandQuartzDefenders implements CommandExecutor {
 			
 		}
                 
-                if(args.length >= 2 && args[0].equalsIgnoreCase("setTabName")) {
-			if(!p.hasPermission("QuartzDefenders.fun.setTabName")) {
+        if(args.length >= 2 && args[0].equalsIgnoreCase("setTabName")) {
+			if(!p.hasPermission(PermissionsList.FUN_SET_TAB_NAME)) {
 				return true;
 			}
 			
@@ -117,7 +117,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		}
 		
 		if(args.length >= 1 && args[0].equalsIgnoreCase("removeSigns")) {
-			if(!p.hasPermission("QuartzDefenders.lobby.removeSigns")) {
+			if(!p.hasPermission(PermissionsList.LOBBY_REMOVE_SIGNS)) {
 				return true;
 			}
 			

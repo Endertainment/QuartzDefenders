@@ -267,6 +267,11 @@ public class QuartzDefenders extends JavaPlugin {
         return game.isLoadSuccess();
     }
 
+    /**
+     * Get game by game name
+     * @param gameName
+     * @return
+     */
     public Game getGame(String gameName) {
         for (Game game : games) {
             if (game.getGameName().equalsIgnoreCase(gameName)) {
@@ -294,6 +299,12 @@ public class QuartzDefenders extends JavaPlugin {
         return null;
     }
 
+    /**
+     * Get game by gameID
+     * @param gameID
+     * @param arg
+     * @return
+     */
     public Game getGame(String gameID, boolean arg) {
         for (Game game : games) {
             if (game.getGameId().equalsIgnoreCase(gameID)) {

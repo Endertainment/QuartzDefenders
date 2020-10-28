@@ -4,9 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
 
@@ -14,7 +16,7 @@ public class AddCoins extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if(!sender.hasPermission("QuartzDefenders.stats.addCoins")) {
+		if(!sender.hasPermission(PermissionsList.STATS_ADD_COINS)) {
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
@@ -43,7 +45,7 @@ public class AddCoins extends SubCommand {
 		if(args.length >= 2) {
 			p = Bukkit.getPlayer(args[1]);
 			if(p == null) {
-				sender.sendMessage(LoggerUtil.gameMessage("Chat", "Player " + args[0] + "&7 is not online"));
+				sender.sendMessage(LoggerUtil.gameMessage("Chat", "Player " + args[1] + "&7 is not online"));
 				return;
 			}
 		} 
@@ -51,6 +53,9 @@ public class AddCoins extends SubCommand {
 		if(args.length == 1) {
 			if(sender instanceof Player) {
 				p = (Player) sender;
+			} else {
+				sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou are not a player"));
+				return;
 			}
 		}
 		
@@ -63,6 +68,11 @@ public class AddCoins extends SubCommand {
 			ScoreboardLobby sb = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
 			sb.setScoreboard();
 		}
+	}
+
+	@Override
+	public String getUsage() {
+		return new ColorFormat("&8» &b/stats addCoins <coins> [player] &8- &bAdd coins").format();
 	}	
 	
 }

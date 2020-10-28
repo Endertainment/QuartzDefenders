@@ -9,15 +9,17 @@ import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.Game.GameState;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.GameTeam;
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Random extends SubCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if(!sender.hasPermission("QuartzDefenders.team.random")) {
+		if(!sender.hasPermission(PermissionsList.TEAM_RANDOM)) {
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return;
 		}
@@ -67,6 +69,11 @@ public class Random extends SubCommand {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public String getUsage() {
+		return new ColorFormat("&8» &b/team random &8- &bRandomly sort players in teams").format();
 	}
 
 }

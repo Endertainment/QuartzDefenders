@@ -7,8 +7,10 @@ import org.bukkit.entity.Player;
 import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.GameTeam;
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Quit extends SubCommand{
@@ -52,7 +54,7 @@ public class Quit extends SubCommand{
 		
 		if(args.length >= 2) {
 			
-			if(!sender.hasPermission("QuartzDefenders.team.removePlayer")) return; 
+			if(!sender.hasPermission(PermissionsList.TEAM_REMOVE_PLAYER)) return; 
 			
 			Player pp = Bukkit.getPlayer(args[1]);
 			if(pp != null && pp.isOnline()) {
@@ -66,6 +68,11 @@ public class Quit extends SubCommand{
 		
 		team.quitTeam(gp);
 		
+	}
+
+	@Override
+	public String getUsage() {
+		return new ColorFormat("&8» &b/team quit|leave|kick [team] [player] &8- &bLeave from team").format();
 	}
 
 	

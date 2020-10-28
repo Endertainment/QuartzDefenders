@@ -6,9 +6,11 @@ import org.bukkit.entity.Player;
 import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.GameTeam;
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.stats.StatsManager;
+import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Info extends SubCommand {
@@ -25,7 +27,7 @@ public class Info extends SubCommand {
 			return;
 		}
 		
-		if(!sender.hasPermission("QuartzDefenders.team.info")) {
+		if(!sender.hasPermission(PermissionsList.TEAM_INFO)) {
 			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
 			return; 
 		}
@@ -55,6 +57,11 @@ public class Info extends SubCommand {
 												  + team.getSpawnLocation().getBlockY() + " " 
 												  + team.getSpawnLocation().getBlockZ());
 		gp.sendMessage("&8» &fCan respawn: &b" + team.canRespawn());
+	}
+
+	@Override
+	public String getUsage() {
+		return new ColorFormat("&8» &b/team info <team> &8- &bShow team's info").format();
 	}
 
 }

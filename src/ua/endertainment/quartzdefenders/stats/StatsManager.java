@@ -29,13 +29,12 @@ public class StatsManager {
 		return teamKD;
 	}
 	
-	public static void sendStatsInfo(Player p, UUID id) {
+	public static void senddddStatsInfo(Player p, UUID id) {
 		GamePlayer gp = QuartzDefenders.getInstance().getGamePlayer(p);
 		StatsPlayer sp = new StatsPlayer(id);
 		gp.sendMessage("&8-------------------- &6Stats &8--------------------");
 		gp.sendMessage("&8» &fName: &b" + p.getName());
 		gp.sendMessage("&8» &fTop kills: &b" + QuartzDefenders.getInstance().getTopManager().getPlayerKillsPosition(p));
-		//gp.sendMessage("&8» &fTop kills: &b" + QuartzDefenders.getInstance().getTopManager().getPlayerPositionK(p));
 		gp.sendMessage("&8» &fLevel: &b" + sp.getLevel() + "&f(&b" + sp.getPoints() + "&f/&b" + sp.getNextLevelPoints() + "&f)");
 		gp.sendMessage("&8» &fCoins: &b" + sp.getCoins());
 		gp.sendMessage("&8» &fGames: &b" + sp.getPlayedGames());

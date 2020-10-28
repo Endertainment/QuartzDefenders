@@ -1,7 +1,6 @@
 package ua.endertainment.quartzdefenders.commands.team;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 
@@ -13,6 +12,8 @@ public class CommandTeamManager {
 	}
 	
 	private CommandTeamManager() {
+		subCommandsTeam = new LinkedHashMap<>();
+		
 		subCommandsTeam.put("help", new Help());
 		subCommandsTeam.put("join", new Join());
 		subCommandsTeam.put("quit", new Quit());
@@ -23,7 +24,7 @@ public class CommandTeamManager {
 		subCommandsTeam.put("random", new Random());
 	}
 	
-	private Map<String, SubCommand> subCommandsTeam = new HashMap<>();
+	private static LinkedHashMap<String, SubCommand> subCommandsTeam;
 	
 	public SubCommand find(String name) {
 		for(String s : subCommandsTeam.keySet()) {
@@ -33,5 +34,7 @@ public class CommandTeamManager {
 		return subCommandsTeam.get(name);
 	}
 	
-	
+	public static LinkedHashMap<String, SubCommand> getCommands() {
+		return subCommandsTeam;
+	}
 }

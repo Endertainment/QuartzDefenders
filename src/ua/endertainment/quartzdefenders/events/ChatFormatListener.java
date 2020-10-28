@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import ua.endertainment.quartzdefenders.game.Game;
+import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.game.Game.GameState;
 import ua.endertainment.quartzdefenders.game.GameTeam;
@@ -41,7 +42,7 @@ public class ChatFormatListener implements Listener{
 		/*
 		 * Color Message
 		 */	
-		if(e.getPlayer().hasPermission("QuartzDefenders.ColorChat")) e.setMessage(new ColorFormat(e.getMessage()).format());		
+		if(e.getPlayer().hasPermission(PermissionsList.CHAT_COLOR)) e.setMessage(new ColorFormat(e.getMessage()).format());		
 		String message = e.getMessage();
 		/*
 		 * ChatFormat : Lobby
