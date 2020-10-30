@@ -15,6 +15,7 @@ import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import ua.endertainment.quartzdefenders.events.MobsListener;
 import ua.coolboy.quartzdefenders.nms.NMSHandler;
 import ua.coolboy.quartzdefenders.shop.ShopInventory;
@@ -35,7 +36,8 @@ import ua.endertainment.quartzdefenders.stats.TopManager;
 import ua.endertainment.quartzdefenders.configuration.Config;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
-import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
+import ua.endertainment.quartzdefenders.utils.Metrics;
+import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 import ua.endertainment.quartzdefenders.utils.TitleUtil;
 
 //TODO Totems, Kits, Abilities
@@ -67,7 +69,8 @@ public class QuartzDefenders extends JavaPlugin {
     @Override
     public void onEnable() {
         main = this;
-
+        Metrics metrics = new Metrics(this, 9260); 
+        
         saveDefaultConfig();
 
         files = new Config(this);
@@ -103,7 +106,7 @@ public class QuartzDefenders extends JavaPlugin {
          */
         for (Player p : Bukkit.getOnlinePlayers()) {
             gamePlayers.put(p.getUniqueId(), new GamePlayer(p));
-            ScoreboardLobby s = new ScoreboardLobby(this, p);
+            LobbySidebar s = new LobbySidebar(this, p);
             s.setScoreboard();
             lobby.sendTabList(p);
         }

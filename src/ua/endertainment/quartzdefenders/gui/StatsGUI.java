@@ -2,7 +2,6 @@ package ua.endertainment.quartzdefenders.gui;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,6 +21,7 @@ public class StatsGUI {
 	
 	public StatsGUI(Player player) {
 		this.player = player;
+		
 		this.title = new ColorFormat("&6" + player.getName() +"&6's Stats").format();
 		this.inventory = Bukkit.createInventory(new QuartzInventoryHolder(), 6*9, title);		
 		this.menuCorner();

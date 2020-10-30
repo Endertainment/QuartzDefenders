@@ -8,6 +8,7 @@ import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Admin extends SubCommand {
@@ -16,12 +17,12 @@ public class Admin extends SubCommand {
     public void execute(CommandSender sender, String[] args) {
         
         if (!(sender instanceof Player)) {
-            LoggerUtil.logInfo("This command only for players");
+        	sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.only_players_can_use")));
             return;
         }
         
         if (!sender.hasPermission(PermissionsList.GAME_ADMIN_GUI)) {
-            sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
+        	sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
             return;
         }
         Player player = (Player) sender;
@@ -33,7 +34,7 @@ public class Admin extends SubCommand {
             return;
         }
         
-        Game game = QuartzDefenders.getInstance().getGame(args[0]);
+        Game game = QuartzDefenders.getInstance().getGame(args[0], false);
         if(game != null) {
             new AdminGUI(game).openInventory(player);
         }

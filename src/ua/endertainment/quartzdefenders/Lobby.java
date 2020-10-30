@@ -29,7 +29,7 @@ import ua.endertainment.quartzdefenders.stats.TopManager;
 import ua.endertainment.quartzdefenders.utils.TitleUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
-import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
+import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 
 public class Lobby implements Listener {
 
@@ -133,8 +133,8 @@ public class Lobby implements Listener {
         p.getInventory().setItem(0, QItems.itemGamesChoose());
         p.getInventory().setItem(4, QItems.itemStats());
         p.getInventory().setItem(8, QItems.itemHidePlayers(getHides().contains(p)));
-        //p.getInventory().setItem(8, QItems.itemLobbyShop());
-        //p.getInventory().setItem(1, QItems.itemAchievements());
+        p.getInventory().setItem(6, QItems.itemLobbyShop());
+        p.getInventory().setItem(2, QItems.itemAchievements());
     }
 
     private boolean listContains(List<List<Integer>> where, List<Integer> find) {
@@ -298,7 +298,7 @@ public class Lobby implements Listener {
             }
 
             sendTabList(bp);
-            ScoreboardLobby sb = new ScoreboardLobby(plugin, bp);
+            LobbySidebar sb = new LobbySidebar(plugin, bp);
             sb.setScoreboard();
 
             for (Player targ : location.getWorld().getPlayers()) {

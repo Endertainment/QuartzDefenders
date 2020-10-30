@@ -9,7 +9,6 @@ import ua.endertainment.quartzdefenders.game.Game.GameState;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 
 public class GameSidebar {
-
 	
 	private Game game;
 	
@@ -46,7 +45,7 @@ public class GameSidebar {
 		addString("&f&m------------------");
 		
 		switch(state) {
-                        case LOBBY:
+            case LOBBY:
 			case WAITING : {
 				addString("&fPlayers:");
 				for(GameTeam team : game.getTeams().values()) 

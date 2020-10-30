@@ -18,14 +18,14 @@ public class PermissionsList {
 	/*
 	 * Lobby
 	 */
-	public static final String LOBBY_VISIBLE  		= QD + DOT + LOBBY + DOT + ".visible";
-	public static final String LOBBY_COLOR_NAME  	= QD + DOT + LOBBY + DOT + ".colorName";
-	public static final String LOBBY_BLOCK_PLACE	= QD + DOT + LOBBY + DOT + ".blockPlace";
-	public static final String LOBBY_BLOCK_BREAK 	= QD + DOT + LOBBY + DOT + ".blockBreak";
-	public static final String LOBBY_ALERT_JOIN  	= QD + DOT + LOBBY + DOT + ".alertJoin";
-	public static final String LOBBY_ALERT_QUIT  	= QD + DOT + LOBBY + DOT + ".alertQuit";
-	public static final String LOBBY_SETUP_SIGNS  	= QD + DOT + LOBBY + DOT + ".setupSigns";
-	public static final String LOBBY_REMOVE_SIGNS  	= QD + DOT + LOBBY + DOT + ".removeSigns";
+	public static final String LOBBY_VISIBLE  		= QD + DOT + LOBBY + DOT + "visible";
+	public static final String LOBBY_COLOR_NAME  	= QD + DOT + LOBBY + DOT + "colorName";
+	public static final String LOBBY_BLOCK_PLACE	= QD + DOT + LOBBY + DOT + "blockPlace";
+	public static final String LOBBY_BLOCK_BREAK 	= QD + DOT + LOBBY + DOT + "blockBreak";
+	public static final String LOBBY_ALERT_JOIN  	= QD + DOT + LOBBY + DOT + "alertJoin";
+	public static final String LOBBY_ALERT_QUIT  	= QD + DOT + LOBBY + DOT + "alertQuit";
+	public static final String LOBBY_SETUP_SIGNS  	= QD + DOT + LOBBY + DOT + "setupSigns";
+	public static final String LOBBY_REMOVE_SIGNS  	= QD + DOT + LOBBY + DOT + "removeSigns";
 	
 	/*
 	 * Game
@@ -43,6 +43,7 @@ public class PermissionsList {
 	public static final String GAME_SETUP_QUARTZ 	= QD + DOT + GAME + DOT + "setupQuartz";
 	public static final String GAME_SETUP_SPAWN 	= QD + DOT + GAME + DOT + "setupSpawn";
 	
+	
 	/*
 	 * Kit
 	 */
@@ -57,8 +58,7 @@ public class PermissionsList {
 	public static final String FUN_FIREWORK 		= QD + DOT + FUN + DOT + "firework";
 	public static final String FUN_SET_NAME 		= QD + DOT + FUN + DOT + "setName";
 	public static final String FUN_SET_TAB_NAME 	= QD + DOT + FUN + DOT + "setTabName";
-	
-	
+		
 	
 	/*
 	 * Team
@@ -90,4 +90,5 @@ public class PermissionsList {
 	public static final String STATS_SEE_INFO			= QD + DOT + STATS + DOT + "seeInfo";
 	public static final String STATS_ADD_POINTS			= QD + DOT + STATS + DOT + "addPoints";
 	public static final String STATS_ADD_COINS 			= QD + DOT + STATS + DOT + "addCoins";
+	
 }

@@ -19,6 +19,19 @@ public class Info extends SubCommand {
 		
 		if(sender instanceof ConsoleCommandSender) {
 			// TODO
+			/*
+			if(args.length >= 1) {
+				@SuppressWarnings("deprecation")
+				OfflinePlayer offp = Bukkit.getOfflinePlayer(args[0]);
+				if(!offp.hasPlayedBefore()) {
+					sender.sendMessage(LoggerUtil.gameMessage("Chat", "Player " + args[0] + " &7is not found"));
+					return;
+				}
+				
+				StatsManager.sendStatsInfo(sender, offp.getUniqueId());
+			}
+			return;
+			*/
 			return;
 		} else if(sender instanceof Player) {
 			p = (Player) sender;

@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
-import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
+import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 
 public class JoinListener implements Listener {
 
@@ -46,7 +46,7 @@ public class JoinListener implements Listener {
 		plugin.getLobby().setLobbyTools(p);
 		
 		for(Player pp : Bukkit.getOnlinePlayers()) {
-			new ScoreboardLobby(plugin, pp).setScoreboard();
+			new LobbySidebar(plugin, pp).setScoreboard();
 		}
 		
 	}

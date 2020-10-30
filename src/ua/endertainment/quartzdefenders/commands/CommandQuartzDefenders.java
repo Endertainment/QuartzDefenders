@@ -13,6 +13,8 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.items.SetupItems;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.FireworkUtil;
+import ua.endertainment.quartzdefenders.utils.Language;
+import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class CommandQuartzDefenders implements CommandExecutor {
 
@@ -59,6 +61,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		*/
 		if(args.length >= 1 && args[0].equalsIgnoreCase("firework")) {
 			if(!p.hasPermission(PermissionsList.FUN_FIREWORK)) {
+				sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 				return true;
 			}
 			long detonate = 2;
@@ -77,13 +80,17 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		}
 		if(args.length >= 1 && args[0].equalsIgnoreCase("setupSigns")) {
 			if(!p.hasPermission(PermissionsList.LOBBY_SETUP_SIGNS)) {
+				sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 				return true;
 			}
 			p.getInventory().setItem(1, SetupItems.itemSetupSignsK());
 			p.getInventory().setItem(2, SetupItems.itemSetupSignsW());
+			
+			return true;
 		}
 		if(args.length >= 2 && args[0].equalsIgnoreCase("setDisplayName")) {
 			if(!p.hasPermission(PermissionsList.FUN_SET_NAME)) {
+				sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 				return true;
 			}
 			
@@ -101,6 +108,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
                 
         if(args.length >= 2 && args[0].equalsIgnoreCase("setTabName")) {
 			if(!p.hasPermission(PermissionsList.FUN_SET_TAB_NAME)) {
+				sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 				return true;
 			}
 			
@@ -118,6 +126,7 @@ public class CommandQuartzDefenders implements CommandExecutor {
 		
 		if(args.length >= 1 && args[0].equalsIgnoreCase("removeSigns")) {
 			if(!p.hasPermission(PermissionsList.LOBBY_REMOVE_SIGNS)) {
+				sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 				return true;
 			}
 			

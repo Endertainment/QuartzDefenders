@@ -10,7 +10,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
-import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
+import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 
 public class Reset extends SubCommand {
 
@@ -44,7 +44,7 @@ public class Reset extends SubCommand {
 		StatsPlayer sp = new StatsPlayer(p);
 		sp.reset();
 		sender.sendMessage(LoggerUtil.gameMessage("Chat", p.getName() + "'s stats has beed reset"));
-		new ScoreboardLobby(QuartzDefenders.getInstance(), p).setScoreboard();
+		new LobbySidebar(QuartzDefenders.getInstance(), p).setScoreboard();
 	}
 
 	@Override

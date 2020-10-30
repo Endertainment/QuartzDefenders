@@ -10,9 +10,10 @@ public class Replacer {
 		this.what = what;
 		this.to = to.toString();
 	}
-	public void addString(String s) {
+	public Replacer addString(String s) {
 		this.s = s;
 		this.s = this.s.replace(what, to);
+		return this;
 	}
 	public String getReplaced() {
 		return s;

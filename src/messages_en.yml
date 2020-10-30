@@ -142,6 +142,31 @@ tablist:
     game:
         header: ' \n &3\u00AB &b&lPlayCraft.COM.UA &3\u00BB \n \n &3Time&f: {0}'
         footer: ' \n {0} \n'
+scoreboard:    #Only translate this. Don't use identical strings!!
+    lobby: 
+    - '&f Hi, {0}'
+    - '&f Players online: &b{0}'
+    - '&f Active games: &b{0}'
+    - '&1 '                                  # spacer
+    - '&f&m------------------'
+    - '&2 '                                  # spacer
+    - '&f Wins: &b{0}'
+    - '&3 '                                  # spacer
+    - '&f Top position: &b{0}'
+    - '&4 '                                  # spacer
+    - '&f&m------------------&5'
+    - ' &b&lPlaycraft.com.ua&3 '
+    game:
+        header:
+        - '&fGame: &b{0}'
+        - '&f&m------------------'
+        footer:
+        - '&f&m------------------&6 '
+        - ' &b&lPlaycraft.com.ua&3'
+        content:
+            waiting: '&fPlayers:'
+            starting: '    &fGame starting'
+            ending: '&fGame ended'            
 GUI:
     admin:
         name: '&4Admin Panel'

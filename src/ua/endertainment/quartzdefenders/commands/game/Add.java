@@ -6,6 +6,7 @@ import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Add extends SubCommand {
@@ -13,12 +14,12 @@ public class Add extends SubCommand {
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission(PermissionsList.GAME_ADD)) {
-			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 			return;
 		}
 		
 		if(args.length == 0) {
-			sender.sendMessage(LoggerUtil.gameMessage("Chat", "Check command usage: &b/game help"));
+			sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.command_ussage", CommandGameManager.getInstance().find("add"))));
 			return;
 		}
 		

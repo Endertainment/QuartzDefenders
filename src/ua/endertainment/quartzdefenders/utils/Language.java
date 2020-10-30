@@ -2,6 +2,8 @@ package ua.endertainment.quartzdefenders.utils;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
+
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -42,6 +44,16 @@ public abstract class Language {
         return s;
     }
 
+    public static String getRawString(String path, Object... replace) {
+        String s = getRawString(path);
+        int i = 0;
+        for (Object st : replace) {
+            s = s.replace("{" + i + "}", st.toString());
+            i++;
+        }
+        return s;
+    }
+    
     public static String getString(String path) {
         return new ColorFormat(getRawString(path)).format();
     }
@@ -49,7 +61,7 @@ public abstract class Language {
     public static String getString(String path, Replacer... replacer) {
         return new ColorFormat(getRawString(path, replacer)).format();
     }
-
+    
     public static String getRawString(String path, Replacer... replacer) {
         String s = getRawString(path);
         for (Replacer repl : replacer) {
@@ -59,4 +71,11 @@ public abstract class Language {
         return s;
     }
 
+    public static List<String> getRawStringList(String path) {
+    	List<String> list = QuartzDefenders.getInstance().getConfigs().getLang().getStringList(path);
+    	return list;
+    }
+    public static List<String> getStringList(String path) {
+    	return new ColorFormat(getRawStringList(path)).getFormatedList();
+    }
 }

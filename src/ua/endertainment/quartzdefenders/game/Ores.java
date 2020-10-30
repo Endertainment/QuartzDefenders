@@ -83,7 +83,7 @@ public class Ores {
         private OreMaterial(Material material, List<Location> locations, int regenTime) {
             this.material = material;
             this.locations = locations;
-            this.regenTime = regenTime;
+            this.regenTime = regenTime * 20;
         }
         
         public Material getMaterial() {

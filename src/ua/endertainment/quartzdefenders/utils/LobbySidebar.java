@@ -1,5 +1,7 @@
 package ua.endertainment.quartzdefenders.utils;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -10,7 +12,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 
-public class ScoreboardLobby {
+public class LobbySidebar {
 
 	private QuartzDefenders plugin;
 	private Scoreboard scoreboard;
@@ -23,7 +25,7 @@ public class ScoreboardLobby {
 	
 	private Player p;
 	
-	public ScoreboardLobby(QuartzDefenders plugin, Player p) {
+	public LobbySidebar(QuartzDefenders plugin, Player p) {
 		this.plugin = plugin;
 		this.p = p;
 		this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -41,6 +43,20 @@ public class ScoreboardLobby {
 	
 	private void scoreBuilder() {
 		StatsPlayer sp = new StatsPlayer(p);
+		List<String> l = Language.getRawStringList("scoreboard.lobby");
+		addString(new Replacer("{0}", p.getDisplayName()).addString(l.get(0)).getReplaced());
+		addString(new Replacer("{0}", Bukkit.getOnlinePlayers().size()).addString(l.get(1)).getReplaced());
+		addString(new Replacer("{0}", plugin.getGames().size()).addString(l.get(2)).getReplaced());
+		addString(l.get(3));
+		addString(l.get(4));
+		addString(l.get(5));
+		addString(new Replacer("{0}", sp.getWins()).addString(l.get(6)).getReplaced());
+		addString(l.get(7));
+		addString(new Replacer("{0}", plugin.getTopManager().getPlayerKillsPosition(p)).addString(l.get(8)).getReplaced());
+		addString(l.get(9));
+		addString(l.get(10));
+		addString(l.get(11));
+		/*
 		addString("&f Hi, " + p.getDisplayName());
 		addString("&f Players online: &b" + Bukkit.getOnlinePlayers().size());
 		addString("&f Active games: &b" + plugin.getGames().size());
@@ -48,14 +64,12 @@ public class ScoreboardLobby {
 		addString("&f&m------------------");
 		addString("&3 ");
 		addString("&f Wins: &b" + sp.getWins());
-		//addString("&3 &3");
-		//addString("&f Coins: &b" + sp.getCoins());
-		//addString("&f Level: &b" + sp.getLevel());
 		addString("&3 &3 ");
 		addString("&f Top position: &b" + plugin.getTopManager().getPlayerKillsPosition(p));
 		addString("&2 ");
 		addString("&f&m------------------&5 ");
 		addString("&3«&b&l Playcraft.com.ua &3»");
+		*/
 	}
 	
 	private void addString(String s) {

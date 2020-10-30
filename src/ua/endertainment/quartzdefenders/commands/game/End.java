@@ -8,6 +8,7 @@ import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class End extends SubCommand {
@@ -15,12 +16,12 @@ public class End extends SubCommand {
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission(PermissionsList.GAME_END)) {
-			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 			return;
 		}
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cOnly players can use this command"));
+			sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.only_players_can_use")));
 			return;
 		}
 		

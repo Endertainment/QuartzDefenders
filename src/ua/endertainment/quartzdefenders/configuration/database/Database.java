@@ -22,7 +22,6 @@ public class Database {
     public final String playersSuffix = "players", gamesSuffix = "games", statsSuffix = "stats";
 
     public static final String PREFIX = QuartzDefenders.getInstance().getConfig().getString("database.table_prefix", "quartzdefenders").replace("'", "").replace("\"", "");
-    ;
 
     private String hostname, database, username, password;
     private int port;

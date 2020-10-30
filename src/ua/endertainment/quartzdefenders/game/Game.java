@@ -48,7 +48,7 @@ import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.MapManager;
 import ua.endertainment.quartzdefenders.utils.Replacer;
-import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
+import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 import ua.endertainment.quartzdefenders.utils.TitleUtil;
 
 public class Game {
@@ -409,7 +409,7 @@ public class Game {
         p.setBedSpawnLocation(QuartzDefenders.getInstance().getLobby().getLocation());
         QuartzDefenders.getInstance().getLobby().setLobbyTools(p);
 
-        ScoreboardLobby s = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
+        LobbySidebar s = new LobbySidebar(QuartzDefenders.getInstance(), p);
         s.setScoreboard();
         QuartzDefenders.getInstance().getLobby().sendTabList(p);
 
@@ -1080,7 +1080,7 @@ public class Game {
             p.sendMessage(LoggerUtil.gameMessage("Setup", "&cIt's not quartz ore!"));
             return;
         }
-        if (!isTeamValid(team)) {
+        if (!isTeamValid(team.toUpperCase())) {
             p.sendMessage(LoggerUtil.gameMessage("Setup", "&cTeam " + team + "&c is not valid"));
             return;
         }

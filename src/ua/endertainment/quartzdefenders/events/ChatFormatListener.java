@@ -42,7 +42,7 @@ public class ChatFormatListener implements Listener{
 		/*
 		 * Color Message
 		 */	
-		if(e.getPlayer().hasPermission(PermissionsList.CHAT_COLOR)) e.setMessage(new ColorFormat(e.getMessage()).format());		
+		if(e.getPlayer().hasPermission(PermissionsList.CHAT_COLOR)) e.setMessage(new ColorFormat(e.getMessage()).format());
 		String message = e.getMessage();
 		/*
 		 * ChatFormat : Lobby
@@ -91,7 +91,7 @@ public class ChatFormatListener implements Listener{
 		if(e.getPlayer().getWorld() == game.getGameWorld()) {
 			
 			if(game.isGameState(GameState.WAITING) || game.isGameState(GameState.STARTING) || game.isGameState(GameState.ENDING)) {
-				formatLobby = formatLobby.replace("{lvl}", sp.getLevel() + "").replace("%1$s", e.getPlayer().getDisplayName());
+				formatLobby = formatLobby.replace("{lvl}", String.valueOf(sp.getLevel())).replace("%1$s", e.getPlayer().getDisplayName());
 				e.setFormat(formatLobby);
 				Iterator<Player> iter = e.getRecipients().iterator();			
 				while (iter.hasNext()) {
@@ -140,8 +140,7 @@ public class ChatFormatListener implements Listener{
 					e.setFormat(formatGameTeam);
 				}
 				
-			}
-			
+			}			
 			return;
 		}
 	

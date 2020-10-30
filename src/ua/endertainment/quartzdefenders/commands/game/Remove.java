@@ -7,6 +7,7 @@ import ua.endertainment.quartzdefenders.PermissionsList;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 
 public class Remove extends SubCommand {
@@ -14,7 +15,7 @@ public class Remove extends SubCommand {
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if(!sender.hasPermission(PermissionsList.GAME_REMOVE)) {
-			sender.sendMessage(LoggerUtil.gameMessage("Chat", "&cYou do not have permissions"));
+			sender.sendMessage(LoggerUtil.gameMessage(Language.getString("commands.chat"), Language.getString("commands.no_permissions")));
 			return;
 		}
 		

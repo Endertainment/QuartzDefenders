@@ -13,7 +13,7 @@ import ua.endertainment.quartzdefenders.game.GameLeaveTimer;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
-import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
+import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 
 public class QuitListener implements Listener {
 
@@ -37,7 +37,7 @@ public class QuitListener implements Listener {
             if (pp.getUniqueId() == p.getUniqueId()) {
                 continue;
             }
-            new ScoreboardLobby(plugin, pp).setScoreboard();
+            new LobbySidebar(plugin, pp).setScoreboard();
         }
 
         GamePlayer pp = plugin.getGamePlayer(p);

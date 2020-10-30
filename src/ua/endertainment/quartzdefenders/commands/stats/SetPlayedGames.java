@@ -10,7 +10,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
-import ua.endertainment.quartzdefenders.utils.ScoreboardLobby;
+import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 
 public class SetPlayedGames extends SubCommand {
 
@@ -62,7 +62,7 @@ public class SetPlayedGames extends SubCommand {
 		sender.sendMessage(LoggerUtil.gameMessage("Stats", "&6" + playedGames + "&7 played games set for player &6" + sp.getPlayer().getName()));
 		
 		if(p.getWorld() == QuartzDefenders.getInstance().getLobby().getWorld()) {
-			ScoreboardLobby sb = new ScoreboardLobby(QuartzDefenders.getInstance(), p);
+			LobbySidebar sb = new LobbySidebar(QuartzDefenders.getInstance(), p);
 			sb.setScoreboard();
 		}
 	}
