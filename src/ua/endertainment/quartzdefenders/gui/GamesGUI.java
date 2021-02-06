@@ -56,7 +56,7 @@ public class GamesGUI {
 			lore.add(Language.getRawString("GUI.games.state", new Replacer("{0}", game.getGameState().toString())));
 			lore.add(Language.getRawString("GUI.games.players", new Replacer("{0}", game.getPlayers().size() + "")));
 			lore.add(" ");
-			ItemStack s = ItemUtil.newItem(game.getColorWorldName(), lore, Material.QUARTZ_ORE, 1);
+			ItemStack s = ItemUtil.newItem(game.getColorWorldName(), lore, Material.NETHER_QUARTZ_ORE, 1);
 			if(x == 25) x = 29;
 			gamesIS.put(s, x);
 			x++;
@@ -65,11 +65,9 @@ public class GamesGUI {
 	}
 	
 	private void menuCorner() {
-		short z = Short.parseShort(Language.getString("GUI.games.glass_id_1")),
-			  y = Short.parseShort(Language.getString("GUI.games.glass_id_2"));
 		int[] arg1 = {0,2,4,6,8,18,26,36,44,46,48,50,52}, arg2 = {1,3,5,7,9,17,27,35,45,47,49,51,53}; // z, y
-		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, z));
-		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));
+		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.MAGENTA_STAINED_GLASS_PANE, 1));
+		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.PINK_STAINED_GLASS_PANE, 1));
 	}
 	
 	

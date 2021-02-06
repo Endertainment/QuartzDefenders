@@ -69,7 +69,7 @@ public class DeathListener implements Listener {
 
             killer.getInventory().addItem(new ItemStack(Material.EMERALD));
             killer.getInventory().addItem(new ItemStack(Material.BONE));
-            killer.getInventory().addItem(new ItemStack(Material.RAW_BEEF));
+            killer.getInventory().addItem(new ItemStack(Material.BEEF));
 
             game.getComboManager().start(plugin.getGamePlayer(killer), game);
 
@@ -164,8 +164,7 @@ public class DeathListener implements Listener {
 
         if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 
-            if (e.getClickedBlock().getType().equals(Material.BURNING_FURNACE)
-                    || e.getClickedBlock().getType().equals(Material.TRAPPED_CHEST)
+            if (e.getClickedBlock().getType().equals(Material.TRAPPED_CHEST)
                     || e.getClickedBlock().getType().equals(Material.CHEST)
                     || e.getClickedBlock().getType().equals(Material.FURNACE)
                     || e.getClickedBlock().getType().equals(Material.BREWING_STAND)) {

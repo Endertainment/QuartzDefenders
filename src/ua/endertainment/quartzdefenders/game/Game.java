@@ -49,7 +49,6 @@ import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.MapManager;
 import ua.endertainment.quartzdefenders.utils.Replacer;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
-import ua.endertainment.quartzdefenders.utils.TitleUtil;
 
 public class Game {
 
@@ -559,7 +558,7 @@ public class Game {
             getSidebar().refresh();
             getGameTimer().stop();
             for (GamePlayer p : gameAllPlayers) {
-                TitleUtil.sendTitle(p.getPlayer(), Language.getString("game.title.win.top", new Replacer("{0}", winner.getName())), Language.getString("game.title.win.bot"), 10);
+                p.getPlayer().sendTitle(Language.getString("game.title.win.top", new Replacer("{0}", winner.getName())), Language.getString("game.title.win.bot"), 10, 10*20, 20);
                 FireworkUtil.spawn(p.getPlayer().getLocation(), 20L);
             }
             for (GamePlayer p : winner.getPlayers()) {
@@ -633,7 +632,7 @@ public class Game {
             if (!p.getPlayer().isOnline()) {
                 continue;
             }
-            TitleUtil.sendTabTitle(p.getPlayer(), header, footer);
+            p.getPlayer().setPlayerListHeaderFooter(header, footer);
         }
     }
 
@@ -1076,7 +1075,7 @@ public class Game {
     }
 
     public void setQuartz(Block b, String team, Player p) {
-        if(!b.getType().equals(Material.QUARTZ_ORE)) {
+        if(!b.getType().equals(Material.NETHER_QUARTZ_ORE)) {
             p.sendMessage(LoggerUtil.gameMessage("Setup", "&cIt's not quartz ore!"));
             return;
         }

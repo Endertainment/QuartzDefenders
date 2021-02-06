@@ -44,7 +44,7 @@ alchemist:
       left_hand:
         drop_chance: 0.5
         item:
-          material: DOUBLE_PLANT
+          material: SUNFLOWER
           amount: 4
           name: Alchemists coin
           lore:

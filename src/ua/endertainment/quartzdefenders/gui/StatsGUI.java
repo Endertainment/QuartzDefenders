@@ -30,6 +30,11 @@ public class StatsGUI {
 	public Inventory getInventory() {
 		return inventory;
 	}
+        
+        public String getInventoryTitle() {
+            return title;
+        }
+        
 	public void openInventory() {
 		a(new StatsPlayer(player));
 		player.openInventory(inventory);
@@ -53,13 +58,13 @@ public class StatsGUI {
 		lore2.add("&7Level: &6" + p.getLevel());
 		lore2.add("&7Next level &6" + p.getNextLevel() + " &7(&6" + p.getPoints() + "&7/&6" + p.getNextLevelPoints() + "&7)");
 		lore2.add(" ");
-		ItemStack info = ItemUtil.newItem("&6Level", lore2, Material.BOOK_AND_QUILL, 1);
+		ItemStack info = ItemUtil.newItem("&6Level", lore2, Material.WRITABLE_BOOK, 1);
 		
 		ArrayList<String> lore3 = new ArrayList<>();
 		lore3.add(" ");
 		lore3.add("&7Points: &6" + p.getPoints());
 		lore3.add(" ");
-		ItemStack points = ItemUtil.newItem("&6Points", lore3, Material.EXP_BOTTLE, 1);
+		ItemStack points = ItemUtil.newItem("&6Points", lore3, Material.EXPERIENCE_BOTTLE, 1);
 		
 		ArrayList<String> lore4 = new ArrayList<>();
 		lore4.add(" ");
@@ -79,7 +84,7 @@ public class StatsGUI {
 		lore6.add(" ");
 		lore6.add("&7Coins: &6" + p.getCoins());
 		lore6.add(" ");
-		ItemStack coins = ItemUtil.newItem("&6Coins", lore6, Material.DOUBLE_PLANT, 1);
+		ItemStack coins = ItemUtil.newItem("&6Coins", lore6, Material.SUNFLOWER, 1);
 		
 		ArrayList<String> lore7 = new ArrayList<>();
 		lore7.add(" ");
@@ -99,10 +104,9 @@ public class StatsGUI {
 	}
 	
 	private void menuCorner() {
-		short z = 1, y = 4;
 		int[] arg1 = {0,2,4,6,8,18,26,36,44,46,48,50,52}, arg2 = {1,3,5,7,9,17,27,35,45,47,49,51,53}; // z, y
-		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, z));
-		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));
+		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.ORANGE_STAINED_GLASS_PANE, 1));
+		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.YELLOW_STAINED_GLASS_PANE, 1));
 	}
 
 }

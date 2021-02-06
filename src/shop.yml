@@ -24,7 +24,7 @@ default:
             material: EMERALD
             amount: 1
         result:
-            material: EXP_BOTTLE
+            material: EXPERIENCE_BOTTLE
             amount: 6
     fortune:
         primary:
@@ -47,7 +47,7 @@ default:
   potions:
     blaze_rod:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 12
             name: 'Alchemists coin'
             lore:
@@ -57,7 +57,7 @@ default:
             amount: 1
     nether_stalk:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 8
             name: 'Alchemists coin'
             lore:
@@ -67,7 +67,7 @@ default:
             amount: 1
     shugar:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 3
             name: 'Alchemists coin'
             lore:
@@ -77,7 +77,7 @@ default:
             amount: 1
     spider_eye:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 7
             name: 'Alchemists coin'
             lore:
@@ -87,7 +87,7 @@ default:
             amount: 1
     tear:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 9
             name: 'Alchemists coin'
             lore:
@@ -97,7 +97,7 @@ default:
             amount: 1
     sulphur:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 7
             name: 'Alchemists coin'
             lore:
@@ -107,7 +107,7 @@ default:
             amount: 1
     water:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 1
             name: 'Alchemists coin'
             lore:
@@ -117,7 +117,7 @@ default:
             amount: 1
     breath:
         primary:
-            material: DOUBLE_PLANT
+            material: SUNFLOWER
             amount: 15
             name: 'Alchemists coin'
             lore:
@@ -160,9 +160,8 @@ default:
             material: DIAMOND
             amount: 24
         result:
-            material: SKULL_ITEM
+            material: SKELETON_SKULL
             amount: 1
-            damage: 1
     enderpearl:
         primary:
             material: EMERALD
@@ -212,7 +211,7 @@ default:
             material: EMERALD
             amount: 4
         result:
-            material: WEB
+            material: COBWEB
             amount: 1
     bone:
         primary:
@@ -318,9 +317,8 @@ default:
             amount: 3
     lapis:
         primary:
-            material: INK_SACK
+            material: LAPIS_LAZULI
             amount: 16
-            damage: 4
         result:
             material: EMERALD
             amount: 1

@@ -2,10 +2,9 @@ package ua.endertainment.quartzdefenders.items;
 
 import java.util.ArrayList;
 
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Dye;
+
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ItemUtil;
@@ -44,7 +43,7 @@ public class QItems {
 	}
 	
 	public static ItemStack itemStats() {		
-		return ItemUtil.newItem(Language.getRawString("items.stats.name"), null, Material.EXP_BOTTLE, 1);
+		return ItemUtil.newItem(Language.getRawString("items.stats.name"), null, Material.EXPERIENCE_BOTTLE, 1);
 	}
 	
 	public static ItemStack itemTeamChoose() {		
@@ -60,9 +59,9 @@ public class QItems {
 	}
 	
 	public static ItemStack itemHidePlayers(boolean active) {
-		Dye d = new Dye(active ? DyeColor.GRAY : DyeColor.LIME);	
+		Material d = active ? Material.GRAY_DYE : Material.LIME_DYE;	
 		String x = active ? Language.getRawString("items.hide_show.show") : Language.getRawString("items.hide_show.hide");
-		return ItemUtil.newItem(Language.getString("items.hide_show.name", new Replacer("{0}", x)), null, d.toItemStack(1));
+		return ItemUtil.newItem(Language.getString("items.hide_show.name", new Replacer("{0}", x)), null, d, 1);
 	}
 	
 	public static ItemStack itemLobbyShop() {

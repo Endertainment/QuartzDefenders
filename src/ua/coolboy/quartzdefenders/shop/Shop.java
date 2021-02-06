@@ -43,7 +43,7 @@ public class Shop {
 
     public Inventory getInventory(GameTeam team) {
         this.main = Bukkit.createInventory(null, 27, ChatColor.GOLD + name);
-        ItemStack enchant = new ItemStack(Material.EXP_BOTTLE);
+        ItemStack enchant = new ItemStack(Material.EXPERIENCE_BOTTLE);
         enchant = ItemUtil.setName(enchant, enchantName);
         ItemStack potions = new ItemStack(Material.POTION);
         potions = ItemUtil.hideAll(ItemUtil.setName(potions, potionsName));
@@ -57,8 +57,7 @@ public class Shop {
         stuff = ItemUtil.setName(stuff, stuffName);
         ItemStack resources = new ItemStack(Material.DIAMOND_PICKAXE);
         resources = ItemUtil.hideAll(ItemUtil.setName(resources, resourcesName));
-        int damage = team == null ? 15 : DataAdapter.getDamageByColor(team.getColor());
-        ItemStack frame = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) damage);
+        ItemStack frame = new ItemStack(DataAdapter.getForColor(team.getColor(), "STAINED_GLASS", Material.BLACK_STAINED_GLASS));
         frame = ItemUtil.setName(frame, " ");
 
         main.setItem(10, enchant);
@@ -116,24 +115,18 @@ public class Shop {
     private ItemStack createItem(ConfigurationSection section, String itemDir, GameTeam team) {
         ConfigurationSection dir = section.getConfigurationSection(itemDir);
 
-        int damage = 0;
-        boolean teams = false;
-
         String material = dir.getString("material");
         int amount = dir.getInt("amount");
-
-        if (dir.isBoolean("team")) {
-            teams = dir.getBoolean("team");
-            if (team == null) {
-                damage = 7;
-            } else {
-                damage = DataAdapter.getDamageByColor(team.getColor());
-            }
+        
+        ItemStack stack;
+        if (dir.getBoolean("team", false)) {
+            ChatColor color = team == null ? ChatColor.GRAY : team.getColor();
+            Material mat = DataAdapter.getForColor(color, material);
+            stack = new ItemStack(mat, amount);
+        } else {
+            stack = new ItemStack(Material.valueOf(material), amount);
         }
-        if (!teams) {
-            damage = dir.getInt("damage", 0);
-        }
-        ItemStack stack = new ItemStack(Material.valueOf(material), amount, (short) damage);
+        
         if (dir.isString("name")) {
             String stackName = dir.getString("name");
             stack = ItemUtil.setName(stack, stackName);

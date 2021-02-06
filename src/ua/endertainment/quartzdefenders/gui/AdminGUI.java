@@ -34,10 +34,10 @@ public class AdminGUI {
     }
     
     private void generateInventory() {
-        ItemStack start = ItemUtil.newItem(Language.getString("admin.start_game"), Material.DIAMOND_SWORD, 1, 0);
-        ItemStack info = ItemUtil.newItem(Language.getString("admin.info.name"), Material.SIGN, 1, 0);
+        ItemStack start = ItemUtil.newItem(Language.getString("admin.start_game"), Material.DIAMOND_SWORD, 1);
+        ItemStack info = ItemUtil.newItem(Language.getString("admin.info.name"), Material.OAK_SIGN, 1);
         ItemUtil.setLore(info, getGameInfo());
-        ItemStack stop = ItemUtil.newItem(Language.getString("admin.stop_game"), Material.BARRIER, 1, 0);
+        ItemStack stop = ItemUtil.newItem(Language.getString("admin.stop_game"), Material.BARRIER, 1);
         inventory.setItem(0, start);
         inventory.setItem(4, info);
         inventory.setItem(8, stop);

@@ -21,7 +21,6 @@ public class Stack {
 
     private Material material;
     private int amount;
-    private int data;
     private String name;
     private List<String> lore;
     private Map<Enchantment, Integer> enchant;
@@ -38,7 +37,6 @@ public class Stack {
             throw new IllegalArgumentException("Invalid material: " + material);
         }
         this.amount = config.getInt("amount", 1);
-        this.data = config.getInt("data", 0);
         this.name = config.getString("name");
         this.lore = config.getStringList("lore");
         this.enchant = new HashMap<>();
@@ -78,7 +76,7 @@ public class Stack {
     }
 
     public ItemStack getStack() {
-        ItemStack stack = new ItemStack(material, amount, (short) data);
+        ItemStack stack = new ItemStack(material, amount);
         ItemMeta meta = stack.getItemMeta();
         if (name != null) {
             meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));

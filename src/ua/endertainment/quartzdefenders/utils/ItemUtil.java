@@ -11,9 +11,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemUtil {
-
-    public static ItemStack newItem(String name, Material material, int amount, int type) {
-        return newItem(name, null, material, amount, type);
+    
+    public static ItemStack newItem(String name, Material material, int amount) {
+        return newItem(name, null, material, amount);
+    }
+    
+    public static ItemStack newItem(String name, Material material) {
+        return newItem(name, material, 1);
     }
 
     public static ItemStack newItem(String name, List<String> lore, ItemStack item) {
@@ -33,6 +37,10 @@ public class ItemUtil {
         item.setItemMeta(meta);
         return item;
     }
+    
+    public static ItemStack newItem(String name, List<String> lore, Material material) {
+        return newItem(name, lore, material, 1);
+    }
 
     public static ItemStack newItem(String name, List<String> lore, Material material, int amount) {
         name = new ColorFormat(name).format();
@@ -46,26 +54,6 @@ public class ItemUtil {
         }
         lore = new ColorFormat(lore).getFormatedList();
         ItemStack item = new ItemStack(material, amount);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
-        meta.setLore(lore);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        item.setItemMeta(meta);
-        return item;
-    }
-
-    public static ItemStack newItem(String name, List<String> lore, Material material, int amount, int type) {
-        name = new ColorFormat(name).format();
-        if (lore == null) {
-            ItemStack item = new ItemStack(material, amount, (short) type);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(name);
-            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-            item.setItemMeta(meta);
-            return item;
-        }
-        lore = new ColorFormat(lore).getFormatedList();
-        ItemStack item = new ItemStack(material, amount, (short) type);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
         meta.setLore(lore);

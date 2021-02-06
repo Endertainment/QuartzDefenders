@@ -54,14 +54,12 @@ public class KitsGUI {
     }
 
     private void menuCorner() {
-        short z = Short.parseShort(Language.getString("GUI.kits.glass_id_1")),
-                y = Short.parseShort(Language.getString("GUI.kits.glass_id_2"));
         int[] arg1 = {0, 2, 4, 6, 8, 18, 26, 36, 44, 46, 48, 50, 52}, arg2 = {1, 3, 5, 7, 9, 17, 27, 35, 45, 47, 49, 51, 53}; // z, y
         for (int a : arg1) {
-            inventory.setItem(a, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, z));
+            inventory.setItem(a, ItemUtil.newItem(" ", Material.GREEN_STAINED_GLASS_PANE, 1));
         }
         for (int b : arg2) {
-            inventory.setItem(b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));
+            inventory.setItem(b, ItemUtil.newItem(" ", Material.LIME_STAINED_GLASS_PANE, 1));
         }
     }
 

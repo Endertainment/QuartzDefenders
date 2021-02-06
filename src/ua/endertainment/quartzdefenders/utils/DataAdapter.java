@@ -1,55 +1,78 @@
 package ua.endertainment.quartzdefenders.utils;
 
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Tag;
 
 public abstract class DataAdapter {
-
-    public static ItemStack getTerracotaByData(short data) {
-        switch (data) {
-            case 0:
-                return new ItemStack(Material.WHITE_GLAZED_TERRACOTTA);
-            case 1:
-                return new ItemStack(Material.ORANGE_GLAZED_TERRACOTTA);
-            case 2:
-                return new ItemStack(Material.LIGHT_BLUE_GLAZED_TERRACOTTA);
-        }
-        return new ItemStack(Material.WHITE_GLAZED_TERRACOTTA);
+    
+    public static String getMaterialColorPrefix(ChatColor color) {
+        return fromChatColor(color).name();
     }
-
-    public static Short getDamageByColor(ChatColor color) {
+    
+    public static Material getForColor(ChatColor color, String base) {
+        String id = getMaterialColorPrefix(color) + "_"+base;
+        return Material.getMaterial(id.toUpperCase());
+    }
+    
+    public static Material getForColor(ChatColor color, Tag<Material> group) {
+        String prefix = getMaterialColorPrefix(color);
+        for(Material mat : group.getValues()) {
+            if(mat.name().startsWith(prefix)) return mat;
+        }
+        return null;
+    }
+    
+    public static Material getForColor(ChatColor color, String base, Material defaultt) {
+        String id = getMaterialColorPrefix(color) + "_"+base;
+        Material mat = Material.getMaterial(id.toUpperCase());
+        if(mat == null) mat = defaultt;
+        return mat;
+    }
+    
+    public static Material getForColor(ChatColor color, Tag<Material> group, Material defaultt) {
+        String prefix = getMaterialColorPrefix(color);
+        for(Material mat : group.getValues()) {
+            if(mat.name().startsWith(prefix)) return mat;
+        }
+        return defaultt;
+    }
+    
+    public static DyeColor fromChatColor(ChatColor color) {
         switch (color) {
             case WHITE:
-                return 0;
-            case GOLD:
-                return 1;
-            case AQUA:
-                return 3;
-            case YELLOW:
-                return 4;
-            case GREEN:
-                return 5;
-            case LIGHT_PURPLE:
-                return 6;
-            case DARK_GRAY:
-                return 7;
-            case GRAY:
-                return 8;
-            case DARK_AQUA:
-                return 9;
-            case DARK_PURPLE:
-                return 10;
-            case BLUE:
-                return 11;
-            case DARK_GREEN:
-                return 13;
-            case RED:
-                return 14;
+                return DyeColor.WHITE;
             case BLACK:
-                return 15;
+                return DyeColor.BLACK;
+            case AQUA:
+                return DyeColor.LIGHT_BLUE;
+            case BLUE:
+            case DARK_BLUE:
+                return DyeColor.BLUE;
+            case DARK_AQUA:
+                return DyeColor.CYAN;
+            case DARK_GRAY:
+                return DyeColor.GRAY;
+            case DARK_GREEN:
+                return DyeColor.GREEN;
+            case DARK_PURPLE:
+                return DyeColor.PURPLE;
+            case RED:
+            case DARK_RED:
+                return DyeColor.RED;
+            case GREEN:
+                return DyeColor.LIME;
+            case GRAY:
+                return DyeColor.LIGHT_GRAY;
+            case LIGHT_PURPLE:
+                return DyeColor.PINK;
+            case YELLOW:
+                return DyeColor.YELLOW;
+            case GOLD:
+                return DyeColor.ORANGE;
             default:
-                return 0;
+                return DyeColor.BLACK;
         }
     }
 

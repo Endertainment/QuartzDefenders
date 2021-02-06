@@ -53,9 +53,9 @@ public class GameQuartz {
         setQuartzHealth(getQuartzHealth() - 1);
         this.replace();
 
-        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4 * 20, 0), true);
-        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 4*20, 0), true);
-        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 4*20, 0), true);
+        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4 * 20, 0));
+        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 4*20, 0));
+        player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 4*20, 0));
 
         if (getQuartzHealth() == 0) {
             for (GamePlayer p : game.getPlayers()) {
@@ -68,9 +68,9 @@ public class GameQuartz {
             }
             for (GamePlayer p : team.getPlayers()) {
                 p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.quartz_broken")));
-                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0), true);
-                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0), true);
-                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0), true);
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0));
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0));
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
             }
         }
         return true;
@@ -87,9 +87,9 @@ public class GameQuartz {
             }
             for (GamePlayer p : team.getPlayers()) {
                 p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.quartz_broken")));
-                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0), true);
-                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0), true);
-                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0), true);
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 0));
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, Integer.MAX_VALUE, 0));
+                p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
             }
         }
         game.refreshScoreboard();
@@ -117,7 +117,7 @@ public class GameQuartz {
 
     public void checkQuartz() {
         Block b = game.getGameWorld().getBlockAt(getLocation());
-        if (b.getType() != Material.QUARTZ_ORE || b.getType() != Material.BEDROCK) {
+        if (b.getType() != Material.NETHER_QUARTZ_ORE || b.getType() != Material.BEDROCK) {
             replace();
         }
     }
@@ -126,7 +126,7 @@ public class GameQuartz {
         Block b = game.getGameWorld().getBlockAt(getLocation());
         if (getQuartzHealth() > 0) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), () -> {
-                b.setType(Material.QUARTZ_ORE);
+                b.setType(Material.NETHER_QUARTZ_ORE);
             });
         } else {
             Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), () -> {

@@ -26,7 +26,6 @@ import org.bukkit.util.Vector;
 
 import ua.endertainment.quartzdefenders.items.QItems;
 import ua.endertainment.quartzdefenders.stats.TopManager;
-import ua.endertainment.quartzdefenders.utils.TitleUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
@@ -61,8 +60,8 @@ public class Lobby implements Listener {
     public void sendTabList(Player p) {
         String header = Language.getString("tablist.lobby.header");
         String footer = Language.getString("tablist.lobby.footer");
-
-        TitleUtil.sendTabTitle(p, header, footer);
+        
+        p.setPlayerListHeaderFooter(header, footer);
     }
 
     public void sendTabListForLobby() {

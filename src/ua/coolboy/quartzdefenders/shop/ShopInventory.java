@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Merchant;
 import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.utils.MoreTags;
 
 public class ShopInventory implements Listener {
 
@@ -28,7 +29,7 @@ public class ShopInventory implements Listener {
     @SuppressWarnings("incomplete-switch")
 	@EventHandler
     public void onClick(InventoryClickEvent e) {
-        if (!(e.getInventory().getName().contains(Shop.name))) {
+        if (!(e.getView().getTitle().contains(Shop.name))) {
             return;
         }
         Player p = (Player) e.getWhoClicked();
@@ -36,14 +37,14 @@ public class ShopInventory implements Listener {
         GameTeam team = plugin.getGame(p).getTeam(p);
 
         if (e.getCurrentItem() == null
-                || e.getCurrentItem().getType() == Material.STAINED_GLASS
-                || e.getCurrentItem().getType() == Material.AIR
+                || MoreTags.STAINED_GLASS.isTagged(e.getCurrentItem().getType())
+                || Material.AIR == e.getCurrentItem().getType()
                 || !e.getCurrentItem().hasItemMeta()) {
             p.closeInventory();
             return;
         }
         switch (e.getCurrentItem().getType()) {
-            case EXP_BOTTLE:
+            case EXPERIENCE_BOTTLE:
                 Merchant enchants = shop.getSection("enchants", ChatColor.LIGHT_PURPLE + Shop.enchantName, team);
                 p.openMerchant(enchants, true);
                 break;

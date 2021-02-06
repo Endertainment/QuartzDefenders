@@ -177,18 +177,12 @@ GUI:
         mode: '&7Mode: &d{0} by {1}'
         state: '&7State: &d{0}'
         players: '&7Players: &d{0}'
-        glass_id_1: 2
-        glass_id_2: 6
     kits:
         name: '&2Kits'
-        glass_id_1: 5
-        glass_id_2: 13
     vote:
         name: '&2Voting'
     shop: 
         name: '&2Shop'
-        glass_id_1: 2
-        glass_id_2: 6
     stats:
         name: "{0}'s stats"
         glass_id_1: 1
@@ -224,15 +218,11 @@ GUI:
             placed_blocks: '&7Placed blocks: &6{0}'            
     teams:
         name: '&9Teams'
-        glass_id_1: 3
-        glass_id_2: 11
         item_name: '{c}> {0} {c}<'
         players: '&7Players: {c}{0}&7/{c}{1}'
         item_leave: '&7Leave team'
     achievements:
         name: '&2Achievements'
-        glass_id_1: 5
-        glass_id_2: 13
         
 items:
     games:

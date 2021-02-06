@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -46,11 +47,9 @@ public class TeamGUI {
 
 	
 	private void menuCorner() {
-		short z = Short.parseShort(Language.getString("GUI.teams.glass_id_1")),
-				  y = Short.parseShort(Language.getString("GUI.teams.glass_id_2"));
 		int[] arg1 = {0,2,4,6,8,18,26,36,44,46,48,50,52}, arg2 = {1,3,5,7,9,17,27,35,45,47,49,51,53}; // z, y
-		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, z));
-		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.STAINED_GLASS_PANE, 1, y));
+		for(int a : arg1) inventory.setItem( a, ItemUtil.newItem(" ", Material.LIGHT_BLUE_STAINED_GLASS_PANE, 1));
+		for(int b : arg2) inventory.setItem( b, ItemUtil.newItem(" ", Material.BLUE_STAINED_GLASS_PANE, 1));
 	}
 	
 	private void a() {
@@ -61,7 +60,10 @@ public class TeamGUI {
 			lore.add(" ");
 			lore.add(Language.getRawString("GUI.teams.players", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getPlayersSize() + ""), new Replacer("{1}", team.intPlayersInTeam() + "")));
 			lore.add(" ");
-			ItemStack itemWool = ItemUtil.newItem(Language.getRawString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())), lore, Material.WOOL, 1, DataAdapter.getDamageByColor(team.getColor()));
+			ItemStack itemWool = ItemUtil.newItem(
+                                Language.getRawString("GUI.teams.item_name", new Replacer("{c}", team.getColor() + ""), new Replacer("{0}", team.getName())),
+                                lore,
+                                DataAdapter.getForColor(team.getColor(), Tag.WOOL));
 			if(x == 25) x = 29;
 			teamsIS.put(itemWool, x);
 			x++;

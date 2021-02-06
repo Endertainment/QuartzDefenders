@@ -4,9 +4,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringEscapeUtils;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
 public abstract class Language {

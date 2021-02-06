@@ -1,6 +1,5 @@
 package ua.endertainment.quartzdefenders;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.Game;
@@ -17,7 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ua.endertainment.quartzdefenders.events.MobsListener;
-import ua.coolboy.quartzdefenders.nms.NMSHandler;
 import ua.coolboy.quartzdefenders.shop.ShopInventory;
 import ua.endertainment.quartzdefenders.achievements.AchievementsManager;
 import ua.endertainment.quartzdefenders.commands.CommandGameBroadcast;
@@ -38,7 +36,6 @@ import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.Metrics;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
-import ua.endertainment.quartzdefenders.utils.TitleUtil;
 
 //TODO Totems, Kits, Abilities
 
@@ -58,7 +55,6 @@ public class QuartzDefenders extends JavaPlugin {
     private AchievementsManager achvM;
     private KitsManager kitsManager;
     private Database database;
-    private NMSHandler nmsHandler;
     
     private List<Enchantment> blockedEnchantments;
 
@@ -114,20 +110,20 @@ public class QuartzDefenders extends JavaPlugin {
             Bukkit.setSpawnRadius(0);
         }
         
-        blockedEnchantments = new ArrayList<>();
+        /*blockedEnchantments = new ArrayList<>();
         for(String string : getConfig().getStringList("blocked_enchants")) {
             Enchantment ench = Enchantment.getByName(string.toUpperCase());
             if(ench != null) blockedEnchantments.add(ench);
         }
         nmsHandler = new NMSHandler();
-        nmsHandler.getNMS().removeEnchantments(blockedEnchantments);
+        nmsHandler.getNMS().removeEnchantments(blockedEnchantments);*/
     }
 
     @Override
     public void onDisable() {
     	disable = true;
     	
-        nmsHandler.getNMS().onDisable();
+        //nmsHandler.getNMS().onDisable();
         for (Game game : games) {
             game.disableGame();
         }
@@ -152,7 +148,7 @@ public class QuartzDefenders extends JavaPlugin {
                 + " ";
         footer = " ";
 
-        TitleUtil.sendTabTitle(p, header, footer);
+        p.setPlayerListHeaderFooter(header, footer);
     }
 
     /*
@@ -340,9 +336,9 @@ public class QuartzDefenders extends JavaPlugin {
         return kitsManager;
     }
     
-    public NMSHandler getNMSHandler() {
+    /*public NMSHandler getNMSHandler() {
         return nmsHandler;
-    }
+    }*/
     
     public Lobby getLobby() {
         return lobby;
