@@ -34,7 +34,6 @@ import ua.endertainment.quartzdefenders.stats.TopManager;
 import ua.endertainment.quartzdefenders.configuration.Config;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
-import ua.endertainment.quartzdefenders.utils.Metrics;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
 
 //TODO Totems, Kits, Abilities
@@ -65,7 +64,7 @@ public class QuartzDefenders extends JavaPlugin {
     @Override
     public void onEnable() {
         main = this;
-        Metrics metrics = new Metrics(this, 9260); 
+        //Metrics metrics = new Metrics(this, 9260); 
         
         saveDefaultConfig();
 
@@ -129,7 +128,7 @@ public class QuartzDefenders extends JavaPlugin {
         }
         //show all players on reload
         for(Player player : Bukkit.getOnlinePlayers()) {
-            for(Player pl:Bukkit.getOnlinePlayers()) {
+            for(Player pl : Bukkit.getOnlinePlayers()) {
                 player.showPlayer(this, pl);
             }
         }

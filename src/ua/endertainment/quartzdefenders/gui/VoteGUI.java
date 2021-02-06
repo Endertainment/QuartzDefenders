@@ -2,13 +2,12 @@ package ua.endertainment.quartzdefenders.gui;
 
 import java.util.List;
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.Wool;
 
 import ua.coolboy.quartzdefenders.voting.Pair;
 import ua.coolboy.quartzdefenders.voting.Vote;
@@ -66,11 +65,9 @@ public class VoteGUI {
         
         Vote.VoteResult result = gp.getVote().getResultFor(type);
         
-        ItemStack submit = new Wool(DyeColor.LIME).toItemStack(1);
-        submit = ItemUtil.setName(submit, Language.getString("generic.yes"));
+        ItemStack submit = ItemUtil.newItem(Language.getString("generic.yes"), Material.LIME_WOOL);
         
-        ItemStack decline = new Wool(DyeColor.RED).toItemStack(1);
-        decline = ItemUtil.setName(decline, Language.getString("generic.no"));
+        ItemStack decline = ItemUtil.newItem(Language.getString("generic.no"), Material.RED_WOOL);
         
         if(result.equals(Vote.VoteResult.YES)) {
             submit = ItemUtil.addGlow(submit);

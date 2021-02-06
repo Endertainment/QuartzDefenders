@@ -65,9 +65,8 @@ public class InventoryClickListener implements Listener {
         if (name.equals(Language.getString("GUI.games.name"))) {
             e.setCancelled(true);
             p.playSound(p.getLocation(), Sound.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, 1F, 2F);
-
             for (Game game : plugin.getGames()) {
-                if (curr.getItemMeta().getDisplayName().equals(game.getColorWorldName())) {
+                if (curr.getItemMeta().getDisplayName().equals(game.getTechWorldName())) {
                     if (!game.containsPlayer(plugin.getGamePlayer(p))) {
                         game.joinGame(plugin.getGamePlayer(p));
                     } else {

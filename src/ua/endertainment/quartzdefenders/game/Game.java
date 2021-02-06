@@ -660,7 +660,8 @@ public class Game {
             //quitGame1(p);                      
             Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
             while (i.hasNext()) {
-                p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+                p.getPlayer().removePotionEffect(i.next().getType());
+                //p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0)); // ???????
             }
 
         }
