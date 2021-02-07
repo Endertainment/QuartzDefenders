@@ -163,10 +163,12 @@ public class TopManager {
         for (Sign s : signs) {
             int x = index + 1;
             if (getPlayerByKillPosition(index) == null) {
+                clearSign(s);
                 return;
             }
             String kills = plugin.getConfigs().getStatsInfo().getString(getPlayerByKillPosition(index).getUniqueId().toString() + ".kills");
             if (kills == null) {
+                clearSign(s);
                 return;
             }
             s.setLine(0, ChatColor.BLUE + "Top " + x);
@@ -182,6 +184,7 @@ public class TopManager {
         for (Sign s : signs) {
             int x = index + 1;
             if (getPlayerByWinPosition(index) == null) {
+                clearSign(s);
                 return;
             }
             s.setLine(0, ChatColor.BLUE + "Top " + x);

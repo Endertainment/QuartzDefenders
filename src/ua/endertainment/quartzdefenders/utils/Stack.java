@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 public class Stack {
@@ -43,7 +45,7 @@ public class Stack {
         this.bookEnchants = new HashMap<>();
         if (config.isConfigurationSection("enchantments")) {
             for (String key : config.getConfigurationSection("enchantments").getKeys(false)) {
-                Enchantment enchantment = Enchantment.getByName(key.toUpperCase());
+                Enchantment enchantment = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(key.toLowerCase()));//Enchantment.getByName(key.toUpperCase());
                 if (enchantment == null) {
                     LoggerUtil.info("Invalid enchantment: " + key); //Util for colored logs
                     continue;
@@ -54,7 +56,7 @@ public class Stack {
         
         if (material.equals(Material.ENCHANTED_BOOK)) {
             for (String key : config.getConfigurationSection("book_enchantments").getKeys(false)) {
-                Enchantment enchantment = Enchantment.getByName(key.toUpperCase());
+                Enchantment enchantment = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(key.toLowerCase()));
                 if (enchantment == null) {
                     LoggerUtil.info("Invalid enchantment: " + key);
                     continue;

@@ -21,8 +21,9 @@ public class ItemCraftListener implements Listener {
     @EventHandler
     public void onCraft(CraftItemEvent event) {
         Game game = plugin.getGame(event.getInventory().getLocation().getWorld());
-        if (game != null && game.isBowBlocked()) {
-            if (event.getRecipe().getResult().getType().equals(Material.BOW)) {
+        if (game != null && game.isRangedBlocked()) {
+            Material type = event.getRecipe().getResult().getType();
+            if (type.equals(Material.BOW) || type.equals(Material.CROSSBOW)) {
                 event.setCancelled(true);
             }
         }

@@ -19,14 +19,17 @@ public class Pair<K, V> implements Serializable {
 		this.value = var2;
 	}
 
+        @Override
 	public String toString() {
 		return this.key + "=" + this.value;
 	}
 
+        @Override
 	public int hashCode() {
 		return this.key.hashCode() * 13 + (this.value == null ? 0 : this.value.hashCode());
 	}
 
+        @Override
 	public boolean equals(Object var1) {
 		if (this == var1) {
 			return true;

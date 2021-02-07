@@ -30,7 +30,7 @@ public class NMS_1_12_R1 extends NMSAbstract {
             Object[] values = (Object[]) enchantmentArray.get(registryID);
             List<Object> remove = new ArrayList<>();
             for (Enchantment ench : enchantments) {
-                Object rem = NMSEnchantment.getMethod("b", String.class).invoke(null, ench.getName());
+                Object rem = NMSEnchantment.getMethod("b", String.class).invoke(null, ench.getKey().getKey());
                 if (rem != null) {
                     remove.add(rem);
                 }

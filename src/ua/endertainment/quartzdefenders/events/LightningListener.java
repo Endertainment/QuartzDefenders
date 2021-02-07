@@ -1,16 +1,10 @@
 package ua.endertainment.quartzdefenders.events;
 
-import java.util.Collection;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Villager;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.weather.LightningStrikeEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import ua.coolboy.quartzdefenders.shop.Shop;
-import ua.coolboy.quartzdefenders.shop.ShopEntity;
+import org.bukkit.event.entity.EntityTransformEvent;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
 public class LightningListener implements Listener {
@@ -24,7 +18,7 @@ public class LightningListener implements Listener {
     
     
     //Unlikely scenario, but best to be prepared
-    @EventHandler
+    /*@EventHandler
     public void onLightning(LightningStrikeEvent event) {
         Location loc = event.getLightning().getLocation().add(0, 20, 0);
         Collection<Entity> entities = loc.getWorld().getNearbyEntities(loc, 3, 22, 3);
@@ -39,6 +33,14 @@ public class LightningListener implements Listener {
                     }
                 }.runTaskLater(plugin, 20L);
             }
+        }
+    }*/
+    
+    @EventHandler
+    public void onTransform(EntityTransformEvent event) {
+        if(event.getTransformReason() == EntityTransformEvent.TransformReason.LIGHTNING
+                && event.getTransformedEntity().getType() == EntityType.VILLAGER) {
+            event.setCancelled(true);
         }
     }
 }

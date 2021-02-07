@@ -36,9 +36,9 @@ public class VoteObject {
     }
 
     public enum Type {
-        AUTOSMELT("autosmelt", ItemUtil.newItem(ChatColor.DARK_PURPLE + "AutoSmelt", Arrays.asList("Ores dropping like ingots"), Material.FURNACE, 1)),
-        BLOCK_BOW("block_bow", ItemUtil.newItem(ChatColor.GOLD + "Block Bow", Arrays.asList("Blocking bow recipe"), Material.BOW, 1)),
-        DIAMOND_DEFENDERS("diamond_defenders", ItemUtil.newItem(ChatColor.AQUA + "Diamond Defenders", Arrays.asList("After diamond ore is mined, it spawns two defenders"), Material.DIAMOND_SWORD, 1)),
+        AUTOSMELT("autosmelt", ItemUtil.newItem(ChatColor.DARK_PURPLE + "AutoSmelt", Arrays.asList("Ores drop ingots"), Material.FURNACE, 1)),
+        BLOCK_RANGED("block_ranged", ItemUtil.newItem(ChatColor.GOLD + "Block ranged weapons", Arrays.asList("Blocks bow and crossbow recipe"), Material.BOW, 1)),
+        DIAMOND_DEFENDERS("diamond_defenders", ItemUtil.newItem(ChatColor.AQUA + "Diamond Defenders", Arrays.asList("When diamond ore is mined, it spawns two defenders"), Material.DIAMOND_SWORD, 1)),
         UNDEFINED("undefined", ItemUtil.newItem(ChatColor.DARK_RED + "UNDEFINED", Arrays.asList("ERROR IN CONFIG"), Material.STRUCTURE_VOID, 1));
         private String id;
         private ItemStack item;

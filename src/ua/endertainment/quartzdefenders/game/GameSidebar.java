@@ -23,7 +23,7 @@ public class GameSidebar {
 	public GameSidebar(Game game, Scoreboard scoreboard) {
 		this.game = game;
 		this.scoreboard = scoreboard;
-		this.objective = this.scoreboard.registerNewObjective("GameBar", "MEOW");
+		this.objective = this.scoreboard.registerNewObjective("GameBar", "MEOW", title);
 		
 		this.index = 0;
 		build(game.getGameState());		
@@ -37,7 +37,7 @@ public class GameSidebar {
 	
 	private void build(GameState state) {
 		objective.unregister();
-		objective = this.scoreboard.registerNewObjective("GameBar", "dummy");
+		objective = this.scoreboard.registerNewObjective("GameBar", "dummy", title);
 		objective.setDisplayName(title);
 		objective.setDisplaySlot(slot);
 		

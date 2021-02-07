@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
+import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -96,7 +96,7 @@ public class Game {
     private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
     private Ores ores;
 
-    private boolean blockBowCraft;
+    private boolean blockRangedCraft;
     private boolean autosmelt;
 
     private Set<Cuboid> cuboids = new HashSet<>();
@@ -184,8 +184,8 @@ public class Game {
         this.map.setAmbientSpawnLimit(0);
         this.map.setAnimalSpawnLimit(0);
         this.map.setMonsterSpawnLimit(0);
-        this.map.setGameRuleValue("keepInventory", "false");
-        this.map.setGameRuleValue("announceAdvancements", "false");
+        this.map.setGameRule(GameRule.KEEP_INVENTORY, false);
+        this.map.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         this.map.setDifficulty(Difficulty.valueOf(config.getString("Games." + this.id + ".difficulty", "NORMAL")));
 
         this.mapSpawn = new Location(Bukkit.getWorld(teckWorldName),
@@ -204,7 +204,7 @@ public class Game {
             generateSpectatorRoom(Material.GLASS);
         }
 
-        this.blockBowCraft = config.getBoolean("Games." + this.id + ".block_bow", false);
+        this.blockRangedCraft = config.getBoolean("Games." + this.id + ".block_bow", false);
 
         int i = 0;
         for (String team : (List<String>) config.getList("Games." + this.id + ".teams")) {
@@ -399,9 +399,8 @@ public class Game {
         p.setPlayerListName(QuartzDefenders.getInstance().getGamePlayer(p).getDefaultDisplayName());
         
 
-        Iterator<PotionEffect> i = p.getActivePotionEffects().iterator();
-        while (i.hasNext()) {
-            p.addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+        for(PotionEffect e : p.getActivePotionEffects()) {
+            p.removePotionEffect(e.getType());
         }
 
         p.setGameMode(GameMode.ADVENTURE);
@@ -455,9 +454,8 @@ public class Game {
                 p.getPlayer().setLevel(0);
                 p.getPlayer().setTotalExperience(0);
                 disableJoinTeam(p);
-                Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
-                while (i.hasNext()) {
-                    p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+                for(PotionEffect e : p.getPlayer().getActivePotionEffects()) {
+                    p.getPlayer().removePotionEffect(e.getType());
                 }
                 StatsPlayer sp = new StatsPlayer(p.getPlayer());
                 sp.addPlayedGame();
@@ -496,8 +494,8 @@ public class Game {
                 case AUTOSMELT:
                     autosmelt = bool;
                     break;
-                case BLOCK_BOW:
-                    blockBowCraft = bool;
+                case BLOCK_RANGED:
+                    blockRangedCraft = bool;
                     break;
                 case DIAMOND_DEFENDERS:
                     diamondDef = bool;
@@ -520,8 +518,8 @@ public class Game {
                     case AUTOSMELT:
                         status = autosmelt ? enabled : disabled;
                         break;
-                    case BLOCK_BOW:
-                        status = blockBowCraft ? enabled : disabled;
+                    case BLOCK_RANGED:
+                        status = blockRangedCraft ? enabled : disabled;
                         break;
                     case DIAMOND_DEFENDERS:
                         status = diamondDef ? enabled : disabled;
@@ -658,10 +656,8 @@ public class Game {
             QuartzDefenders.getInstance().getTopManager().setupSigns();
 
             //quitGame1(p);                      
-            Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
-            while (i.hasNext()) {
-                p.getPlayer().removePotionEffect(i.next().getType());
-                //p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0)); // ???????
+            for(PotionEffect e : p.getPlayer().getActivePotionEffects()) {
+                p.getPlayer().removePotionEffect(e.getType());
             }
 
         }
@@ -706,10 +702,11 @@ public class Game {
         p.getPlayer().setExp(0);
         p.getPlayer().setLevel(0);
         p.getPlayer().setTotalExperience(0);
-        Iterator<PotionEffect> i = p.getPlayer().getActivePotionEffects().iterator();
-        while (i.hasNext()) {
-            p.getPlayer().addPotionEffect(new PotionEffect(i.next().getType(), 2, 0), true);
+        
+        for(PotionEffect e : p.getPlayer().getActivePotionEffects()) {
+            p.getPlayer().removePotionEffect(e.getType());
         }
+
         p.getPlayer().setScoreboard(gameScoreboard);
         broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"),
                 Language.getString("game.reconnect_success_2", new Replacer("{0}", p.getDisplayName()))));
@@ -799,8 +796,8 @@ public class Game {
         return lockGame;
     }
     
-    public boolean isBowBlocked() {
-        return blockBowCraft;
+    public boolean isRangedBlocked() {
+        return blockRangedCraft;
     }
 
     /*

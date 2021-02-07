@@ -19,7 +19,7 @@ public class LobbySidebar {
 	private Objective objective;
 	private DisplaySlot slot = DisplaySlot.SIDEBAR;
 	
-	private int index = 0;
+	private int index = 15;
 	
 	private String title = new ColorFormat("&3«&b&l Quartz Defenders &3»").format();
 	
@@ -29,7 +29,7 @@ public class LobbySidebar {
 		this.plugin = plugin;
 		this.p = p;
 		this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		this.objective = scoreboard.registerNewObjective("LobbyBar", "MEOW");
+		this.objective = scoreboard.registerNewObjective("LobbyBar", "MEOW", title);
 		
 		objective.setDisplayName(title);
 		objective.setDisplaySlot(slot);

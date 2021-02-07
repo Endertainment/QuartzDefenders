@@ -9,15 +9,15 @@ import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
+import ua.endertainment.quartzdefenders.QuartzDefenders;
 
 // idk how to create default Bukkit's tags, so made my own class
-public class MoreTags {
+public final class MoreTags {
 
-    private static final String NAMESPACE = "quartzdefenders";
+    private static final QuartzDefenders PLUGIN = QuartzDefenders.getInstance();
     
-    public static final CustomTag<Material> STAINED_GLASS = new CustomTag<Material>(
-            NAMESPACE,
-            new NamespacedKey(NAMESPACE, "STAINED_GLASS"),
+    public static final CustomTag<Material> STAINED_GLASS = new CustomTag<>(
+            new NamespacedKey(PLUGIN, "stained_glass"),
             Arrays.asList(
                     Material.WHITE_STAINED_GLASS,
                     Material.ORANGE_STAINED_GLASS,
@@ -37,15 +37,35 @@ public class MoreTags {
                     Material.BLACK_STAINED_GLASS
             )
     );
+    
+    public static final CustomTag<Material> STAINED_GLASS_PANES = new CustomTag<>(
+            new NamespacedKey(PLUGIN, "stained_glass_panes"),
+            Arrays.asList(
+                    Material.WHITE_STAINED_GLASS_PANE,
+                    Material.ORANGE_STAINED_GLASS_PANE,
+                    Material.MAGENTA_STAINED_GLASS_PANE,
+                    Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+                    Material.YELLOW_STAINED_GLASS_PANE,
+                    Material.LIME_STAINED_GLASS_PANE,
+                    Material.PINK_STAINED_GLASS_PANE,
+                    Material.GRAY_STAINED_GLASS_PANE,
+                    Material.LIGHT_GRAY_STAINED_GLASS_PANE,
+                    Material.CYAN_STAINED_GLASS_PANE,
+                    Material.PURPLE_STAINED_GLASS_PANE,
+                    Material.BLUE_STAINED_GLASS_PANE,
+                    Material.BROWN_STAINED_GLASS_PANE,
+                    Material.GREEN_STAINED_GLASS_PANE,
+                    Material.RED_STAINED_GLASS_PANE,
+                    Material.BLACK_STAINED_GLASS_PANE
+            )
+    );
 
     public static class CustomTag<T extends Keyed> implements Tag<T> {
         
-        private String namespace;
         private NamespacedKey key;
         private Set<T> values;
         
-        public CustomTag(String namespace, NamespacedKey key, Collection<T> values) {
-            this.namespace = namespace;
+        public CustomTag(NamespacedKey key, Collection<T> values) {
             this.key = key;
             this.values = Collections.unmodifiableSet(new HashSet<T>(values));
         }

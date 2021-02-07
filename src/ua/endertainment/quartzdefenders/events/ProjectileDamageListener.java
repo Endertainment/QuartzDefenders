@@ -1,5 +1,7 @@
 package ua.endertainment.quartzdefenders.events;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -10,7 +12,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.projectiles.ProjectileSource;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
-import ua.endertainment.quartzdefenders.utils.ActionBarMessage;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 
 public class ProjectileDamageListener implements Listener {
@@ -37,7 +38,8 @@ public class ProjectileDamageListener implements Listener {
                     double damage = event.getFinalDamage();
                     double hp = h.getHealth() - damage;
                     hp = hp < 0 ? 0 : hp;
-                    ActionBarMessage.sendActionBar((Player) shoot,new ColorFormat(h.getDisplayName() + " &7\u27A0 &4" + "&4\u2764 &6 " + String.format("%.1f", hp) + "&7(&e" + String.format("%.1f", damage) + "&7)").format());
+                    Player sh = (Player) shoot;
+                    sh.spigot().sendMessage(ChatMessageType.ACTION_BAR,  TextComponent.fromLegacyText(new ColorFormat(h.getDisplayName() + " &7\u27A0 &4" + "&4\u2764 &6 " + String.format("%.1f", hp) + "&7(&e" + String.format("%.1f", damage) + "&7)").format()));
                 }
             }
         }

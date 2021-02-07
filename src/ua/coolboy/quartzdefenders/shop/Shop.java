@@ -6,9 +6,11 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
@@ -139,7 +141,7 @@ public class Shop {
         if (dir.isConfigurationSection("enchantments")) {
             Map<String, Object> enchant = dir.getConfigurationSection("enchantments").getValues(false);
             for (Map.Entry<String, Object> entry : enchant.entrySet()) {
-                Enchantment ench = Enchantment.getByName(entry.getKey());
+                Enchantment ench = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(entry.getKey().toLowerCase()));//Enchantment.getByName(entry.getKey());
                 int enchLvl = (int) entry.getValue();
                 stack.addEnchantment(ench, enchLvl);
             }
@@ -148,7 +150,7 @@ public class Shop {
             Map<String, Object> bookEnchant = dir.getConfigurationSection("bookEnchant").getValues(false);
             EnchantmentStorageMeta meta = (EnchantmentStorageMeta) stack.getItemMeta();
             for (Map.Entry<String, Object> entry : bookEnchant.entrySet()) {
-                Enchantment ench = Enchantment.getByName(entry.getKey());
+                Enchantment ench = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(entry.getKey().toLowerCase()));
                 int enchLvl = (int) entry.getValue();
                 meta.addStoredEnchant(ench, enchLvl, true);
             }

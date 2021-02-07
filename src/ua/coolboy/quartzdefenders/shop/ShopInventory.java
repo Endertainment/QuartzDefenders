@@ -26,8 +26,7 @@ public class ShopInventory implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
     
-    @SuppressWarnings("incomplete-switch")
-	@EventHandler
+    @EventHandler
     public void onClick(InventoryClickEvent e) {
         if (!(e.getView().getTitle().contains(Shop.name))) {
             return;
@@ -35,7 +34,7 @@ public class ShopInventory implements Listener {
         Player p = (Player) e.getWhoClicked();
         e.setCancelled(true);
         GameTeam team = plugin.getGame(p).getTeam(p);
-
+        
         if (e.getCurrentItem() == null
                 || MoreTags.STAINED_GLASS.isTagged(e.getCurrentItem().getType())
                 || Material.AIR == e.getCurrentItem().getType()
@@ -43,6 +42,7 @@ public class ShopInventory implements Listener {
             p.closeInventory();
             return;
         }
+
         switch (e.getCurrentItem().getType()) {
             case EXPERIENCE_BOTTLE:
                 Merchant enchants = shop.getSection("enchants", ChatColor.LIGHT_PURPLE + Shop.enchantName, team);
@@ -71,6 +71,8 @@ public class ShopInventory implements Listener {
             case DIAMOND_PICKAXE:
                 Merchant resources = shop.getSection("resources", ChatColor.GREEN + Shop.resourcesName, team);
                 p.openMerchant(resources, true);
+                break;
+            default:
                 break;
         }
     }
