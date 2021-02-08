@@ -207,6 +207,13 @@ default:
         result:
             material: ARROW
             amount: 8
+    spectral_arrows:
+        primary:
+            material: EMERALD
+            amount: 1
+        result:
+            material: SPECTRAL_ARROW
+            amount: 4
     cobweb:
         primary:
             material: EMERALD
@@ -260,7 +267,7 @@ default:
     tnt:
         primary:
             material: EMERALD
-            amount: 4
+            amount: 2
         result:
             material: TNT
             amount: 1

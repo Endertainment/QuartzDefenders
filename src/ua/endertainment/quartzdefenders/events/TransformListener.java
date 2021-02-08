@@ -2,16 +2,17 @@ package ua.endertainment.quartzdefenders.events;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.PiglinBrute;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTransformEvent;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 
-public class LightningListener implements Listener {
+public class TransformListener implements Listener {
 
     QuartzDefenders plugin;
 
-    public LightningListener(QuartzDefenders plugin) {
+    public TransformListener(QuartzDefenders plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
@@ -41,6 +42,12 @@ public class LightningListener implements Listener {
         if(event.getTransformReason() == EntityTransformEvent.TransformReason.LIGHTNING
                 && event.getEntity().getType() == EntityType.VILLAGER) {
             event.setCancelled(true);
+        }
+        
+        if(event.getEntity().getType() == EntityType.PIGLIN_BRUTE) {
+            event.setCancelled(true);
+            PiglinBrute brute = (PiglinBrute) event.getEntity();
+            brute.setImmuneToZombification(true);
         }
     }
 }

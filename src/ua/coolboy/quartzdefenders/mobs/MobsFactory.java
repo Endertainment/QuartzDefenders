@@ -26,7 +26,7 @@ public abstract class MobsFactory {
             LoggerUtil.error("Wrong EntityType: " + section.getString("type"));
             return null;
         }
-        String name = new ColorFormat(section.getString("name")).format();
+        String name = new ColorFormat(section.getString("name", "")).format();
         boolean nameVisibility = section.getBoolean("name_visibility", false);
         HashMap<Attribute, Double> attributes = new HashMap<>();
         if (section.isConfigurationSection("attributes")) {

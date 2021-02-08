@@ -200,7 +200,7 @@ public class QuartzDefenders extends JavaPlugin {
         new DamageListener(this);
         new DeathMessages(this);
         new ExplodeListener(this);
-        new LightningListener(this);
+        new TransformListener(this);
         new FireArrowListener(this);
         new PistonListener(this);
         new CuboidBlockBreakListener(this);

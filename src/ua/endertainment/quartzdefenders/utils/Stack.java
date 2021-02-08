@@ -73,7 +73,7 @@ public class Stack {
             }
         }
         
-        if(material.equals(Material.POTION)) {
+        if(material.equals(Material.POTION) || material.equals(Material.SPLASH_POTION) || material.equals(Material.LINGERING_POTION)) {
             
             String strDataType = config.getString("potion_data", "WATER");
             PotionType dataType = PotionType.valueOf(strDataType);

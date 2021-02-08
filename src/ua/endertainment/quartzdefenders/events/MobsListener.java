@@ -28,13 +28,14 @@ public class MobsListener implements Listener {
 
     private QuartzDefenders plugin;
     private Random random;
-    private MobDraft alchemist, diamondDef;
+    private MobDraft alchemist, diamondDef, brute;
 
     public MobsListener(QuartzDefenders plugin) {
         this.plugin = plugin;
         random = new Random();
         Bukkit.getPluginManager().registerEvents(this, plugin);
         alchemist = MobsFactory.getDraftFor("alchemist");
+        brute = MobsFactory.getDraftFor("brute");
         diamondDef = MobsFactory.getDraftFor("diamond_defender");
     }
 
@@ -88,7 +89,11 @@ public class MobsListener implements Listener {
                     if (countMobs(nearbyEntities, EntityType.PLAYER) > 0) {
                         Location testLoc = loc.clone().add(randomInRadius(rad), 0, randomInRadius(rad));
 
+                        int tries = 0;
                         while (!canSpawn(testLoc)) {
+                            if(tries > 10) {
+                                return;
+                            }
                             testLoc = loc.clone();
                             testLoc.add(randomInRadius(rad), 0, randomInRadius(rad));
                         }
@@ -101,6 +106,53 @@ public class MobsListener implements Listener {
                 }
             }
         }.runTaskTimer(plugin, 0, game.getAlchemistDelay() * 20);
+    }
+    
+    @EventHandler
+    public void piglinBrute(GameStartEvent event) {
+        Game game = event.getGame();
+        Map<Location, Integer> locat = event.getGame().getBruteLocations();
+        if (locat.isEmpty()) {
+            return;
+        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (game.getGameState().equals(GameState.ENDING)) {
+                    this.cancel();
+                }
+
+                for (Map.Entry<Location, Integer> entry : locat.entrySet()) {
+                    int rad = entry.getValue();
+                    Location loc = entry.getKey();
+                    Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
+
+                    if (countMobs(nearbyEntities, EntityType.PIGLIN_BRUTE) >= 7) {
+                        return;
+                    }
+
+                    if (countMobs(nearbyEntities, EntityType.PLAYER) > 0) {
+                        Location testLoc = loc.clone().add(randomInRadius(rad), 0, randomInRadius(rad));
+                        int tries = 0;
+                        while (!canSpawn(testLoc)) {
+                            if(tries > 10) {
+                                return;
+                            }
+                            
+                            
+                            testLoc = loc.clone();
+                            testLoc.add(randomInRadius(rad), 0, randomInRadius(rad));
+                            tries++;
+                        }
+                        testLoc.add(0.5, 0, 0.5);
+                        if (loc.getWorld().getHighestBlockYAt(testLoc) > 0) {
+                            testLoc.setY(testLoc.getWorld().getHighestBlockAt(testLoc).getLocation().getBlockY() + 1);
+                            brute.spawn(testLoc);
+                        }
+                    }
+                }
+            }
+        }.runTaskTimer(plugin, 0, game.getBruteDelay() * 20);
     }
 
     private Integer randomInRadius(int rad) {

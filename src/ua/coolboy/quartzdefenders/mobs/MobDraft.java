@@ -40,7 +40,7 @@ public class MobDraft<T extends LivingEntity> {
 
     public T spawn(Location location) {
         T entity = location.getWorld().spawn(location, clazz);
-        if (name != null) {
+        if (name != null && !name.isEmpty()) {
             entity.setCustomName(name);
         }
         entity.setCustomNameVisible(nameVisibility);
