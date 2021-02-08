@@ -50,6 +50,12 @@ public class DamageListener implements Listener {
                 p.getPlayer().teleport(game.getMapCenter());
             }
         }
+        
+        if(game.isGameState(GameState.ACTIVE)) {
+            if(e.getCause().equals(DamageCause.VOID)) {
+                p.getPlayer().setHealth(1);
+            }
+        }
 
     }
 

@@ -119,17 +119,15 @@ public class GameTeam {
                 player.getPlayer().getInventory().clear();
                 game.disableJoinTeam(player);
             }
-
             return;
         }
     }
-
-    @SuppressWarnings("deprecation")
-	public boolean addPlayer(GamePlayer player) {
+    
+    public boolean addPlayer(GamePlayer player) {
         if (players.contains(player)) {
             return false;
         } else if (players.size() < playersInTeam) {
-            team.addPlayer(player.getPlayer());
+            team.addEntry(player.getPlayer().getUniqueId().toString());
             players.add(player);
             player.setDisplayName(color);
             return true;
@@ -227,6 +225,13 @@ public class GameTeam {
     
     public GameQuartz getTeamQuartz() {
     	return game.getQuartz(this);
+    }
+    
+    public boolean isAnyoneOnline() {
+        for(GamePlayer player : players) {
+            if(player.getPlayer().isOnline()) return true;
+        }
+        return false;
     }
     
     private void respawnPlayer(GamePlayer p) {

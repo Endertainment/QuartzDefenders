@@ -424,6 +424,8 @@ public class Game {
         LobbySidebar s = new LobbySidebar(QuartzDefenders.getInstance(), p);
         s.setScoreboard();
         QuartzDefenders.getInstance().getLobby().sendTabList(p);
+        
+        checkGameEnd();
 
         if (gameAllPlayers.isEmpty()) {
             QuartzDefenders.getInstance().deleteGame(this);
