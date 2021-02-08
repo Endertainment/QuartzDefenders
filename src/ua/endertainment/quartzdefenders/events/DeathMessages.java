@@ -12,11 +12,12 @@ import ua.endertainment.quartzdefenders.game.Game;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class DeathMessages implements Listener {
 
     private QuartzDefenders plugin;
-    private final String pref = "&8» ";
+    private final String pref = "&8"+Symbols.RIGHT_QUOTE+" ";
     
     public DeathMessages(QuartzDefenders plugin) {
         this.plugin = plugin;

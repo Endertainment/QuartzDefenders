@@ -10,6 +10,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class End extends SubCommand {
 
@@ -45,7 +46,7 @@ public class End extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/game end [gameID] &8- &bEnd game").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game end [gameID] &8- &bEnd game").format();
 	}
 	
 }

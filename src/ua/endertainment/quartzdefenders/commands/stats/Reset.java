@@ -11,6 +11,7 @@ import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Reset extends SubCommand {
 
@@ -49,7 +50,7 @@ public class Reset extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/stats reset [player] &8- &bReset all player's stats").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats reset [player] &8- &bReset all player's stats").format();
 	}
 
 	

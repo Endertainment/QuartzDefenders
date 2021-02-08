@@ -7,6 +7,7 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import ua.endertainment.quartzdefenders.game.Game.GameState;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class GameSidebar {
 	
@@ -18,7 +19,7 @@ public class GameSidebar {
 	
 	private int index;
 	
-	private String title = new ColorFormat("&3«&b&l Quartz Defenders &3»").format();	
+	private String title = new ColorFormat("&3"+Symbols.LEFT_QUOTE+"&b&l Quartz Defenders &3"+Symbols.RIGHT_QUOTE).format();	
 	
 	public GameSidebar(Game game, Scoreboard scoreboard) {
 		this.game = game;
@@ -74,7 +75,7 @@ public class GameSidebar {
 		}
 		
 		addString("&f&m------------------&6 ");
-		addString("&3«&b&l Playcraft.com.ua &3»");		
+		addString("&3"+Symbols.LEFT_QUOTE+"&b&l Playcraft.com.ua &3"+Symbols.RIGHT_QUOTE);		
 	}
 	
 	

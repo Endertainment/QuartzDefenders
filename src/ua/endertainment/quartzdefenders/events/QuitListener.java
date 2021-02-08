@@ -14,6 +14,7 @@ import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class QuitListener implements Listener {
 
@@ -28,7 +29,7 @@ public class QuitListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         if (p.hasPermission("QuartzDefenders.lobby.alert.quit")) {
-            e.setQuitMessage(new ColorFormat("&3» &f[&3-&f] &r" + p.getDisplayName()).format());
+            e.setQuitMessage(new ColorFormat("&3"+Symbols.RIGHT_QUOTE+" &f[&3-&f] &r" + p.getDisplayName()).format());
         } else {
             e.setQuitMessage("");
         }

@@ -9,6 +9,7 @@ import ua.endertainment.quartzdefenders.items.SetupItems;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class SetupOres extends SubCommand {
 
@@ -33,7 +34,7 @@ public class SetupOres extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/game setupOres &8- &bAdd new regenerative ores").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game setupOres &8- &bAdd new regenerative ores").format();
 	}
 
 }

@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class JoinListener implements Listener {
 
@@ -33,7 +34,7 @@ public class JoinListener implements Listener {
 		p.setPlayerListName(plugin.getGamePlayer(p).getDefaultDisplayName());
 						
 		if(p.hasPermission("QuartzDefenders.lobby.alert.join")) {
-			e.setJoinMessage(new ColorFormat("&3» &f[&3+&f] &r" + p.getDisplayName()).format());
+			e.setJoinMessage(new ColorFormat("&3"+Symbols.RIGHT_QUOTE+" &f[&3+&f] &r" + p.getDisplayName()).format());
 		} else {
 			e.setJoinMessage("");
 		}

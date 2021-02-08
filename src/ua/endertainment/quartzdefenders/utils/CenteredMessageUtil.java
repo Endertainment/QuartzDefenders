@@ -24,7 +24,7 @@ public class CenteredMessageUtil {
         boolean isBold = false;
 
         for (char c : message.toCharArray()) {
-            if (c == '§') {
+            if (c == Symbols.RIGHT_QUOTE) {
                 previousCode = true;
                 continue;
             } else if (previousCode == true) {

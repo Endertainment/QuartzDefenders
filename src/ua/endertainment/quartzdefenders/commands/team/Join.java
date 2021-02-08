@@ -13,6 +13,7 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Join extends SubCommand {
 
@@ -79,7 +80,7 @@ public class Join extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/team join <team> [player] &8- &bJoin to team").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team join <team> [player] &8- &bJoin to team").format();
 	}
 
 }

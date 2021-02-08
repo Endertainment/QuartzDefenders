@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Help extends SubCommand {
 
@@ -42,11 +43,11 @@ public class Help extends SubCommand {
 		switch(page) {
 			case 1: {
 				sender.sendMessage(new ColorFormat("&8-------------------- &3Help &8--------------------").format());
-				sender.sendMessage(new ColorFormat("&8» &b/team help &8- &bShow help").format());
-				sender.sendMessage(new ColorFormat("&8» &b/team join <team> [player] &8- &bJoin to team").format());
-				sender.sendMessage(new ColorFormat("&8» &b/team quit|leave|kick [team] [player] &8- &bLeave from team").format());
-				sender.sendMessage(new ColorFormat("&8» &b/team info <team> &8- &bShow team's info").format());
-				sender.sendMessage(new ColorFormat("&8» &b/team lock <team> &8- &bDisable to join in team").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team help &8- &bShow help").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team join <team> [player] &8- &bJoin to team").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team quit|leave|kick [team] [player] &8- &bLeave from team").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team info <team> &8- &bShow team's info").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team lock <team> &8- &bDisable to join in team").format());
 			}
 			case 2: {
 				
@@ -57,7 +58,7 @@ public class Help extends SubCommand {
 
 	@Override
 	public String getUsage() {		
-		return new ColorFormat("&8» &b/team help &8- &bShow help").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team help &8- &bShow help").format();
 	}
 	
 }

@@ -115,6 +115,9 @@ default:
         result:
             material: POTION
             amount: 1
+            potion_effects:
+                water:
+                    type: WATER
     breath:
         primary:
             material: SUNFLOWER

@@ -11,6 +11,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.kits.Kit;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Remove extends SubCommand {
 
@@ -58,7 +59,7 @@ public class Remove extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/kit remove <kit> [player] &8- &bRemove kit from player").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/kit remove <kit> [player] &8- &bRemove kit from player").format();
 	}
 
 }

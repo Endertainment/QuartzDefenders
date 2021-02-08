@@ -11,6 +11,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class SetupSpawn extends SubCommand {
 
@@ -59,7 +60,7 @@ public class SetupSpawn extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/game setupSpawn <team> [x] [y] [z] [yaw] [pitch] &8- &bSet spawn").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game setupSpawn <team> [x] [y] [z] [yaw] [pitch] &8- &bSet spawn").format();
 	}
 	
 }

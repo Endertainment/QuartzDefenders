@@ -13,6 +13,7 @@ import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.Replacer;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Give extends SubCommand {
 
@@ -60,7 +61,7 @@ public class Give extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/kit give <kit> [player] &8- &bGive kit to player").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/kit give <kit> [player] &8- &bGive kit to player").format();
 	}
 
 }

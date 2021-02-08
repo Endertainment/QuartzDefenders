@@ -10,6 +10,7 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Lock extends SubCommand {
 
@@ -54,7 +55,7 @@ public class Lock extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/team lock <team> &8- &bDisable to join in team").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team lock <team> &8- &bDisable to join in team").format();
 	}
 
 }

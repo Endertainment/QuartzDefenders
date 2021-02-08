@@ -12,6 +12,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.stats.StatsManager;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Info extends SubCommand {
 
@@ -50,18 +51,18 @@ public class Info extends SubCommand {
 		GamePlayer gp = QuartzDefenders.getInstance().getGamePlayer(p);
 		
 		gp.sendMessage("&8-------------------- &3Team &8--------------------");
-		gp.sendMessage("&8» &fName: &b" + team.getName());
-		gp.sendMessage("&8» &fPlayers: &b" + team.getPlayersSize() + "&f/&b" + team.intPlayersInTeam());
-		gp.sendMessage("&8» &fTeam KD: &b" + StatsManager.getTeamKDR(team));
-		gp.sendMessage("&8» &fSpawn location: &b" + team.getSpawnLocation().getBlockX() + " " 
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fName: &b" + team.getName());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fPlayers: &b" + team.getPlayersSize() + "&f/&b" + team.intPlayersInTeam());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fTeam KD: &b" + StatsManager.getTeamKDR(team));
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fSpawn location: &b" + team.getSpawnLocation().getBlockX() + " " 
 												  + team.getSpawnLocation().getBlockY() + " " 
 												  + team.getSpawnLocation().getBlockZ());
-		gp.sendMessage("&8» &fCan respawn: &b" + team.canRespawn());
+		gp.sendMessage("&8ï¿½ &fCan respawn: &b" + team.canRespawn());
 	}
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/team info <team> &8- &bShow team's info").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team info <team> &8- &bShow team's info").format();
 	}
 
 }

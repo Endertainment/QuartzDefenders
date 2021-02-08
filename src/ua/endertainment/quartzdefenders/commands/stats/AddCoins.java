@@ -11,6 +11,7 @@ import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class AddCoins extends SubCommand {
 
@@ -72,7 +73,7 @@ public class AddCoins extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/stats addCoins <coins> [player] &8- &bAdd coins").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats addCoins <coins> [player] &8- &bAdd coins").format();
 	}	
 	
 }

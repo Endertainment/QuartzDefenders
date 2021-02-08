@@ -21,7 +21,7 @@ public class LobbySidebar {
 	
 	private int index = 15;
 	
-	private String title = new ColorFormat("&3«&b&l Quartz Defenders &3»").format();
+	private String title = new ColorFormat("&3"+Symbols.LEFT_QUOTE+"&b&l Quartz Defenders &3"+Symbols.RIGHT_QUOTE).format();
 	
 	private Player p;
 	
@@ -68,7 +68,7 @@ public class LobbySidebar {
 		addString("&f Top position: &b" + plugin.getTopManager().getPlayerKillsPosition(p));
 		addString("&2 ");
 		addString("&f&m------------------&5 ");
-		addString("&3«&b&l Playcraft.com.ua &3»");
+		addString("&3"+Symbols.RIGHT_QUOTE+"&b&l Playcraft.com.ua &3ï¿½");
 		*/
 	}
 	

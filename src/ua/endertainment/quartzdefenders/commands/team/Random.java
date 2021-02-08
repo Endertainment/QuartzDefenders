@@ -14,6 +14,7 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Random extends SubCommand {
 
@@ -73,7 +74,7 @@ public class Random extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/team random &8- &bRandomly sort players in teams").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team random &8- &bRandomly sort players in teams").format();
 	}
 
 }

@@ -18,8 +18,6 @@ blocked_commands:
   - "tell"
   - "w" 
   - "msg"
-#There's no warranty to this thing to work correctly, use at own risk
-blocked_enchants: []
     
 database:
     use_mysql: false

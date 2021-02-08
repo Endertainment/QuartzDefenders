@@ -10,6 +10,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.gui.StatsGUI;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Info extends SubCommand {
 
@@ -61,7 +62,7 @@ public class Info extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/stats info [player] &8- &bShow player's stats").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats info [player] &8- &bShow player's stats").format();
 	}
 
 	

@@ -10,6 +10,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Start extends SubCommand {
 
@@ -48,7 +49,7 @@ public class Start extends SubCommand {
 
 	@Override
 	public String getUsage() {		
-		return new ColorFormat("&8» &b/game start [gameName]&8- &bStart game").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game start [gameName]&8- &bStart game").format();
 	}
 
 }

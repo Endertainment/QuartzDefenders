@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Help extends SubCommand {
 
@@ -42,7 +43,7 @@ public class Help extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/game help &8- &bShow help").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game help &8- &bShow help").format();
 	}
 	
 	

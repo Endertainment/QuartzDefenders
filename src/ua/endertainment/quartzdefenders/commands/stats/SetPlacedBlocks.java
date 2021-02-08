@@ -11,6 +11,7 @@ import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class SetPlacedBlocks extends SubCommand {
 
@@ -69,7 +70,7 @@ public class SetPlacedBlocks extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/stats setPlacedBlocks <blocks> [player] &8- &bSet amount of placed blocks").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats setPlacedBlocks <blocks> [player] &8- &bSet amount of placed blocks").format();
 	}	
 
 

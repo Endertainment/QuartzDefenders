@@ -8,6 +8,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Add extends SubCommand {
 
@@ -30,7 +31,7 @@ public class Add extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/game add <gameID> &8- &bAdd game to Active games").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game add <gameID> &8- &bAdd game to Active games").format();
 	}
 
 }

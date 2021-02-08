@@ -11,6 +11,7 @@ import ua.endertainment.quartzdefenders.stats.StatsPlayer;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
 import ua.endertainment.quartzdefenders.utils.LobbySidebar;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class SetKills extends SubCommand {
 
@@ -68,7 +69,7 @@ public class SetKills extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/stats setKills <kills> [player] &8- &bSet amount of kills").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats setKills <kills> [player] &8- &bSet amount of kills").format();
 	}	
 
 }

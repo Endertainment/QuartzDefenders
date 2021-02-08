@@ -12,6 +12,7 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Quit extends SubCommand{
 
@@ -72,7 +73,7 @@ public class Quit extends SubCommand{
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/team quit|leave|kick [team] [player] &8- &bLeave from team").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team quit|leave|kick [team] [player] &8- &bLeave from team").format();
 	}
 
 	

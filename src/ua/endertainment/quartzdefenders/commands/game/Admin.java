@@ -10,6 +10,7 @@ import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Admin extends SubCommand {
     
@@ -42,7 +43,7 @@ public class Admin extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/game admin [gameID] &8- &bOpen Admin GUI").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game admin [gameID] &8- &bOpen Admin GUI").format();
 	}
     
 }

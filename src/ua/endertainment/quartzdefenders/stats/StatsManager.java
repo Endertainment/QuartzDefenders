@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import ua.endertainment.quartzdefenders.game.GamePlayer;
 import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class StatsManager {
 	
@@ -35,32 +36,32 @@ public class StatsManager {
 		GamePlayer gp = QuartzDefenders.getInstance().getGamePlayer(p);
 		StatsPlayer sp = new StatsPlayer(id);
 		gp.sendMessage("&8-------------------- &6Stats &8--------------------");
-		gp.sendMessage("&8» &fName: &b" + p.getName());
-		gp.sendMessage("&8» &fTop kills: &b" + QuartzDefenders.getInstance().getTopManager().getPlayerKillsPosition(p));
-		gp.sendMessage("&8» &fLevel: &b" + sp.getLevel() + "&f(&b" + sp.getPoints() + "&f/&b" + sp.getNextLevelPoints() + "&f)");
-		gp.sendMessage("&8» &fCoins: &b" + sp.getCoins());
-		gp.sendMessage("&8» &fGames: &b" + sp.getPlayedGames());
-		gp.sendMessage("&8» &fWins: &b" + sp.getWins());
-		gp.sendMessage("&8» &fKills: &b" + sp.getKills());
-		gp.sendMessage("&8» &fDeaths: &b" + sp.getDeaths());
-		gp.sendMessage("&8» &fBroken quartz: &b" + sp.getBrokenQuartz());
-		gp.sendMessage("&8» &fBroken ores: &b" + sp.getBrokenOres());
-		gp.sendMessage("&8» &fPlaced blocks: &b" + sp.getPlacedBlocks());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fName: &b" + p.getName());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fTop kills: &b" + QuartzDefenders.getInstance().getTopManager().getPlayerKillsPosition(p));
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fLevel: &b" + sp.getLevel() + "&f(&b" + sp.getPoints() + "&f/&b" + sp.getNextLevelPoints() + "&f)");
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fCoins: &b" + sp.getCoins());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fGames: &b" + sp.getPlayedGames());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fWins: &b" + sp.getWins());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fKills: &b" + sp.getKills());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fDeaths: &b" + sp.getDeaths());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fBroken quartz: &b" + sp.getBrokenQuartz());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fBroken ores: &b" + sp.getBrokenOres());
+		gp.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fPlaced blocks: &b" + sp.getPlacedBlocks());
 	}
 	public static void sendStatsInfo(CommandSender sender, UUID id) {
 		StatsPlayer sp = new StatsPlayer(id);
 		sender.sendMessage("&8-------------------- &6Stats &8--------------------");
-		sender.sendMessage("&8» &fName: &b" + Bukkit.getOfflinePlayer(id));
-		//sender.sendMessage("&8» &fTop kills: &b" + QuartzDefenders.getInstance().getTopManager().getPlayerKillsPosition(p));
-		sender.sendMessage("&8» &fLevel: &b" + sp.getLevel() + "&f(&b" + sp.getPoints() + "&f/&b" + sp.getNextLevelPoints() + "&f)");
-		sender.sendMessage("&8» &fCoins: &b" + sp.getCoins());
-		sender.sendMessage("&8» &fGames: &b" + sp.getPlayedGames());
-		sender.sendMessage("&8» &fWins: &b" + sp.getWins());
-		sender.sendMessage("&8» &fKills: &b" + sp.getKills());
-		sender.sendMessage("&8» &fDeaths: &b" + sp.getDeaths());
-		sender.sendMessage("&8» &fBroken quartz: &b" + sp.getBrokenQuartz());
-		sender.sendMessage("&8» &fBroken ores: &b" + sp.getBrokenOres());
-		sender.sendMessage("&8» &fPlaced blocks: &b" + sp.getPlacedBlocks());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fName: &b" + Bukkit.getOfflinePlayer(id));
+		//sender.sendMessage("&8ï¿½ &fTop kills: &b" + QuartzDefenders.getInstance().getTopManager().getPlayerKillsPosition(p));
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fLevel: &b" + sp.getLevel() + "&f(&b" + sp.getPoints() + "&f/&b" + sp.getNextLevelPoints() + "&f)");
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fCoins: &b" + sp.getCoins());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fGames: &b" + sp.getPlayedGames());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fWins: &b" + sp.getWins());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fKills: &b" + sp.getKills());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fDeaths: &b" + sp.getDeaths());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fBroken quartz: &b" + sp.getBrokenQuartz());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fBroken ores: &b" + sp.getBrokenOres());
+		sender.sendMessage("&8"+Symbols.RIGHT_QUOTE+" &fPlaced blocks: &b" + sp.getPlacedBlocks());
 	}
 	
 }

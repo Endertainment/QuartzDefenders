@@ -15,6 +15,7 @@ import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.FireworkUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class CommandQuartzDefenders implements CommandExecutor {
 
@@ -30,15 +31,15 @@ public class CommandQuartzDefenders implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] args) {
 
 		if(args.length == 0) {
-			sender.sendMessage(new ColorFormat("&8» &bQuartz&3Defenders &fplugin developed by &bEndertainment & Cool_boy &ffor &bPlayCraft.COM.UA").format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &bQuartz&3Defenders &fplugin developed by &bEndertainment & Cool_boy &ffor &bPlayCraft.COM.UA").format());
 			return true;
 		}
 		
 		if(args.length >= 1 && args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage(new ColorFormat("&8» &b/game help").format());
-			sender.sendMessage(new ColorFormat("&8» &b/stats help").format());
-			sender.sendMessage(new ColorFormat("&8» &b/team help").format());
-			sender.sendMessage(new ColorFormat("&8» &b/gamebroadcast").format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game help").format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats help").format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/team help").format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/gamebroadcast").format());
 			return true;
 		}
 		

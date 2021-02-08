@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import ua.endertainment.quartzdefenders.commands.SubCommand;
 
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class Help extends SubCommand {
 
@@ -43,12 +44,12 @@ public class Help extends SubCommand {
 		switch(page) {
 			case 1: {
 				sender.sendMessage(new ColorFormat("&8-------------------- &3Help &8--------------------").format());
-				sender.sendMessage(new ColorFormat("&8» &b/stats help &8- &bShow help").format());
-				sender.sendMessage(new ColorFormat("&8» &b/stats info [player] &8- &bShow player's stats").format());
-				sender.sendMessage(new ColorFormat("&8» &b/stats addCoins <coins> [player] &8- &bAdd coins").format());
-				sender.sendMessage(new ColorFormat("&8» &b/stats removeCoins <coins> [player] &8- &bAdd coins").format());
-				sender.sendMessage(new ColorFormat("&8» &b/stats addPoints <points> [player] &8- &bAdd points").format());
-				sender.sendMessage(new ColorFormat("&8» &b/stats removePoints <points> [player] &8- &bAdd points").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats help &8- &bShow help").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats info [player] &8- &bShow player's stats").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats addCoins <coins> [player] &8- &bAdd coins").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats removeCoins <coins> [player] &8- &bAdd coins").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats addPoints <points> [player] &8- &bAdd points").format());
+				sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats removePoints <points> [player] &8- &bAdd points").format());
 				// TODO
 				break;
 			}
@@ -61,6 +62,6 @@ public class Help extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/stats help &8- &bShow help").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/stats help &8- &bShow help").format();
 	}
 }

@@ -9,6 +9,7 @@ import ua.endertainment.quartzdefenders.commands.SubCommand;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
 import ua.endertainment.quartzdefenders.utils.Language;
 import ua.endertainment.quartzdefenders.utils.LoggerUtil;
+import ua.endertainment.quartzdefenders.utils.Symbols;
 
 public class GamesList extends SubCommand {
 
@@ -20,12 +21,12 @@ public class GamesList extends SubCommand {
 		}
 		int index = 1;
 		for(Game game : QuartzDefenders.getInstance().getGames()) {
-			sender.sendMessage(new ColorFormat("&8» &fGame &b#" + index).format());
-			sender.sendMessage(new ColorFormat("&8» &fGame ID: &b" + game.getGameId()).format());
-			sender.sendMessage(new ColorFormat("&8» &fGame name: &b" + game.getGameName()).format());
-			sender.sendMessage(new ColorFormat("&8» &fMap: &b" + game.getColorWorldName()).format());
-			sender.sendMessage(new ColorFormat("&8» &fWorld: &b" + game.getTechWorldName()).format());
-			sender.sendMessage(new ColorFormat("&8» &fState: &b" + game.getGameState().toString()).format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &fGame &b#" + index).format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &fGame ID: &b" + game.getGameId()).format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &fGame name: &b" + game.getGameName()).format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &fMap: &b" + game.getColorWorldName()).format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &fWorld: &b" + game.getTechWorldName()).format());
+			sender.sendMessage(new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &fState: &b" + game.getGameState().toString()).format());
 			index++;
 		}
 		
@@ -33,7 +34,7 @@ public class GamesList extends SubCommand {
 
 	@Override
 	public String getUsage() {
-		return new ColorFormat("&8» &b/game gameslist  &8- &bShow all games").format();
+		return new ColorFormat("&8"+Symbols.RIGHT_QUOTE+" &b/game gameslist  &8- &bShow all games").format();
 	}
 
 }
