@@ -35,6 +35,7 @@ public class FireArrowListener implements Listener {
             fire.setType(Material.FIRE);
             Fire f = (Fire) fire.getBlockData();
             f.setFace(event.getHitBlockFace().getOppositeFace(), true);
+            fire.setBlockData(f);
         }
     }
 }

@@ -39,7 +39,7 @@ public class LightningListener implements Listener {
     @EventHandler
     public void onTransform(EntityTransformEvent event) {
         if(event.getTransformReason() == EntityTransformEvent.TransformReason.LIGHTNING
-                && event.getTransformedEntity().getType() == EntityType.VILLAGER) {
+                && event.getEntity().getType() == EntityType.VILLAGER) {
             event.setCancelled(true);
         }
     }

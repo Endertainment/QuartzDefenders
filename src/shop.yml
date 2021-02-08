@@ -33,8 +33,8 @@ default:
         result:
             material: ENCHANTED_BOOK
             amount: 1
-            bookEnchant:
-                LOOT_BONUS_BLOCKS : 2
+            book_enchantments:
+                fortune : 2
     vanishing:
         primary:
             material: EMERALD
@@ -42,8 +42,8 @@ default:
         result:
             material: ENCHANTED_BOOK
             amount: 1
-            bookEnchant:
-                VANISHING_CURSE: 1
+            book_enchantments:
+                vanishing_curse: 1
   potions:
     blaze_rod:
         primary:
@@ -115,9 +115,7 @@ default:
         result:
             material: POTION
             amount: 1
-            potion_effects:
-                water:
-                    type: WATER
+            potion_data: WATER
     breath:
         primary:
             material: SUNFLOWER
@@ -182,7 +180,7 @@ default:
             material: IRON_INGOT
             amount: 1
         result:
-            material: CONCRETE
+            material: WHITE_CONCRETE
             amount: 16
             team: true
     end_stone:
@@ -197,7 +195,7 @@ default:
             material: IRON_INGOT
             amount: 1
         result:
-            material: STAINED_GLASS
+            material: WHITE_STAINED_GLASS
             amount: 16
             team: true
   ###STUFF
@@ -231,7 +229,7 @@ default:
             material: CHAINMAIL_HELMET
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     chainmail_chest:
         primary:
             material: EMERALD
@@ -240,7 +238,7 @@ default:
             material: CHAINMAIL_CHESTPLATE
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     chainmail_leg:
         primary:
             material: EMERALD
@@ -249,7 +247,7 @@ default:
             material: CHAINMAIL_LEGGINGS
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     chainmail_boots:
         primary:
             material: EMERALD
@@ -258,7 +256,7 @@ default:
             material: CHAINMAIL_BOOTS
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     tnt:
         primary:
             material: EMERALD

@@ -81,20 +81,19 @@ public class DeathListener implements Listener {
         sp.addDeath();
         
         if (team.canRespawn()) {
-        	
-        	Location loc = p.getLocation();
-        	if(loc.getY() < 20) loc.setY(80);
-        	p.spigot().respawn();
-        	p.setHealth(20);
-            p.setFoodLevel(20);
-            p.setExp(0);
-            p.setLevel(0);
-            p.setGameMode(GameMode.SPECTATOR);
-            p.teleport(loc);
-            p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.respawn", new Replacer("{0}", resp + ""))));
-            freeze.add(p);
             if (p.getLocation().getY() <= 0) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                    Location loc = p.getLocation();
+                    if(loc.getY() < 20) loc.setY(80);
+                    p.spigot().respawn();
+                    p.setHealth(20);
+                    p.setFoodLevel(20);
+                    p.setExp(0);
+                    p.setLevel(0);
+                    p.setGameMode(GameMode.SPECTATOR);
+                    p.teleport(loc);
+                    p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.respawn", new Replacer("{0}", resp + ""))));
+                    freeze.add(p);
                     p.teleport(new Location(p.getWorld(), p.getLocation().getX(), 80, p.getLocation().getZ()));
                 });
             }

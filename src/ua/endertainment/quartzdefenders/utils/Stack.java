@@ -19,8 +19,10 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 
 public class Stack {
 
@@ -31,6 +33,7 @@ public class Stack {
     private Map<Enchantment, Integer> enchant;
     private Map<Enchantment, Integer> bookEnchants;
     private List<PotionEffect> potionEffects;
+    private PotionData potionData;
     private List<ItemFlag> flags;
     private boolean unbreak;
 
@@ -59,7 +62,7 @@ public class Stack {
             }
         }
         
-        if (material.equals(Material.ENCHANTED_BOOK)) {
+        if (material.equals(Material.ENCHANTED_BOOK) && config.isConfigurationSection("book_enchantments")) {
             for (String key : config.getConfigurationSection("book_enchantments").getKeys(false)) {
                 Enchantment enchantment = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(key.toLowerCase()));
                 if (enchantment == null) {
@@ -71,22 +74,32 @@ public class Stack {
         }
         
         if(material.equals(Material.POTION)) {
-            for(String key : config.getConfigurationSection("potion_effects").getKeys(false)) {
-                ConfigurationSection eff = config.getConfigurationSection("potion_effects."+key);
-                String strType = eff.getString(eff.getString("type"), "UNDEFINED");
-                PotionEffectType type = PotionEffectType.getByName(strType);
-                if(type == null) {
-                    LoggerUtil.error("Invalid potion type: "+strType);
-                    continue;
+            
+            String strDataType = config.getString("potion_data", "WATER");
+            PotionType dataType = PotionType.valueOf(strDataType);
+            if(dataType == null) {
+                LoggerUtil.error("Invalid potion data type: "+strDataType);
+            }
+            potionData = new PotionData(dataType);
+            
+            if(config.isConfigurationSection("potion_effects")) {
+                for(String key : config.getConfigurationSection("potion_effects").getKeys(false)) {
+                    ConfigurationSection eff = config.getConfigurationSection("potion_effects."+key);
+                    String strType = eff.getString(eff.getString("type"), "UNDEFINED");
+                    PotionEffectType type = PotionEffectType.getByName(strType);
+                    if(type == null) {
+                        LoggerUtil.error("Invalid potion type: "+strType);
+                        continue;
+                    }
+                    int duration = eff.getInt("duration", 0);
+                    int amplifier = eff.getInt("amplifier", 0);
+                    boolean ambient = eff.getBoolean("ambient", false);
+                    boolean particles = eff.getBoolean("particles", true);
+                    boolean icon = eff.getBoolean("icon", true);
+
+                    PotionEffect effect = new PotionEffect(type, duration, amplifier, ambient, particles, icon);
+                    potionEffects.add(effect);
                 }
-                int duration = eff.getInt("duration", 0);
-                int amplifier = eff.getInt("amplifier", 0);
-                boolean ambient = eff.getBoolean("ambient", false);
-                boolean particles = eff.getBoolean("particles", true);
-                boolean icon = eff.getBoolean("icon", true);
-                
-                PotionEffect effect = new PotionEffect(type, duration, amplifier, ambient, particles, icon);
-                potionEffects.add(effect);
             }
         }
         
@@ -128,14 +141,21 @@ public class Stack {
             for (Map.Entry<Enchantment, Integer> entry : bookEnchants.entrySet()) {
                 bookmeta.addStoredEnchant(entry.getKey(), entry.getValue(), true);
             }
-            stack.setItemMeta(meta);
+            stack.setItemMeta(bookmeta);
         }
         
-        if(material.equals(Material.POTION) && !potionEffects.isEmpty()) {
-            PotionMeta potionmeta = (PotionMeta) stack.getItemMeta();
-            for(PotionEffect effect : potionEffects) {
-                potionmeta.addCustomEffect(effect, true);
-            }
+        if(material.equals(Material.POTION)) {
+                PotionMeta potionmeta = (PotionMeta) stack.getItemMeta();
+                
+                if(potionData != null) {
+                    potionmeta.setBasePotionData(potionData);
+                }
+                if(!potionEffects.isEmpty()) {
+                    for(PotionEffect effect : potionEffects) {
+                        potionmeta.addCustomEffect(effect, true);
+                    }  
+                }
+                stack.setItemMeta(potionmeta);
         }
         return stack;
     }

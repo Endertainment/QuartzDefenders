@@ -2,25 +2,21 @@ package ua.coolboy.quartzdefenders.shop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.MerchantRecipe;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import ua.endertainment.quartzdefenders.game.GameTeam;
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 import ua.endertainment.quartzdefenders.utils.DataAdapter;
 import ua.endertainment.quartzdefenders.utils.ItemUtil;
 import ua.endertainment.quartzdefenders.utils.Language;
+import ua.endertainment.quartzdefenders.utils.Stack;
 
 public class Shop {
 
@@ -117,44 +113,13 @@ public class Shop {
     private ItemStack createItem(ConfigurationSection section, String itemDir, GameTeam team) {
         ConfigurationSection dir = section.getConfigurationSection(itemDir);
 
-        String material = dir.getString("material");
-        int amount = dir.getInt("amount");
-        
-        ItemStack stack;
-        if (dir.getBoolean("team", false)) {
+        ItemStack stack = new Stack(dir).getStack();
+         if (dir.getBoolean("team", false)) {
             ChatColor color = team == null ? ChatColor.GRAY : team.getColor();
-            Material mat = DataAdapter.getForColor(color, material);
-            stack = new ItemStack(mat, amount);
-        } else {
-            stack = new ItemStack(Material.valueOf(material), amount);
-        }
-        
-        if (dir.isString("name")) {
-            String stackName = dir.getString("name");
-            stack = ItemUtil.setName(stack, stackName);
-        }
-        if (dir.isList("lore")) {
-            List<String> stackLore = dir.getStringList("lore");
-            stack = ItemUtil.setLore(stack, stackLore);
-        }
-
-        if (dir.isConfigurationSection("enchantments")) {
-            Map<String, Object> enchant = dir.getConfigurationSection("enchantments").getValues(false);
-            for (Map.Entry<String, Object> entry : enchant.entrySet()) {
-                Enchantment ench = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(entry.getKey().toLowerCase()));//Enchantment.getByName(entry.getKey());
-                int enchLvl = (int) entry.getValue();
-                stack.addEnchantment(ench, enchLvl);
-            }
-        }
-        if (material.equals("ENCHANTED_BOOK")) {
-            Map<String, Object> bookEnchant = dir.getConfigurationSection("bookEnchant").getValues(false);
-            EnchantmentStorageMeta meta = (EnchantmentStorageMeta) stack.getItemMeta();
-            for (Map.Entry<String, Object> entry : bookEnchant.entrySet()) {
-                Enchantment ench = EnchantmentWrapper.getByKey(NamespacedKey.minecraft(entry.getKey().toLowerCase()));
-                int enchLvl = (int) entry.getValue();
-                meta.addStoredEnchant(ench, enchLvl, true);
-            }
-            stack.setItemMeta(meta);
+            String material = stack.getType().toString();
+            String base = material.substring(material.indexOf("_")+1); // RED_WOOL -> WOOL
+            Material mat = DataAdapter.getForColor(color, base);
+            stack.setType(mat);
         }
         return stack;
     }
