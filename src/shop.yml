@@ -34,7 +34,7 @@ default:
             material: ENCHANTED_BOOK
             amount: 1
             bookEnchant:
-                LOOT_BONUS_BLOCKS : 2
+                fortune : 2
     vanishing:
         primary:
             material: EMERALD
@@ -43,7 +43,7 @@ default:
             material: ENCHANTED_BOOK
             amount: 1
             bookEnchant:
-                VANISHING_CURSE: 1
+                vanishing_curse: 1
   potions:
     blaze_rod:
         primary:
@@ -231,7 +231,7 @@ default:
             material: CHAINMAIL_HELMET
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     chainmail_chest:
         primary:
             material: EMERALD
@@ -240,7 +240,7 @@ default:
             material: CHAINMAIL_CHESTPLATE
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     chainmail_leg:
         primary:
             material: EMERALD
@@ -249,7 +249,7 @@ default:
             material: CHAINMAIL_LEGGINGS
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     chainmail_boots:
         primary:
             material: EMERALD
@@ -258,7 +258,7 @@ default:
             material: CHAINMAIL_BOOTS
             amount: 1
             enchantments:
-                PROTECTION_ENVIRONMENTAL: 1
+                protection: 1
     tnt:
         primary:
             material: EMERALD
