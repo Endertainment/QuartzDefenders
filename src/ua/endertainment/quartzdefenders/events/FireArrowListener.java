@@ -3,6 +3,7 @@ package ua.endertainment.quartzdefenders.events;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Fire;
 import org.bukkit.entity.Arrow;
 import org.bukkit.event.EventHandler;
@@ -34,7 +35,8 @@ public class FireArrowListener implements Listener {
             }
             fire.setType(Material.FIRE);
             Fire f = (Fire) fire.getBlockData();
-            f.setFace(event.getHitBlockFace().getOppositeFace(), true);
+            BlockFace oppositeFace = event.getHitBlockFace().getOppositeFace();
+            if(oppositeFace != BlockFace.DOWN) f.setFace(oppositeFace, true);
             fire.setBlockData(f);
         }
     }

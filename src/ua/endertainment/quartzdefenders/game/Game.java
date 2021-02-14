@@ -91,9 +91,9 @@ public class Game {
     private boolean diamondDef;
     private Map<GameTeam, Location> shopLocations = new HashMap<>();
     private Map<Location, Integer> alchemistsLocations = new HashMap<>();
-    private Map<Location, Integer> bruteLocations = new HashMap<>();
+    //private Map<Location, Integer> bruteLocations = new HashMap<>();
     private int alchemistDelay;
-    private int bruteDelay;
+    //private int bruteDelay;
 
     private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
     private Ores ores;
@@ -265,7 +265,7 @@ public class Game {
             alchemistsLocations.put(alchemist, alchemistRadius);
         }
         
-        int bruteRadius = config.getInt("Games." + this.id + ".brute.radius", 5);
+        /*int bruteRadius = config.getInt("Games." + this.id + ".brute.radius", 5);
         bruteDelay = config.getInt("Games." + this.id + ".brute.delay", 10);
         for (String loc : config.getConfigurationSection("Games." + this.id + ".brute").getStringList(".list")) {
             String[] array = loc.split(",");
@@ -274,7 +274,7 @@ public class Game {
                     Integer.parseInt(array[1]),
                     Integer.parseInt(array[2]));
             bruteLocations.put(brute, bruteRadius);
-        }
+        }*/
         
         this.diamondDef = config.getBoolean("Games." + this.id + ".diamond_defenders", false);
         
@@ -877,13 +877,13 @@ public class Game {
         return alchemistDelay;
     }
     
-    public Map<Location, Integer> getBruteLocations() {
+    /*public Map<Location, Integer> getBruteLocations() {
         return bruteLocations;
     }
     
     public int getBruteDelay() {
         return bruteDelay;
-    }
+    }*/
 
     public boolean isDiamondDefenders() {
         return diamondDef;

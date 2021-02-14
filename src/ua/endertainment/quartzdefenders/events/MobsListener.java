@@ -40,7 +40,27 @@ public class MobsListener implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void CenterMob(BlockBreakEvent e) {
+    public void CenterBrute(BlockBreakEvent e) {
+        Block b = e.getBlock();
+        Game game = QuartzDefenders.getInstance().getGame(b.getWorld());
+        if (game == null) {
+            return;
+        }
+        Ores ores = game.getGameOres();
+        if (game.isGameState(GameState.ACTIVE)) {
+            Material material = e.getBlock().getType();
+            if (material.equals(Material.ANCIENT_DEBRIS)) {
+                if (ores.isOre(b.getLocation())) {
+                    Location loc = b.getLocation().add(0.5, 0, 0.5);
+
+                    brute.spawn(loc.clone().add(random.nextInt(4), 4.0D, random.nextInt(4)));
+                }
+            }
+        }
+    }
+    
+    @EventHandler(ignoreCancelled = true)
+    public void CenterDefender(BlockBreakEvent e) {
         Block b = e.getBlock();
         Game game = QuartzDefenders.getInstance().getGame(b.getWorld());
         if (game == null) {
@@ -57,7 +77,7 @@ public class MobsListener implements Listener {
                     Location loc = b.getLocation().add(0.5, 0, 0.5);
 
                     diamondDef.spawn(loc.clone().add(random.nextInt(4), 4.0D, random.nextInt(4)));
-                    diamondDef.spawn(loc.clone().add(random.nextInt(4), 4.0D, random.nextInt(4)));
+                    //diamondDef.spawn(loc.clone().add(random.nextInt(4), 4.0D, random.nextInt(4)));
                 }
             }
         }
@@ -106,53 +126,6 @@ public class MobsListener implements Listener {
                 }
             }
         }.runTaskTimer(plugin, 0, game.getAlchemistDelay() * 20);
-    }
-    
-    @EventHandler
-    public void piglinBrute(GameStartEvent event) {
-        Game game = event.getGame();
-        Map<Location, Integer> locat = event.getGame().getBruteLocations();
-        if (locat.isEmpty()) {
-            return;
-        }
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (game.getGameState().equals(GameState.ENDING)) {
-                    this.cancel();
-                }
-
-                for (Map.Entry<Location, Integer> entry : locat.entrySet()) {
-                    int rad = entry.getValue();
-                    Location loc = entry.getKey();
-                    Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
-
-                    if (countMobs(nearbyEntities, EntityType.PIGLIN_BRUTE) >= 7) {
-                        return;
-                    }
-
-                    if (countMobs(nearbyEntities, EntityType.PLAYER) > 0) {
-                        Location testLoc = loc.clone().add(randomInRadius(rad), 0, randomInRadius(rad));
-                        int tries = 0;
-                        while (!canSpawn(testLoc)) {
-                            if(tries > 10) {
-                                return;
-                            }
-                            
-                            
-                            testLoc = loc.clone();
-                            testLoc.add(randomInRadius(rad), 0, randomInRadius(rad));
-                            tries++;
-                        }
-                        testLoc.add(0.5, 0, 0.5);
-                        if (loc.getWorld().getHighestBlockYAt(testLoc) > 0) {
-                            testLoc.setY(testLoc.getWorld().getHighestBlockAt(testLoc).getLocation().getBlockY() + 1);
-                            brute.spawn(testLoc);
-                        }
-                    }
-                }
-            }
-        }.runTaskTimer(plugin, 0, game.getBruteDelay() * 20);
     }
 
     private Integer randomInRadius(int rad) {
