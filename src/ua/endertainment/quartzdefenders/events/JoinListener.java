@@ -26,9 +26,7 @@ public class JoinListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		
-		plugin.addGamePlayer(p);
-		
-		
+                plugin.addGamePlayer(p);
 		
 		p.setDisplayName(plugin.getGamePlayer(p).getDefaultDisplayName());
 		p.setPlayerListName(plugin.getGamePlayer(p).getDefaultDisplayName());

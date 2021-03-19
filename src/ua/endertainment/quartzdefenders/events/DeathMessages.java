@@ -37,6 +37,7 @@ public class DeathMessages implements Listener {
         if (game != null) {
             if (killer == null || killer.getName().equals(p.getName())) {
                 e.setDeathMessage("");
+                if(ldc.getDamage() == 1000) return; //reserved for plugin kills
                 switch (cause) {
                     case ENTITY_EXPLOSION:
                         game.broadcastMessage(pref + Language.getString("death.blown_up", p.getDisplayName()));

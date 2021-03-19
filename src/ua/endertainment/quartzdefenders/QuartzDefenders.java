@@ -128,6 +128,7 @@ public class QuartzDefenders extends JavaPlugin {
         }
         //show all players on reload
         for(Player player : Bukkit.getOnlinePlayers()) {
+            player.setPlayerListHeaderFooter("", "");
             for(Player pl : Bukkit.getOnlinePlayers()) {
                 player.showPlayer(this, pl);
             }

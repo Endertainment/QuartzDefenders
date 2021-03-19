@@ -3,6 +3,7 @@ package ua.endertainment.quartzdefenders.game;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.bukkit.block.Block;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
@@ -91,9 +93,9 @@ public class Game {
     private boolean diamondDef;
     private Map<GameTeam, Location> shopLocations = new HashMap<>();
     private Map<Location, Integer> alchemistsLocations = new HashMap<>();
-    //private Map<Location, Integer> bruteLocations = new HashMap<>();
+    private Map<Location, Integer> defendersLocations = new HashMap<>();
     private int alchemistDelay;
-    //private int bruteDelay;
+    private int defenderDelay;
 
     private Map<GameTeam, GameQuartz> quartzs = new HashMap<>();
     private Ores ores;
@@ -265,16 +267,16 @@ public class Game {
             alchemistsLocations.put(alchemist, alchemistRadius);
         }
         
-        /*int bruteRadius = config.getInt("Games." + this.id + ".brute.radius", 5);
-        bruteDelay = config.getInt("Games." + this.id + ".brute.delay", 10);
-        for (String loc : config.getConfigurationSection("Games." + this.id + ".brute").getStringList(".list")) {
+        int defenderRadius = config.getInt("Games." + this.id + ".defender.radius", 5);
+        defenderDelay = config.getInt("Games." + this.id + ".defender.delay", 10);
+        for (String loc : config.getConfigurationSection("Games." + this.id + ".defender").getStringList(".list")) {
             String[] array = loc.split(",");
             Location brute = new Location(Bukkit.getWorld(teckWorldName),
                     Integer.parseInt(array[0]),
                     Integer.parseInt(array[1]),
                     Integer.parseInt(array[2]));
-            bruteLocations.put(brute, bruteRadius);
-        }*/
+            defendersLocations.put(brute, defenderRadius);
+        }
         
         this.diamondDef = config.getBoolean("Games." + this.id + ".diamond_defenders", false);
         
@@ -712,7 +714,10 @@ public class Game {
         for(Player player : loc.getWorld().getPlayers()) {
             p.getPlayer().showPlayer(QuartzDefenders.getInstance(), player);
         }
+        p.getPlayer().setScoreboard(gameScoreboard);
+        
         p.setDisplayName(team.getColor());
+        
         p.getPlayer().setHealth(20);
         p.getPlayer().setFoodLevel(20);
         p.getPlayer().setExp(0);
@@ -722,12 +727,16 @@ public class Game {
         for(PotionEffect e : p.getPlayer().getActivePotionEffects()) {
             p.getPlayer().removePotionEffect(e.getType());
         }
-
-        p.getPlayer().setScoreboard(gameScoreboard);
+        
         broadcastMessage(LoggerUtil.gameMessage(Language.getString("game.game"),
                 Language.getString("game.reconnect_success_2", new Replacer("{0}", p.getDisplayName()))));
 
         p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.reconnect_success_1")));
+        
+        //team.respawnPlayer(p);
+        // Simulate death to make player respawn
+        Bukkit.getPluginManager().callEvent(new PlayerDeathEvent(p.getPlayer(), Collections.EMPTY_LIST, 0, p.getDisplayName() + " joined the game"));
+        
     }
 
     public void disableJoinGame(GamePlayer p) {
@@ -778,7 +787,10 @@ public class Game {
     }
 
     public boolean containsPlayer(GamePlayer player) {
-        return gameAllPlayers.contains(player);
+        for(GamePlayer gp : gameAllPlayers) {
+            if(gp.getPlayer().getUniqueId().equals(player.getPlayer().getUniqueId())) return true;
+        }
+        return false;
     }
 
     private boolean isTeamValid(String s) {
@@ -877,13 +889,13 @@ public class Game {
         return alchemistDelay;
     }
     
-    /*public Map<Location, Integer> getBruteLocations() {
-        return bruteLocations;
+    public Map<Location, Integer> getDefendersLocations() {
+        return defendersLocations;
     }
     
-    public int getBruteDelay() {
-        return bruteDelay;
-    }*/
+    public int getDefenderDelay() {
+        return defenderDelay;
+    }
 
     public boolean isDiamondDefenders() {
         return diamondDef;

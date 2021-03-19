@@ -1,5 +1,6 @@
 package ua.endertainment.quartzdefenders.game;
 
+import java.util.Objects;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -71,4 +72,21 @@ public class GamePlayer {
         public void resetVote() {
             vote = new Vote(this);
         }
+        
+    @Override
+    public boolean equals(Object other) {
+        if(other == this) return true;
+        if(other instanceof GamePlayer) {
+            GamePlayer gp = (GamePlayer) other;
+            return gp.getPlayer().getUniqueId().equals(player.getUniqueId());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.player);
+        return hash;
+    }
 }

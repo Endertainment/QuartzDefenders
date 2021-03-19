@@ -146,7 +146,7 @@ public class GameTeam {
 
     public boolean removePlayer(GamePlayer player, boolean arg) {
         if (players.contains(player)) {
-            team.removeEntry(player.getPlayer().getUniqueId().toString());
+            team.removeEntry(player.getPlayer().getName());
             players.remove(player);
             if(arg) player.resetDisplayName();
             return true;
@@ -234,7 +234,7 @@ public class GameTeam {
         return false;
     }
     
-    private void respawnPlayer(GamePlayer p) {
+    public void respawnPlayer(GamePlayer p) {
     	p.getPlayer().setHealth(20);
     	p.getPlayer().setFoodLevel(20);
     	p.getPlayer().setGameMode(GameMode.SPECTATOR);

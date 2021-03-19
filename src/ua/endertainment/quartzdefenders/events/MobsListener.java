@@ -59,7 +59,7 @@ public class MobsListener implements Listener {
         }
     }
     
-    @EventHandler(ignoreCancelled = true)
+    /*@EventHandler(ignoreCancelled = true)
     public void CenterDefender(BlockBreakEvent e) {
         Block b = e.getBlock();
         Game game = QuartzDefenders.getInstance().getGame(b.getWorld());
@@ -81,6 +81,51 @@ public class MobsListener implements Listener {
                 }
             }
         }
+    }*/
+    
+    @EventHandler
+    public void centerDefender(GameStartEvent event) {
+        Game game = event.getGame();
+        Map<Location, Integer> locat = event.getGame().getDefendersLocations();
+        if (locat.isEmpty()) {
+            return;
+        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (game.getGameState().equals(GameState.ENDING)) {
+                    this.cancel();
+                }
+
+                for (Map.Entry<Location, Integer> entry : locat.entrySet()) {
+                    int rad = entry.getValue();
+                    Location loc = entry.getKey();
+                    Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
+
+                    if (countMobs(nearbyEntities, EntityType.SKELETON) >= 10) {
+                        return;
+                    }
+
+                    if (countMobs(nearbyEntities, EntityType.PLAYER) > 0) {
+                        Location testLoc = loc.clone().add(randomInRadius(rad), 0, randomInRadius(rad));
+
+                        int tries = 0;
+                        while (!canSpawn(testLoc)) {
+                            if(tries > 10) {
+                                return;
+                            }
+                            testLoc = loc.clone();
+                            testLoc.add(randomInRadius(rad), 0, randomInRadius(rad));
+                        }
+                        testLoc.add(0.5, 0, 0.5);
+                        if (loc.getWorld().getHighestBlockYAt(testLoc) > 0) {
+                            testLoc.setY(testLoc.getWorld().getHighestBlockAt(testLoc).getLocation().getBlockY() + 1);
+                            diamondDef.spawn(testLoc);
+                        }
+                    }
+                }
+            }
+        }.runTaskTimer(plugin, 0, game.getDefenderDelay()* 20);
     }
 
     @EventHandler

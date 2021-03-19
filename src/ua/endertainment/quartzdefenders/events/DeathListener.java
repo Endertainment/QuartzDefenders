@@ -61,7 +61,7 @@ public class DeathListener implements Listener {
 
         GameTeam team = game.getTeam(p);
 
-        if (killer != null && killer instanceof Player) {
+        if (killer != null && !killer.getUniqueId().equals(p.getUniqueId())) {
             game.getKillsStats().addKill(plugin.getGamePlayer(killer));
 
             StatsPlayer sp = new StatsPlayer(killer);
