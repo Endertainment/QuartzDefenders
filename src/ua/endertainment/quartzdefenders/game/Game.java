@@ -3,7 +3,6 @@ package ua.endertainment.quartzdefenders.game;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +21,6 @@ import org.bukkit.block.Block;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
@@ -462,15 +460,8 @@ public class Game {
         for (GameTeam team : teams.values()) {
             for (GamePlayer p : team.getPlayers()) {
                 spectators.remove(p);
-                p.getPlayer().setGameMode(GameMode.SURVIVAL);
-                p.getPlayer().setVelocity(new Vector(0, 0, 0));
-                p.setRespawn(team.getSpawnLocation());
-                p.getPlayer().teleport(team.getSpawnLocation());
-                p.getPlayer().setHealth(20);
-                p.getPlayer().setFoodLevel(20);
-                p.getPlayer().setExp(0);
-                p.getPlayer().setLevel(0);
-                p.getPlayer().setTotalExperience(0);
+                p.reset(team);
+                p.teleport(team.getSpawnLocation());
                 disableJoinTeam(p);
                 for(PotionEffect e : p.getPlayer().getActivePotionEffects()) {
                     p.getPlayer().removePotionEffect(e.getType());
@@ -733,9 +724,10 @@ public class Game {
 
         p.sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.reconnect_success_1")));
         
-        //team.respawnPlayer(p);
-        // Simulate death to make player respawn
-        Bukkit.getPluginManager().callEvent(new PlayerDeathEvent(p.getPlayer(), Collections.EMPTY_LIST, 0, p.getDisplayName() + " joined the game"));
+        // freeze not working
+        team.respawnPlayer(p);
+        // Simulate death to make player respawn - fixes freeze, but messes with login
+        //Bukkit.getPluginManager().callEvent(new PlayerDeathEvent(p.getPlayer(), Collections.EMPTY_LIST, 0, p.getDisplayName() + " joined the game"));
         
     }
 

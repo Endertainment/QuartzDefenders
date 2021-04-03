@@ -59,7 +59,7 @@ public class MobsListener implements Listener {
         }
     }
     
-    /*@EventHandler(ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true)
     public void CenterDefender(BlockBreakEvent e) {
         Block b = e.getBlock();
         Game game = QuartzDefenders.getInstance().getGame(b.getWorld());
@@ -74,14 +74,15 @@ public class MobsListener implements Listener {
             Material material = e.getBlock().getType();
             if (material.equals(Material.DIAMOND_ORE)) {
                 if (ores.isOre(b.getLocation())) {
-                    Location loc = b.getLocation().add(0.5, 0, 0.5);
+                    if(random.nextInt(4) == 1) {
+                        Location loc = b.getLocation().add(0.5, 0, 0.5);
 
-                    diamondDef.spawn(loc.clone().add(random.nextInt(4), 4.0D, random.nextInt(4)));
-                    //diamondDef.spawn(loc.clone().add(random.nextInt(4), 4.0D, random.nextInt(4)));
+                        diamondDef.spawn(loc.clone().add(random.nextInt(4), 4.0D, random.nextInt(4)));
+                    }
                 }
             }
         }
-    }*/
+    }
     
     @EventHandler
     public void centerDefender(GameStartEvent event) {
@@ -102,7 +103,7 @@ public class MobsListener implements Listener {
                     Location loc = entry.getKey();
                     Collection<Entity> nearbyEntities = loc.getWorld().getNearbyEntities(loc, rad, rad, rad);
 
-                    if (countMobs(nearbyEntities, EntityType.SKELETON) >= 10) {
+                    if (countMobs(nearbyEntities, EntityType.SKELETON) >= 4) {
                         return;
                     }
 

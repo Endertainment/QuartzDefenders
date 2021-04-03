@@ -238,26 +238,26 @@ public class GameTeam {
     	p.getPlayer().setHealth(20);
     	p.getPlayer().setFoodLevel(20);
     	p.getPlayer().setGameMode(GameMode.SPECTATOR);
+        p.getPlayer().getInventory().clear();
     	p.getPlayer().sendMessage(LoggerUtil.gameMessage(Language.getString("game.game"), Language.getString("game.respawn", new Replacer("{0}", game.getPlayersRespawnTime() + ""))));
-		if(p.getPlayer().getLocation().getY() <= 0) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), new Runnable() {					
-				@Override
-				public void run() {
-					p.teleport(new Location(p.getPlayer().getWorld(), p.getPlayer().getLocation().getX(), 80, p.getPlayer().getLocation().getZ()));						
-				}
-			});				
-		}
-		BukkitRunnable run = new BukkitRunnable() {
-			@Override
-			public void run() {							
-				p.getPlayer().setHealth(20);
-				p.getPlayer().setFoodLevel(20);
-				p.getPlayer().setGameMode(GameMode.SURVIVAL);
-				p.getPlayer().teleport(getSpawnLocation());
-				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5*20, 200));
-				p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5*20, 24));
-			}
-		};
-		run.runTaskLater(QuartzDefenders.getInstance(), (game.getPlayersRespawnTime() * 20));
+        if(p.getPlayer().getLocation().getY() <= 0) {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(QuartzDefenders.getInstance(), new Runnable() {					
+                        @Override
+                        public void run() {
+                                p.teleport(new Location(p.getPlayer().getWorld(), p.getPlayer().getLocation().getX(), 80, p.getPlayer().getLocation().getZ()));						
+                        }
+                });				
+        }
+        GameTeam team = this;
+        BukkitRunnable run = new BukkitRunnable() {
+                @Override
+                public void run() {							
+                        p.reset(team);
+                        p.teleport(team.getSpawnLocation());
+                        p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5*20, 200));
+                        p.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5*20, 24));
+                }
+        };
+        run.runTaskLater(QuartzDefenders.getInstance(), (game.getPlayersRespawnTime() * 20));
     }
 }

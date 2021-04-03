@@ -230,7 +230,7 @@ public class Lobby implements Listener {
             return;
         }
 
-        if (location.getWorld() == e.getEntity().getLocation().getWorld()) {
+        if (location.getWorld().equals(e.getEntity().getLocation().getWorld())) {
             e.setCancelled(true);
             if (e.getCause().equals(DamageCause.VOID)) {
                 e.getEntity().setVelocity(new Vector(0, 0, 0));

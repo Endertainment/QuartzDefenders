@@ -51,15 +51,15 @@ public class DeathListener implements Listener {
 
         Game game = plugin.getGame(p);
         int resp = game.getPlayersRespawnTime();
-
-        if (game.getTeam(p) == null) {
+        
+        GameTeam team = game.getTeam(p);
+        
+        if (team == null) {
             p.setHealth(20);
             p.setGameMode(GameMode.SPECTATOR);
             p.teleport(game.getMapCenter());
             return;
         }
-
-        GameTeam team = game.getTeam(p);
 
         if (killer != null && !killer.getUniqueId().equals(p.getUniqueId())) {
             game.getKillsStats().addKill(plugin.getGamePlayer(killer));
