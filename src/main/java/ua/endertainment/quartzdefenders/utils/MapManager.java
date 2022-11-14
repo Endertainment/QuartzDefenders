@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 

@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 
 import ua.endertainment.quartzdefenders.QuartzDefenders;
 

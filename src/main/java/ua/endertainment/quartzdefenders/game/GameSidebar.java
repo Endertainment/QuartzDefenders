@@ -1,9 +1,6 @@
 package ua.endertainment.quartzdefenders.game;
 
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 
 import ua.endertainment.quartzdefenders.game.Game.GameState;
 import ua.endertainment.quartzdefenders.utils.ColorFormat;
@@ -24,7 +21,7 @@ public class GameSidebar {
 	public GameSidebar(Game game, Scoreboard scoreboard) {
 		this.game = game;
 		this.scoreboard = scoreboard;
-		this.objective = this.scoreboard.registerNewObjective("GameBar", "MEOW", title);
+		this.objective = this.scoreboard.registerNewObjective("GameBar", Criteria.DUMMY, title);
 		
 		this.index = 0;
 		build(game.getGameState());		
@@ -38,7 +35,7 @@ public class GameSidebar {
 	
 	private void build(GameState state) {
 		objective.unregister();
-		objective = this.scoreboard.registerNewObjective("GameBar", "dummy", title);
+		objective = this.scoreboard.registerNewObjective("GameBar", Criteria.DUMMY, title);
 		objective.setDisplayName(title);
 		objective.setDisplaySlot(slot);
 		

@@ -3,7 +3,7 @@ package ua.endertainment.quartzdefenders.gui;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

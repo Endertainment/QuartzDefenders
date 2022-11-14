@@ -21,6 +21,7 @@ import org.bukkit.block.Block;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SpawnCategory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
@@ -183,9 +184,9 @@ public class Game {
 
         this.map = mapManager.getWorld();
 
-        this.map.setAmbientSpawnLimit(0);
-        this.map.setAnimalSpawnLimit(0);
-        this.map.setMonsterSpawnLimit(0);
+        this.map.setSpawnLimit(SpawnCategory.AMBIENT, 0);
+        this.map.setSpawnLimit(SpawnCategory.ANIMAL, 0);
+        this.map.setSpawnLimit(SpawnCategory.MONSTER, 0);
         this.map.setGameRule(GameRule.KEEP_INVENTORY, false);
         this.map.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
         this.map.setDifficulty(Difficulty.valueOf(config.getString("Games." + this.id + ".difficulty", "NORMAL")));
